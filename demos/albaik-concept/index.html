@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Al Baik — homepage redesign concept (unofficial) · Mohammad Gulab</title>
+<meta name="description" content="Unofficial homepage redesign concept for Al Baik by designer Mohammad Gulab. A portfolio exercise; not affiliated with Al Baik.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<a class="ribbon" href="../../"><b style="font-weight:600">Unofficial redesign concept · not affiliated with Al Baik · designed by Mohammad Gulab <span>← portfolio</span></b></a>
+<header class="nav" id="top">
+  <a class="brand" href="#top" aria-label="Al Baik concept home"><span class="mark" aria-hidden="true"></span><span class="word">Al Baik</span></a>
+  <nav class="links" id="links"><a href="#menu">Menu</a><a href="#sauce">Garlic sauce</a><a href="#branches">Branches</a><a href="#app">App</a></nav>
+  <a class="btn btn-sm" href="#menu">See menu</a>
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button>
+</header>
+<main>
+<section class="hero">
+  <div class="hero-txt">
+    <p class="eyebrow">Homepage concept</p>
+    <h1>Crispy outside.<br><span>Juicy inside.</span></h1>
+    <p class="lead">A bolder, faster homepage idea: the menu up front, branches one tap away, and the famous garlic sauce getting the spotlight it deserves.</p>
+    <div class="cta"><a class="btn" href="#menu">Explore the menu</a><a class="btn btn-ghost" href="#branches">Find a branch</a></div>
+  </div>
+  <div class="hero-img"><img src="img/hero.jpg" alt="Golden fried chicken meal with fries, bun and garlic sauce" width="1400" height="933"><span class="sticker">Fresh<br>&amp; hot</span></div>
+</section>
+
+<section class="menu" id="menu">
+  <div class="head reveal"><p class="eyebrow dark">Menu highlights</p><h2>The classics, front and centre</h2><p class="sub">Sample items for this concept. No prices shown.</p></div>
+  <div class="tabs" role="tablist"><button class="tab on" data-f="all">All</button><button class="tab" data-f="chicken">Chicken</button><button class="tab" data-f="sides">Sides</button></div>
+  <div class="cards">
+    <article class="card reveal" data-c="chicken"><img src="img/hero.jpg" alt="Fried chicken meal" loading="lazy"><div class="ci"><span class="pill">Sample item</span><h3>Chicken meal</h3><p>Crispy pieces with fries, bun and garlic sauce.</p></div></article>
+    <article class="card reveal" data-c="chicken"><img src="img/sandwich.jpg" alt="Crispy chicken fillet sandwich" loading="lazy"><div class="ci"><span class="pill">Sample item</span><h3>Chicken fillet sandwich</h3><p>Crunchy fillet, lettuce, pickles, garlic mayo.</p></div></article>
+    <article class="card reveal" data-c="sides"><img src="img/fries.jpg" alt="Golden french fries" loading="lazy"><div class="ci"><span class="pill">Sample item</span><h3>Golden fries</h3><p>Hot, salted, and made for sharing.</p></div></article>
+    <article class="card reveal" data-c="sides"><img src="img/garlic.jpg" alt="Creamy garlic sauce" loading="lazy"><div class="ci"><span class="pill">Sample item</span><h3>Garlic sauce</h3><p>Creamy, sharp, and impossible to skip.</p></div></article>
+  </div>
+</section>
+
+<section class="sauce" id="sauce">
+  <div class="sauce-img reveal"><img src="img/garlic.jpg" alt="Chicken tender dipped in garlic sauce" loading="lazy"></div>
+  <div class="sauce-txt reveal"><p class="eyebrow">Feature band</p><h2>The sauce everyone asks for.</h2><p>A homepage moment built around one craveable detail. Big photo, short line, one clear action.</p><a class="btn btn-light" href="#menu">Pair it with a meal</a></div>
+</section>
+
+<section class="branches" id="branches">
+  <div class="head reveal"><p class="eyebrow dark">Find a branch</p><h2>Closest branch, one tap away</h2><p class="sub">Static UI mock. Branch names and places below are placeholders, not real locations.</p></div>
+  <div class="finder reveal">
+    <div class="panel">
+      <div class="search"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span>Search city or district</span></div>
+      <div class="chips"><button class="chip on">Jeddah</button><button class="chip">Makkah</button><button class="chip">Riyadh</button><button class="chip">Madinah</button></div>
+      <ul class="list">
+        <li class="on"><b>Sample branch A</b><span>District name · placeholder</span><em>Open now</em></li>
+        <li><b>Sample branch B</b><span>District name · placeholder</span><em>Open now</em></li>
+        <li><b>Sample branch C</b><span>District name · placeholder</span><em class="late">Opens later</em></li>
+      </ul>
+    </div>
+    <div class="map" aria-hidden="true">
+      <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice"><rect width="600" height="420" fill="#f2efe9"/><path d="M-20 300 C120 250 200 330 330 270 S520 160 640 200" stroke="#fff" stroke-width="26" fill="none"/><path d="M120 -20 L210 440" stroke="#fff" stroke-width="18"/><path d="M430 -20 C400 140 470 240 440 440" stroke="#fff" stroke-width="16" fill="none"/><path d="M-20 120 L640 90" stroke="#fff" stroke-width="12"/><rect x="250" y="120" width="120" height="70" rx="10" fill="#e6e1d6"/><rect x="40" y="170" width="60" height="90" rx="10" fill="#e9e4da"/><rect x="480" y="280" width="90" height="80" rx="10" fill="#e6e1d6"/><path d="M0 380 C150 360 300 410 600 370 L600 420 L0 420Z" fill="#cfe3ee"/>
+      <g class="pin" transform="translate(300 230)"><circle r="34" fill="#E4002B" opacity=".15"/><path d="M0 12 C-18 -6 -18 -30 0 -30 C18 -30 18 -6 0 12Z" fill="#E4002B"/><circle cy="-16" r="6" fill="#fff"/></g>
+      <g transform="translate(170 140)"><path d="M0 10 C-14 -5 -14 -24 0 -24 C14 -24 14 -5 0 10Z" fill="#2a2a2a"/><circle cy="-12" r="5" fill="#fff"/></g>
+      <g transform="translate(470 210)"><path d="M0 10 C-14 -5 -14 -24 0 -24 C14 -24 14 -5 0 10Z" fill="#2a2a2a"/><circle cy="-12" r="5" fill="#fff"/></g></svg>
+      <span class="maptag">Map illustration · not real data</span>
+    </div>
+  </div>
+</section>
+
+<section class="app" id="app">
+  <div class="app-txt reveal"><p class="eyebrow">App strip · concept</p><h2>Order ahead. Skip the queue.</h2><p>A simple strip that points people to the app. The buttons below are part of the concept and do not link anywhere.</p>
+    <div class="stores"><span class="store" aria-disabled="true"><small>Concept button</small>App Store</span><span class="store" aria-disabled="true"><small>Concept button</small>Google Play</span></div></div>
+  <div class="phone reveal" aria-hidden="true"><div class="scr"><div class="pbar"><span class="mark sm"></span>Al Baik</div><img src="img/sandwich.jpg" alt=""><div class="prow"><b>Pick-up order</b><span>Ready in a few minutes</span></div><div class="pbtn">Order ahead</div></div></div>
+</section>
+</main>
+<footer class="foot">
+  <div class="fbrand"><span class="mark" aria-hidden="true"></span><span class="word">Al Baik</span></div>
+  <p class="flabel">Unofficial redesign concept · not affiliated with Al Baik</p>
+  <p class="fsmall">A self-initiated portfolio exercise by Mohammad Gulab. Wordmark set in Poppins; photos are generated for this concept. No real prices, branches or offers are shown. <a href="../../">Back to portfolio →</a></p>
+</footer>
+<script src="script.js"></script>
+</body></html>

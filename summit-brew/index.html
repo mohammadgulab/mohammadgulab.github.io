@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Summit Brew — Coffee Roasters (concept by Mohammad Gulab)</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#123E42;--teal2:#1C5A5F;--amber:#E29434;--cream:#F6EFE2;--sage:#D6E2D6;--ink:#1F2B2D;--muted:#5F6E70}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);border-bottom:1px solid #eee;z-index:10}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:2px;color:var(--teal)}
+.brand img{width:44px;height:44px}
+.brand small{display:block;font-size:10px;font-weight:500;letter-spacing:3px;color:var(--muted)}
+.links{display:flex;gap:30px;font-weight:600;font-size:15px}
+.links a:hover{color:var(--amber)}
+.btn{display:inline-block;background:var(--amber);color:#fff;font-weight:700;padding:14px 28px;border-radius:40px;font-size:15px;transition:.2s}
+.btn:hover{background:#c97c22}
+.btn.ghost{background:transparent;border:2px solid var(--cream);color:var(--cream)}
+.hero{background:radial-gradient(circle at 80% 20%,#235f63 0,var(--teal) 55%);color:var(--cream);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:90px;padding-bottom:100px}
+.eyebrow{text-transform:uppercase;letter-spacing:4px;font-size:13px;color:var(--amber);font-weight:700}
+.hero h1{font-family:"Playfair Display",serif;font-size:60px;line-height:1.1;margin:18px 0 22px}
+.hero h1 em{color:var(--amber)}
+.hero p{font-size:18px;color:#d5e1dc;max-width:520px;margin-bottom:34px}
+.cta{display:flex;gap:16px;flex-wrap:wrap}
+.hero-art{position:relative;display:flex;justify-content:center}
+.hero-art .disc{width:380px;height:380px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.hero-art .disc img{width:300px}
+.badge{position:absolute;bottom:10px;left:10px;background:#fff;color:var(--teal);border-radius:16px;padding:14px 18px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.25);font-size:14px}
+.badge b{display:block;font-size:24px;color:var(--amber)}
+section{padding:90px 0}
+.title{text-align:center;max-width:640px;margin:0 auto 50px}
+.title h2{font-family:"Playfair Display",serif;font-size:42px;color:var(--teal);margin:10px 0}
+.title p{color:var(--muted)}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.card{background:var(--cream);border-radius:22px;padding:34px}
+.card .ic{width:56px;height:56px;border-radius:16px;background:var(--teal);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.card h3{color:var(--teal);font-size:20px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:15px}
+.menu{background:#FBF8F2}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px 50px}
+.item{display:flex;justify-content:space-between;gap:20px;border-bottom:1px dashed #d8cfbf;padding:16px 0}
+.item h4{font-size:17px;color:var(--teal)}
+.item span{font-size:14px;color:var(--muted)}
+.price{font-weight:800;color:var(--amber);font-size:18px;white-space:nowrap}
+.about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.stat{background:var(--sage);border-radius:18px;padding:22px;text-align:center}
+.stat b{display:block;font-size:30px;color:var(--teal)}
+.stat span{font-size:13px;color:var(--muted)}
+.about-art{background:linear-gradient(160deg,var(--teal2),var(--teal));border-radius:28px;min-height:380px;position:relative;overflow:hidden}
+.about-art svg{position:absolute;bottom:0;left:0;width:100%}
+.about-art .quote{position:absolute;top:40px;left:40px;right:40px;color:var(--cream);font-family:"Playfair Display",serif;font-style:italic;font-size:26px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.rev{border:1px solid #ece6da;border-radius:20px;padding:28px}
+.stars{color:var(--amber);letter-spacing:3px;margin-bottom:12px}
+.rev p{font-size:15px;color:#3b4749;margin-bottom:14px}
+.rev b{font-size:14px;color:var(--teal)}
+.visit{background:var(--teal);color:var(--cream)}
+.visit .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.visit h2{font-family:"Playfair Display",serif;font-size:40px;margin-bottom:16px}
+.hours{margin-top:24px}
+.hours div{display:flex;justify-content:space-between;border-bottom:1px solid rgba(246,239,226,.2);padding:10px 0;max-width:380px}
+form{background:#fff;border-radius:24px;padding:34px;color:var(--ink)}
+form h3{color:var(--teal);margin-bottom:18px}
+input,textarea{width:100%;padding:14px 16px;border:1px solid #ddd;border-radius:12px;font:inherit;margin-bottom:14px}
+textarea{height:110px;resize:vertical}
+form .btn{border:0;cursor:pointer;width:100%;font-family:inherit}
+footer{background:#0c2b2e;color:#9fb5b2;font-size:14px;padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+@media(max-width:900px){
+ .nav .btn{padding:10px 16px;font-size:13px;white-space:nowrap}
+ .brand{font-size:14px;letter-spacing:1px;white-space:nowrap}.brand img{width:36px;height:36px}.brand small{font-size:8px;letter-spacing:2px}
+ .badge{left:0}
+ .links{display:none}
+ .hero .wrap,.about .wrap,.visit .wrap{grid-template-columns:1fr}
+ .hero h1{font-size:42px}
+ .hero-art .disc{width:280px;height:280px}.hero-art .disc img{width:220px}
+ .features,.reviews,.menu-grid{grid-template-columns:1fr}
+ section{padding:64px 0}
+ .title h2{font-size:32px}
+}
+</style></head><body>
+<div style="background:#0f1e36;color:#dbe4f1;font:600 13px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;text-align:center;padding:9px 14px">Concept website for a fictional coffee brand · designed &amp; built by Mohammad Gulab · <a href="../" style="color:#f2994a;text-decoration:underline">← back to portfolio</a></div>
+
+<header><div class="wrap nav">
+ <a class="brand" href="#"><img src="icon.png" alt="Summit Brew logo"><div>SUMMIT BREW<small>COFFEE ROASTERS</small></div></a>
+ <nav class="links"><a href="#menu">Menu</a><a href="#about">Our Story</a><a href="#visit">Visit</a></nav>
+ <a class="btn" href="#visit">Order Ahead</a>
+</div></header>
+<section class="hero"><div class="wrap">
+ <div><div class="eyebrow">Small-batch · Roasted weekly</div>
+ <h1>Coffee worth the <em>climb.</em></h1>
+ <p>Single-origin beans roasted in-house every Monday, brewed by people who care about every cup. Stop by, or order ahead and skip the line.</p>
+ <div class="cta"><a class="btn" href="#menu">View Menu</a><a class="btn ghost" href="#visit">Find Us</a></div></div>
+ <div class="hero-art"><div class="disc"><img src="icon.png" alt=""></div><div class="badge"><b>Roasted</b>every Monday</div></div>
+</div></section>
+<section><div class="wrap">
+ <div class="title"><div class="eyebrow">Why Summit Brew</div><h2>Fresh from roaster to cup</h2><p>Everything we serve is roasted, brewed and baked within walking distance of your table.</p></div>
+ <div class="features">
+  <div class="card"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F6EFE2" stroke-width="2"><path d="M12 2c4 3 6 6 6 10a6 6 0 0 1-12 0c0-4 2-7 6-10z"/><path d="M12 6c-1 3-1 8 0 12"/></svg></div><h3>Roasted weekly</h3><p>Small batches every Monday, so your beans are never more than seven days old.</p></div>
+  <div class="card"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F6EFE2" stroke-width="2"><path d="M3 20l6-10 4 6 3-4 5 8z"/><circle cx="17" cy="6" r="2"/></svg></div><h3>Ethically sourced</h3><p>Direct-trade farms in Ethiopia, Colombia and India, paid above fair-trade prices.</p></div>
+  <div class="card"><div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F6EFE2" stroke-width="2"><rect x="3" y="8" width="13" height="10" rx="2"/><path d="M16 10h2a3 3 0 0 1 0 6h-2"/><path d="M7 2v3M11 2v3"/></svg></div><h3>Order ahead</h3><p>Order on your phone and pick up at the counter in under five minutes.</p></div>
+ </div></div></section>
+<section class="menu" id="menu"><div class="wrap">
+ <div class="title"><div class="eyebrow">Menu</div><h2>House favourites</h2><p>Oat, almond and soy milk at no extra charge.</p></div>
+ <div class="menu-grid">
+  <div class="item"><div><h4>Summit Flat White</h4><span>Double ristretto, silky whole milk</span></div><div class="price">$4.50</div></div>
+  <div class="item"><div><h4>Pour-Over of the Week</h4><span>Rotating single origin, hand brewed</span></div><div class="price">$5.00</div></div>
+  <div class="item"><div><h4>Honey Cardamom Latte</h4><span>Espresso, local honey, cardamom</span></div><div class="price">$5.25</div></div>
+  <div class="item"><div><h4>Cold Brew Tonic</h4><span>18-hour cold brew, tonic, orange peel</span></div><div class="price">$5.50</div></div>
+  <div class="item"><div><h4>Almond Croissant</h4><span>Baked fresh every morning</span></div><div class="price">$3.75</div></div>
+  <div class="item"><div><h4>Beans to Take Home</h4><span>250 g bag, ground or whole</span></div><div class="price">$14.00</div></div>
+ </div></div></section>
+<section class="about" id="about"><div class="wrap">
+ <div><div class="eyebrow">Our story</div><h2 style="font-family:'Playfair Display',serif;font-size:42px;color:var(--teal);margin:10px 0 16px">Started with one roaster and a big idea</h2>
+ <p style="color:var(--muted)">Summit Brew began in 2019 in a tiny garage with a 5 kg roaster. Today we roast for our café, local offices and home brewers across the city, and we still taste every batch before it leaves.</p>
+ <div class="stats"><div class="stat"><b>Single</b><span>origin</span></div><div class="stat"><b>Small</b><span>batches</span></div><div class="stat"><b>Weekly</b><span>roasting</span></div></div>
+ <div class="about-art"><div class="quote">“Good coffee is a small summit you can reach every morning.”</div>
+ <svg viewBox="0 0 600 260" preserveAspectRatio="none"><polygon points="0,260 180,70 330,260" fill="#F6EFE2"/><polygon points="240,260 420,120 600,260" fill="#D6E2D6"/><rect x="0" y="240" width="600" height="20" fill="#E29434"/></svg></div>
+</div></section>
+
+<section class="visit" id="visit"><div class="wrap">
+ <div><div class="eyebrow">Visit us</div><h2>Come say hello</h2><p>24 Ridge Street, Downtown<br>hello@summitbrew.example · (555) 014-2290</p>
+ <div class="hours"><div><span>Monday – Friday</span><b>7:00 – 19:00</b></div><div><span>Saturday</span><b>8:00 – 20:00</b></div><div><span>Sunday</span><b>8:00 – 16:00</b></div></div></div>
+ <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thanks! We\'ll be in touch.'"><h3>Book a table or ask a question</h3>
+ <input type="text" placeholder="Your name" required><input type="email" placeholder="Email address" required><textarea placeholder="Your message"></textarea><button class="btn" type="submit">Send Message</button></form>
+</div></section>
+<footer><div class="wrap"><span>© 2026 Summit Brew Coffee Roasters</span><span>Instagram · Facebook · Google Maps</span></div></footer>
+</body></html>

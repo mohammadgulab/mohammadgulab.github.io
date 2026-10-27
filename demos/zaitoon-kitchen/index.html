@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zaitoon Kitchen — Mediterranean, made fresh | Concept website</title>
+<meta name="description" content="Zaitoon Kitchen is a fictional Mediterranean restaurant: mezze, charcoal grills and desserts made fresh daily. A concept website designed by Mohammad Gulab.">
+<meta name="theme-color" content="#2F3A1A">
+<link rel="icon" href="img/mark.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/dmserif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="Zaitoon Kitchen, home">
+      <img src="img/mark.svg" alt="" width="42" height="42">
+      <span class="wordmark"><span class="wm-main">Zaitoon</span><span class="wm-sub">KITCHEN</span></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button>
+    <nav id="site-nav" class="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#visit">Visit</a>
+      <a class="btn btn-terra btn-sm" href="#reserve">Reserve a table</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal">Mezze · Charcoal grills · Sweets</p>
+      <h1 class="reveal">Mediterranean, <em>made fresh.</em></h1>
+      <p class="lead reveal">Bright mezze, smoky grills and slow afternoons. Every dish at Zaitoon is prepared the same day, with good olive oil and honest ingredients.</p>
+      <div class="hero-cta reveal">
+        <a class="btn btn-terra" href="#reserve">Reserve a table</a>
+        <a class="btn btn-line" href="#menu">See the menu</a>
+      </div>
+      <ul class="hero-notes reveal">
+        <li>Open daily from 12:00</li>
+        <li>Family seating</li>
+        <li>Vegan-friendly mezze</li>
+      </ul>
+    </div>
+    <div class="hero-media reveal">
+      <div class="hero-photo"><img src="img/hero.jpg" alt="A mezze spread of hummus, baba ghanoush, tabbouleh, olives and warm pita on a wooden table" width="1600" height="1067" fetchpriority="high"></div>
+      <div class="hero-badge" aria-hidden="true"><img src="img/mark.svg" alt="" width="64" height="64"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap about">
+    <div class="about-img reveal"><img src="img/interior-2.jpg" alt="Warm restaurant interior with terracotta walls, olive trees and woven lamps" loading="lazy" width="1600" height="1067"></div>
+    <div class="about-copy">
+      <p class="kicker reveal">Our kitchen</p>
+      <h2 class="reveal">Named after the olive tree, cooked like home.</h2>
+      <p class="reveal"><em>Zaitoon</em> means olive. It is the first thing on the table and the last thing in the pan: pressed into dips, drizzled over grills, folded into dough.</p>
+      <p class="reveal">The menu is short on purpose. Mezze made each morning, meat and vegetables over real charcoal, and desserts that are worth leaving room for.</p>
+      <div class="values reveal">
+        <div><strong>Daily prep</strong><span>Dips and salads made fresh each day</span></div>
+        <div><strong>Real charcoal</strong><span>Every skewer cooked over an open grill</span></div>
+        <div><strong>Made to share</strong><span>Plates sized for the whole table</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-olive" id="menu">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <p class="kicker">The menu</p>
+      <h2>Something for every table.</h2>
+      <p class="sec-lead">Sample menu for this concept. Prices in Saudi riyals.</p>
+    </div>
+    <div class="tabs reveal" role="tablist" aria-label="Menu sections">
+      <button role="tab" id="tab-mezze" aria-controls="panel-mezze" aria-selected="true">Mezze</button>
+      <button role="tab" id="tab-grills" aria-controls="panel-grills" aria-selected="false" tabindex="-1">Grills</button>
+      <button role="tab" id="tab-desserts" aria-controls="panel-desserts" aria-selected="false" tabindex="-1">Desserts</button>
+    </div>
+    <div class="menu-body">
+      <div class="menu-photo reveal"><img src="img/grill.jpg" alt="Chicken and lamb skewers on a charcoal grill" loading="lazy" width="1600" height="1067"></div>
+      <div class="panels">
+        <ul class="dishes" role="tabpanel" id="panel-mezze" aria-labelledby="tab-mezze"><li class="dish"><div class="dish-top"><h4>Classic Hummus</h4><span class="dots" aria-hidden="true"></span><span class="price">24 <small>SAR</small></span></div><p>Chickpeas, tahini, lemon and garlic, finished with olive oil and smoked paprika.<span class="dtag">Vegan</span></p></li><li class="dish"><div class="dish-top"><h4>Baba Ghanoush</h4><span class="dots" aria-hidden="true"></span><span class="price">26 <small>SAR</small></span></div><p>Flame-charred aubergine with tahini, pomegranate and parsley.<span class="dtag">Vegan</span></p></li><li class="dish"><div class="dish-top"><h4>Tabbouleh</h4><span class="dots" aria-hidden="true"></span><span class="price">22 <small>SAR</small></span></div><p>Parsley, mint, bulgur, tomato and a sharp lemon dressing.<span class="dtag">Vegan</span></p></li><li class="dish"><div class="dish-top"><h4>Falafel Plate</h4><span class="dots" aria-hidden="true"></span><span class="price">28 <small>SAR</small></span></div><p>Crisp falafel with tahini sauce, pickles and warm pita.</p></li></ul>
+        <ul class="dishes" role="tabpanel" id="panel-grills" aria-labelledby="tab-grills" hidden><li class="dish"><div class="dish-top"><h4>Shish Taouk</h4><span class="dots" aria-hidden="true"></span><span class="price">58 <small>SAR</small></span></div><p>Garlic-yoghurt marinated chicken skewers with toum and grilled vegetables.</p></li><li class="dish"><div class="dish-top"><h4>Lamb Kofta</h4><span class="dots" aria-hidden="true"></span><span class="price">64 <small>SAR</small></span></div><p>Spiced minced lamb skewers over charcoal, with sumac onions and flatbread.</p></li><li class="dish"><div class="dish-top"><h4>Mixed Grill for Two</h4><span class="dots" aria-hidden="true"></span><span class="price">149 <small>SAR</small></span></div><p>Taouk, kofta and lamb cubes with rice, salad and three dips.<span class="dtag">Sharing</span></p></li></ul>
+        <ul class="dishes" role="tabpanel" id="panel-desserts" aria-labelledby="tab-desserts" hidden><li class="dish"><div class="dish-top"><h4>Pistachio Baklava</h4><span class="dots" aria-hidden="true"></span><span class="price">22 <small>SAR</small></span></div><p>Layered filo, crushed pistachio and orange-blossom syrup.</p></li><li class="dish"><div class="dish-top"><h4>Kunafa</h4><span class="dots" aria-hidden="true"></span><span class="price">29 <small>SAR</small></span></div><p>Warm shredded pastry over soft cheese, rose syrup and pistachio.</p></li><li class="dish"><div class="dish-top"><h4>Fresh Mint Tea</h4><span class="dots" aria-hidden="true"></span><span class="price">12 <small>SAR</small></span></div><p>A small pot of green tea with fresh mint.</p></li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Gallery</p>
+      <h2>A taste of the room.</h2>
+    </div>
+    <div class="gallery">
+      <figure class="g g1 reveal"><img src="img/mezze-2.jpg" alt="Mezze spread from above" loading="lazy" width="1600" height="1067"><figcaption>Mezze, made each morning</figcaption></figure>
+      <figure class="g g2 reveal"><img src="img/grill-2.jpg" alt="Skewers over charcoal" loading="lazy" width="1600" height="1067"><figcaption>Over real charcoal</figcaption></figure>
+      <figure class="g g3 reveal"><img src="img/dessert.jpg" alt="Baklava, kunafa and mint tea" loading="lazy" width="1600" height="1067"><figcaption>Baklava &amp; kunafa</figcaption></figure>
+      <figure class="g g4 reveal"><img src="img/interior.jpg" alt="Dining room in warm evening light" loading="lazy" width="1600" height="1067"><figcaption>The dining room</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream" id="visit">
+  <div class="wrap visit">
+    <div class="reveal">
+      <p class="kicker">Visit us</p>
+      <h2>Hours &amp; location</h2>
+      <table class="hours">
+        <caption class="sr">Opening hours</caption>
+        <tbody>
+          <tr><th scope="row">Saturday – Wednesday</th><td>12:00 – 23:30</td></tr>
+          <tr><th scope="row">Thursday</th><td>12:00 – 00:30</td></tr>
+          <tr><th scope="row">Friday</th><td>13:30 – 00:30</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="map-card reveal">
+      <div class="map" aria-hidden="true">
+        <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice"><rect width="400" height="260" fill="#ebe3cf"/><path d="M0 190 C80 170 140 210 220 185 S360 150 400 165 V260 H0Z" fill="#cfd8b7"/><g stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-10 80 H410"/><path d="M130 -10 V270"/><path d="M290 -10 L250 270"/></g><g stroke="#fff" stroke-width="4" fill="none"><path d="M-10 140 H410"/><path d="M60 -10 V270"/><path d="M200 -10 V270"/><path d="M350 -10 V270"/></g><circle cx="200" cy="110" r="26" fill="#C8643B" opacity=".18"/><path d="M200 82c-12 0-21 9-21 20 0 15 21 34 21 34s21-19 21-34c0-11-9-20-21-20z" fill="#C8643B"/><circle cx="200" cy="102" r="7" fill="#F6F0E1"/></svg>
+      </div>
+      <div class="map-info">
+        <h3>Zaitoon Kitchen</h3>
+        <p>Corniche Road, Jeddah, Saudi Arabia (fictional address)</p>
+        <p class="muted">hello@zaitoonkitchen.example</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reserve" id="reserve">
+  <div class="reserve-bg"><img src="img/interior.jpg" alt="" loading="lazy" width="1600" height="1067"></div>
+  <div class="wrap reserve-inner reveal">
+    <img src="img/mark.svg" alt="" width="56" height="56">
+    <h2>Save a seat at the table.</h2>
+    <p>Lunch with colleagues, dinner with family, or mint tea on a slow afternoon. We&rsquo;ll keep the bread warm.</p>
+    <a class="btn btn-terra" href="#reserve" data-demo-btn="reserve-note">Reserve a table</a>
+    <p class="demo-note" id="reserve-note" role="status" aria-live="polite"></p>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot">
+    <div class="brand"><img src="img/mark.svg" alt="" width="38" height="38"><span class="wordmark"><span class="wm-main">Zaitoon</span><span class="wm-sub">KITCHEN</span></span></div>
+    <p>Mediterranean, made fresh.</p>
+    <p class="small">&copy; <span id="year">2026</span> Zaitoon Kitchen — a fictional brand. Concept website by <a href="../../">Mohammad Gulab</a>.</p>
+  </div>
+</footer>
+<a class="concept-ribbon" href="../../">Concept project · fictional brand · designed by Mohammad Gulab <span aria-hidden="true">→</span></a>
+<script src="script.js"></script>
+</body>
+</html>
