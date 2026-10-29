@@ -150,8 +150,8 @@ if(fine&&!rm){
     var wide=W2>=980,heroK=Math.max(0,1-mS*1.6);
     gl.clear(gl.COLOR_BUFFER_BIT);gl.uniform1f(U.t,t);gl.uniform1f(U.m,mS);gl.uniform1f(U.asp,W2/H2);
     var base=Math.min(W2,H2)*(wide?.034:.065)*dpr;gl.uniform1f(U.sz,base);
-    gl.uniform1f(U.al,wide?.9:.85);gl.uniform1f(U.sc,wide?1:(.62+.38*(1-heroK))*Math.min(1,W2/H2*1.6+.25));gl.uniform2f(U.ms,mx2,my2);
-    gl.uniform2f(U.off,wide?heroK*.95*(W2/H2):0,wide?0:heroK*.62);
+    gl.uniform1f(U.al,wide?.9:.85*(.55+.45*heroK));gl.uniform1f(U.sc,wide?1:(.62+.38*(1-heroK))*Math.min(1,W2/H2*1.6+.25));gl.uniform2f(U.ms,mx2,my2);
+    gl.uniform2f(U.off,wide?(heroK*.95+(1-heroK)*.62)*(W2/H2):0,wide?0:heroK*.62);
     gl.drawArrays(gl.POINTS,0,N)}
   if(rm){draw(0);onScroll(function(){requestAnimationFrame(draw)});w.addEventListener('resize',function(){draw(0)});return}
   function loop(now){requestAnimationFrame(loop);if(d.hidden)return;fr++;if(low&&fr%2)return;draw(now)}requestAnimationFrame(loop);
