@@ -343,3 +343,65 @@ html{scroll-padding-top:70px}
 .logo{min-height:44px;display:inline-flex;align-items:center}
 .menu .menu-foot a{font:600 13px var(--mono);text-transform:none;display:inline-flex;min-height:44px;align-items:center;word-break:break-all}
 .h3-bottom .h3-hint{order:-1;margin:0 0 4px}
+
+/* ===== v8: hand + rope ===== */
+.stage{min-height:clamp(330px,40vw,480px);overflow:visible;touch-action:pan-y}
+.hand-svg{display:none}
+.hand2{position:absolute;left:clamp(-70px,-4vw,-20px);top:4%;width:clamp(190px,30vw,400px);height:auto;overflow:visible;z-index:2;pointer-events:none;transform-origin:30% 55%;will-change:transform;filter:drop-shadow(0 18px 18px rgba(60,30,10,.18))}
+.hand2 .h-fingers,.hand2 .h-thumb{transform-box:fill-box;transform-origin:left center;transition:none}
+.ropes{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.ropes path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ropes .rp-o,.ropes .rp-o2{stroke:#3b2a17;stroke-width:9}
+.ropes .rp-b,.ropes .rp-b2{stroke:#d9b47b;stroke-width:6.4;transition:stroke .2s}
+.ropes .rp-t,.ropes .rp-t2{stroke:#8a6436;stroke-width:6.4;stroke-dasharray:3 5;opacity:.75;stroke-linecap:butt}
+.confetti{position:absolute;inset:-40px 0 0;width:100%;height:calc(100% + 40px);pointer-events:none;z-index:4}
+.hire{z-index:3;padding:16px 28px 14px 34px;box-shadow:0 14px 30px -12px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.15);transition:background .25s,box-shadow .25s}
+.hire-knot{position:absolute;left:9px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f0d29c,#a77d47);border:2px solid #3b2a17}
+.hire.taut{background:var(--r);box-shadow:0 18px 40px -10px rgba(255,59,48,.6)}
+.hire.won{background:var(--y);color:var(--ink);box-shadow:0 18px 44px -10px rgba(255,214,10,.75)}
+.hire.won .hire-knot{opacity:0}
+.hire.won .hire-ring{border-color:var(--ink)}
+.tension{position:absolute;left:0;bottom:0;display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.45;transition:opacity .3s,color .3s;z-index:3}
+.tension.on{opacity:1}
+.tension b{display:block;width:96px;height:6px;border-radius:6px;background:rgba(0,0,0,.12);overflow:hidden}
+.tension b i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--y),var(--r));transform:scaleX(0);transform-origin:left}
+.tension em{font-style:normal;font-weight:700;min-width:38px}
+.tension.hot{color:var(--r)}
+@media (max-width:560px){.stage{min-height:340px}.hand2{width:min(52vw,230px);left:-58px;top:2%}.hire{padding:14px 20px 12px 30px}.hire-t{font-size:24px}}
+/* contact sheet */
+.sheet{position:fixed;inset:0;z-index:200;pointer-events:none}
+.sheet-bg{position:absolute;inset:0;background:rgba(12,12,12,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);opacity:0;transition:opacity .35s}
+.sheet-card{position:absolute;left:50%;bottom:0;width:min(560px,100%);transform:translate(-50%,105%);background:var(--paper);color:var(--ink);border-radius:26px 26px 0 0;padding:26px 20px calc(22px + env(safe-area-inset-bottom));transition:transform .5s cubic-bezier(.2,.9,.2,1);box-shadow:0 -20px 60px -20px rgba(0,0,0,.5);border:2px solid var(--ink);border-bottom:0}
+.sheet.open{pointer-events:auto}.sheet.open .sheet-bg{opacity:1}.sheet.open .sheet-card{transform:translate(-50%,0)}
+.sheet-grab{position:absolute;left:50%;top:9px;width:44px;height:5px;margin-left:-22px;border-radius:5px;background:rgba(0,0,0,.2)}
+.sheet-x{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);background:transparent;font-size:24px;line-height:1;cursor:pointer;color:var(--ink)}
+.sheet-k{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding-right:50px}
+.sheet-h{font-family:var(--heavy);font-weight:900;font-size:clamp(30px,8vw,44px);line-height:.95;margin:12px 0 16px;letter-spacing:-.01em}
+.sheet-h .serif{font-family:var(--serif);font-weight:400;font-style:italic;color:var(--r)}
+.sheet-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;min-height:56px;padding:10px 14px;margin-top:8px;border:2px solid var(--ink);border-radius:14px;color:var(--ink);text-decoration:none;background:#fff;transition:transform .2s,background .2s}
+.sheet-row:active,.sheet-row:hover{background:var(--y);transform:translateY(-2px)}
+.sheet-row b{font-family:var(--heavy);font-weight:800;font-size:16px}
+.sheet-row span{font:500 12px var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;color:#4a463f}
+.sheet-row i{font-style:normal;font-size:18px}
+.sheet-more{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;color:var(--ink);text-decoration:underline;text-underline-offset:4px;font-size:12px}
+body.sheet-open{overflow:hidden}
+/* ===== v8: featured previews, never cropped ===== */
+.c-shot{position:relative}
+.c-shot picture{display:block}
+.c-shot img{width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;object-position:center;background:#111;transform:none!important}
+.c-shot .bar{align-items:center}
+.c-shot .bar em{font-style:normal;font-size:10px;color:#9a9a9a;margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.c-shot .notch{display:none}
+.c-shot .glare{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.14) 48%,transparent 60%);background-size:250% 100%;background-position:120% 0;transition:background-position 1s}
+.c-shot:hover .glare,.card.in .c-shot .glare{background-position:-30% 0}
+@media (max-width:899px){
+  .card{position:relative;top:auto}
+  .c-shot{width:min(62vw,250px);margin:6px auto 4px;border-radius:34px;border:8px solid #050505;outline:1.5px solid #3a3a3a;background:#050505;box-shadow:0 30px 60px -25px rgba(0,0,0,.9),0 0 0 1px rgba(255,214,10,.08)}
+  .c-shot .bar{display:none}
+  .c-shot{padding-top:22px}
+  .c-shot .notch{display:block;position:absolute;top:4px;left:50%;width:28%;height:13px;margin-left:-14%;border-radius:10px;background:#1a1a1a;box-shadow:inset 0 0 0 1px #2a2a2a;z-index:2}
+  .c-shot .notch::after{content:'';position:absolute;right:12%;top:3.5px;width:6px;height:6px;border-radius:50%;background:#20304a}
+  .c-shot picture{border-radius:4px 4px 24px 24px;overflow:hidden}
+  .c-shot img{aspect-ratio:540/1169;object-fit:contain;border-radius:4px 4px 24px 24px}
+}
+.m-line{overflow:visible}

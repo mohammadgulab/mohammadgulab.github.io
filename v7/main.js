@@ -21,77 +21,156 @@ tb.addEventListener('click',()=>{const on=!body.classList.contains('torch-on');b
 const moveTorch=e=>{const r=hb.getBoundingClientRect();tl.style.setProperty('--mx',(e.clientX-r.left)+'px');tl.style.setProperty('--my',(e.clientY-r.top)+'px');};
 hb.addEventListener('pointermove',moveTorch);hb.addEventListener('pointerdown',moveTorch);
 
-/* ---------- pull rope ---------- */
+/* ---------- v8: hand + rope (verlet physics) ---------- */
 const stage=$('#stage'), hire=$('#hire'), ropes=$('#ropes'), hand=$('#hand');
-const NS='http://www.w3.org/2000/svg';
-const tips=$$('.tip',hand);
-const paths=tips.map(()=>{const p=document.createElementNS(NS,'path');ropes.appendChild(p);return p;});
-let W=0,H=0,rest={x:0,y:0},bw=0,bh=0,L0=[];
-let off={x:0,y:0},vel={x:0,y:0},drag=null,moved=0,maxPull=0,handOff={x:0,y:0};
-const mobile=()=>innerWidth<=560;
-function layout(){
-  const r=stage.getBoundingClientRect();W=r.width;H=r.height;bw=hire.offsetWidth;bh=hire.offsetHeight;
-  let cx=W*(mobile()?0.66:0.74), cy=H*(mobile()?0.2:0.34);
-  cx=Math.min(Math.max(cx,bw/2+6),W-bw/2-6); cy=Math.max(cy,bh/2+4);
-  rest={x:cx,y:cy};
-  const a=attach(rest.x,rest.y), t=tipPts(0,0);
-  L0=t.map((p,i)=>Math.hypot(a[i].x-p.x,a[i].y-p.y)*1.1);
+const tipEl=$('.tip',hand), handBody=$('.h-body',hand), fingers=$('.h-fingers',hand), thumb=$('.h-thumb',hand);
+const rp=['.rp-o','.rp-b','.rp-t','.rp-o2','.rp-b2','.rp-t2'].map(c=>$(c,ropes));
+const cv=$('#confetti'), cx2=cv.getContext('2d');
+const tBar=$('#tensionBar'), tPct=$('#tensionPct'), tBox=$('#tension'), hireT=$('#hireT'), hireS=$('#hireS');
+const sheet=$('#sheet');
+const N=22, G=0.42;
+let SW=0,SH=0,rest={x:0,y:0},bw=0,bh=0,segL=8,Ltot=160;
+let off={x:0,y:0},vel={x:0,y:0},drag=null,moved=0,broken=false,brokeAt=0,cut=11;
+let pts=[],hoff={x:0,y:0},hvel={x:0,y:0},look=0,lookT=0,tension=0,squeeze=0,lastTug=performance.now();
+let parts=[];
+const mob=()=>innerWidth<=560;
+function anchor(){const s=stage.getBoundingClientRect(),b=tipEl.getBoundingClientRect();return{x:b.left+b.width/2-s.left,y:b.top+b.height/2-s.top};}
+function attachPt(bx,by){return{x:bx-bw/2+16,y:by+2};}
+function initRope(){
+  const A=anchor(),B=attachPt(rest.x,rest.y);
+  Ltot=Math.hypot(B.x-A.x,B.y-A.y)*1.18; segL=Ltot/(N-1);
+  pts=[];for(let i=0;i<N;i++){const t=i/(N-1);const x=A.x+(B.x-A.x)*t,y=A.y+(B.y-A.y)*t+Math.sin(t*Math.PI)*20;pts.push({x,y,px:x,py:y});}
 }
-function tipPts(){const sr=stage.getBoundingClientRect();return tips.map(c=>{const b=c.getBoundingClientRect();return{x:b.left+b.width/2-sr.left,y:b.top+b.height/2-sr.top};});}
-function attach(x,y){const ang=[172,155,138,121,104];return ang.map(d=>{const a=d*Math.PI/180;return{x:x+Math.cos(a)*(bw/2-10),y:y+Math.sin(a)*(bh/2-5)};});}
-const rubber=(d,lim)=>{const s=Math.sign(d),a=Math.abs(d);return s*lim*(1-1/(a/lim*0.9+1));};
+function layout(){
+  const r=stage.getBoundingClientRect();SW=r.width;SH=r.height;bw=hire.offsetWidth;bh=hire.offsetHeight;
+  let x=SW*(mob()?0.7:0.72), y=SH*(mob()?0.66:0.6);
+  x=Math.min(Math.max(x,bw/2+8),SW-bw/2-8); y=Math.min(Math.max(y,bh/2+8),SH-bh/2-34);
+  rest={x,y};
+  const d=Math.min(devicePixelRatio||1,2);cv.width=SW*d;cv.height=SH*d;cx2.setTransform(d,0,0,d,0,0);
+  initRope();
+}
+const rubber=(v,lim)=>{const s=Math.sign(v),a=Math.abs(v);return s*lim*(1-1/(a/lim+1));};
+function smooth(list){if(list.length<2)return'';let d=`M${list[0].x.toFixed(1)},${list[0].y.toFixed(1)}`;
+  for(let i=1;i<list.length-1;i++){const mx=(list[i].x+list[i+1].x)/2,my=(list[i].y+list[i+1].y)/2;d+=` Q${list[i].x.toFixed(1)},${list[i].y.toFixed(1)} ${mx.toFixed(1)},${my.toFixed(1)}`;}
+  const l=list[list.length-1];return d+` L${l.x.toFixed(1)},${l.y.toFixed(1)}`;}
+function burst(x,y){
+  const cols=['#ffd60a','#ff3b30','#0c0c0c','#f3efe6','#ffffff'];
+  for(let i=0;i<110;i++){const a=Math.random()*Math.PI*2,sp=3+Math.random()*9;
+    parts.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-5,r:Math.random()*Math.PI,vr:(Math.random()-.5)*.4,w:5+Math.random()*7,h:3+Math.random()*5,c:cols[i%cols.length],life:1});}
+}
+function drawParts(){
+  cx2.clearRect(0,0,SW,SH);
+  parts=parts.filter(p=>p.life>0);
+  parts.forEach(p=>{p.vy+=.28;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life-=.011;
+    cx2.save();cx2.globalAlpha=Math.max(p.life,0);cx2.translate(p.x,p.y);cx2.rotate(p.r);cx2.fillStyle=p.c;
+    if(p.c==='#f3efe6'||p.c==='#ffffff'){cx2.strokeStyle='#0c0c0c';cx2.lineWidth=1;cx2.strokeRect(-p.w/2,-p.h/2,p.w,p.h);}
+    cx2.fillRect(-p.w/2,-p.h/2,p.w,p.h);cx2.restore();});
+}
+function snap(B){
+  broken=true;brokeAt=performance.now();cut=Math.floor(N*0.55);
+  const dx=B.x-pts[0].x,dy=B.y-pts[0].y,dl=Math.hypot(dx,dy)||1;
+  for(let i=0;i<N;i++){const s=i<=cut?-1:1;pts[i].px=pts[i].x-s*dx/dl*7;pts[i].py=pts[i].y-s*dy/dl*7;}
+  hvel.x-=dx/dl*14;hvel.y-=dy/dl*8; // hand recoils
+  drag=null;vel={x:off.x*-.08,y:off.y*-.08};
+  hire.classList.add('won');hireT.textContent='HIRED!';hireS.textContent="Let's talk";
+  burst(rest.x+off.x*.4,rest.y+off.y*.4);
+  try{navigator.vibrate&&navigator.vibrate([18,40,28]);}catch(_){}
+  stage.classList.add('snapped');
+  setTimeout(openSheet,650);
+}
+function retie(){
+  broken=false;hire.classList.remove('won');hireT.textContent='HIRE ME';hireS.textContent='Pull me or tap';stage.classList.remove('snapped');initRope();
+}
+let lastFocus=null;
+function openSheet(){lastFocus=document.activeElement;sheet.classList.add('open');sheet.setAttribute('aria-hidden','false');body.classList.add('sheet-open');setTimeout(()=>{const f=$('.sheet-row',sheet);f&&f.focus({preventScroll:true});},300);}
+function closeSheet(go){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');body.classList.remove('sheet-open');
+  if(broken)setTimeout(retie,900); if(go)setTimeout(goContact,250); else if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true});}
+$$('[data-close]',sheet).forEach(el=>el.addEventListener('click',e=>{const go=el.dataset.go==='contact';if(go)e.preventDefault();closeSheet(go);}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet.classList.contains('open'))closeSheet(false);});
 let t0=performance.now();
 function frame(now){
-  const t=(now-t0)/1000;
-  if(!drag){ // spring back
-    const k=0.085,c=0.2; vel.x+=-k*off.x-c*vel.x; vel.y+=-k*off.y-c*vel.y; off.x+=vel.x; off.y+=vel.y;
+  const t=(now-t0)/1000, idle=drag?0:1;
+  // button spring
+  if(!drag){const k=broken?0.06:0.09,c=0.18;vel.x+=-k*off.x-c*vel.x;vel.y+=-k*off.y-c*vel.y;off.x+=vel.x;off.y+=vel.y;}
+  // idle invite: every ~4.5 s the hand gives a small tug
+  if(!drag&&!broken&&now-lastTug>4500&&Math.hypot(off.x,off.y)<2){lastTug=now;hvel.x-=5;hvel.y+=1.5;vel.x-=3.2;vel.y-=1;}
+  const bx=rest.x+off.x+Math.sin(t*1.3)*2.5*idle, by=rest.y+off.y+Math.cos(t*1.1)*3*idle;
+  const B=attachPt(bx,by);
+  // hand: pulled toward the button by tension, springs home
+  const A0=anchor();
+  const dist=Math.hypot(B.x-(A0.x-hoff.x),B.y-(A0.y-hoff.y));
+  const tTarget=broken?0:Math.max(0,Math.min(1,(dist-Ltot)/Math.min(Ltot*0.5,mob()?100:150)));
+  tension+=(tTarget-tension)*0.3;
+  const dl=dist||1, ux=(B.x-(A0.x-hoff.x))/dl, uy=(B.y-(A0.y-hoff.y))/dl;
+  const want={x:ux*tension*46,y:uy*tension*30};
+  hvel.x+=(want.x-hoff.x)*0.12;hvel.y+=(want.y-hoff.y)*0.12;hvel.x*=0.78;hvel.y*=0.78;hoff.x+=hvel.x;hoff.y+=hvel.y;
+  look+=((lookT)-look)*0.08;
+  const ang=Math.atan2(uy,ux)*180/Math.PI;
+  const rot=(broken?hvel.x*-0.6:Math.max(-14,Math.min(14,(ang-25)*0.18*tension)))+look+Math.sin(t*1.6)*1.2*idle;
+  hand.style.transform=`translate(${hoff.x.toFixed(2)}px,${(hoff.y+Math.sin(t*1.2)*3*idle).toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+  squeeze+=((drag&&!broken?0.55:0)+tension*0.45-squeeze)*0.25;
+  fingers.style.transform=`translateX(${(-squeeze*5).toFixed(2)}px) scaleX(${(1-squeeze*0.05).toFixed(3)})`;
+  thumb.style.transform=`translate(${(squeeze*3).toFixed(2)}px,${(squeeze*1.5).toFixed(2)}px) rotate(${(broken?-6:-squeeze*3).toFixed(2)}deg)`;
+  hand.style.setProperty('--sq',squeeze.toFixed(3));
+  hire.style.transform=`translate(${(bx-bw/2).toFixed(1)}px,${(by-bh/2).toFixed(1)}px) rotate(${(off.x*0.035+(broken?0:tension*-4)).toFixed(2)}deg) scale(${(1+tension*0.05).toFixed(3)})`;
+  hire.classList.toggle('taut',tension>0.55&&!broken);
+  // rope physics
+  const A=anchor();
+  for(let i=0;i<N;i++){const p=pts[i];
+    const pinned=(i===0)||(!broken&&i===N-1)||(broken&&i===N-1);
+    if(pinned)continue;
+    const vx=(p.x-p.px)*0.985, vy=(p.y-p.py)*0.985;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+G;}
+  pts[0].x=A.x;pts[0].y=A.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
+  for(let k=0;k<18;k++){
+    for(let i=0;i<N-1;i++){ if(broken&&i===cut)continue;
+      const a=pts[i],b=pts[i+1];const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,diff=(d-segL)/d;
+      const aP=i===0, bP=i+1===N-1; const wa=aP?0:(bP?1:.5), wb=bP?0:(aP?1:.5);
+      a.x+=dx*diff*wa;a.y+=dy*diff*wa;b.x-=dx*diff*wb;b.y-=dy*diff*wb;}
+    pts[0].x=A.x;pts[0].y=A.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
   }
-  const idle=drag?0:1;
-  const bx=rest.x+off.x+Math.sin(t*1.3)*3*idle, by=rest.y+off.y+Math.cos(t*1.1)*4*idle;
-  const dist=Math.hypot(off.x,off.y);
-  // hand gets tugged along when pulled
-  const tug=Math.min(dist/220,1);
-  const tx=off.x*0.12, ty=off.y*0.12;
-  handOff.x+=(tx-handOff.x)*0.25; handOff.y+=(ty-handOff.y)*0.25;
-  hand.style.transform=`translate(${handOff.x}px,${handOff.y}px) rotate(${(off.y*0.02 - Math.max(off.x,0)*0.01).toFixed(2)}deg)`;
-  hire.style.transform=`translate(${bx-bw/2}px,${by-bh/2}px) rotate(${(off.x*0.03).toFixed(2)}deg)`;
-  hire.classList.toggle('taut',dist>120);
-  const tp=tipPts(), ap=attach(bx,by);
-  paths.forEach((p,i)=>{
-    const a=tp[i],b=ap[i]; const d=Math.hypot(b.x-a.x,b.y-a.y); const L=L0[i]||d;
-    const sag=d<L?Math.sqrt(L*L-d*d)*0.62:0;
-    const mx=(a.x+b.x)/2, my=(a.y+b.y)/2+sag+Math.sin(t*1.7+i)*1.5*idle;
-    p.setAttribute('d',`M${a.x.toFixed(1)},${a.y.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`);
-    p.style.strokeWidth=(1.8-Math.min(tug,1)*0.5).toFixed(2);
-  });
+  // floor so the loose ends rest on the stage
+  pts.forEach(p=>{if(p.y>SH-6)p.y=SH-6;});
+  const w=(1-tension*0.25);
+  const d1=broken?smooth(pts.slice(0,cut+1)):smooth(pts), d2=broken?smooth(pts.slice(cut+1)):'';
+  rp[0].setAttribute('d',d1);rp[1].setAttribute('d',d1);rp[2].setAttribute('d',d1);
+  rp[3].setAttribute('d',d2);rp[4].setAttribute('d',d2);rp[5].setAttribute('d',d2);
+  rp[0].style.strokeWidth=(9*w).toFixed(2);rp[1].style.strokeWidth=(6.4*w).toFixed(2);rp[2].style.strokeWidth=(6.4*w).toFixed(2);
+  rp[1].style.stroke=tension>0.75?'#e9a07a':'';
+  rp[2].style.strokeDashoffset=(-t*4-tension*30).toFixed(1);
+  // tension meter
+  const pc=Math.round(tension*100);tBar.style.transform=`scaleX(${tension.toFixed(3)})`;tPct.textContent=broken?'SNAP':pc+'%';tBox.classList.toggle('hot',tension>0.7||broken);tBox.classList.toggle('on',!!drag||broken||tension>0.02);
+  if(drag&&!broken&&tension>=0.98)snap(B);
+  if(parts.length)drawParts();else if(cv._dirty){cx2.clearRect(0,0,SW,SH);} cv._dirty=parts.length>0;
   requestAnimationFrame(frame);
 }
 hire.addEventListener('pointerdown',e=>{
   try{hire.setPointerCapture(e.pointerId);}catch(_){}
-  drag={sx:e.clientX,sy:e.clientY,ox:off.x,oy:off.y};moved=0;maxPull=0;vel={x:0,y:0};
+  drag={sx:e.clientX,sy:e.clientY,ox:off.x,oy:off.y};moved=0;vel={x:0,y:0};
 });
 hire.addEventListener('pointermove',e=>{
   if(!drag)return;
   const dx=e.clientX-drag.sx, dy=e.clientY-drag.sy; moved=Math.max(moved,Math.hypot(dx,dy));
-  off.x=rubber(drag.ox+dx,260); off.y=rubber(drag.oy+dy,200);
-  maxPull=Math.max(maxPull,Math.hypot(off.x,off.y));
+  off.x=Math.max(-rest.x+bw/2-30,Math.min(SW-rest.x-bw/2+30,(drag.ox+dx)*0.92)); off.y=Math.max(-rest.y+bh/2-30,Math.min(SH-rest.y+60,(drag.oy+dy)*0.92));
 });
 const end=e=>{
   if(!drag)return; drag=null;
-  if(moved<7){goContact();return;}
-  if(maxPull>120){setTimeout(goContact,420);}
 };
+hire.addEventListener('click',e=>{if(moved<7&&!broken){burst(rest.x,rest.y);openSheet();}moved=0;});
 hire.addEventListener('pointerup',end);hire.addEventListener('pointercancel',end);
-hire.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();goContact();}});
+// hand looks toward a finger or the mouse on the stage
+stage.addEventListener('pointermove',e=>{if(drag)return;const r=stage.getBoundingClientRect();lookT=((e.clientY-r.top)/r.height-.5)*10;},{passive:true});
+stage.addEventListener('pointerleave',()=>{lookT=0;});
 // expose for QA
-window.__pull=(x,y)=>{drag={sx:0,sy:0,ox:0,oy:0};off.x=rubber(x,260);off.y=rubber(y,200);};
+window.__pull=(x,y)=>{drag={sx:0,sy:0,ox:0,oy:0};moved=99;off.x=rubber(x,mob()?300:420);off.y=rubber(y,mob()?240:300);};
 window.__release=()=>{drag=null;};
-addEventListener('resize',layout);
+window.__state=()=>({tension,broken,sheet:sheet.classList.contains('open')});
+addEventListener('resize',()=>{layout();});
 (document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>{layout();});
 layout();requestAnimationFrame(frame);
-// gentle intro tug so people see it moves
-new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){setTimeout(()=>{if(!drag){vel.x=9;vel.y=4;}},500);o.disconnect();}},{threshold:.4}).observe(stage);
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){setTimeout(()=>{if(!drag){vel.x=10;vel.y=3;hvel.x-=4;}},600);o.disconnect();}},{threshold:.4}).observe(stage);
 
+/* v8: glare sweep on featured frames when they enter */
+{const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('in',e.isIntersecting)),{threshold:.5});$$('.card').forEach(c=>io.observe(c));}
 /* ---------- v5: progress bar ---------- */
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -182,7 +261,7 @@ gsap.to('.h3-name .l3',{xPercent:12,ease:'none',scrollTrigger:{trigger:'.hero3d'
 gsap.from('.ha-l1',{yPercent:60,opacity:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
 gsap.from('.ha-l2',{yPercent:60,opacity:0,duration:1,ease:'expo.out',delay:.15,scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
 gsap.from(['.hero-a .kicker','.hint','.plain'],{y:20,opacity:0,duration:.8,stagger:.08,delay:.3,scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
-gsap.from(['#hand','#hire'],{x:-80,opacity:0,duration:1.1,ease:'power3.out',delay:.25,scrollTrigger:{trigger:'.hero-a',start:'top 60%'}});
+gsap.from(['#hand','#hire'],{opacity:0,duration:1.1,ease:'power3.out',delay:.25,scrollTrigger:{trigger:'.hero-a',start:'top 60%'}});
 gsap.to('.ha-inner',{yPercent:18,scale:.94,opacity:.35,ease:'none',scrollTrigger:{trigger:'.hero-b',start:'top bottom',end:'top top',scrub:true}});
 // hero B: motion-blur name reveal
 const tlB=gsap.timeline({scrollTrigger:{trigger:'.hero-b',start:'top 65%'}});
@@ -207,9 +286,9 @@ gsap.from('.w-title .serif',{y:40,opacity:0,duration:.9,delay:.15,ease:'power3.o
 $$('.card').forEach((c,i)=>{
   gsap.from(c,{y:90,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%'}});
   const nxt=$$('.card')[i+1];
-  if(nxt) gsap.to(c,{scale:.94,filter:'brightness(.6)',ease:'none',scrollTrigger:{trigger:nxt,start:'top bottom',end:'top 30%',scrub:true}});
-  const im=c.querySelector('.c-shot img');
-  if(im) gsap.fromTo(im,{yPercent:-6},{yPercent:4,ease:'none',scrollTrigger:{trigger:c,start:'top bottom',end:'bottom top',scrub:true}});
+  if(nxt&&innerWidth>899) gsap.to(c,{scale:.94,filter:'brightness(.6)',ease:'none',scrollTrigger:{trigger:nxt,start:'top bottom',end:'top 30%',scrub:true}});
+  const im=c.querySelector('.c-shot');
+  if(im) gsap.fromTo(im,{y:24},{y:-24,ease:'none',scrollTrigger:{trigger:c,start:'top bottom',end:'bottom top',scrub:true}});
   gsap.from(c.querySelectorAll('.tags li'),{y:16,opacity:0,stagger:.06,duration:.5,ease:'back.out(2)',scrollTrigger:{trigger:c,start:'top 70%'}});
 });
 gsap.from('.more-head',{y:30,opacity:0,duration:.7,scrollTrigger:{trigger:'.more',start:'top 88%'}});
