@@ -174,7 +174,7 @@ body.menu-open{overflow:hidden}
 .sfx-tag{position:absolute;top:-16px;left:14px;background:#ffc93c;color:#000;border:3px solid #000;font-family:var(--cond);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:16px;padding:3px 10px}
 .lead{font-family:var(--cond);font-weight:700;font-size:clamp(22px,5.6vw,34px);line-height:1.22;color:#121016}
 .card-photo{padding:0;overflow:hidden;box-shadow:7px 7px 0 #ffc93c}
-.card-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.card-photo img{display:block;width:100%;height:auto;max-width:100%;object-fit:cover;aspect-ratio:4/3}
 .file-t{font-family:var(--big);text-transform:uppercase;font-size:24px;letter-spacing:.04em;color:#ffc93c;margin-bottom:10px}
 .facts{display:grid;gap:12px}
 .facts div{border-top:2px dashed #f7f4ee55;padding-top:10px}
@@ -212,7 +212,8 @@ body.menu-open{overflow:hidden}
 .wcard:nth-child(3n+2),.dcard:nth-child(3n+2),.xcard:nth-child(2n){box-shadow:6px 6px 0 #ffc93c}
 @media(hover:hover){.wcard:hover,.xcard:hover{transform:translate(-3px,-3px) rotate(-.6deg);box-shadow:10px 10px 0 #e62429}}
 .wthumb,.dthumb,.xthumb{display:block;border-bottom:4px solid #000;overflow:hidden;background:#000}
-.wthumb img,.dthumb img,.xthumb img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.wthumb,.dthumb,.xthumb{aspect-ratio:4/3;position:relative;flex:0 0 auto}
+.wthumb img,.dthumb img,.xthumb img{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:top center}
 .wmeta{display:flex;flex-direction:column;gap:4px;padding:14px 16px 16px}
 .wtype{align-self:flex-start;background:#121016;color:#fbf5e6;font-family:var(--cond);font-weight:700;font-size:16px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px}
 .wname{font-family:var(--big);font-weight:400;font-size:24px;text-transform:uppercase;line-height:1.1;color:#121016}
@@ -228,7 +229,7 @@ body.menu-open{overflow:hidden}
 
 /* band */
 .band{position:relative;margin:40px 0 0;border-top:5px solid #000;border-bottom:5px solid #000;overflow:hidden}
-.band img{width:100%;height:clamp(300px,60vh,640px);object-fit:cover}
+.band img{display:block;width:100%;height:clamp(300px,60vh,640px);max-width:none;object-fit:cover}
 .band-text{position:absolute;left:clamp(14px,5vw,64px);bottom:clamp(14px,5vw,48px);display:flex;flex-direction:column;align-items:flex-start;gap:6px}
 .band-text span{background:#07060a;color:#f7f4ee;font-family:var(--big);text-transform:uppercase;font-size:clamp(30px,7vw,64px);line-height:1.05;padding:4px 12px;border:3px solid #000;box-shadow:5px 5px 0 #e62429}
 .band-text span+span{background:#ffc93c;color:#000}
@@ -236,7 +237,8 @@ body.menu-open{overflow:hidden}
 /* lens */
 .lens-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 6px 22px;margin:0 -6px;scrollbar-color:#ffc93c #14111b}
 .lens-item{flex:0 0 min(62vw,280px);scroll-snap-align:start;border:4px solid #000;outline:3px solid #fbf5e6;background:#000;margin:3px}
-.lens-item img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.lens-item{aspect-ratio:3/4;overflow:hidden;position:relative}
+.lens-item img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* path */
 .timeline{list-style:none;position:relative;display:grid;gap:22px;padding-left:28px}
@@ -274,3 +276,9 @@ body.menu-open{overflow:hidden}
  .tk-track{animation:none}
 }
 @media (forced-colors:active){.card,.do-item,.wcard,.dcard,.xcard,.timeline li{border:2px solid CanvasText}}
+
+/* fix 2026-10-30: images stay inside their frames, rails keep equal card heights */
+.wcard,.dcard,.xcard{overflow:hidden;min-width:0}
+.wgrid,.dgrid,.xgrid{align-items:stretch}
+.wmeta,.dcard figcaption{flex:1 1 auto}
+img{max-width:100%}
