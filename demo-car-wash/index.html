@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Obsidian Detail Co. · Bring it dirty</title>
+<meta name="description" content="Obsidian Detail Co., premium car detailing in Jeddah. Concept demo by Mohammad Gulab Kauser.">
+<meta property="og:title" content="Obsidian Detail Co. · Bring it dirty.">
+<meta property="og:image" content="img/car-clean.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head><body>
+<header class="nav">
+  <a class="logo" href="#top"><span class="mark"></span>OBSIDIAN<small>DETAIL CO.</small></a>
+  <a class="btn sm" href="#book">Book a wash</a>
+</header>
+
+<section class="wash" id="top">
+  <div class="stage">
+    <div class="scene">
+      <img class="car dirty" src="img/car-dirty.webp" alt="Dusty SUV in a dark garage" width="1600" height="880">
+      <img class="car clean" id="clean" src="img/car-clean.webp" alt="The same SUV after detailing, glossy and clean" width="1600" height="880">
+      <div class="wipe" id="wipe"><span></span></div>
+      <div class="mist" id="mist"></div>
+    </div>
+    <div class="vignette"></div>
+    <div class="copy">
+      <p class="tag">Hand detailing · Jeddah</p>
+      <h1 class="h t1">Bring it <b>dirty.</b></h1>
+      <h1 class="h t2">Scroll to <b>wash it.</b></h1>
+      <h1 class="h t3">Showroom <b>clean.</b></h1>
+      <div class="meter"><span id="meterBar"></span><em id="meterTxt">0% clean</em></div>
+    </div>
+  </div>
+</section>
+
+<section class="closer" id="closer">
+  <div class="stage dark">
+    <div class="zoom"><img id="closeImg" src="img/car-close.webp" alt="Close-up of glossy paint and wheel" width="1200" height="680"><div class="sweep" id="sweep"></div></div>
+    <div class="copy">
+      <h2 class="h c1">Look <b>closer.</b></h2>
+      <h2 class="h c2">Swirls out. <b>Glass on.</b></h2>
+      <ul class="specs" id="specs"><li><b>2-step</b> machine polish</li><li><b>Ceramic</b> glass coat</li><li><b>pH neutral</b> foam bath</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="reveal" id="book">
+  <div class="stage garage">
+    <div class="door" id="door"><div class="slats"></div></div>
+    <div class="light" id="light"></div>
+    <img class="car-lit" id="carLit" src="img/car-clean.webp" alt="" width="1600" height="880">
+    <div class="copy left">
+      <h2 class="h k1">Keys back. <b>Jaw drops.</b></h2>
+      <p class="sub">Pick a package, pick a slot. We collect the car from your door anywhere in Jeddah.</p>
+    </div>
+    <form class="panel" id="panel" onsubmit="return false">
+      <h3>Book your detail</h3>
+      <label class="lbl">Package</label>
+      <div class="pkgs" id="pkgs">
+        <button type="button" class="pkg on" data-p="Express Gloss" data-v="149"><b>Express Gloss</b><span>Foam wash, wheels, glass</span><em>SAR 149</em></button>
+        <button type="button" class="pkg" data-p="Full Detail" data-v="389"><b>Full Detail</b><span>Inside and out, clay bar, wax</span><em>SAR 389</em></button>
+        <button type="button" class="pkg" data-p="Ceramic Shield" data-v="1290"><b>Ceramic Shield</b><span>Polish plus 2-year coating</span><em>SAR 1,290</em></button>
+      </div>
+      <label class="lbl">Date</label>
+      <div class="chips" id="dates"></div>
+      <label class="lbl">Time</label>
+      <div class="chips" id="times"><button type="button" class="chip">9:00 AM</button><button type="button" class="chip on">11:30 AM</button><button type="button" class="chip">2:00 PM</button><button type="button" class="chip">4:30 PM</button><button type="button" class="chip">8:00 PM</button></div>
+      <button class="btn wide" id="confirm" type="button">Confirm booking · <span id="price">SAR 149</span></button>
+      <p class="fine">Demo only, no booking is sent.</p>
+    </form>
+    <div class="confirm" id="confirmCard" aria-live="polite">
+      <div class="tick">✓</div>
+      <h3>You're booked.</h3>
+      <p id="confText">Express Gloss · Sat · 11:30 AM</p>
+      <p class="ref">Ref <b id="ref">OBS-2741</b></p>
+      <button class="btn ghost" id="again" type="button">Change booking</button>
+    </div>
+  </div>
+</section>
+
+<section class="info">
+  <div class="grid">
+    <div><h4>Studio</h4><p>Unit 7, Al Naeem Auto Street, Al Naeem District, Jeddah (fictional address)</p></div>
+    <div><h4>Hours</h4><p>Saturday to Thursday, 8 AM to 11 PM<br>Friday from 2 PM</p></div>
+    <div><h4>Pickup</h4><p>Free collection within 15 km. We return it washed, vacuumed and scented.</p></div>
+  </div>
+</section>
+<footer class="foot">
+  <p>Concept demo by <b>Mohammad Gulab Kauser</b></p>
+  <p class="cred">Car photo: Pexels (free licence). The dusty version was made from the same photo. Badges removed. Brand, prices and address are fictional.</p>
+</footer>
+<script src="gsap.min.js"></script><script src="ScrollTrigger.min.js"></script>
+<script src="app.js?v=1"></script>
+</body></html>
