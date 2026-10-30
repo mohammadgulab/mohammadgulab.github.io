@@ -214,3 +214,7 @@ img{display:block;max-width:100%}
   .btn-r,.btn-o.light{width:100%;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){.band-track,.hire-ring,.hint .arr{animation:none}html{scroll-behavior:auto}}
+
+.m-card img{height:auto}
+.m-line{margin:-6px 0 0;padding:0 16px 16px;color:#b9b4a8;font-size:13.5px;line-height:1.45}
+.m-line em{display:block;font-style:normal;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8d8d8d;margin-bottom:5px}
