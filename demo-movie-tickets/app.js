@@ -499,3 +499,11 @@ function route(){
 }
 addEventListener('hashchange',route);
 route();
+
+/* ---------- phone header search ---------- */
+(function(){const hdr=$('#hdr'),f=$('#search'),q=$('#q');
+  f.addEventListener('click',e=>{if(innerWidth<=560&&!hdr.classList.contains('sopen')){e.preventDefault();hdr.classList.add('sopen');setTimeout(()=>q.focus(),40)}});
+  f.addEventListener('submit',()=>{if(innerWidth<=560){q.blur();hdr.classList.remove('sopen')}});
+  document.addEventListener('pointerdown',e=>{if(!e.target.closest('#search'))hdr.classList.remove('sopen')});
+  addEventListener('hashchange',()=>hdr.classList.remove('sopen'));
+})();

@@ -8,10 +8,11 @@
 <meta property="og:title" content="CineNova | 3D movie ticket booking">
 <meta property="og:description" content="Pick your film, explore the hall in 3D and choose the perfect seat.">
 <meta property="og:image" content="img/og.jpg">
-<meta name="theme-color" content="#07070b">
+<meta name="theme-color" content="#060918">
+<meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;1,700;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
@@ -23,7 +24,7 @@
   <form class="search" id="search" role="search"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></svg><input id="q" placeholder="Search movies, theatres..." aria-label="Search movies"></form>
   <div class="hdr-r">
     <button class="pill" id="cityBtn" type="button"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Jeddah</button>
-    <a class="pill" href="#/ticket" id="myTickets"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z"/></svg>My tickets<i class="badge" id="tkBadge" hidden>1</i></a><span class="avatar" aria-hidden="true">MG</span>
+    <a class="pill" href="#/ticket" id="myTickets"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z"/></svg><span class="t">My tickets</span><i class="badge" id="tkBadge" hidden>1</i></a><span class="avatar" aria-hidden="true">MG</span>
   </div>
 </header>
 
@@ -164,6 +165,6 @@
   <p class="credits">Photos from Unsplash by <span id="credits"></span>.</p>
   <p>Concept demo by <a href="https://mohammadgulab.github.io/">Mohammad Gulab Kauser</a></p>
 </footer>
-<script type="module" src="app.js?v=2"></script>
+<script type="module" src="app.js?v=4"></script>
 </body>
 </html>
