@@ -29,7 +29,7 @@ function reveals(){
   gsap.utils.toArray('.reveal').filter(el=>!el.closest('.hero')).forEach(el=>gsap.from(el,{y:46,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 96%',toggleActions:'play none none reverse'}}));
   // products slide and fade in, alternating sides
   gsap.utils.toArray('.card').forEach((c,i)=>gsap.from(c,{x:(i%2?40:-40),y:70,opacity:0,rotate:(i%2?2:-2),duration:1.15,ease:'power3.out',delay:(i%2)*.12,scrollTrigger:{trigger:c,start:'top 95%',toggleActions:'play none none reverse'}}));
-  gsap.utils.toArray('.ph img').forEach(im=>gsap.fromTo(im,{yPercent:6},{yPercent:-4,ease:'none',scrollTrigger:{trigger:im,start:'top bottom',end:'bottom top',scrub:true}}));
+  gsap.utils.toArray('.ph img').forEach(im=>gsap.fromTo(im,{yPercent:3},{yPercent:-3,ease:'none',scrollTrigger:{trigger:im,start:'top bottom',end:'bottom top',scrub:true}}));
   const sw=document.querySelector('.swatch img'); if(sw) gsap.fromTo(sw,{yPercent:-18},{yPercent:0,ease:'none',scrollTrigger:{trigger:'.swatch',start:'top bottom',end:'bottom top',scrub:true}});
   gsap.fromTo('.cta-peony',{y:60,rotate:-10},{y:-40,rotate:8,ease:'none',scrollTrigger:{trigger:'.cta',start:'top bottom',end:'bottom top',scrub:true}});
 }
