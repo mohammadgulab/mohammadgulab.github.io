@@ -10,8 +10,8 @@
 <meta name="theme-color" content="#0b1626">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<link rel="stylesheet" href="style.css?v=3">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"}}</script>
 </head>
 <body>
 <header class="nav">
@@ -23,8 +23,6 @@
 <section class="build" id="top">
   <div class="stick">
     <canvas id="scene" aria-label="A house being built in stages as you scroll"></canvas>
-    <div class="photo" id="phExt"><img src="img/exterior.webp" alt="Finished white family home with lawn"></div>
-    <div class="photo" id="phHome"><img src="img/home.webp" alt="The finished home at dusk with lights on"></div>
     <div class="photo" id="phPorch"><img src="img/porch.webp" alt="Front porch with warm lanterns"></div>
     <div class="veil"></div><div class="drag-hint" id="dragHint" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8l-4 4 4 4"/><path d="M17 8l4 4-4 4"/><path d="M3 12h18"/></svg><span>Drag to rotate</span></div><div class="bar"><i id="bar"></i></div>
     <div class="hero-copy" id="heroCopy">
@@ -54,9 +52,9 @@
   <div class="wrap two">
     <h2 class="big">Every home we build starts as a single line on a blueprint. <span>It ends with your family at the door.</span></h2>
     <div class="stats">
-      <div><b>140+</b><span>Homes handed over</span></div>
-      <div><b>18 yr</b><span>Structural warranty</span></div>
       <div><b>1</b><span>Team, design to keys</span></div>
+      <div><b>Weekly</b><span>Site photo reports</span></div>
+      <div><b>Written</b><span>Budget before we build</span></div>
     </div>
   </div>
 </section>
@@ -133,13 +131,13 @@
 <footer class="foot">
   <div class="wrap">
     <a class="logo" href="#top"><span class="mark"><svg viewBox="0 0 32 32"><path d="M4 16 16 6l12 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14v12h16V14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 26h16" stroke="currentColor" stroke-width="4"/></svg></span>ASAS<small>Custom Homes</small></a>
-    <p>Asas Custom Homes is a fictional brand. Build stages are a 3D model made in code; finished home and porch photos from Pexels (free licence).</p>
+    <p>Asas Custom Homes is a fictional brand. The house is a 3D model made in code. Sky and garden environment "Pretoria Gardens" by Dimitrios Savva and Jarod Guest, ground and concrete textures, all from Poly Haven (CC0). Porch and project photos from Pexels (free licence).</p>
     <p class="by">Concept demo by Mohammad Gulab Kauser</p>
   </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script type="module" src="app.js?v=2"></script>
+<script type="module" src="app.js?v=3"></script>
 </body>
 </html>
