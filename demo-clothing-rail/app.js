@@ -46,10 +46,12 @@ Rail.prototype.layout=function(){
   if(o.caps){var gf='url(#rg'+o.id+')',y1=this.rodY(10),y2=this.rodY(W-10);
     cap='<rect x="7" y="0" width="6" height="'+y1+'" fill="'+gf+'"/><rect x="'+(W-13)+'" y="0" width="6" height="'+y2+'" fill="'+gf+'"/><circle cx="10" cy="'+y1+'" r="7" fill="'+gf+'"/><circle cx="'+(W-10)+'" cy="'+y2+'" r="7" fill="'+gf+'"/>';}
   this.rod.setAttribute('viewBox','0 0 '+W+' '+H);
-  this.rod.innerHTML='<defs><linearGradient id="rg'+o.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f7f9"/><stop offset=".45" stop-color="'+o.rodCol+'"/><stop offset="1" stop-color="#6d6a73"/></linearGradient></defs>'+
+  this.rod.innerHTML='<defs><linearGradient id="rg'+o.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".3" stop-color="#d9d7de"/><stop offset=".55" stop-color="#8d8a95"/><stop offset=".78" stop-color="#e4e2e8"/><stop offset="1" stop-color="#5f5c66"/></linearGradient></defs>'+
     '<path d="'+d+'" fill="none" stroke="rgba(30,20,50,.12)" stroke-width="'+(o.rodW+2)+'" transform="translate(0 4)" stroke-linecap="round"/>'+
-    '<path d="'+d+'" fill="none" stroke="'+o.rodCol+'" stroke-width="'+o.rodW+'" stroke-linecap="round"/>'+
-    '<path d="'+d+'" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.2" transform="translate(0 -1)"/>'+cap;
+    '<path d="'+d+'" fill="none" stroke="#6f6c77" stroke-width="'+o.rodW+'" stroke-linecap="round"/>'+
+    '<path d="'+d+'" fill="none" stroke="#a9a6b1" stroke-width="'+(o.rodW*.72)+'" stroke-linecap="round" transform="translate(0 -.4)"/>'+
+    '<path d="'+d+'" fill="none" stroke="#d6d4dc" stroke-width="'+(o.rodW*.42)+'" stroke-linecap="round" transform="translate(0 -'+(o.rodW*.14)+')"/>'+
+    '<path d="'+d+'" fill="none" stroke="#fff" stroke-opacity=".95" stroke-width="'+Math.max(1,o.rodW*.16)+'" stroke-linecap="round" transform="translate(0 -'+(o.rodW*.24)+')"/>'+cap;
   if(this.offset<this.min||this.offset>this.max)this.offset=Math.max(this.min,Math.min(this.max,this.offset));
 };
 Rail.prototype.rodY=function(x){var u=(x/this.W)*2-1;if(this.opt.arch){var k=Math.min(this.opt.sag,this.W*.11);return this.rodTop+k*u*u;}return this.rodTop+this.sag*(1-u*u);};
