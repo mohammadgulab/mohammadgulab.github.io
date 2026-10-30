@@ -6,6 +6,7 @@
 <title>Mohammad Gulab Kauser | Document Controller, Graphic &amp; Web Designer, Excel Specialist</title>
 <meta name="description" content="Portfolio of Mohammad Gulab Kauser (KAISH): Document Controller, graphic designer, web designer and Excel specialist, with hands-on experience in construction project documentation. Based in Jeddah, Saudi Arabia.">
 <meta name="author" content="Mohammad Gulab Kauser">
+<meta name="color-scheme" content="dark light">
 <meta name="theme-color" content="#03050b">
 <link rel="canonical" href="https://mohammadgulab.github.io/">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Mohammad Gulab Kauser">
@@ -17,8 +18,10 @@
 <link rel="preload" href="fonts/unbounded-300-800.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/sora-var.woff2" as="font" type="font/woff2" crossorigin>
 <script>(function(d){var c='js';try{if(!sessionStorage.getItem('mgboot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)c+=' booting'}catch(e){}d.className=c})(document.documentElement)</script>
-<link rel="stylesheet" href="v2.css?v=20261030b">
-<script defer src="v2.js?v=20261030b"></script>
+<script>(function(r){var t;try{t=localStorage.getItem('mg-theme')}catch(e){}if(t!=='light'&&t!=='dark')t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';r.setAttribute('data-theme',t);var m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='light'?'#eef3fb':'#03050b'})(document.documentElement)</script>
+<link rel="stylesheet" href="v2.css?v=20261030c">
+<link rel="stylesheet" href="v3.css?v=20261030c">
+<script defer src="v2.js?v=20261030c"></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -42,12 +45,13 @@
     <a href="#services">Services</a><a href="#websites">Websites</a><a href="#node">Node.js</a><a href="#work">Portfolio</a><a href="#experience">Experience</a><a href="#skills">Skills</a>
   </nav>
   <a class="hdr-cta mag" href="#contact"><i class="pulse"></i>Hire me</a>
-  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch to light mode" title="Light / dark mode"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg></button>
+  <button class="menu-btn" type="button aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
 </header>
 
 <nav class="menu" id="menu" aria-label="Mobile" aria-hidden="true">
   <div class="menu-grid" aria-hidden="true"></div>
-  <div class="menu-head"><span class="menu-k">// NAVIGATION</span><button class="menu-x" type="button" aria-label="Close menu">CLOSE <b>×</b></button></div>
+  <div class="menu-head"><span class="menu-k">// NAVIGATION</span><div class="menu-act"><button class="theme-btn" type="button" data-theme-toggle aria-label="Switch to light mode"><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg><span class="tb-l">Light</span></button><button class="menu-x" type="button" aria-label="Close menu">CLOSE <b>×</b></button></div></div>
   <ol class="menu-list">
     <li><a href="#about"><i>01</i>About</a></li>
     <li><a href="#services"><i>02</i>Services</a></li>
