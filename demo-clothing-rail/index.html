@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141217'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='900' font-size='34' text-anchor='middle' fill='%23e9e2fb'%3EV%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -31,9 +31,7 @@
 <main>
 <section class="hero" id="rail">
   <div class="hero-head">
-    <p class="eyebrow">Autumn / Winter 26 <i></i> Riyadh</p>
-    <h1>NEW COLLECTION</h1>
-    <p class="sub">Premium streetwear, <em>cut oversized</em></p>
+    <h1 class="label">New Collection<i></i><span>Premium Streetwear</span></h1>
   </div>
 
   <div class="stage" id="stage" aria-label="Clothes rail. Swipe to move it, tap a piece to turn it, tap again for details." tabindex="0">
@@ -45,7 +43,7 @@
 
   <div class="hero-foot">
     <div class="caption">
-      <div class="cap-hint"><span class="dot"></span>Swipe the rail. Tap a piece to turn it, tap again to look closer.</div>
+      <div class="cap-hint"><span class="dash"></span>Tap a piece to turn it, tap again to look closer<i class="prog"><b id="prog1"></b></i></div>
       <div class="cap-item" aria-live="polite">
         <span class="cap-name"></span>
         <span class="cap-price"></span>
@@ -53,8 +51,8 @@
       </div>
     </div>
     <div class="foot-copy">
-      <p>Crafted in heavyweight brushed fleece. Cut oversized. Made to last.</p>
-      <a href="#rail2" class="shop-link">Shop the collection <span aria-hidden="true">&rarr;</span></a>
+      <p>Crafted in heavyweight fleece. Cut oversized. Made to last.</p>
+      <a href="#rail2" class="shop-link">Shop the Collection <span aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -103,7 +101,8 @@
 <footer class="foot">
   <div class="foot-in">
     <span class="logo small">VELOURA<span>STUDIO</span></span>
-    <p>VELOURA Studio is a fictional brand made for this demo. Prices are examples and no orders are taken. Garment artwork drawn in code.</p>
+    <p>VELOURA Studio is a fictional brand made for this demo. Prices are examples and no orders are taken.</p>
+    <p class="photo-credit">Garment photos from Pexels, free to use under the Pexels licence: <a href="https://www.pexels.com/photo/blue-hoodie-on-hanger-with-minimalist-design-37468339/" target="_blank" rel="noopener">hoodie by Roy Ayomide Photography</a>, <a href="https://www.pexels.com/photo/tri-color-sweatshirt-on-hanger-5727047/" target="_blank" rel="noopener">crewneck</a> and <a href="https://www.pexels.com/photo/blue-denim-jacket-hanging-on-a-clothes-rack-8386639/" target="_blank" rel="noopener">denim overshirt</a> by Pexels contributors. Cut out and recoloured for this demo, original prints and labels removed.</p>
     <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
   </div>
 </footer>
@@ -166,7 +165,7 @@
 </div>
 
 <div class="toast" id="toast" role="status"></div>
-<script src="garments.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<script src="garments.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

@@ -52,7 +52,7 @@ Rail.prototype.layout=function(){
     '<path d="'+d+'" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.2" transform="translate(0 -1)"/>'+cap;
   if(this.offset<this.min||this.offset>this.max)this.offset=Math.max(this.min,Math.min(this.max,this.offset));
 };
-Rail.prototype.rodY=function(x){var u=(x/this.W)*2-1;return this.rodTop+this.sag*(1-u*u);};
+Rail.prototype.rodY=function(x){var u=(x/this.W)*2-1;if(this.opt.arch){var k=Math.min(this.opt.sag,this.W*.11);return this.rodTop+k*u*u;}return this.rodTop+this.sag*(1-u*u);};
 Rail.prototype.center=function(i){return i*this.sp;};
 Rail.prototype.bind=function(){
   var self=this,st=this.stage;
@@ -188,11 +188,11 @@ function loop(now){
 /* ---------- setup rails ---------- */
 var hero=$('#stage'),hero2=$('#stage2');
 var wide=function(){return window.innerWidth>=900};
-var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:1.12,spFrac:.34,minSp:70,rodTop:16,sag:22,rodW:4,rodCol:'#a29daa',depth:.1,caps:false});
+var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:.95,spFrac:.27,minSp:84,rodTop:18,sag:70,arch:true,rodW:8,rodCol:'#b4b1bb',depth:.06,caps:false});
 var order=[8,1,5,2,9,6,0,10,4,3,11,7];
-var r2=new Rail(hero2,order.map(function(i){return PRODUCTS[i]}),{id:2,caption:$('.rail2 .caption'),maxH:420,hFrac:.88,spFrac:.3,minSp:58,rodTop:22,sag:46,rodW:5,rodCol:'#bdbac2',depth:0,caps:true});
+var r2=new Rail(hero2,order.map(function(i){return PRODUCTS[i]}),{id:2,caption:$('.rail2 .caption'),maxH:440,hFrac:.93,spFrac:.27,minSp:64,rodTop:22,sag:40,rodW:6,rodCol:'#c4c1c9',depth:0,caps:true});
 r1.offset=r1.max/2;r2.offset=r2.max/2;
-function size2(){hero2.style.setProperty('--h2',Math.round(Math.min(520,Math.max(360,window.innerWidth*.34)))+'px');}
+function size2(){var w=window.innerWidth;hero2.style.setProperty('--h2',Math.round(w<700?Math.min(400,Math.max(320,w*.86)):Math.min(520,Math.max(380,w*.34)))+'px');}
 size2();r1.layout();r2.layout();
 r1.intro();
 if('IntersectionObserver' in window){
@@ -219,7 +219,7 @@ function fillSheet(){
   $('#pCount').textContent=String(PRODUCTS.indexOf(p)+1).padStart(2,'0')+' / '+String(PRODUCTS.length).padStart(2,'0');
   $('#pKind').textContent=p.kind;$('#pName').textContent=p.name;$('#pPrice').textContent=sar(p.price);
   $('#pDesc').textContent=p.desc;$('#pTag').textContent=p.price>=400?'Limited':'New';
-  pImg.src=G.url(p,'front',cur.hex);pBack.src=G.url(p,'back',cur.hex);pImg.alt=p.name+' front';pBack.alt=p.name+' back';
+  pImg.src=G.url(p,'front',cur.hex);pBack.src=G.url(p,'front',cur.hex);pImg.alt=p.name+' front';pBack.alt=p.name+' back';
   var dots=$('#dots');dots.innerHTML='';
   p.colors.forEach(function(c){var b=document.createElement('button');b.className='cdot'+(c.hex===cur.hex?' on':'');b.style.background=c.hex;b.setAttribute('aria-label',c.name);
     b.onclick=function(){cur.hex=c.hex;fillSheet();};dots.appendChild(b);});

@@ -234,3 +234,39 @@ h1{margin:0;font-size:clamp(40px,11.4vw,108px);line-height:.92;font-weight:900;l
   .buy{margin:12px -40px 0 -18px;padding:12px 40px 22px 18px}
 }
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation-duration:.01s!important}}
+
+/* ===== v2: photo garments + reel typography ===== */
+body{font-family:'Inter Tight',system-ui,-apple-system,sans-serif}
+.hero{padding-top:64px}
+.hero-head{padding:14px 20px 0}
+h1.label{white-space:nowrap;font-size:11px;line-height:1;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#2a2633;display:flex;align-items:center;justify-content:center;gap:12px}
+h1.label i{display:inline-block;width:1px;height:12px;background:#2a2633;opacity:.5}
+h1.label span{font-weight:500;opacity:.75}
+@media (min-width:900px){h1.label{font-size:13px}}
+.g img{filter:drop-shadow(0 18px 18px rgba(40,30,60,.18)) drop-shadow(0 4px 5px rgba(40,30,60,.14))}
+.g-turn{filter:brightness(.9) saturate(.92)}
+.tag{left:62%;top:9.5%}
+.seg{display:none!important}
+.sheet-media img{filter:drop-shadow(0 22px 24px rgba(40,30,60,.2))}
+.cap-hint{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.01em;color:#4b4655}
+.cap-hint .dash{width:18px;height:1px;background:#2a2633;flex:none}
+.cap-hint .prog{display:none}
+.hero-foot{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:16px}
+.hero-foot .caption{flex:1 1 50%;min-width:0}
+.hero-foot .foot-copy{flex:1 1 50%;text-align:right;border:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.hero-foot .foot-copy p{font-size:15px;line-height:1.25;font-weight:700;letter-spacing:-.01em;color:#1b1820;max-width:220px;margin:0}
+.shop-link{font-size:13px;font-weight:600;color:#1b1820;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:699px){
+  .hero-foot{padding:4px 18px 20px}
+  .hero-foot .foot-copy p{font-size:14px;max-width:170px}
+  .cap-hint{font-size:11px}
+  .rail2{padding:48px 0 26px}
+  .rail2 .stage{margin-top:6px}
+  .rail2-foot{padding-top:0;gap:8px}
+  .rail2-foot .foot-copy{display:none}
+}
+.foot .photo-credit{font-size:11px;opacity:.7;max-width:640px}
+.foot .photo-credit a{color:inherit;text-decoration:underline}
+
+.g-lift{perspective:640px}
+@media (max-width:699px){.rail2{padding-top:40px}.rail2-foot .caption{min-height:40px}}
