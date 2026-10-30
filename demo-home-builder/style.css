@@ -179,3 +179,6 @@ body.render .nav,body.render .stage-card,body.render .rail,body.render .bar,body
 .drag-hint svg{color:#d4ad45;animation:dh 1.8s ease-in-out infinite}
 @keyframes dh{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
 body.render .drag-hint{display:none!important}
+
+/* v3 */
+.eyebrow.dark{background:none;color:#a07f22}
