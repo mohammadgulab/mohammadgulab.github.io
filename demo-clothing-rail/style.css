@@ -295,3 +295,6 @@ h1.label span{font-weight:500;opacity:.75}
 }
 @media (prefers-reduced-motion:reduce){.swipe-chip .hand{animation:none}}
 .rail2 .swipe-chip{display:none}
+
+/* v7: phone hero hugs the rail, no empty band below it */
+@media (max-width:699px){.hero{min-height:0}.hero .stage{flex:none;min-height:0;height:calc(min(124vw,560px) + 50px)}}
