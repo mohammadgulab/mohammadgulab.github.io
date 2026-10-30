@@ -10,7 +10,7 @@ var D=[
  {n:"07",tag:"To cool the fire",l1:"Mango",l2:"Lassi",word:"Lassi",img:"lassi",sc:0.62,alt:"Mango lassi in a glass",price:18,desc:"Ripe mango whisked with chilled yogurt, a pinch of cardamom and a thread of saffron.",hue:"240,170,40"}
 ];
 var BITS=[
- [["rice",-0.4,0.02,85,-12,1],["saffron",0.38,-0.3,99,20,0],["chicken",-0.35,0.3,129,-18,2],["egg",0.36,0.29,118,14,2],["friedonion",0.14,-0.42,88,8,1],["mint",-0.37,-0.32,94,-30,0]],
+ [["rice",-0.4,0.02,92,-12,1],["saffron",0.38,-0.3,99,20,0],["chicken",-0.35,0.3,129,-18,2],["egg",0.36,0.29,118,14,2],["friedonion",0.14,-0.42,88,8,1],["mint",-0.37,-0.32,94,-30,0]],
  [["butter",-0.37,-0.32,108,-10,0],["tomato",0.38,-0.3,110,16,0],["chunk",-0.35,0.3,123,-22,2],["cream",0.36,0.29,136,8,2],["coriander",0.14,-0.42,81,-24,1]],
  [["leg",-0.35,0.3,154,-28,2],["lemonhalf",0.38,-0.3,102,18,0],["onionrings",0.36,0.29,129,12,2],["redchilli",0.14,-0.42,121,-36,1],["coriander",-0.37,-0.32,89,30,0]],
  [["kebab",-0.35,0.3,140,-20,2],["lemonhalf",0.38,-0.3,97,24,0],["greenchilli2",0.36,0.29,114,18,2],["onionrings",-0.37,-0.32,113,-14,0],["mint2",0.14,-0.42,74,-18,1],["kebab2",-0.4,0.02,101,8,1]],
@@ -26,7 +26,7 @@ var fine=window.matchMedia("(pointer: fine)").matches;
 if(G&&ST){G.registerPlugin(ST);ST.config({ignoreMobileResize:true});}
 // preload
 D.forEach(function(d){var i=new Image();i.src="img/"+d.img+".webp";});
-var PRE={};BITS.forEach(function(L){L.forEach(function(b){if(!PRE[b[0]]){PRE[b[0]]=1;var i=new Image();i.src="img/ing/"+b[0]+".webp?v=2";}})});
+var PRE={};BITS.forEach(function(L){L.forEach(function(b){if(!PRE[b[0]]){PRE[b[0]]=1;var i=new Image();i.src="img/ing/"+b[0]+".webp?v=3";}})});
 
 var dish=$("#dish"),bits=$("#bits"),bitsB=$("#bitsB"),giant=$("#giant"),stage=$("#stage"),glow=$(".glow"),bar=$("#bar");
 var idx=$("#index");
@@ -37,9 +37,9 @@ function words(el,t){el.innerHTML=t.split(" ").map(function(w){return '<span cla
 
 var bitEls=[];
 function makeBits(i){
-  var r=stage.getBoundingClientRect(),sw=Math.min(r.width,720),sh=Math.max(260,r.height);
+  var r=stage.getBoundingClientRect(),sw=Math.min(r.width,560),sh=Math.max(260,r.height);
   var k=Math.min(1.25,Math.max(.72,sw/430));
-  var els=BITS[i].map(function(b){var im=document.createElement("img");im.src="img/ing/"+b[0]+".webp?v=2";im.alt="";im.decoding="async";im.className="bit L"+b[5];im.style.setProperty("--s",Math.round(b[3]*k)+"px");im._x=b[1]*sw*.95;im._y=b[2]*sh*.9;im._r=b[4];im._L=b[5];(b[5]===0&&bitsB?bitsB:bits).appendChild(im);return im;});
+  var els=BITS[i].map(function(b){var im=document.createElement("img");im.src="img/ing/"+b[0]+".webp?v=3";im.alt="";im.decoding="async";im.className="bit L"+b[5];im.style.setProperty("--s",Math.round(b[3]*k)+"px");im._x=b[1]*sw*.95;im._y=b[2]*sh*.9;im._r=b[4];im._L=b[5];(b[5]===0&&bitsB?bitsB:bits).appendChild(im);return im;});
   // spice dots burst with the pieces
   var seed=i*97+13,rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
   var cols=["#e5862c","#7a2a10","#f3e6cf","#3a2010","#c9302c","#d9a54e","#5e7d2a"];
