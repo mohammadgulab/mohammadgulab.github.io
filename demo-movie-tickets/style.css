@@ -1,4 +1,4 @@
-:root{--bg:#07070b;--bg2:#0f0f16;--glass:rgba(22,22,32,.72);--line:rgba(255,255,255,.09);--y:#ffc531;--y2:#ff9f1c;--t:#f5f5f7;--m:#a3a3b2;--g:#33d17a;--a:#ffb020;--r:#ff4d5e;--sel:#2ee6d6;--rad:16px}
+:root{--bg:#060918;--bg2:#0d1230;--glass:rgba(14,19,48,.74);--line:rgba(170,190,255,.13);--y:#ffc21a;--y2:#ffad0a;--hf:'Archivo',Inter,sans-serif;--t:#f5f5f7;--m:#a3a3b2;--g:#33d17a;--a:#ffb020;--r:#ff4d5e;--sel:#2ee6d6;--rad:16px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--t);font:15px/1.5 Inter,system-ui,sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
@@ -26,7 +26,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .intro-wall{position:absolute;left:50%;top:50%;width:1800px;display:grid;grid-template-columns:repeat(9,1fr);gap:14px;transform:translate(-50%,-50%) perspective(900px) rotateX(48deg) rotateZ(-18deg) scale(1.1);animation:wall 3s cubic-bezier(.3,.1,.2,1) forwards}
 .intro-wall div{aspect-ratio:2/3;border-radius:8px;background-size:cover;background-position:center;opacity:.8}
 @keyframes wall{from{transform:translate(-50%,-38%) perspective(900px) rotateX(48deg) rotateZ(-18deg) scale(1.1)}to{transform:translate(-50%,-62%) perspective(900px) rotateX(48deg) rotateZ(-18deg) scale(1.35);filter:brightness(.4)}}
-.intro-logo{position:relative;display:flex;align-items:center;gap:12px;font:clamp(40px,9vw,92px)/1 "Bebas Neue",sans-serif;letter-spacing:.12em;text-shadow:0 0 40px #000;animation:lg 3s ease forwards;opacity:0}
+.intro-logo{position:relative;display:flex;align-items:center;gap:12px;font:clamp(40px,9vw,92px)/1 var(--hf);letter-spacing:.12em;text-shadow:0 0 40px #000;animation:lg 3s ease forwards;opacity:0}
 .intro-logo .logo-mark{width:.6em;height:.6em}.intro-logo .logo-mark:after{left:40%;top:27%;border-left-width:.22em;border-top-width:.14em;border-bottom-width:.14em}
 @keyframes lg{30%{opacity:0;transform:scale(.9)}60%,85%{opacity:1;transform:none}100%{opacity:0;transform:scale(1.1)}}
 /* hero */
@@ -38,7 +38,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .hero-txt{position:relative;text-align:center;padding:0 16px}
 .eyebrow{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--y);font-weight:700}
 .eyebrow.ok{color:var(--g)}
-.brand{font:clamp(56px,13vw,150px)/.9 "Bebas Neue",sans-serif;letter-spacing:.1em;margin:8px 0;background:linear-gradient(#fff,#ffe2a1 60%,#c98a2c);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 10px 50px #ff9f1c33}
+.brand{font:clamp(56px,13vw,150px)/.9 var(--hf);letter-spacing:.1em;margin:8px 0;background:linear-gradient(#fff,#ffe2a1 60%,#c98a2c);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 10px 50px #ff9f1c33}
 .sub{color:#d6d6de;max-width:440px;margin:0 auto;font-size:15px}
 /* carousel */
 .stage{position:relative;height:400px;perspective:1400px;perspective-origin:50% 30%;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;margin-top:-10px}
@@ -50,7 +50,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 /* poster art */
 .pst{background:#111 center/cover no-repeat}
 .pst:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0006 0,transparent 30%,transparent 48%,#000d 82%)}
-.pst .pt{position:absolute;left:12px;right:12px;bottom:34px;font:34px/.92 "Bebas Neue",sans-serif;letter-spacing:.04em;text-align:center;text-shadow:0 2px 12px #000}
+.pst .pt{position:absolute;left:12px;right:12px;bottom:34px;font:34px/.92 var(--hf);letter-spacing:.04em;text-align:center;text-shadow:0 2px 12px #000}
 .pst .pg{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:#ffffffbb}
 .pst .pc{position:absolute;top:10px;left:0;right:0;text-align:center;font-size:8.5px;letter-spacing:.3em;color:#ffffffaa;text-transform:uppercase}
 .pst .pr{position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;background:#000a;padding:2px 7px;border-radius:6px;color:var(--y)}
@@ -58,7 +58,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .arrow{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--glass);font-size:28px;line-height:1;flex:none;backdrop-filter:blur(8px)}
 .arrow:hover{border-color:var(--y);color:var(--y)}
 .car-info{text-align:center;min-width:0;width:min(420px,100%)}
-.car-info h3{font:38px/1 "Bebas Neue",sans-serif;letter-spacing:.05em}
+.car-info h3{font:38px/1 var(--hf);letter-spacing:.05em}
 .car-info p{color:var(--m);font-size:13.5px;margin:4px 0 12px}
 .hint{text-align:center;color:var(--m);font-size:12.5px;margin:18px 0 70px;letter-spacing:.06em}
 .hand{display:inline-block;width:22px;height:2px;background:var(--y);vertical-align:middle;margin-right:8px;animation:hand 1.6s infinite}
@@ -89,7 +89,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .d-poster{width:240px;aspect-ratio:2/3;object-fit:cover;border-radius:16px;box-shadow:0 30px 70px #000c;border:1px solid #ffffff22;transform:perspective(800px) rotateY(8deg);transition:transform .5s}
 .d-poster:hover{transform:perspective(800px) rotateY(0)}
 .tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;background:var(--y);color:#111;padding:4px 10px;border-radius:6px}
-.d-title{font:clamp(54px,8vw,104px)/.9 "Bebas Neue",sans-serif;letter-spacing:.03em;margin:12px 0 10px}
+.d-title{font:clamp(54px,8vw,104px)/.9 var(--hf);letter-spacing:.03em;margin:12px 0 10px}
 .d-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:#dcdce4}
 .d-meta .st{color:var(--y);font-weight:800}
 .d-meta .chip{padding:4px 10px;border-radius:99px;border:1px solid #ffffff2a;background:#ffffff0d;font-size:12.5px}
@@ -161,7 +161,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .card{background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:22px}
 .co-sum{display:grid;grid-template-columns:120px 1fr;gap:18px}
 .co-sum img{width:120px;aspect-ratio:2/3;object-fit:cover;border-radius:12px}
-.co-sum h2{font:40px/1 "Bebas Neue",sans-serif;letter-spacing:.04em}
+.co-sum h2{font:40px/1 var(--hf);letter-spacing:.04em}
 .kv{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
 .kv span{color:var(--m)}.kv b{text-align:right}
 .kv.tot{border:0;font-size:18px;padding-top:14px}.kv.tot b{color:var(--y)}
@@ -190,7 +190,7 @@ body.in-seats .hdr{transform:translateY(-110%)}
 .tk:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,#ffffff14 45%,transparent 60%);background-size:250% 100%;background-position:var(--sh,50%) 0;pointer-events:none}
 .tk-l{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:20px}
 .tk-l img{width:110px;aspect-ratio:2/3;object-fit:cover;border-radius:10px}
-.tk-l h2{font:36px/1 "Bebas Neue",sans-serif;letter-spacing:.04em;margin-bottom:8px}
+.tk-l h2{font:36px/1 var(--hf);letter-spacing:.04em;margin-bottom:8px}
 .tk-g{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px}
 .tk-g small{display:block;color:var(--m);font-size:11px;text-transform:uppercase;letter-spacing:.1em}.tk-g b{font-size:14px}
 .tk-r{border-left:2px dashed #ffffff26;padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
@@ -255,3 +255,78 @@ body.in-seats .foot{display:none}
  .tk-r canvas{width:120px;height:120px}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ===== v2: reel look (navy space, blue planet, heavy italic type) ===== */
+body{background:radial-gradient(1100px 520px at 50% -8%,#1b2b78 0,transparent 60%),var(--bg)}
+.hdr{background:linear-gradient(#060918f0,#06091800)}
+.logo{font-family:var(--hf);font-style:italic;font-weight:900;letter-spacing:.02em;font-size:18px}
+.search{flex:1;max-width:340px;display:flex;align-items:center;gap:8px;padding:0 14px;height:38px;border-radius:99px;background:#ffffff0d;border:1px solid var(--line);color:var(--m)}
+.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--t);font:inherit;font-size:13.5px}
+.badge{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--y);color:#111;font:800 11px Inter;font-style:normal;margin-left:2px}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--y);color:#111;display:grid;place-items:center;font:800 13px Inter;flex:none}
+.hero{height:min(36vh,330px);min-height:270px;padding-top:64px;overflow:visible}
+.stars{position:absolute;inset:-60px 0 -320px;pointer-events:none;background-image:radial-gradient(1px 1px at 12% 22%,#fff9,transparent),radial-gradient(1px 1px at 28% 64%,#fff7,transparent),radial-gradient(1.5px 1.5px at 44% 18%,#fffb,transparent),radial-gradient(1px 1px at 63% 42%,#fff8,transparent),radial-gradient(1px 1px at 78% 15%,#fffa,transparent),radial-gradient(1.5px 1.5px at 88% 58%,#fff8,transparent),radial-gradient(1px 1px at 6% 80%,#fff6,transparent),radial-gradient(1px 1px at 52% 86%,#fff6,transparent),radial-gradient(1px 1px at 35% 40%,#fff5,transparent),radial-gradient(1px 1px at 95% 30%,#fff7,transparent);animation:tw 6s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.55}}
+.planet{position:absolute;left:50%;top:0;width:min(62vw,520px);aspect-ratio:1;transform:translate(-50%,-62%);border-radius:50%;background:radial-gradient(circle at 50% 78%,#e6f2ff 0,#8ec0ff 12%,#3f74ff 32%,#2140b8 52%,#101d63 68%,#0a1240 74%,transparent 75%);box-shadow:0 30px 120px #3a6bff66,0 0 60px #6a9bff44;animation:pl 10s ease-in-out infinite alternate}
+.planet:after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-linear-gradient(-12deg,#ffffff08 0 14px,transparent 14px 30px);mix-blend-mode:screen}
+@keyframes pl{to{transform:translate(-50%,-60%) scale(1.03)}}
+.beam{top:calc(min(62vw,520px)*.33);height:620px;width:min(70vw,560px);background:conic-gradient(from 162deg at 50% 0,transparent,#8b5cff26 8deg,#ff6ad044 18deg,#8b5cff26 28deg,transparent 36deg);filter:blur(10px)}
+.orb,.orb-ring{display:none}
+.hero-txt{padding-top:min(10vh,70px)}
+.brand{font-family:var(--hf);font-style:italic;font-weight:900;font-size:clamp(46px,8.4vw,104px);letter-spacing:-.01em;line-height:1;color:#fff;background:none;-webkit-background-clip:initial;background-clip:initial;text-shadow:0 6px 40px #3a6bff88}
+.brand span{color:var(--y);text-shadow:0 6px 40px #ffb00055}
+.tagline{font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:#c9d2ff;font-weight:600;margin-top:10px}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:14px}
+.dots i{width:6px;height:6px;border-radius:3px;background:#ffffff40;transition:.3s}.dots i.on{width:20px;background:var(--y)}
+.intro-logo{font-family:var(--hf);font-style:italic;font-weight:900;letter-spacing:0}.intro-logo .y{color:var(--y)}
+/* concave screen ring */
+.stage{height:440px;perspective:1100px;perspective-origin:50% 22%;margin-top:0}
+.ring{top:46px}
+.card3 .pst{border:0;box-shadow:0 0 0 2px var(--gc,#4aa3ff),0 0 34px var(--gc,#4aa3ff),0 24px 50px #000c}
+.card3 .lbl{position:absolute;left:0;right:0;top:-26px;text-align:center;font:800 11px/1 Inter;letter-spacing:.18em;text-transform:uppercase;color:#dfe6ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.floor{height:190px;background:linear-gradient(#06091800,#0b1438cc),repeating-linear-gradient(90deg,#7f9cff10 0 1px,transparent 1px 80px);-webkit-mask:linear-gradient(transparent,#000 40%)}
+.car-ui{margin-top:-40px}
+.car-info h3{font-family:var(--hf);font-style:italic;font-weight:900;font-size:34px;letter-spacing:-.01em;text-transform:uppercase}
+.feats{margin-top:56px}
+.feat{background:linear-gradient(160deg,#121a44,#0b102b)}
+.pst .pt{font-style:italic;font-weight:900;font-size:27px;line-height:.95;text-transform:uppercase;letter-spacing:-.01em}
+.btn-w{background:#fff;color:#0b0f26;height:42px;padding:0 18px;border-radius:99px;font-size:14px}
+.btn-y{border-radius:99px}
+/* detail */
+.d-title{font-style:italic;font-weight:900;text-transform:uppercase;letter-spacing:-.015em;font-size:clamp(46px,7vw,92px);line-height:.95}
+.tag{background:none;color:#c9d2ff;padding:0;letter-spacing:.26em;font-size:11px}
+.bd-shade{background:linear-gradient(90deg,#060918f2 0,#06091899 45%,#06091822 100%),linear-gradient(0deg,var(--bg) 0,transparent 45%)}
+.playp{position:absolute;left:62%;top:38%;width:74px;height:74px;border-radius:50%;background:#ffffff22;border:1px solid #ffffff55;backdrop-filter:blur(6px);display:grid;place-items:center}
+.playp span{width:18px;height:22px;border-left:6px solid #fff;border-right:6px solid #fff}
+.playp.paused span{width:0;height:0;border:0;border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:6px}
+.bd.paused .bd-img{animation-play-state:paused}
+.date.on,.fmt button.on{border-color:var(--y)}
+/* hall */
+#seats{background:#04060f}
+.s-info b{font-family:var(--hf);font-style:italic;font-weight:900;font-size:17px;text-transform:uppercase}
+.views button.on{background:#fff;color:#0b0f26}
+.views{border-radius:99px}.views button{border-radius:99px}
+.cls{position:relative;padding-left:18px}
+.cls i{position:absolute;left:0;top:8px;bottom:8px;width:4px;height:auto;border-radius:0 4px 4px 0;box-shadow:0 0 12px currentColor}
+.cls b{font-family:var(--hf);font-style:italic;font-weight:800;font-size:15px}
+.p-t{letter-spacing:.2em;font-size:11px}
+.co-t{font-family:var(--hf);font-style:italic;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.co-sum h2,.tk-l h2{font-style:italic;font-weight:900;text-transform:uppercase;font-size:30px;line-height:1}
+.card,.m-card{background:linear-gradient(160deg,#111842,#0b1030)}
+.tk{background:linear-gradient(135deg,#141c4a,#0c1131)}
+@media (max-width:900px){.search{display:none}}
+@media (max-width:560px){
+ .avatar{display:none}
+ .hero{height:250px;min-height:0;padding-top:58px}
+ .planet{width:118vw}
+ .beam{top:36vw;width:90vw}
+ .hero-txt{padding-top:30px}
+ .tagline{font-size:10px;letter-spacing:.2em}
+ .stage{height:380px;perspective:800px}
+ .car-ui{margin-top:-30px}
+ .pst .pt{font-size:22px}
+ .card3 .lbl{font-size:9.5px;top:-20px}
+ .playp{left:50%;top:30%;transform:translateX(-50%);width:60px;height:60px}
+}
+.badge[hidden]{display:none}
+@media (min-width:561px){.playp{left:auto;right:9%;top:24%}}

@@ -72,21 +72,25 @@ $('#credits').textContent = CREDITS.join(', ');
 function posterHTML(m){return `<div class="pst" style="background-image:url(${img(m.slug,'p')})"><span class="pc">CineNova Pictures</span><span class="pr">★ ${m.rating}</span><span class="pt">${m.title}</span><span class="pg">${m.genre.join(' · ')}</span></div>`}
 
 /* ---------- home carousel ---------- */
+const GLOW=['#3ee08f','#ff4fb8','#4aa3ff','#ffc21a','#a66bff'];
 const ring=$('#ring'), stage=$('#stage'), N=MOVIES.length, STEP=1;
 let angle=0, target=0, vel=0, cards=[], carRAF=0; // angle/target are continuous card indexes
-MOVIES.forEach((m,i)=>{const c=document.createElement('div');c.className='card3';c.dataset.i=i;c.innerHTML=posterHTML(m);ring.appendChild(c);cards.push(c)});
+MOVIES.forEach((m,i)=>{const c=document.createElement('div');c.className='card3';c.dataset.i=i;c.innerHTML=`<span class="lbl">${m.title}</span>`+posterHTML(m);c.style.setProperty('--gc',GLOW[i%GLOW.length]);ring.appendChild(c);cards.push(c)});
+$('#dots').innerHTML=MOVIES.map(()=>'<i></i>').join('');
 function layout(){
-  const w=cards[0].offsetWidth||200, R=w*3.1, A=21;
-  ring.style.transform=`translateZ(${-R}px)`;
+  const w=cards[0].offsetWidth||200, small=innerWidth<560, R=w*(small?3.0:3.5), A=small?19:20;
+  ring.style.transform=`translateZ(${R*0.9}px)`;
   cards.forEach((c,i)=>{
-    let d=((i-angle)%N+N*1.5)%N-N/2; // -N/2..N/2
+    let d=((i-angle)%N+N*1.5)%N-N/2;
     const a=Math.abs(d);
-    c.style.transform=`rotateY(${d*A}deg) translateZ(${R}px) scale(${a<.5?1.06-a*.12:1})`;
-    c.style.opacity = a>3.6?0:a>2.8?(3.6-a)/.8:1;
-    c.style.filter=`brightness(${a<.5?1:Math.max(.22,.78-a*.2)})`;
-    c.style.zIndex = 100-Math.round(a*10);
-    c.style.pointerEvents = a>3?'none':'auto';
+    c.style.transform=`rotateY(${-d*A}deg) translateZ(${-R}px)`;
+    c.style.opacity = a>3.4?0:a>2.6?(3.4-a)/.8:1;
+    c.style.filter=`brightness(${a<.5?1.05:Math.max(.35,.9-a*.16)})`;
+    c.style.zIndex = 100+Math.round(a*10);
+    c.style.pointerEvents = a>2.8?'none':'auto';
+    c.classList.toggle('act',a<.5);
   });
+  const k=((Math.round(angle)%N)+N)%N; $$('#dots i').forEach((e,j)=>e.classList.toggle('on',j===k));
 }
 function activeIdx(){return ((Math.round(target)%N)+N)%N}
 function info(){const m=MOVIES[activeIdx()];$('#carInfo').innerHTML=`<h3>${m.title}</h3><p>★ ${m.rating} · ${m.genre.join(' · ')} · ${m.dur}</p><a class="btn btn-y" href="#/movie/${m.slug}">Book tickets</a>`}
@@ -147,6 +151,9 @@ function renderTimes(){
     return `<div class="th"><div><h4>${th.name}</h4><p>${th.area}</p><p>${th.am}</p></div><div class="times">${list.map(s=>{const c=s.fill>.8?'var(--r)':s.fill>.55?'var(--a)':'var(--g)';return `<button class="time" style="--fill:${Math.round(s.fill*100)}%;--c:${c}" data-th="${th.id}" data-t="${s.t}" data-f="${s.f}"><b>${s.t}</b><small>${s.f} · from ${sar(CLASSES.classic.price+FORMATS[s.f])}</small></button>`}).join('')}</div></div>`}).join('') || '<p class="muted">No shows in this format on this day. Try another date.</p>';
   $$('.time').forEach(b=>b.onclick=()=>{S.theatre=b.dataset.th;S.time=b.dataset.t;S.fmt=b.dataset.f;S.seats=[];save();location.hash='#/seats'});
 }
+$('#playp').onclick=e=>{const p=$('.bd').classList.toggle('paused');e.currentTarget.classList.toggle('paused',p);e.currentTarget.setAttribute('aria-label',p?'Play teaser':'Pause teaser')};
+$('#search').addEventListener('submit',e=>{e.preventDefault();const q=$('#q').value.trim().toLowerCase();if(!q)return;const i=MOVIES.findIndex(m=>m.title.toLowerCase().includes(q)||m.genre.join(' ').toLowerCase().includes(q));if(i<0){toast('No film matches that search');return}location.hash='#/';setTimeout(()=>{let d=((i-activeIdx())%N+N)%N;if(d>N/2)d-=N;goTo(Math.round(target)+d)},50)});
+function badge(){const b=$('#tkBadge');b.hidden=!localStorage.getItem('cn_ticket')}badge();
 $('#bookBtn').onclick=e=>{e.preventDefault();$('#times').scrollIntoView({behavior:'smooth'})};
 $('#watchBtn').onclick=e=>{const on=e.currentTarget.classList.toggle('on');e.currentTarget.innerHTML=on?'&#9829; Saved':'&#9825; Watchlist';toast(on?'Added to your watchlist':'Removed from watchlist')};
 
@@ -230,7 +237,7 @@ function makeHall(){
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
   renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;
   renderer.outputColorSpace=THREE.SRGBColorSpace;
-  const scene=new THREE.Scene();scene.background=new THREE.Color('#050508');scene.fog=new THREE.Fog('#050508',40,90);
+  const scene=new THREE.Scene();scene.background=new THREE.Color('#04060f');scene.fog=new THREE.Fog('#04060f',40,90);
   const camera=new THREE.PerspectiveCamera(50,1,.1,200);
   const controls=new OrbitControls(camera,canvas);
   controls.enableDamping=true;controls.dampingFactor=.08;controls.maxPolarAngle=Math.PI*.49;controls.minDistance=3;controls.maxDistance=60;controls.enablePan=false;
@@ -433,7 +440,7 @@ $('#payBtn').onclick=()=>{
   setTimeout(()=>{
     const tk={id:'CN'+Math.floor(100000+Math.random()*899999),movie:m.slug,title:m.title,theatre:th.name,date:`${DN[d.getDay()]} ${d.getDate()} ${MN[d.getMonth()]}`,iso:d.toISOString().slice(0,10),time:S.time,fmt:S.fmt,seats:t.sel.map(s=>s.row+s.num),screen:'Hall '+(1+hash(th.id+S.time)%6),total:t.tot,snacks:Object.values(S.snacks).reduce((a,b)=>a+b,0)};
     localStorage.setItem('cn_ticket',JSON.stringify(tk));
-    $('#proc').hidden=true;location.hash='#/ticket';confetti();
+    $('#proc').hidden=true;badge();location.hash='#/ticket';confetti();
   },1600);
 };
 

@@ -10,19 +10,20 @@
 <meta property="og:image" content="img/og.jpg">
 <meta name="theme-color" content="#07070b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,600;0,800;1,700;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
-<div id="intro" class="intro" aria-hidden="true"><div class="intro-wall" id="introWall"></div><div class="intro-logo"><span class="logo-mark"></span>CINENOVA</div></div>
+<div id="intro" class="intro" aria-hidden="true"><div class="intro-wall" id="introWall"></div><div class="intro-logo"><span class="logo-mark"></span>CINE<span class="y">NOVA</span></div></div>
 
 <header class="hdr" id="hdr">
-  <a class="logo" href="#/" aria-label="CineNova home"><span class="logo-mark"></span><b>CINE</b>NOVA</a>
+  <a class="logo" href="#/" aria-label="CineNova home"><span class="logo-mark"></span>CINENOVA</a>
   <nav class="nav"><a href="#/" class="on">Movies</a><a href="#/" data-soon>Events</a><a href="#/" data-soon>Plays</a><a href="#/" data-soon>Sports</a></nav>
+  <form class="search" id="search" role="search"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M10 2a8 8 0 1 0 4.9 14.3l5.4 5.4 1.4-1.4-5.4-5.4A8 8 0 0 0 10 2zm0 2a6 6 0 1 1 0 12 6 6 0 0 1 0-12z"/></svg><input id="q" placeholder="Search movies, theatres..." aria-label="Search movies"></form>
   <div class="hdr-r">
     <button class="pill" id="cityBtn" type="button"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Jeddah</button>
-    <a class="pill pill-y" href="#/ticket" id="myTickets">My tickets</a>
+    <a class="pill" href="#/ticket" id="myTickets"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z"/></svg>My tickets<i class="badge" id="tkBadge" hidden>1</i></a><span class="avatar" aria-hidden="true">MG</span>
   </div>
 </header>
 
@@ -30,12 +31,13 @@
 <!-- HOME -->
 <section class="screen" id="home" data-screen="home">
   <div class="hero">
+    <div class="stars"></div>
+    <div class="planet"></div>
     <div class="beam"></div>
-    <div class="orb"><div class="orb-ring"></div></div>
     <div class="hero-txt">
-      <p class="eyebrow">Now showing in Jeddah</p>
-      <h1 class="brand">CINENOVA</h1>
-      <p class="sub">Every story is one seat away. Pick a film, walk the hall in 3D, choose your seat.</p>
+      <h1 class="brand">CINE<span>NOVA</span></h1>
+      <p class="tagline">Drag to explore &middot; Tap a screen to book</p>
+      <div class="dots" id="dots"></div>
     </div>
   </div>
   <div class="stage" id="stage">
@@ -47,7 +49,6 @@
     <div class="car-info" id="carInfo"></div>
     <button class="arrow" id="next" aria-label="Next film">&#8250;</button>
   </div>
-  <p class="hint"><span class="hand"></span>Drag or swipe to explore</p>
 
   <div class="wrap">
     <h2 class="sec-t">Why book with CineNova</h2>
@@ -61,12 +62,12 @@
 
 <!-- DETAIL -->
 <section class="screen" id="detail" data-screen="detail">
-  <div class="bd"><div class="bd-img" id="bdImg"></div><div class="bd-shade"></div></div>
+  <div class="bd"><div class="bd-img" id="bdImg"></div><div class="bd-shade"></div><button class="playp" id="playp" aria-label="Pause teaser"><span></span></button></div>
   <div class="d-top wrap"><a class="back" href="#/">&#8249; All films</a></div>
   <div class="d-head wrap">
     <img class="d-poster" id="dPoster" alt="">
     <div>
-      <span class="tag">Now showing</span>
+      <span class="tag">Official teaser</span>
       <h1 class="d-title" id="dTitle"></h1>
       <div class="d-meta" id="dMeta"></div>
       <p class="d-syn" id="dSyn"></p>
@@ -91,7 +92,7 @@
     <div class="s-info"><b id="sTitle"></b><span id="sSub"></span></div>
   </div>
   <div class="views" id="views">
-    <button data-v="overview" class="on">Overview</button><button data-v="stage">From stage</button><button data-v="balcony">Balcony</button><button data-v="bird">Bird's eye</button><button data-v="tour">Tour</button>
+    <button data-v="overview" class="on">Overview</button><button data-v="stage">From stage</button><button data-v="balcony">Balcony</button><button data-v="bird">Bird's eye</button><button data-v="tour">&#9654; Tour</button>
   </div>
   <div class="tip" id="tip"></div>
   <aside class="panel" id="panel">
@@ -99,9 +100,9 @@
     <div class="p-body">
       <h3 class="p-t">Seat classes</h3>
       <div class="classes" id="classes"></div>
-      <div class="legend"><span><i class="l-av"></i>Available</span><span><i class="l-sel"></i>Selected</span><span><i class="l-bk"></i>Booked</span></div>
+      <div class="legend"><span><i class="l-bk"></i>Booked</span><span><i class="l-sel"></i>Your pick</span><span><i class="l-av"></i>Available</span></div>
       <h3 class="p-t">Quick pick</h3>
-      <div class="qp"><div class="stepper"><button id="qMinus" aria-label="Fewer">&minus;</button><b id="qN">2</b><button id="qPlus" aria-label="More">+</button></div><button class="btn btn-o" id="bestBtn">Best 2 seats</button></div>
+      <div class="qp"><div class="stepper"><button id="qMinus" aria-label="Fewer">&minus;</button><b id="qN">2</b><button id="qPlus" aria-label="More">+</button></div><button class="btn btn-w" id="bestBtn">Best 2 seats</button></div>
       <h3 class="p-t">Your seats</h3>
       <div class="chips" id="chips"><span class="muted">Tap a seat in the hall</span></div>
     </div>
@@ -163,6 +164,6 @@
   <p class="credits">Photos from Unsplash by <span id="credits"></span>.</p>
   <p>Concept demo by <a href="https://mohammadgulab.github.io/">Mohammad Gulab Kauser</a></p>
 </footer>
-<script type="module" src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>
