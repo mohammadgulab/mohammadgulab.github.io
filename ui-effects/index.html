@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>UI Effects Lab</title>
+<meta name="description" content="Fifteen interactive UI effects you can tap, drag and play with on your phone.">
+<meta name="theme-color" content="#07070b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head><body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="top"><a class="logo" href="#top"><i></i>UI Effects Lab</a><a class="nav-cta" href="#fx">Play</a></nav>
+<header class="hero" id="top">
+  <div class="hero-mesh" aria-hidden="true"><i></i><i></i><i></i></div>
+  <p class="eyebrow">Interactive playground</p>
+  <h1 class="hero-title"><span class="w">Motion</span> <span class="w">you</span> <span class="w">can</span> <em class="w">touch.</em></h1>
+  <p class="hero-sub">Premium interface effects rebuilt from scratch. Every card below works with a tap or a drag, right on your phone.</p>
+  <div class="hero-row">
+    <a class="btn-primary" href="#fx">Start playing</a>
+    <div class="hero-count"><b data-count="15">0</b><span>live effects</span></div>
+  </div>
+</header>
+<section class="ticker" aria-hidden="true"><div class="tk">Tap · Drag · Spin · Fling · Reveal · Morph · Glow · Scatter · Tap · Drag · Spin · Fling · Reveal · Morph · Glow · Scatter ·&nbsp;</div></section>
+<main class="grid" id="fx">
+<article class="card reveal" id="dome">
+  <header class="card-h"><span class="num">01</span><h3>Particle Dome</h3><span class="chip">Tap to try</span></header>
+  <div class="stage touchnone" data-fx="dome"><canvas class="cv"></canvas><span class="cap">Tap to scatter and rebuild. Drag to spin.</span></div>
+</article>
+<article class="card reveal" id="blur">
+  <header class="card-h"><span class="num">02</span><h3>Blur Text Reveal</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="blur"><p class="blur-text">Build bold interfaces with precision and speed</p><span class="cap">Tap to replay</span></div>
+</article>
+<article class="card reveal" id="pills">
+  <header class="card-h"><span class="num">03</span><h3>Gravity Pills</h3><span class="chip">Tap to try</span></header>
+  <div class="stage touchnone" data-fx="pills"><div class="big-word" aria-hidden="true"><span>P</span><span>L</span><span>A</span><span>Y</span></div><button class="mini reset" type="button">Reset</button><span class="cap">Tap to break it. Drag the pills.</span></div>
+</article>
+<article class="card reveal" id="kit">
+  <header class="card-h"><span class="num">04</span><h3>Component Kit</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="kit"><div class="kit">
+   <button class="k-btn" type="button"><span>Get started</span></button>
+   <button class="k-switch" type="button" role="switch" aria-checked="false" aria-label="Switch"><i></i></button>
+   <button class="k-check" type="button" aria-pressed="false" aria-label="Checkbox"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+   <button class="k-load" type="button" aria-label="Loader"><span></span><span></span><span></span><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
+   <label class="k-input"><input type="text" placeholder=" " autocomplete="off"><span>Your name</span><b></b></label>
+ </div></div>
+</article>
+<article class="card reveal" id="magnet">
+  <header class="card-h"><span class="num">05</span><h3>Magnetic Button</h3><span class="chip">Tap to try</span></header>
+  <div class="stage touchnone" data-fx="magnet"><button class="mag" type="button"><span>Hold me</span></button><span class="cap">Tap or drag around the button</span></div>
+</article>
+<article class="card reveal" id="spot">
+  <header class="card-h"><span class="num">06</span><h3>Spotlight Card</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="spot"><div class="spot-card"><div class="spot-inner"><small>Glow border</small><strong>Light follows your finger</strong></div></div></div>
+</article>
+<article class="card reveal" id="tilt">
+  <header class="card-h"><span class="num">07</span><h3>3D Tilt Card</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="tilt"><div class="tilt-wrap"><div class="tilt-card"><div class="tilt-glare"></div><div class="tilt-chip"></div><div class="tilt-num">4821 &nbsp;0000 &nbsp;0000 &nbsp;2026</div><div class="tilt-name">LAB MEMBER</div></div></div></div>
+</article>
+<article class="card reveal" id="scramble">
+  <header class="card-h"><span class="num">08</span><h3>Text Scramble</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="scramble"><div class="scr" aria-live="polite">Design</div><span class="cap">Tap for the next word</span></div>
+</article>
+<article class="card reveal" id="marquee">
+  <header class="card-h"><span class="num">09</span><h3>Drag Marquee</h3><span class="chip">Tap to try</span></header>
+  <div class="stage panY" data-fx="marquee"><div class="mq"><div class="mq-row" data-dir="1"></div><div class="mq-row alt" data-dir="-1"></div></div><span class="cap">Swipe sideways to fling. Tap to reverse.</span></div>
+</article>
+<article class="card reveal" id="blob">
+  <header class="card-h"><span class="num">10</span><h3>Liquid Blob</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="blob"><svg class="blob" viewBox="0 0 300 300"><defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs><path fill="url(#bg1)"/></svg><span class="cap">Tap to shake and recolour</span></div>
+</article>
+<article class="card reveal" id="mesh">
+  <header class="card-h"><span class="num">11</span><h3>Gradient Mesh</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="mesh"><div class="mesh"><i></i><i></i><i></i><i></i></div><div class="mesh-label">Aurora</div><span class="cap">Tap to shuffle colours</span></div>
+</article>
+<article class="card reveal" id="accordion">
+  <header class="card-h"><span class="num">12</span><h3>Editorial Gallery</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="accordion"><div class="acc">
+   <div class="acc-p on" style="--g:linear-gradient(160deg,#f5d0a9,#c2410c 60%,#431407)"><em>01</em><b>Ember</b></div>
+   <div class="acc-p" style="--g:linear-gradient(160deg,#c7d2fe,#4338ca 60%,#1e1b4b)"><em>02</em><b>Tide</b></div>
+   <div class="acc-p" style="--g:linear-gradient(160deg,#e9d5ff,#a21caf 60%,#3b0764)"><em>03</em><b>Bloom</b></div>
+   <div class="acc-p" style="--g:linear-gradient(160deg,#d9f99d,#15803d 60%,#052e16)"><em>04</em><b>Fern</b></div>
+   <div class="acc-p" style="--g:linear-gradient(160deg,#fde68a,#a16207 60%,#271a05)"><em>05</em><b>Dune</b></div>
+ </div></div>
+</article>
+<article class="card reveal" id="counter">
+  <header class="card-h"><span class="num">13</span><h3>Rolling Counter</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="counter"><div class="odo" aria-live="polite"></div><div class="odo-btns"><button class="mini" type="button" data-add="1">+1</button><button class="mini" type="button" data-add="25">+25</button><button class="mini" type="button" data-add="0">Reset</button></div><span class="cap">Counts your own taps</span></div>
+</article>
+<article class="card reveal" id="glitch">
+  <header class="card-h"><span class="num">14</span><h3>Glitch Split</h3><span class="chip">Tap to try</span></header>
+  <div class="stage " data-fx="glitch"><div class="gl" data-t="GLITCH">GLITCH</div><span class="cap">Tap to break the signal</span></div>
+</article>
+<article class="card reveal" id="trail">
+  <header class="card-h"><span class="num">15</span><h3>Light Trail</h3><span class="chip">Tap to try</span></header>
+  <div class="stage touchnone" data-fx="trail"><canvas class="cv"></canvas><span class="cap">Draw with your finger. Tap for sparks.</span></div>
+</article>
+</main>
+<footer class="foot">
+  <p class="foot-big">UI Effects Lab</p>
+  <p>All effects are original code, written for this page.</p>
+  <p class="sig">Concept demo by Mohammad Gulab Kauser</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script src="app.js?v=1"></script>
+</body></html>
