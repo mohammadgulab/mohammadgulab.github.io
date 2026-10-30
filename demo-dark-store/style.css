@@ -255,3 +255,7 @@ input[type=range]{width:100%;accent-color:var(--or)}
 .sc-flat img{object-fit:contain!important;padding:8% 12%;filter:drop-shadow(0 22px 20px rgba(0,0,0,.55))}
 .qv-stage{background:radial-gradient(110% 90% at 50% 40%,#26232b 0%,#16141a 75%);border-radius:18px;overflow:hidden}
 #qvProd{inset:7% 12% 9%!important;width:76%!important;height:84%!important}
+
+/* v4: dark garments read on dark tiles */
+.card.dk .ph{background:radial-gradient(115% 85% at 50% 42%,#4a4652 0%,#34313b 48%,#211f26 100%)}
+.ph img.dk,.card.dk .ph img:first-child,#qvProd.dk,.sc-flat img.dk{filter:brightness(1.18) contrast(1.04) drop-shadow(0 18px 18px rgba(0,0,0,.55)) drop-shadow(0 4px 6px rgba(0,0,0,.35))}
