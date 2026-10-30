@@ -363,7 +363,7 @@ body{max-width:100%;min-height:100svh}
 .tk-scene,.tk{max-width:100%}
 .kv b{min-width:0;overflow-wrap:anywhere}
 .co-grid>*,.co-sum>*,.tk-l>*,.th>*{min-width:0}
-.co-sum h2,.tk-l h2{overflow-wrap:anywhere}
+.co-sum h2,.tk-l h2{overflow-wrap:break-word}
 .back.round{flex:none}
 .d-title{overflow-wrap:anywhere}
 @media (max-width:760px){
@@ -398,11 +398,13 @@ body{max-width:100%;min-height:100svh}
  .tk-btns .btn{flex:1 1 auto}
  .m-btns{grid-template-columns:1fr 1.6fr}
  .feat{padding:18px}
+ .co-sum h2,.tk-l h2{font-size:24px}
 }
 @media (max-width:380px){
  .avatar{display:none}
  .logo{font-size:16.5px}
  .logo-mark{width:24px;height:24px}
+ .co-sum h2,.tk-l h2{font-size:22px}
 }
 /* phone held sideways: short screen */
 @media (orientation:landscape) and (max-height:520px){
