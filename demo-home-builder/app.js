@@ -4,7 +4,7 @@ const RENDER=Q.get('render'); // project thumbnail mode
 const canvas=document.getElementById('scene');
 const isPhone=matchMedia('(max-width:700px)').matches;
 const renderer=new THREE.WebGLRenderer({canvas,antialias:!isPhone,preserveDrawingBuffer:!!RENDER,powerPreference:'high-performance'});
-renderer.setPixelRatio(Math.min(devicePixelRatio,isPhone?1.3:1.6));
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
@@ -259,11 +259,11 @@ let cur=0, target=0, curZoom=0;
 const phExt=document.getElementById('phExt'),phHome=document.getElementById('phHome'),phPorch=document.getElementById('phPorch'),phHomeImg=phHome.querySelector('img'),phPorchImg=phPorch.querySelector('img');
 const bar=document.getElementById('bar'),card=document.getElementById('stageCard'),stNum=document.getElementById('stNum'),stTitle=document.getElementById('stTitle'),stText=document.getElementById('stText');
 const heroCopy=document.getElementById('heroCopy'),rail=[...document.querySelectorAll('#rail li')],welcome=document.getElementById('welcome');
-let shownStage=-1;
+let shownStage=-1, uNow=0, zNow=0, covered=0;
 function apply(p){
  // p: 0..1 over the pinned section
  const u=clamp((p-0.06)/0.66)*5.0; const uk=Math.min(4,Math.floor(u)); const s=u>=5?5:uk+sm(Math.min(1,(u-uk)/0.7));
- const z=seg(p,0.76,0.93);
+ const z=seg(p,0.76,0.93); uNow=u; zNow=z;
  // blueprint
  bpMat.opacity=lerp(1,0,seg(s,0.9,2.2))*0.95;bpFace.opacity=.22*(1-seg(s,0.3,1.2));grid.material.opacity=.38*(1-seg(s,.5,1.4));plotLine.material.opacity=1-seg(s,.6,1.3);
  // foundation 0.15..1
@@ -303,6 +303,7 @@ function apply(p){
  frameCam(z);
  // photo stages
  const pe=seg(u,3.4,3.8), ph=seg(u,4.05,4.55), pz=seg(p,0.8,0.9);
+ covered=Math.max(pe*(1-ph),ph*(1-pz),pz);
  phExt.style.opacity=String(pe*(1-ph));phHome.style.opacity=String(ph*(1-pz));phPorch.style.opacity=String(pz);
  phHomeImg.style.transform=`scale(${1+seg(p,0.74,0.9)*0.9})`;phPorchImg.style.transform=`scale(${1.12-pz*0.12})`;
  // UI
@@ -315,6 +316,10 @@ function apply(p){
  document.getElementById('rail').style.opacity=String(1-z);
  welcome.style.opacity=String(seg(p,0.88,0.95));welcome.style.transform=`translateY(${(1-seg(p,0.88,0.95))*30}px)`;
 }
+const PIV=new THREE.Vector3(2.6,0,0.8),UP=new THREE.Vector3(0,1,0);
+const AMP=isPhone?0.44:0.4, SPEED=2*Math.PI/13; // about 25 degrees each way, one sway every 13 s
+let swayT=0, dragYaw=0, dragVel=0, lastTouch=-1e9, dragging=false;
+const yawNow=()=>clamp(AMP*Math.sin(swayT*SPEED)+dragYaw,-0.85,0.85);
 const camA=new THREE.Vector3(),tgtA=new THREE.Vector3(),camB=new THREE.Vector3(),tgtB=new THREE.Vector3();
 function frameCam(z){
  const asp=camera.aspect;const vf=THREE.MathUtils.degToRad(camera.fov);const hf=2*Math.atan(Math.tan(vf/2)*asp);
@@ -325,6 +330,9 @@ function frameCam(z){
  if(asp>1.5)tgtA.x-=dist*0.17; // shift house right on wide screens (text on left)
  camA.copy(tgtA).addScaledVector(dir,dist);
  tgtB.set(0.2,1.9,4.2);camB.set(asp<0.8?1.6:2.6,2.0,asp<0.8?13.8:11.5);
+ // orbit around the house (auto sway + finger drag), eased out before the photo stages and the porch zoom
+ const yw=yawNow()*(1-seg(uNow,2.9,3.45));
+ if(Math.abs(yw)>1e-5){camA.sub(PIV).applyAxisAngle(UP,yw).add(PIV);tgtA.sub(PIV).applyAxisAngle(UP,yw).add(PIV)}
  const e=z*z*(3-2*z);
  camera.position.lerpVectors(camA,camB,e);const t=new THREE.Vector3().lerpVectors(tgtA,tgtB,e);camera.lookAt(t);
 }
@@ -342,15 +350,63 @@ if(window.gsap&&window.ScrollTrigger&&!RENDER){gsap.registerPlugin(ScrollTrigger
 }else{addEventListener('scroll',()=>{target=readProg();dirty=true},{passive:true});target=readProg()}
 const nav=document.querySelector('.nav');
 addEventListener('scroll',()=>nav.classList.toggle('solid',buildEl.getBoundingClientRect().bottom<70),{passive:true});
-let t0=performance.now();let intro=0;
+let t0=performance.now();let intro=0;let last=performance.now();
+/* render only while the 3D section is on screen */
+let onScreen=true;
+if('IntersectionObserver' in window){new IntersectionObserver(es=>{onScreen=es[0].isIntersecting;if(onScreen){last=performance.now();dirty=true}},{rootMargin:'80px'}).observe(buildEl)}
+const stick=document.querySelector('.stick'),hint=document.getElementById('dragHint');let hinted=false;
+if(Q.has('yaw')){dragYaw=+Q.get('yaw')}
+const FREEZE=Q.has('yaw')||Q.has('still');
 function loop(now){requestAnimationFrame(loop);
+ const dt=Math.min(0.05,(now-last)/1000);last=now;
+ if(!onScreen)return;
  if(Q.has('p')){target=+Q.get('p')}
  if(intro<1){intro=Math.min(1,(now-t0)/1600);dirty=true}
- if(!dirty&&Math.abs(target-cur)<1e-4)return;
+ const spinning=uNow<3.45&&zNow<0.999&&covered<0.995;
+ if(spinning&&!FREEZE){
+  if(!dragging){
+   if(Math.abs(dragVel)>1e-4){dragYaw+=dragVel*dt;dragVel*=Math.pow(0.04,dt)}
+   if(now-lastTouch>3500){dragYaw*=Math.pow(0.35,dt);swayT+=dt}
+  }
+  dragYaw=clamp(dragYaw,-0.85,0.85);
+ }
+ if(!dirty&&Math.abs(target-cur)<1e-4){
+  if(!spinning)return;
+  frameCam(zNow);renderer.render(scene,camera);return}
  cur=target;dirty=false;
  apply(cur);
  if(cur<0.06){bpMat.opacity*=sm(intro);bpFace.opacity*=sm(intro)}
- renderer.render(scene,camera)}
+ if(hint){const show=!hinted&&cur>0.075&&uNow<3.2&&zNow<0.2;hint.classList.toggle('on',show)}
+ if(covered<0.995)renderer.render(scene,camera)}
+/* one finger / mouse horizontal drag rotates the house; vertical swipes still scroll the page */
+if(stick&&!RENDER){
+ let d=null;
+ stick.addEventListener('pointerdown',e=>{
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(e.target.closest('a,button,input,select,textarea,label'))return;
+  if(uNow>=3.45||zNow>0.3)return;
+  d={id:e.pointerId,x:e.clientX,y:e.clientY,lx:e.clientX,lt:performance.now(),mode:null};
+ });
+ const end=e=>{if(!d||e.pointerId!==d.id)return;if(d.mode==='rot'){dragging=false;stick.classList.remove('dragging');lastTouch=performance.now()}d=null};
+ addEventListener('pointermove',e=>{
+  if(!d||e.pointerId!==d.id)return;
+  const dx=e.clientX-d.x,dy=e.clientY-d.y;
+  if(!d.mode){
+   if(Math.abs(dx)>7&&Math.abs(dx)>Math.abs(dy)*1.1){d.mode='rot';dragging=true;dragVel=0;stick.classList.add('dragging');try{stick.setPointerCapture(e.pointerId)}catch(_){}
+    if(!hinted){hinted=true;hint&&hint.classList.remove('on')}}
+   else if(Math.abs(dy)>10){d=null;return}
+   else return;
+  }
+  const now=performance.now(),step=e.clientX-d.lx,k=(isPhone?0.0042:0.0032);
+  // fold the current sway into the drag so the house does not jump, then stop the sway while held
+  if(swayT!==0){dragYaw+=AMP*Math.sin(swayT*SPEED);swayT=0}
+  dragYaw=clamp(dragYaw-step*k,-0.85,0.85);
+  const dtm=Math.max(8,now-d.lt);dragVel=-step*k/(dtm/1000);
+  d.lx=e.clientX;d.lt=now;lastTouch=now;
+  if(e.cancelable&&e.pointerType!=='mouse')e.preventDefault();
+ },{passive:false});
+ addEventListener('pointerup',end);addEventListener('pointercancel',end);
+}
 resize();
 /* project thumbnails mode */
 if(RENDER){document.body.classList.add('render');const v=+RENDER;
@@ -365,4 +421,4 @@ else requestAnimationFrame(loop);
 // form
 const chips=document.getElementById('chips');chips.addEventListener('click',e=>{if(e.target.tagName!=='BUTTON')return;chips.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b===e.target))});
 document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.name.value.trim()||!f.phone.value.trim()){(f.name.value.trim()?f.phone:f.name).focus();return}document.getElementById('ok').hidden=false;f.querySelector('button[type=submit]').textContent='Request sent'});
-window.__ready=true;
+window.__ready=true;window.__hb={yaw:()=>yawNow(),u:()=>uNow};

@@ -169,3 +169,13 @@ body.render .nav,body.render .stage-card,body.render .rail,body.render .bar,body
 #phExt img{object-position:50% 60%}
 #phHome img{object-position:50% 55%;transform-origin:52% 66%}
 #phPorch img{object-position:45% 60%}
+
+/* v2: rotate the house */
+.stick{touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.stick.dragging{cursor:grabbing}
+@media (hover:hover){.stick{cursor:grab}}
+.drag-hint{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 86px);transform:translate(-50%,-6px);display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(8,16,28,.68);border:1px solid rgba(212,173,69,.8);color:#f3e2b3;font:600 11.5px/1 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .5s,transform .5s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:3;white-space:nowrap}
+.drag-hint.on{opacity:1;transform:translate(-50%,0)}
+.drag-hint svg{color:#d4ad45;animation:dh 1.8s ease-in-out infinite}
+@keyframes dh{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
+body.render .drag-hint{display:none!important}
