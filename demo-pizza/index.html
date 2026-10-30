@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Wildleaf Pizzeria · Fresh has a wild side</title>
+<meta name="description" content="Wildleaf Pizzeria, wood-fired pizza in Jeddah. Concept demo by Mohammad Gulab Kauser.">
+<meta property="og:title" content="Wildleaf Pizzeria · Fresh has a wild side">
+<meta property="og:image" content="img/pizza-board.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head><body>
+<header class="nav">
+  <a class="logo" href="#top"><span class="leaf"></span>Wildleaf</a>
+  <nav><a href="#menu">Menu</a><a href="#visit">Visit</a></nav>
+  <a class="btn sm" href="#order">Order now</a>
+</header>
+
+<section class="hero" id="top">
+  <img class="vine" src="img/vine.webp" alt="Cherry tomatoes on the vine" width="675" height="900">
+  <div class="hero-copy">
+    <p class="kicker">Wood-fired pizzeria · Jeddah</p>
+    <h1 class="big"><span class="ln">Fresh has</span> <span class="ln">a <em>wild</em> side</span></h1>
+    <p class="lede">Vine tomatoes, hand-torn basil and milky mozzarella, fired at 450°C in our green-tiled oven.</p>
+    <div class="row"><a class="btn" href="#order">Order a pizza</a><a class="btn ghost" href="#menu">See the menu</a></div>
+  </div>
+  <div class="scroll-cue"><span></span>Scroll</div>
+</section>
+
+<section class="build" id="build">
+  <div class="stage">
+    <h2 class="build-title"><span>It all comes</span> <span>together</span></h2>
+    <p class="build-sub" id="buildSub">Sauce first. Then the good stuff.</p>
+    <div class="table">
+      <div class="base" id="base"><div class="sauce"></div></div>
+      <img class="pz-baked" id="baked" src="img/pizza-pan.webp" alt="Baked margherita pizza" width="667" height="667">
+      <div class="ing mozz m1"></div><div class="ing mozz m2"></div><div class="ing mozz m3"></div><div class="ing mozz m4"></div>
+      <img class="ing tom t1" src="img/tomato.webp" alt="" width="500" height="333">
+      <img class="ing tom t2" src="img/tomato.webp" alt="" width="500" height="333">
+      <img class="ing bas b1" src="img/basil.webp" alt="" width="493" height="500">
+      <img class="ing bas b2" src="img/basil2.webp" alt="" width="400" height="191">
+    </div>
+    <div class="oven" id="oven" aria-hidden="true">
+      <div class="dome"><div class="mouth"><div class="fire"></div><div class="glow"></div></div><div class="stamp">WILDLEAF</div></div>
+      <div class="plinth"></div>
+    </div>
+    <div class="labels">
+      <span class="lab l1">Vine tomatoes</span><span class="lab l2">Fresh basil</span><span class="lab l3">Fior di latte</span>
+    </div>
+  </div>
+</section>
+
+<section class="wild" id="menu">
+  <div class="wild-head">
+    <p class="kicker light">Out of the fire</p>
+    <h2 class="big light"><span>Wildly</span> <em>good</em> pizza</h2>
+  </div>
+  <div class="board-wrap"><img class="board" id="board" src="img/pizza-board.webp" alt="Margherita pizza on a wooden board" width="1100" height="957" loading="lazy"></div>
+  <div class="menu">
+    <article class="card"><h3>Wild Margherita</h3><p>Vine tomato, fior di latte, basil, olive oil</p><div class="pr"><b>SAR 42</b><button class="add" data-n="Wild Margherita" data-p="42">Add</button></div></article>
+    <article class="card"><h3>Garden Smoke</h3><p>Fire-roasted peppers, courgette, smoked cheese</p><div class="pr"><b>SAR 48</b><button class="add" data-n="Garden Smoke" data-p="48">Add</button></div></article>
+    <article class="card"><h3>Truffle Bianca</h3><p>White base, mushrooms, truffle cream, thyme</p><div class="pr"><b>SAR 58</b><button class="add" data-n="Truffle Bianca" data-p="58">Add</button></div></article>
+    <article class="card"><h3>Spicy Honey Beef</h3><p>Beef pepperoni, chilli honey, mozzarella</p><div class="pr"><b>SAR 54</b><button class="add" data-n="Spicy Honey Beef" data-p="54">Add</button></div></article>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="order-card">
+    <h2>Your order</h2>
+    <ul id="cart"><li class="empty">Tap “Add” on any pizza above.</li></ul>
+    <div class="total"><span>Total</span><b id="tot">SAR 0</b></div>
+    <div class="row"><button class="btn" id="checkout">Place order</button><button class="btn ghost" id="pickup">Pickup in 20 min</button></div>
+    <p class="note" id="note">Demo only, no order is sent.</p>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div><p class="kicker">Visit us</p><h2>Wildleaf Pizzeria</h2><p>Building 14, Al Rawdah Street, Al Rawdah District, Jeddah (fictional address)</p><p>Daily 1 PM to 1 AM · Friday from 4 PM</p></div>
+  <img src="img/basil.webp" alt="" class="visit-basil" width="493" height="500" loading="lazy">
+</section>
+
+<footer class="foot">
+  <p>Concept demo by <b>Mohammad Gulab Kauser</b></p>
+  <p class="cred">Photos: Pexels (free licence), tomatoes and basil by Pexels contributors, pizza photos via Pexels. Brand, menu and address are fictional.</p>
+</footer>
+<div class="toast" id="toast"></div>
+<script src="gsap.min.js"></script><script src="ScrollTrigger.min.js"></script>
+<script src="app.js?v=1"></script>
+</body></html>
