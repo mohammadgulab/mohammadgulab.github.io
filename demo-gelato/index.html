@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dolce Nuvola Gelato | Scroll into the scoop</title>
+<meta name="description" content="Dolce Nuvola Gelato, a fictional gelato shop in Jeddah. Concept demo website with scroll-scrubbed video, flavour carousel and a cone builder.">
+<meta name="theme-color" content="#f3ead6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;0,9..144,800;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="nav" id="top">
+  <a class="logo" href="#top" aria-label="Dolce Nuvola home"><span class="logo-mark">DN</span><span class="logo-word">Dolce Nuvola</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#flavours">Flavours</a><a href="#build">Build a cone</a><a href="#menu">Menu</a><a href="#visit">Visit</a>
+  </nav>
+  <a class="pill pill-dark nav-cta" href="#build">Order now</a>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="Scroll into the scoop">
+  <div class="hero-stage">
+    <div class="hero-copy">
+      <p class="eyebrow">Fresh gelato, Jeddah</p>
+      <h1 class="hero-title"><span>Scroll into</span> <em>the scoop</em></h1>
+      <p class="hero-sub">Churned every morning in small batches. Keep scrolling and watch it get scooped.</p>
+    </div>
+    <div class="hero-media">
+      <canvas id="scrub" aria-label="Video of gelato being scooped, played by scrolling" role="img"></canvas>
+      <div class="media-shade"></div>
+      <div class="step-tag" aria-hidden="true"><span id="stepNum">01</span><span id="stepTxt">Dip the spade</span></div>
+      <div class="flavour-chip">
+        <div><small>Now scooping</small><strong id="heroFlavour">Red Berry Sorbetto</strong></div>
+        <a class="pill pill-cream" href="#flavours">Taste it</a>
+      </div>
+      <div class="scrub-bar" aria-hidden="true"><i id="scrubFill"></i></div>
+    </div>
+    <div class="hero-foot">
+      <a class="round" href="#flavours" aria-label="Skip to flavours"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <span class="hint">Scroll to scoop</span>
+    </div>
+  </div>
+</section>
+
+<section class="flavours" id="flavours" aria-label="Flavours">
+  <div class="fl-head">
+    <p class="eyebrow">Today in the case</p>
+    <h2>Six flavours, <em>one mood</em></h2>
+  </div>
+  <div class="fl-stage" id="flStage">
+    <div class="fl-big" aria-hidden="true" id="flBig">PISTACHIO</div>
+    <div class="fl-visual" id="flVisual">
+      <div class="fl-cone-wrap">
+        <img class="fl-scoop" id="flScoop" src="img/pistachio.webp" alt="Pistachio gelato scoop" width="505" height="260">
+        <img class="fl-cone" src="img/cone.webp" alt="" width="378" height="840">
+      </div>
+    </div>
+    <div class="fl-info">
+      <span class="fl-idx" id="flIdx">01 / 06</span>
+      <h3 id="flName">Pistachio Crunch</h3>
+      <p id="flNotes">Roasted pistachio paste, a pinch of sea salt, crushed nuts folded in at the end.</p>
+      <div class="fl-row">
+        <span class="price" id="flPrice">SAR 12</span>
+        <button class="pill pill-dark" id="flAdd" type="button">Add a scoop</button>
+      </div>
+    </div>
+    <div class="fl-ctrl">
+      <button class="round round-lg" id="flPrev" type="button" aria-label="Previous flavour"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="fl-dots" id="flDots" role="tablist" aria-label="Choose flavour"></div>
+      <button class="round round-lg" id="flNext" type="button" aria-label="Next flavour"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<section class="build" id="build" aria-label="Build your cone">
+  <div class="build-head">
+    <p class="eyebrow">Build your cone</p>
+    <h2>Two scoops, <em>one topping</em>, zero regrets</h2>
+  </div>
+  <div class="build-grid">
+    <div class="build-visual" aria-live="polite">
+      <div class="stack" id="stack">
+        <img class="b-topping b-wafer" id="bWafer" src="img/wafer.webp" alt="" width="320" height="225">
+        <div class="b-sprinkles" id="bSprinkles" aria-hidden="true"></div>
+        <img class="b-scoop b-s2" id="bS2" src="img/mango.webp" alt="" width="516" height="325">
+        <img class="b-scoop b-s1" id="bS1" src="img/pistachio.webp" alt="" width="505" height="260">
+        <img class="b-cone" src="img/cone.webp" alt="Waffle cone" width="378" height="840">
+      </div>
+    </div>
+    <div class="build-panel">
+      <fieldset><legend>Scoop 1 <span id="l1">Pistachio Crunch</span></legend><div class="chips" id="c1"></div></fieldset>
+      <fieldset><legend>Scoop 2 <span id="l2">Alphonso Mango</span></legend><div class="chips" id="c2"></div></fieldset>
+      <fieldset><legend>Topping</legend><div class="chips chips-text" id="c3"></div></fieldset>
+      <div class="total">
+        <div><small>Your cone</small><strong id="total">SAR 27</strong></div>
+        <button class="pill pill-dark" id="orderBtn" type="button">Add to order</button>
+      </div>
+      <p class="fine">Waffle cone SAR 4, scoops priced per flavour. Demo only, no real orders.</p>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story" aria-label="Our story">
+  <div class="story-img"><img src="img/story.webp" alt="Gelato being piled onto a cone with a spatula" width="880" height="464" loading="lazy"></div>
+  <div class="story-copy">
+    <p class="eyebrow">The story</p>
+    <h2>Churned at <em>sunrise</em>, gone by sunset</h2>
+    <p>Dolce Nuvola started with one batch freezer and a simple rule: if it was not made this morning, it does not go in the case. Milk, sugar, real fruit and nuts, churned slowly so the gelato stays dense and silky.</p>
+    <ul class="facts">
+      <li><strong>Daily</strong><span>small batches</span></li>
+      <li><strong>-12°C</strong><span>serving temperature</span></li>
+      <li><strong>6</strong><span>flavours a day</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="menu" id="menu" aria-label="Menu">
+  <div class="menu-head"><p class="eyebrow">Menu</p><h2>Simple, <em>sweet</em>, in SAR</h2></div>
+  <div class="menu-grid">
+    <div class="menu-col">
+      <h3>Gelato</h3>
+      <ul>
+        <li><span>Single scoop, cup</span><b>14</b></li>
+        <li><span>Double scoop, cup or cone</span><b>24</b></li>
+        <li><span>Triple scoop, cup or cone</span><b>32</b></li>
+        <li><span>Take-home tub, 500 ml</span><b>45</b></li>
+      </ul>
+    </div>
+    <div class="menu-col">
+      <h3>Treats</h3>
+      <ul>
+        <li><span>Affogato with a double espresso</span><b>22</b></li>
+        <li><span>Gelato shake, any flavour</span><b>26</b></li>
+        <li><span>Brioche gelato sandwich</span><b>24</b></li>
+        <li><span>Sorbetto float</span><b>19</b></li>
+      </ul>
+    </div>
+    <div class="menu-col">
+      <h3>Extras</h3>
+      <ul>
+        <li><span>Waffle cone upgrade</span><b>4</b></li>
+        <li><span>Wafer fan</span><b>3</b></li>
+        <li><span>Rainbow sprinkles</span><b>2</b></li>
+        <li><span>Warm chocolate sauce</span><b>4</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit" aria-label="Visit and order">
+  <div class="visit-card">
+    <p class="eyebrow">Visit us</p>
+    <h2>Come for one scoop, <em>stay for two</em></h2>
+    <div class="visit-grid">
+      <div><small>Address</small><p>Shop 4, Palm Walk, Al Rawdah District, Jeddah</p></div>
+      <div><small>Hours</small><p>Daily 2:00 pm to 1:00 am</p></div>
+      <div><small>Pickup</small><p>Order ahead, ready in 10 minutes</p></div>
+    </div>
+    <div class="visit-cta">
+      <a class="pill pill-dark" href="#build">Build a cone</a>
+      <a class="pill pill-line" href="#menu">See the menu</a>
+    </div>
+    <p class="fine">Dolce Nuvola is a fictional shop made for this concept. Address and prices are examples.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-logo"><span class="logo-mark">DN</span> Dolce Nuvola Gelato</div>
+  <p>Concept demo by Mohammad Gulab Kauser</p>
+  <p class="fine">Photos and video: free-licence stock footage.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="main.js?v=1"></script>
+</body>
+</html>
