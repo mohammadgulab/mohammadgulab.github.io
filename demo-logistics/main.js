@@ -51,7 +51,7 @@ gsap.registerPlugin(ScrollTrigger);
 gsap.from('.h1 .line>span',{yPercent:110,duration:1.1,ease:'power4.out',stagger:.14,delay:.1});
 gsap.from('.hero .eyebrow,.hero .lead,.hero .ctas',{y:24,opacity:0,duration:.9,ease:'power3.out',stagger:.1,delay:.35});
 gsap.from('.hero-media',{clipPath:'inset(18% 10% 0% 10% round 22px)',duration:1.4,ease:'power3.out',delay:.3});
-gsap.fromTo('.hero-media img',{scale:1.18,xPercent:-6},{scale:1.02,xPercent:4,ease:'none',scrollTrigger:{trigger:'.hero-media',start:'top bottom',end:'bottom top',scrub:true}});
+gsap.fromTo('.hero-media img',{scale:1.12,xPercent:-4},{scale:1.0,xPercent:3,ease:'none',scrollTrigger:{trigger:'.hero-media',start:'top bottom',end:'bottom top',scrub:true}});
 gsap.from('.facts>div',{y:30,opacity:0,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.facts',start:'top 92%'}});
 gsap.fromTo('.ghost span',{xPercent:0},{xPercent:-45,ease:'none',scrollTrigger:{trigger:'#services',start:'top bottom',end:'bottom top',scrub:true}});
 gsap.from('#services .h2',{y:50,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#services .h2',start:'top 88%'}});
