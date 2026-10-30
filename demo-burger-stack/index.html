@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stackhouse Burgers | Jeddah smash burgers</title>
+<meta name="description" content="Stackhouse Burgers, Jeddah. Smash burgers stacked to order. Concept demo website.">
+<meta name="theme-color" content="#0f0d0b">
+<meta property="og:title" content="Stackhouse Burgers | Built like a legend">
+<meta property="og:description" content="Scroll and watch the burger come apart, layer by layer.">
+<meta property="og:image" content="https://mohammadgulab.github.io/demo-burger-stack/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@200;300;500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="logo" href="#top"><span class="logo-mark">S</span>STACKHOUSE</a>
+  <nav class="links"><a href="#stack">The Stack</a><a href="#process">Process</a><a href="#combo">Combos</a><a href="#lineup">Menu</a><a href="#visit">Visit</a></nav>
+  <a class="btn btn-sm" href="#lineup">Order <span class="cart-count" id="cartCount">0</span></a>
+</header>
+
+<main id="top">
+  <!-- PINNED STACK STAGE -->
+  <section class="stage" id="stack" aria-label="The Stackhouse burger, layer by layer">
+    <div class="stage-inner">
+      <div class="bg-dark"></div>
+      <div class="bg-light"></div>
+      <div class="glow"></div>
+
+      <div class="hero-copy">
+        <p class="eyebrow">Stackhouse Burgers &middot; Jeddah</p>
+        <h1 class="hero-title"><span>Built like </span><span class="accent">a legend.</span></h1>
+        <p class="hero-sub">Smash burgers stacked to order. Scroll to see what's inside.</p>
+      </div>
+
+      <p class="side side-l"><b>Smashed</b> to order</p>
+      <p class="side side-r">Hand <b>pressed</b> daily</p>
+
+      <div class="burger" id="burger">
+        <div class="shadow"></div>
+      </div>
+
+      <div class="labels" id="labels"></div>
+
+      <h2 class="stack-word" aria-hidden="true">THE<br> STACK</h2>
+
+      <div class="final-copy">
+        <p class="eyebrow">The Stackhouse Classic</p>
+        <h2>Six layers. <span class="accent">One bite.</span></h2>
+        <div class="final-row"><span class="price">SAR 32</span><a class="btn" href="#lineup">Order now</a></div>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
+    </div>
+  </section>
+
+
+  <!-- PROCESS STORY -->
+  <section class="process" id="process" aria-label="How we make it">
+    <div class="proc-intro">
+      <p class="mono">// The process</p>
+      <h2 class="thin">Four steps.<br><span>No shortcuts.</span></h2>
+    </div>
+    <article class="chap" data-img="img/p-smash.webp">
+      <div class="chap-bg"><img src="img/p-smash.webp" alt="Fresh beef patties" loading="lazy"></div>
+      <div class="smoke"><i></i><i></i><i></i></div>
+      <div class="chap-in">
+        <p class="mono">// 01</p>
+        <h3 class="thin">The Cut</h3>
+        <p class="chap-sub">Chuck and brisket, trimmed by hand every morning.</p>
+        <div class="specs"><div><b data-n="2">0</b><span>Cuts</span></div><div><b data-n="80" data-s="/20">0</b><span>Lean to fat</span></div><div><b data-n="6" data-s="AM">0</b><span>Daily prep</span></div></div>
+      </div>
+    </article>
+    <article class="chap">
+      <div class="chap-bg"><img src="img/p-grind.webp" alt="Beef going through the grinder" loading="lazy"></div>
+      <div class="smoke"><i></i><i></i><i></i></div>
+      <div class="chap-in">
+        <p class="mono">// 02</p>
+        <h3 class="thin">The Grind</h3>
+        <p class="chap-sub">Coarse ground twice, kept cold, never frozen.</p>
+        <div class="specs"><div><b data-n="2" data-s="X">0</b><span>Grind</span></div><div><b data-n="4" data-s="&deg;">0</b><span>Kept cold</span></div><div><b data-n="0">0</b><span>Freezers</span></div></div>
+      </div>
+    </article>
+    <article class="chap">
+      <div class="chap-bg"><img src="img/p-griddle.webp" alt="Patties smashed on the hot plate" loading="lazy"></div>
+      <div class="smoke"><i></i><i></i><i></i></div>
+      <div class="chap-in">
+        <p class="mono">// 03</p>
+        <h3 class="thin">The Smash</h3>
+        <p class="chap-sub">Rolled into balls, smashed flat on a screaming hot plate.</p>
+        <div class="specs"><div><b data-n="120" data-s="G">0</b><span>Per ball</span></div><div><b data-n="8" data-s="S">0</b><span>Hard press</span></div><div><b data-n="2">0</b><span>Patties</span></div></div>
+      </div>
+    </article>
+    <article class="chap">
+      <div class="chap-bg"><img src="img/p-sear.webp" alt="Patty searing over open flame" loading="lazy"></div>
+      <div class="smoke"><i></i><i></i><i></i></div>
+      <div class="chap-in">
+        <p class="mono">// 04</p>
+        <h3 class="thin">The Sear</h3>
+        <p class="chap-sub">The beef waits. Crust first, flip once, cheese on.</p>
+        <div class="specs"><div><b data-n="230" data-s="&deg;">0</b><span>Plate heat</span></div><div><b data-n="90" data-s="S">0</b><span>Crust time</span></div><div><b data-n="1">0</b><span>Flip</span></div></div>
+      </div>
+    </article>
+
+    <div class="ingr">
+      <div class="ingr-head"><p class="mono">// What goes in</p><h2 class="thin">Every layer <span>earns its place.</span></h2></div>
+      <div class="ingr-grid">
+        <figure class="cut"><img src="img/bun-top.webp" alt="Brioche bun" loading="lazy"><figcaption>Brioche<small>Baked daily</small></figcaption></figure>
+        <figure class="ph"><img src="img/p-cheese.webp" alt="Cheddar melting on burgers" loading="lazy"><figcaption>Cheddar<small>Melted on the grill</small></figcaption></figure>
+        <figure class="cut"><img src="img/lettuce.webp" alt="Lettuce" loading="lazy"><figcaption>Lettuce<small>Cold and crisp</small></figcaption></figure>
+        <figure class="ph"><img src="img/p-smoke.webp" alt="Patties cooking with smoke" loading="lazy"><figcaption>Fire<small>Smoke and sizzle</small></figcaption></figure>
+        <figure class="cut"><img src="img/tomato.webp" alt="Tomato slices" loading="lazy"><figcaption>Tomato<small>Thick cut</small></figcaption></figure>
+        <figure class="cut"><img src="img/patty.webp" alt="Smash patty" loading="lazy"><figcaption>Beef<small>Smashed to order</small></figcaption></figure>
+      </div>
+    </div>
+
+    <div class="history">
+      <div class="hist-head"><p class="mono">// Where it began</p><h2 class="thin">One griddle. <span>One rule.</span></h2><p class="hist-lead">Stackhouse started as a weekend stall with a single hot plate and one rule: smash it fresh, serve it hot. The story below is part of this concept demo.</p></div>
+      <ol class="timeline">
+        <li><b>The stall</b><span>Weekend nights, one griddle, a queue around the corner.</span></li>
+        <li><b>The recipe</b><span>House sauce settled after a hundred late night tastings.</span></li>
+        <li><b>The shop</b><span>A small counter in Jeddah with the same hot plate energy.</span></li>
+        <li><b>Today</b><span>Still smashed to order. Still one flip.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- COMBO -->
+  <section class="combo" id="combo">
+    <div class="combo-media reveal"><img src="img/combo.webp" alt="Stackhouse combo box with burger" loading="lazy" width="900" height="900"></div>
+    <div class="combo-copy reveal">
+      <p class="eyebrow">Game Day Combo</p>
+      <h2>The all-star <span class="accent">box.</span></h2>
+      <ul class="ticks">
+        <li>Stackhouse Classic or Double Smash</li>
+        <li>Golden fries with house seasoning</li>
+        <li>Any thick shake or a cold drink</li>
+      </ul>
+      <div class="final-row"><span class="price">SAR 49</span><button class="btn add" data-name="Game Day Combo" data-price="49">Add to order</button></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true"><div class="marquee-track">
+    <span>Smashed to order</span><span>&#9679;</span><span>Toasted brioche</span><span>&#9679;</span><span>Melted cheddar</span><span>&#9679;</span><span>Secret house sauce</span><span>&#9679;</span><span>Smashed to order</span><span>&#9679;</span><span>Toasted brioche</span><span>&#9679;</span><span>Melted cheddar</span><span>&#9679;</span><span>Secret house sauce</span><span>&#9679;</span>
+  </div></div>
+
+  <!-- LINEUP -->
+  <section class="lineup" id="lineup">
+    <div class="section-head reveal">
+      <p class="eyebrow">Menu</p>
+      <h2>The <span class="accent">lineup.</span></h2>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="visit">
+    <div class="cta-inner reveal">
+      <h2>Hungry <span>yet?</span></h2>
+      <p>Pick up in 15 minutes or get it delivered hot across Jeddah.</p>
+      <div class="cta-btns"><a class="btn btn-dark" href="#lineup">Order for pickup</a><a class="btn btn-ghost" href="#lineup">Order delivery</a></div>
+      <div class="visit-grid">
+        <div><h3>Find us</h3><p>Tahlia Street, Al Andalus<br>Jeddah, Saudi Arabia</p></div>
+        <div><h3>Open daily</h3><p>Sat to Thu: 12 pm to 2 am<br>Friday: 1 pm to 2 am</p></div>
+        <div><h3>Say hi</h3><p>@stackhouse.demo<br>Sample contact, demo only</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <a class="logo" href="#top"><span class="logo-mark">S</span>STACKHOUSE</a>
+  <p>Fictional brand, sample menu and prices.</p>
+  <p class="photo-credits">Photos: <a href="https://commons.wikimedia.org/wiki/File:Minced_Beef.jpg" rel="noopener">Abdellah zou</a> (CC BY-SA 4.0, Wikimedia Commons); <a href="https://commons.wikimedia.org/wiki/File:Burger_patties_at_BJBF_2026_20260503144238.jpg" rel="noopener">TurnOnTheNight</a> (CC BY-SA 4.0, Wikimedia Commons); <a href="https://commons.wikimedia.org/wiki/File:Burger_being_placed_on_barbecue.jpg" rel="noopener">domdomegg</a> (CC BY 4.0, Wikimedia Commons); <a href="https://commons.wikimedia.org/wiki/File:Cooking_burger_patties_at_BJBF_2026_20260503151926.jpg" rel="noopener">TurnOnTheNight</a> (CC BY-SA 4.0, Wikimedia Commons); <a href="https://commons.wikimedia.org/wiki/File:Griddled_hamburger_and_bacon_at_Copped_Hall_open_day_event,_Essex,_England.jpg" rel="noopener">Acabashi</a> (CC BY-SA 4.0, Wikimedia Commons); <a href="https://commons.wikimedia.org/wiki/File:Flickr_XP-ert_489502412--Cheeseburgers_on_grill.jpg" rel="noopener">XP-ert</a> (CC BY-SA 2.0, Wikimedia Commons).</p>
+  <p class="credit">Concept demo by <a href="https://mohammadgulab.github.io/">Mohammad Gulab Kauser</a></p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="main.js?v=2"></script>
+</body>
+</html>
