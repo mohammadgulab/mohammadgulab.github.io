@@ -222,3 +222,23 @@ input[type=range]{width:100%;accent-color:var(--or)}
   .promo{font-size:11px}
   .sc-info p#scDesc{display:none}
 }
+
+/* v2: showcase in the reel's dark palette, product photos framed (no cut-out halos), ratings removed */
+.showcase{background:#121115;color:#f2efe9}
+.sc-label{color:#f2efe9}
+.sc-idx{color:#8b8792}
+.sc-info p{color:#a8a3ad}
+.sc-price{color:#f2efe9 !important}
+.sc-model{background:#1c1a20;border:1px solid rgba(255,255,255,.07)}
+.sc-flat{border-radius:22px;overflow:hidden;background:#1c1a20;border:1px solid rgba(255,255,255,.07)}
+.sc-flat img{object-fit:cover;filter:none;transform:translateX(40px) scale(1.04)}
+.sc-flat img.prev{transform:translateX(-40px) scale(1.04)}
+.sc-flat img.cur{transform:none}
+.sc-dots i{background:#2c2a31}
+.gender{background:#1c1a20}
+.rate[hidden]{display:none}
+.showcase .gender button{color:#8b8792}
+.showcase .gender button.on{background:var(--or);color:#160c06}
+.showcase .btn-dark{background:#f2efe9;color:#141317}
+.bag-open .toast{bottom:190px}.bag-open .toast:not(.show){opacity:0}
+@media (min-width:901px){#filtersApply{display:none}}
