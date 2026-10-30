@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ARKAN | New Arrivals, Outerwear</title>
+<meta name="description" content="ARKAN, premium outerwear from Jeddah. Jackets, coats and blazers, with a see it on preview for every piece.">
+<meta name="theme-color" content="#121115">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="promo">Free delivery in Jeddah over SAR 500 <span>·</span> Returns within 14 days</div>
+<header class="top">
+  <button class="icon only-m" id="filtersOpen2" aria-label="Menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+  <a class="brand" href="#">ARKAN<i></i></a>
+  <nav class="links"><a href="#grid" class="on">New</a><a href="#grid">Men</a><a href="#grid">Women</a><a href="#showcase">Showcase</a><a href="#grid">Sale</a></nav>
+  <div class="tools">
+    <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/></svg><input id="q" placeholder="Search jackets, coats" aria-label="Search"></label>
+    <button class="icon" id="bagOpen" aria-label="Open bag"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg><b id="bagCount">0</b></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-txt">
+    <p class="kicker"><span></span>Autumn Winter 26</p>
+    <h1>Built for the cold.<br><em>Cut for the city.</em></h1>
+    <p class="sub">Leather, wool and down outerwear, finished by hand in our Jeddah studio.</p>
+    <div class="hero-cta"><a class="btn-o" href="#grid">Shop new arrivals</a><a class="btn-g" href="#showcase">See the showcase</a></div>
+  </div>
+  <div class="hero-img"><img src="img/m12577722.webp" alt="Model in the Rider Leather Jacket" fetchpriority="high"><span class="tag">Rider Leather Jacket <b>SAR 1,450</b></span></div>
+</section>
+
+<main class="shop" id="grid">
+  <aside class="filters" id="filters" aria-label="Filters">
+    <div class="f-head"><h2>Filters</h2><button class="icon only-m" id="filtersClose" aria-label="Close filters"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <div class="fg"><h3>Category</h3><div id="cats"></div></div>
+    <div class="fg"><h3>Size</h3><div class="sizes" id="fsizes"><button>XS</button><button>S</button><button class="on">M</button><button>L</button><button>XL</button></div></div>
+    <div class="fg"><h3>Colour</h3><div class="swatches"><button style="--c:#111" aria-label="Black" class="on"></button><button style="--c:#6b4a33" aria-label="Brown"></button><button style="--c:#c8a77f" aria-label="Sand"></button><button style="--c:#3c5a80" aria-label="Blue"></button><button style="--c:#e9e4dc" aria-label="Ivory"></button></div></div>
+    <div class="fg"><h3>Max price <output id="pv">SAR 1,500</output></h3><input type="range" id="price" min="150" max="1500" step="10" value="1500" aria-label="Max price"></div>
+    <button class="btn-o wide only-m" id="filtersApply">Show results</button>
+  </aside>
+
+  <section class="list">
+    <div class="list-head">
+      <div><h2>New Arrivals</h2><p id="count">8 products</p></div>
+      <div class="lh-r"><button class="chip only-m" id="filtersOpen"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters</button>
+      <label class="sort">Sort <select id="sort"><option value="new">Newest</option><option value="lo">Price, low to high</option><option value="hi">Price, high to low</option></select></label></div>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+</main>
+
+<section class="showcase" id="showcase">
+  <div class="sc-pin">
+    <div class="sc-top">
+      <p class="sc-label">Products showcase</p>
+      <div class="gender" role="tablist"><button class="on" data-g="men" role="tab">Men</button><button data-g="women" role="tab">Women</button></div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-info">
+        <span class="sc-idx" id="scIdx">01 / 06</span>
+        <h2 id="scName">Onyx Puffer Jacket</h2>
+        <p id="scDesc">Box quilted puffer with a high collar and matte shell.</p>
+        <p class="sc-price" id="scPrice">SAR 890</p>
+        <button class="btn-dark" id="scShop">Shop now</button>
+      </div>
+      <div class="sc-model" id="scModel"></div>
+      <div class="sc-flat" id="scFlat"></div>
+    </div>
+    <div class="sc-dots" id="scDots"></div>
+  </div>
+</section>
+
+<section class="perks">
+  <div><b>Hand finished</b><span>Every seam checked in our Jeddah studio</span></div>
+  <div><b>Same day</b><span>Delivery across Jeddah before 2 pm</span></div>
+  <div><b>Free alterations</b><span>Sleeves and hems, on us</span></div>
+</section>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div><a class="brand" href="#">ARKAN<i></i></a><p>Studio 7, Tahlia Street, Al Andalus District, Jeddah. Fictional brand and address.</p></div>
+    <div class="credits"><p>Photos: Pexels contributors, free licence. <a href="#" id="creditsBtn">Photo credits</a></p><p class="me">Concept demo by Mohammad Gulab Kauser</p></div>
+  </div>
+  <ul class="credit-list" id="creditList" hidden></ul>
+</footer>
+
+<!-- quick view -->
+<div class="veil" id="veil"></div>
+<div class="qv" id="qv" role="dialog" aria-modal="true" aria-labelledby="qvName">
+  <button class="icon qv-x" id="qvClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="qv-media">
+    <div class="qv-tabs"><button class="on" data-v="product">Product</button><button data-v="on">See it on <svg viewBox="0 0 24 24"><path d="M12 5a2 2 0 1 1 2 2c-1 0-2 .7-2 2l-8 5a1 1 0 0 0 .6 2h14.8a1 1 0 0 0 .6-2l-8-5"/></svg></button></div>
+    <div class="qv-stage" id="qvStage"><img id="qvProd" alt=""><img id="qvOn" alt=""></div>
+    <div class="qv-g" id="qvG"><button class="on" data-g="men">Men</button><button data-g="women">Women</button></div>
+  </div>
+  <div class="qv-info">
+    <p class="qv-cat" id="qvCat">Jackets</p>
+    <h2 id="qvName">Name</h2>
+    <div class="qv-price"><b id="qvPrice"></b><s id="qvOld"></s><span class="rate" id="qvRate"></span></div>
+    <p class="qv-desc" id="qvDesc"></p>
+    <p class="qv-l">Size <span id="qvSizeL">M</span></p>
+    <div class="sizes" id="qvSizes"><button>XS</button><button>S</button><button class="on">M</button><button>L</button><button>XL</button></div>
+    <button class="btn-o wide" id="qvAdd"><span>Add to bag</span></button>
+    <button class="btn-g wide" id="qvSee">See it on a model</button>
+    <ul class="qv-meta"><li>Free delivery in Jeddah over SAR 500</li><li>Free returns within 14 days</li></ul>
+  </div>
+</div>
+
+<!-- bag -->
+<aside class="bag" id="bag" aria-label="Shopping bag">
+  <div class="bag-h"><h2>Your bag <span id="bagN"></span></h2><button class="icon" id="bagClose" aria-label="Close bag"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="bag-list" id="bagList"></div>
+  <div class="bag-f"><div class="row"><span>Subtotal</span><b id="bagSub">SAR 0</b></div><div class="row s"><span>Delivery in Jeddah</span><span id="bagDel">Free</span></div><button class="btn-o wide" id="checkout">Checkout</button></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+<script src="data.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
