@@ -3,315 +3,235 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>HALQA Freight | Sea, air and land freight from Jeddah Islamic Port</title>
-<meta name="description" content="HALQA Freight, a concept freight forwarder at Jeddah Islamic Port: ocean, air, land freight, customs clearance and warehousing. Concept demo.">
-<meta name="theme-color" content="#06101f">
+<title>Qafila Freight | Logistics from Jeddah</title>
+<meta name="description" content="Qafila Freight: ocean, air and road freight, customs clearance and warehousing from Jeddah. Concept demo.">
+<meta name="theme-color" content="#ebebe8">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112..125,500..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=1">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
-<header class="nav" id="nav">
-  <a class="logo" href="#top" aria-label="HALQA Freight home">
-    <svg viewBox="0 0 40 24" aria-hidden="true"><rect x="2" y="4" width="22" height="16" rx="8" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="16" y="4" width="22" height="16" rx="8" fill="none" stroke="#ff6a1a" stroke-width="3.2"/></svg>
-    <span>HALQA<small>Freight</small></span>
-  </a>
-  <nav class="links" aria-label="Main"><a href="#services">Services</a><a href="#milestones">Tracking</a><a href="#coverage">Coverage</a><a href="#quote">Quote</a></nav>
-  <a class="btn btn-sm" href="#quote">Get a quote</a>
+<header class="hdr" id="top">
+  <div class="wrap hdr-in">
+    <a href="#top" class="logo" aria-label="Qafila Freight home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 22 13 8h6L9 22Z"/><path d="M13 22 23 8h6L19 22Z" opacity=".45"/></svg>
+      <span>QAFILA</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#services">Services</a><a href="#track">Track</a><a href="#fleet">Fleet</a><a href="#rates">Rates</a><a href="#quote" class="pill dark sm">Get a quote</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
 </header>
+<div class="mnav" id="mnav" aria-hidden="true">
+  <a href="#services">Services</a><a href="#track">Track shipment</a><a href="#fleet">Fleet</a><a href="#rates">Rates</a><a href="#quote">Get a quote</a><a href="#contact">Contact</a>
+  <p class="mnav-foot">Al Khumrah Logistics Park, Jeddah</p>
+</div>
 
-<main id="top">
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-sticky">
-    <div class="earth" id="earth"><img src="img/earth.webp" alt="Curve of the Earth seen from orbit above a sea of clouds" width="1920" height="1278" fetchpriority="high"></div>
-    <div class="hero-white" id="heroWhite"></div>
-    <div class="hero-copy" id="heroCopy">
-      <p class="eyebrow">HALQA Freight · Jeddah Islamic Port</p>
-      <h1>One operator.<br>Every mile.</h1>
-      <p class="lead">Ocean, air and land freight, customs and warehousing. Every link of your supply chain, under one roof.</p>
-      <div class="cta-row"><a class="btn" href="#quote">Get a quote</a><a class="btn btn-ghost" href="#milestones">Track a shipment</a></div>
-    </div>
-    <div class="scroll-hint" id="scrollHint"><span></span>Scroll</div>
-  </div>
-</section>
-
-<!-- INTRO + STATS -->
-<section class="intro" id="intro">
+<main>
+<section class="hero">
   <div class="wrap">
-    <p class="eyebrow">01 / Who we are</p><h2 class="big reveal"><span class="g">We move<br>freight.</span><br>We own<br>outcomes.</h2><p class="lead dark">From countless journeys, clarity emerges. One operator, every mode, out of Jeddah.</p>
-    <div class="stats">
-      <div class="stat reveal"><b data-count="2500" data-suffix="+">0</b><span>containers handled a month</span></div>
-      <div class="stat reveal"><b data-count="98.2" data-dec="1" data-suffix="%">0</b><span>on-time delivery</span></div>
-      <div class="stat reveal"><b data-count="40" data-suffix="+">0</b><span>ports on our network</span></div>
-    </div>
-    <p class="fine">Sample figures for this concept site.</p>
+    <p class="eyebrow"><span class="dot"></span>Freight forwarding · Jeddah, KSA</p>
+    <h1 class="h1">
+      <span class="line"><span class="mute">We move cargo.</span></span>
+      <span class="line"><span>We own the route.</span></span>
+    </h1>
+    <p class="lead">Ocean, air and road freight out of Jeddah, with customs clearance and storage handled by one team that answers the phone.</p>
+    <div class="ctas"><a href="#quote" class="pill dark">Get a quote <i>→</i></a><a href="#track" class="pill line">Track a shipment</a></div>
   </div>
-</section>
-
-<!-- YARD: stacker -> truck -->
-<section class="yard" id="yard">
-  <div class="yard-sticky">
-    <div class="yard-caption">
-      <p class="step-num" id="stepNum">01 / 04</p>
-      <h3 id="stepTitle">Picked at the port.</h3>
-      <p id="stepText">Our yard team lifts your box straight off the stack at Jeddah Islamic Port.</p>
-      <div class="ybar"><i id="ybar"></i></div>
-    </div>
-    <div class="yard-view" id="yardView">
-      <div class="yard-ghost" id="yardGhost" aria-hidden="true">SERVICES</div>
-      <div class="yard-world" id="yardWorld">
-        <svg id="yardSvg" viewBox="-400 0 2400 800" aria-label="Illustration: a reach stacker lifts a container from a stack and loads it onto a truck">
-          <defs>
-            <pattern id="rib" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="none"/><rect x="0" width="6" height="10" fill="#000" opacity=".13"/></pattern>
-            <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9dde3"/><stop offset="1" stop-color="#bfc5cd"/></linearGradient>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef3f8"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
-            <linearGradient id="yel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8fc2"/><stop offset="1" stop-color="#1c6a96"/></linearGradient><linearGradient id="boomc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2f36"/><stop offset="1" stop-color="#121418"/></linearGradient><pattern id="haz" width="20" height="16" patternUnits="userSpaceOnUse" patternTransform="skewX(-35)"><rect width="20" height="16" fill="#111"/><rect width="10" height="16" fill="#ff7a1a"/></pattern>
-            <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfe3ff"/><stop offset="1" stop-color="#5d8fb8"/></linearGradient>
-            <g id="wheel"><circle r="30" fill="#1b1f27"/><circle r="17" fill="#5b6472"/><circle r="6" fill="#c9cfd8"/><rect x="-2" y="-16" width="4" height="10" fill="#c9cfd8"/></g>
-            <g id="bigwheel"><circle r="44" fill="#1b1f27"/><circle r="26" fill="#5b6472"/><circle r="8" fill="#c9cfd8"/><rect x="-3" y="-24" width="6" height="13" fill="#c9cfd8"/></g>
-          </defs>
-          <rect x="-400" width="2400" height="800" fill="url(#sky)"/>
-          <!-- port photo backdrop -->
-          <image href="img/port.webp" x="-400" y="-686" width="2400" height="1320" preserveAspectRatio="xMidYMax slice"/>
-          <rect x="-400" y="0" width="2400" height="634" fill="#ecebe7" opacity=".28"/>
-          <!-- background stacks -->
-          <g opacity=".55">
-            <g class="ctr" transform="translate(-180,520)"><rect width="300" height="110" fill="#1f2a44"/><rect width="300" height="110" fill="url(#rib)"/></g>
-            <g class="ctr" transform="translate(-180,410)"><rect width="300" height="110" fill="#8a8f96"/><rect width="300" height="110" fill="url(#rib)"/></g>
-          </g>
-          <rect x="-400" y="630" width="2400" height="170" fill="url(#ground)"/>
-          <rect x="-400" y="628" width="2400" height="4" fill="#aab2bd"/>
-          <g id="marks" fill="#fff" opacity=".8"></g>
-          <!-- main stack (ground y=690) -->
-          <g id="stack">
-            <g transform="translate(60,580)"><rect width="300" height="110" rx="3" fill="#1f2a44"/><rect width="300" height="110" fill="url(#rib)"/><rect x="8" y="8" width="70" height="18" rx="2" fill="#fff" opacity=".18"/></g>
-            <g transform="translate(60,470)"><rect width="300" height="110" rx="3" fill="#c8372d"/><rect width="300" height="110" fill="url(#rib)"/></g>
-          </g>
-          <!-- stacker (back lane) -->
-          <g id="stacker">
-            <!-- boom drawn first so body overlaps pivot -->
-            <g id="boomG"><rect id="boomOuter" x="0" y="-17" width="400" height="34" rx="6" fill="url(#boomc)"/><rect id="boomInner" x="0" y="-12" width="200" height="24" rx="4" fill="#3a3f48"/><text x="120" y="6" font-family="Archivo,Arial" font-weight="800" font-size="15" fill="#fff" letter-spacing="2">HALQA PORT</text><circle r="15" fill="#3a3f48"/></g>
-            <g id="body">
-              <path d="M0,-40 L20,-118 L380,-118 L400,-80 L400,-40 Z" fill="url(#yel)" stroke="#145276" stroke-width="2"/>
-              <rect x="300" y="-190" width="80" height="80" rx="6" fill="#1c6a96" stroke="#145276" stroke-width="2"/>
-              <path d="M140,-118 L150,-235 L250,-235 L262,-118 Z" fill="#2c313a"/>
-              <path d="M156,-128 L163,-222 L240,-222 L248,-128 Z" fill="url(#glass)"/>
-              <rect x="146" y="-245" width="112" height="14" rx="4" fill="#1c6a96"/>
-              <rect x="20" y="-60" width="370" height="12" fill="#2c313a"/>
-              <text x="285" y="-80" font-family="Archivo,Arial" font-weight="800" font-size="22" fill="#fff">HALQA</text>
-              <use href="#bigwheel" x="80" y="-44"/><use href="#wheel" x="330" y="-30"/>
-              <rect x="350" y="-150" width="40" height="8" rx="3" fill="#ff6a1a"/>
-            </g>
-          </g>
-          <!-- carried container (moves) -->
-          <g id="carry">
-            <g id="spreader"><rect x="-160" y="-14" width="320" height="16" rx="2" fill="url(#haz)"/><rect x="-150" y="2" width="14" height="10" fill="#ff6a1a"/><rect x="136" y="2" width="14" height="10" fill="#ff6a1a"/><rect x="-14" y="-40" width="28" height="30" rx="4" fill="#3a3f48"/></g>
-            <g id="box" transform="translate(-150,12)">
-              <rect width="300" height="110" rx="3" fill="#dcdcd8"/><rect width="300" height="110" fill="url(#rib)"/>
-              <rect x="0" y="0" width="300" height="7" fill="#000" opacity=".15"/>
-              <text x="22" y="40" font-family="Archivo,Arial" font-weight="800" font-size="26" fill="#1b1d21">HALQA</text>
-              <text x="22" y="62" font-family="Archivo,Arial" font-weight="600" font-size="13" fill="#1b1d21" opacity=".7">HLQU 204178 · 40HC</text>
-            </g>
-          </g>
-          <!-- truck (front lane, ground y=730) -->
-          <g id="truck">
-            <rect x="0" y="-120" width="345" height="22" rx="3" fill="#2c313a"/>
-            <rect x="10" y="-98" width="300" height="20" fill="#3a3f48"/>
-            <use class="tw" href="#wheel" x="40" y="-30"/><use class="tw" href="#wheel" x="105" y="-30"/><use class="tw" href="#wheel" x="270" y="-30"/>
-            <!-- cab -->
-            <path d="M350,-60 L350,-200 L430,-200 Q470,-198 478,-150 L486,-110 L486,-60 Z" fill="#15171b"/>
-            <path d="M362,-188 L425,-188 Q455,-186 463,-150 L466,-136 L362,-136 Z" fill="url(#glass)"/>
-            <rect x="350" y="-112" width="136" height="6" fill="#3a3f48"/>
-            <rect x="476" y="-96" width="14" height="22" rx="3" fill="#ffd25e"/>
-            <rect x="340" y="-80" width="150" height="22" rx="4" fill="#1b1f27"/>
-            <use class="tw" href="#wheel" x="440" y="-30"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES (dark panel rising) -->
-<section class="services" id="services">
-  <div class="ghost" aria-hidden="true">OUR SERVICES</div>
   <div class="wrap">
-    <p class="eyebrow light">02 / What we do</p>
-    <h2 class="big light reveal"><span class="g">Everything</span><br>your freight needs</h2>
+    <div class="hero-media">
+      <img src="img/truck.webp?v=1" alt="White Qafila Freight tractor unit parked in an industrial yard" width="1300" height="810" fetchpriority="high">
+      <div class="chip float"><span class="live"></span>JED → RUH · on the road</div>
+      <div class="chip float2">Customs cleared · Jeddah port</div>
+    </div>
+    <div class="facts">
+      <div><b>24/7</b><span>Operations desk</span></div>
+      <div><b>4</b><span>Transport modes</span></div>
+      <div><b>1</b><span>Point of contact</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="mq-track">
+  <span>JEDDAH</span><i>✦</i><span>RIYADH</span><i>✦</i><span>DAMMAM</span><i>✦</i><span>DUBAI</span><i>✦</i><span>MUMBAI</span><i>✦</i><span>SHANGHAI</span><i>✦</i><span>ROTTERDAM</span><i>✦</i>
+  <span>JEDDAH</span><i>✦</i><span>RIYADH</span><i>✦</i><span>DAMMAM</span><i>✦</i><span>DUBAI</span><i>✦</i><span>MUMBAI</span><i>✦</i><span>SHANGHAI</span><i>✦</i><span>ROTTERDAM</span><i>✦</i>
+</div></div>
+
+<section class="dark sec" id="services">
+  <div class="ghost" aria-hidden="true"><span>OUR SERVICES</span></div>
+  <div class="wrap">
+    <p class="eyebrow light"><span class="dot"></span>What we do</p>
+    <h2 class="h2"><span class="mute">Everything your freight needs.</span> Under one roof.</h2>
     <div class="svc-grid">
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 15h18l-2 5H5zM6 15V9h5v6M11 15V6h5v9M16 15v-4h3v4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Ocean freight</h3><p>FCL and LCL from Jeddah Islamic Port to more than 40 ports, with weekly sailings and booking confirmed in hours.</p><em>from SAR 2,850 / 20ft</em></article>
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M2 13l8-2 4-7h2l-2 7 6 1v2l-6 1 2 7h-2l-4-7-8-2z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Air freight</h3><p>Express and consolidated cargo through King Abdulaziz International, for the shipments that cannot wait.</p><em>from SAR 9 / kg</em></article>
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M2 7h12v9H2zM14 10h4l3 3v3h-7zM6 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Land freight</h3><p>FTL and LTL trucking across the Kingdom and the GCC, door to door, with live position updates.</p><em>from SAR 1,450 / trip</em></article>
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4zM8 12h8M8 16h5M8 8h4" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Customs clearance</h3><p>In-house licensed brokers prepare, file and follow up every declaration, so your goods are not stuck at the gate.</p><em>from SAR 650 / entry</em></article>
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6v10H3zM7 20v-6h10v6M7 17h10" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Warehousing</h3><p>Bonded and general storage near the port with pick, pack and cross-dock, and stock visible online.</p><em>from SAR 35 / pallet / week</em></article>
-      <article class="svc reveal"><span class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V9l6-5v16M10 20V11l10 3v6M2 20h20" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span><h3>Project cargo</h3><p>Out-of-gauge and heavy lifts for construction and energy sites, planned with route surveys and permits.</p><em>quoted per project</em></article>
-    </div>
-    <div class="photo-row">
-      <figure class="reveal"><img src="img/terminal.webp" alt="Container terminal with quay cranes and a container ship" loading="lazy" width="900" height="1100"><figcaption>Terminal operations</figcaption></figure>
-      <figure class="reveal"><img src="img/quay.webp" alt="Quay cranes over stacked containers at a terminal" loading="lazy" width="900" height="1100"><figcaption>Yard and stacking</figcaption></figure>
-      <figure class="reveal"><img src="img/cranes-tall.webp" alt="Container cranes at dusk" loading="lazy" width="900" height="1100"><figcaption>24/7 port coverage</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<!-- MILESTONES -> SHIP -> CLOUDS (one pinned stage) -->
-<section class="stage" id="milestones">
-  <div class="stage-sticky" id="stage">
-    <div class="sea" id="sea"><div class="sea-img"></div><div class="sea-tint"></div></div>
-    <div class="ship-wrap" id="shipWrap">
-      <svg class="ship" id="ship" viewBox="0 0 1200 260" aria-label="Illustration: container ship from above, loaded with colourful containers">
-        <defs>
-          <linearGradient id="wake" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-          <filter id="soft"><feGaussianBlur stdDeviation="6"/></filter>
-        </defs>
-        <path d="M60,130 L-600,40 L-600,220 Z" fill="url(#wake)" filter="url(#soft)" opacity=".7" transform="translate(0,0)"/>
-        <path d="M70,40 L1010,40 Q1160,60 1195,130 Q1160,200 1010,220 L70,220 Q50,130 70,40 Z" fill="#0e1a2b"/>
-        <path d="M78,48 L1006,48 Q1148,66 1180,130 Q1148,194 1006,212 L78,212 Q60,130 78,48 Z" fill="#7a1f1f"/>
-        <path d="M86,56 L1000,56 Q1132,72 1162,130 Q1132,188 1000,204 L86,204 Q70,130 86,56 Z" fill="#3b4656"/>
-        <g id="bays"></g>
-        <rect x="96" y="66" width="96" height="128" rx="6" fill="#f2f4f7"/>
-        <rect x="104" y="74" width="80" height="112" rx="4" fill="#dfe4ea"/>
-        <rect x="120" y="112" width="30" height="36" rx="4" fill="#ff6a1a"/>
-        <rect x="1060" y="112" width="60" height="36" rx="6" fill="#2c3644"/>
-      </svg>
-    </div>
-    <div class="feat f1"><i>◎</i><b>One point of contact</b><span>A named coordinator from booking to delivery.</span></div>
-    <div class="feat f2"><i>▦</i><b>Live shipment visibility</b><span>Every milestone pushed to your phone.</span></div>
-    <div class="feat f3"><i>✓</i><b>Customs handled in-house</b><span>Licensed brokers, no hand-offs.</span></div>
-    <div class="feat f4"><i>SAR</i><b>Clear SAR pricing</b><span>All-in quotes, no surprises at the gate.</span></div>
-    <div class="clouds" id="clouds"><div class="cl-img"></div><div class="puff p1"></div><div class="puff p2"></div><div class="puff p3"></div><div class="puff p4"></div><div class="puff p5"></div></div>
-
-    <div class="half half-a" id="halfA">
-      <div class="half-in">
-        <p class="eyebrow">03 / Track and trace</p>
-        <h2 class="big"><span class="g">Reliability</span><br>at every<br>milestone</h2>
-        <p class="lead dark">Five checkpoints, one shipment, zero chasing. You see what we see.</p>
-      </div>
-    </div>
-    <div class="half half-b" id="halfB">
-      <div class="half-in">
-        <div class="pix-feats"><div class="pf"><svg viewBox="0 0 12 12"><path d="M5 0h2v2H5zM2 2h2v2H2zM8 2h2v2H8zM0 5h2v2H0zM10 5h2v2h-2zM5 5h2v2H5zM2 8h2v2H2zM8 8h2v2H8zM5 10h2v2H5z"/></svg><h3>Real-time freight tracking</h3><p>Know exactly where your cargo is at every milestone.</p></div></div>
-        <div class="track-card">
-          <div class="tc-head"><span>Shipment HLQ-20417</span><span class="chip" id="chip">Booked</span></div>
-          <p class="tc-route">Jeddah Islamic Port <i>to</i> Port of Jebel Ali</p>
-          <ol class="ms" id="msList">
-            <li><b>Booked</b><span>Space confirmed on the vessel</span></li>
-            <li><b>Picked up</b><span>Loaded at your warehouse, Al Khumrah</span></li>
-            <li><b>Customs cleared</b><span>Export declaration approved</span></li>
-            <li><b>At sea</b><span>Sailing, ETA in 4 days</span></li>
-            <li><b>Delivered</b><span>Signed for at the consignee</span></li>
-          </ol>
+      <article class="svc reveal">
+        <div class="svc-img"><img src="img/port.webp?v=1" alt="Container cranes at a sea port" loading="lazy" width="1300" height="975"></div>
+        <div class="svc-body">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 17h18l-2 4H5zM5 17V9h6v8M13 17v-5h6v5M8 9V5"/></svg>
+          <h3>Ocean freight</h3><p>FCL and LCL through Jeddah Islamic Port, booked, tracked and cleared for you.</p>
+          <span class="from">from SAR 180 / CBM</span>
         </div>
-      </div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><img src="img/wing.webp?v=1" alt="Aircraft wing above the clouds at sunset" loading="lazy" width="1100" height="1467"></div>
+        <div class="svc-body">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M2 14l8-2 4-8h2l-2 8 6 1v2l-6 1 2 6h-2l-4-6-8-1z"/></svg>
+          <h3>Air freight</h3><p>Urgent and high-value cargo on scheduled flights, door to door.</p>
+          <span class="from">from SAR 9.5 / kg</span>
+        </div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><img src="img/truck.webp?v=1" alt="Qafila tractor unit" loading="lazy" width="1300" height="810"></div>
+        <div class="svc-body">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 10h4l3 3v3h-7M6 19a2 2 0 1 0 0-.1M17 19a2 2 0 1 0 0-.1"/></svg>
+          <h3>Road freight</h3><p>Full and part loads across the Kingdom and the GCC, with live position updates.</p>
+          <span class="from">from SAR 2,450 / trip</span>
+        </div>
+      </article>
+      <article class="svc reveal">
+        <div class="svc-img"><img src="img/warehouse.webp?v=1" alt="Warehouse racking with stacked pallets" loading="lazy" width="1300" height="866"></div>
+        <div class="svc-body">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6v10H3zM7 20v-6h10v6M7 17h10"/></svg>
+          <h3>Customs &amp; storage</h3><p>Clearance paperwork, bonded and general storage, pick, pack and dispatch.</p>
+          <span class="from">from SAR 35 / pallet / week</span>
+        </div>
+      </article>
     </div>
-    <div class="seam" id="seam"></div>
-    <div class="seam-box" id="seamBox"><svg viewBox="0 0 300 110"><rect width="300" height="110" rx="3" fill="#e2e2de"/><rect width="300" height="110" fill="url(#rib)"/><rect width="300" height="6" fill="#000" opacity=".15"/><text x="22" y="44" font-family="Archivo,Arial" font-weight="800" font-size="28" fill="#1b1d21">HALQA</text><text x="22" y="68" font-family="Archivo,Arial" font-weight="600" font-size="14" fill="#1b1d21" opacity=".7">HLQU 204178</text></svg></div>
   </div>
 </section>
 
-<!-- SKY / TRUST -->
-<section class="sky" id="trust">
-  <svg class="plane" id="plane" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 8c7 0 10 12 10 26v40l78 44v16l-78-22v40l22 16v12l-32-8-32 8v-12l22-16v-40l-78 22v-16l78-44V34c0-14 3-26 10-26z" fill="#fff"/><path d="M100 8c7 0 10 12 10 26v40l78 44v16l-78-22v40l22 16v12l-32-8" fill="#dfe6ef"/></svg>
+<section class="sec road-sec" id="how">
   <div class="wrap">
-    <p class="eyebrow">Trusted across the Gulf</p>
-    <h2 class="big reveal"><span class="g">Logistics that works</span><br>as hard as you do</h2>
-    <blockquote class="quote reveal">
-      <p>"HALQA took our Ramadan stock from three suppliers, cleared it and had it in our Riyadh warehouse two days early. One coordinator, one invoice in SAR, no chasing."</p>
-      <footer>Head of Supply, a retail group in Riyadh <span>(sample testimonial)</span></footer>
-    </blockquote>
-    <div class="marks" aria-label="Sample client names"><span>NORTHDUNE</span><span>Sahel&nbsp;Steel</span><span>KINARA</span><span>Orbis&nbsp;Med</span><span>WADI&nbsp;FOODS</span><span>Qamar&nbsp;Build</span></div>
+    <p class="eyebrow"><span class="dot"></span>How a shipment moves</p>
+    <h2 class="h2"><span class="mute">Reliability at</span> every milestone.</h2>
+  </div>
+  <div class="wrap road-wrap">
+    <svg class="road" id="road" viewBox="0 0 400 760" preserveAspectRatio="none" aria-hidden="true">
+      <path id="roadPath" class="r-base" d="M60 20 C 60 160, 340 140, 330 280 S 70 400, 80 520 S 330 620, 320 740"/>
+      <path class="r-dash" d="M60 20 C 60 160, 340 140, 330 280 S 70 400, 80 520 S 330 620, 320 740"/>
+      <path id="roadDraw" class="r-draw" d="M60 20 C 60 160, 340 140, 330 280 S 70 400, 80 520 S 330 620, 320 740"/>
+    </svg>
+    <span class="pulse" id="pulse"></span>
+    <span class="truck-mk" id="truckMk"><i class="tm-cab"></i><i class="tm-trailer"></i></span>
+    <ol class="steps">
+      <li class="st s1"><b>01</b><h3>Pickup booked</h3><p>Collection from your site or supplier, any city in the Kingdom.</p></li>
+      <li class="st s2"><b>02</b><h3>Docs &amp; customs</h3><p>Invoices, certificates and clearance prepared before the cargo arrives.</p></li>
+      <li class="st s3"><b>03</b><h3>Line-haul or sailing</h3><p>Your cargo on the road, at sea or in the air, with updates at each hand-off.</p></li>
+      <li class="st s4"><b>04</b><h3>Delivered &amp; signed</h3><p>Proof of delivery with name, time and photo, sent straight to you.</p></li>
+    </ol>
   </div>
 </section>
 
-<!-- COVERAGE -->
-<section class="coverage" id="coverage">
-  <div class="wrap cov">
+<section class="sec track-sec" id="track">
+  <div class="wrap">
+    <div class="track-card">
+      <p class="eyebrow light"><span class="dot"></span>Shipment tracking</p>
+      <h2 class="h2 sm">Where is my cargo?</h2>
+      <form class="track-form" id="trackForm" autocomplete="off">
+        <label class="sr" for="trk">Tracking number</label>
+        <input id="trk" name="trk" inputmode="text" placeholder="e.g. QF-24816" value="QF-24816">
+        <button class="pill lime" type="submit">Track</button>
+      </form>
+      <div class="samples">Try: <button type="button" data-id="QF-24816">QF-24816</button><button type="button" data-id="QF-31057">QF-31057</button><button type="button" data-id="QF-40990">QF-40990</button></div>
+      <div class="trk-out" id="trkOut" aria-live="polite"></div>
+      <p class="note">Demo widget with sample shipments.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ocean" id="ocean">
+  <div class="ocean-bg"></div>
+  <div class="ship-wrap"><img class="ship" src="img/ship.webp?v=1" alt="Top-down view of a cargo ship at sea" loading="lazy" width="1100" height="1467"></div>
+  <div class="wrap ocean-in">
+    <h2 class="h2 light">Why teams ship with Qafila</h2>
+    <ul class="why">
+      <li class="w1"><span>01</span>One point of contact from pickup to delivery</li>
+      <li class="w2"><span>02</span>Live shipment updates on WhatsApp and email</li>
+      <li class="w3"><span>03</span>Customs paperwork prepared and checked for you</li>
+      <li class="w4"><span>04</span>Clear quotes in SAR, no surprise add-ons</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="fleet">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span>Our fleet</p>
+    <h2 class="h2"><span class="mute">The right truck</span> for the load.</h2>
+    <div class="fleet">
+      <article class="fl reveal"><div class="fl-top"><span class="tag">Long haul</span><svg viewBox="0 0 120 40"><rect x="2" y="6" width="80" height="24" rx="2"/><path d="M84 12h18l12 10v8H84z"/><circle cx="20" cy="34" r="5"/><circle cx="34" cy="34" r="5"/><circle cx="96" cy="34" r="5"/></svg></div><h3>Curtain-side trailer</h3><ul><li>13.6 m deck</li><li>Up to 24 t</li><li>Side loading</li></ul></article>
+      <article class="fl reveal"><div class="fl-top"><span class="tag">Cold chain</span><svg viewBox="0 0 120 40"><rect x="2" y="6" width="80" height="24" rx="2"/><rect x="6" y="10" width="10" height="8"/><path d="M84 12h18l12 10v8H84z"/><circle cx="20" cy="34" r="5"/><circle cx="34" cy="34" r="5"/><circle cx="96" cy="34" r="5"/></svg></div><h3>Reefer trailer</h3><ul><li>2 to 8 °C or frozen</li><li>Temperature log</li><li>Food and pharma</li></ul></article>
+      <article class="fl reveal"><div class="fl-top"><span class="tag">Project cargo</span><svg viewBox="0 0 120 40"><path d="M2 24h80v6H2z"/><rect x="14" y="10" width="40" height="14"/><path d="M84 12h18l12 10v8H84z"/><circle cx="20" cy="34" r="5"/><circle cx="34" cy="34" r="5"/><circle cx="96" cy="34" r="5"/></svg></div><h3>Flatbed</h3><ul><li>Steel, machinery, precast</li><li>Lashing kit on board</li><li>Escort on request</li></ul></article>
+      <article class="fl reveal"><div class="fl-top"><span class="tag">City</span><svg viewBox="0 0 120 40"><path d="M20 8h56v22H20z"/><path d="M76 14h16l10 8v8H76z"/><circle cx="34" cy="34" r="5"/><circle cx="88" cy="34" r="5"/></svg></div><h3>Delivery van</h3><ul><li>Same-day in Jeddah</li><li>Up to 1.5 t</li><li>Proof of delivery</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec rates-sec" id="rates">
+  <div class="wrap">
+    <p class="eyebrow"><span class="dot"></span>Sample lane rates</p>
+    <h2 class="h2"><span class="mute">Simple pricing</span> in SAR.</h2>
+    <div class="rates">
+      <div class="rt reveal"><div><b>Jeddah → Riyadh</b><span>Road · full truck</span></div><strong>SAR 2,450</strong></div>
+      <div class="rt reveal"><div><b>Jeddah → Dammam</b><span>Road · full truck</span></div><strong>SAR 3,600</strong></div>
+      <div class="rt reveal"><div><b>Jeddah → Dubai</b><span>Road · full truck, customs incl.</span></div><strong>SAR 5,900</strong></div>
+      <div class="rt reveal"><div><b>Jeddah → Nhava Sheva</b><span>Ocean · LCL per CBM</span></div><strong>SAR 180</strong></div>
+      <div class="rt reveal"><div><b>Jeddah → Mumbai</b><span>Air · per kg, 100 kg min.</span></div><strong>SAR 9.5</strong></div>
+    </div>
+    <p class="note dk">Indicative demo prices. Final quote depends on cargo, dates and fuel.</p>
+  </div>
+</section>
+
+<section class="sec quote-sec" id="quote">
+  <div class="wrap quote-grid">
     <div>
-      <p class="eyebrow">Coverage</p>
-      <h2 class="big reveal"><span class="g">From Jeddah</span><br>to everywhere</h2>
-      <p class="lead dark">Direct lanes out of Jeddah Islamic Port, plus our partner network for the rest of the world.</p>
-      <div class="lanes">
-        <div class="lane"><b>Jebel Ali, UAE</b><span>Sea · 4 to 5 days</span></div>
-        <div class="lane"><b>Riyadh &amp; Dammam</b><span>Road · 1 to 2 days</span></div>
-        <div class="lane"><b>Nhava Sheva, India</b><span>Sea · 7 to 9 days</span></div>
-        <div class="lane"><b>Karachi, Pakistan</b><span>Sea · 6 to 8 days</span></div>
-        <div class="lane"><b>Port Said, Egypt</b><span>Sea · 3 to 4 days</span></div>
-        <div class="lane"><b>Rotterdam, Netherlands</b><span>Sea · 16 to 19 days</span></div>
-      </div>
-      <p class="fine">Indicative transit times for this concept site.</p>
+      <p class="eyebrow"><span class="dot"></span>Request a quote</p>
+      <h2 class="h2"><span class="mute">Tell us the load.</span> We reply with a price.</h2>
+      <p class="lead">Share the basics and our Jeddah desk sends a quote in SAR.</p>
     </div>
-    <div class="map" aria-label="Diagram of shipping lanes from Jeddah">
-      <svg viewBox="0 0 400 400" id="mapSvg">
-        <defs><radialGradient id="glow"><stop offset="0" stop-color="#ff6a1a" stop-opacity=".55"/><stop offset="1" stop-color="#ff6a1a" stop-opacity="0"/></radialGradient></defs>
-        <circle cx="200" cy="200" r="190" fill="#0b1b33"/>
-        <g stroke="#1d3355" fill="none"><circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="120"/><circle cx="200" cy="200" r="180"/></g>
-        <g class="routes" fill="none" stroke="#ff9a5c" stroke-width="2" stroke-dasharray="5 6">
-          <path d="M170 230 Q240 180 300 196"/><path d="M170 230 Q210 200 238 204"/><path d="M170 230 Q280 250 352 240"/><path d="M170 230 Q260 230 322 214"/><path d="M170 230 Q150 170 130 150"/><path d="M170 230 Q90 120 60 70"/>
-        </g>
-        <circle cx="170" cy="230" r="40" fill="url(#glow)"/>
-        <g fill="#fff"><circle cx="300" cy="196" r="5"/><circle cx="238" cy="204" r="5"/><circle cx="352" cy="240" r="5"/><circle cx="322" cy="214" r="5"/><circle cx="130" cy="150" r="5"/><circle cx="60" cy="70" r="5"/></g>
-        <circle cx="170" cy="230" r="8" fill="#ff6a1a" stroke="#fff" stroke-width="3"/>
-        <g font-family="Archivo,Arial" font-size="12" font-weight="700" fill="#cfd8e6"><text x="142" y="262">JEDDAH</text><text x="282" y="186">Jebel Ali</text><text x="214" y="222">Riyadh</text><text x="318" y="262">Nhava Sheva</text><text x="300" y="232" text-anchor="end">Karachi</text><text x="88" y="146">Port Said</text><text x="40" y="62">Rotterdam</text></g>
-      </svg>
-    </div>
+    <form class="qf" id="quoteForm" novalidate>
+      <fieldset class="modes"><legend>Mode</legend>
+        <label class="mode"><input type="radio" name="mode" value="Road" checked><span>Road</span></label>
+        <label class="mode"><input type="radio" name="mode" value="Ocean"><span>Ocean</span></label>
+        <label class="mode"><input type="radio" name="mode" value="Air"><span>Air</span></label>
+        <label class="mode"><input type="radio" name="mode" value="Storage"><span>Storage</span></label>
+      </fieldset>
+      <div class="row2"><label>From<input name="from" value="Jeddah" required></label><label>To<input name="to" placeholder="Riyadh" required></label></div>
+      <div class="row2"><label>Weight (kg)<input name="kg" inputmode="numeric" placeholder="8,000"></label><label>Ready date<input name="date" type="date"></label></div>
+      <label>Name<input name="name" placeholder="Your name" required></label>
+      <label>Phone or email<input name="contact" placeholder="+966 5x xxx xxxx" required></label>
+      <button class="pill dark wide" type="submit">Send request <i>→</i></button>
+      <p class="qf-msg" id="qfMsg" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
-<!-- QUOTE -->
-<section class="quote-sec" id="quote">
-  <div class="wrap qwrap">
-    <div class="qintro">
-      <p class="eyebrow light">Get a quote</p>
-      <h2 class="big light"><span class="g">Tell us what</span><br>you are moving</h2>
-      <p class="lead">An indicative price in SAR right away. A coordinator confirms the final quote within the working day.</p>
-      <ul class="ticks"><li>All-in SAR pricing</li><li>Customs included on request</li><li>Insurance options</li></ul>
-    </div>
-    <form class="qform" id="qform" novalidate>
-      <div class="seg" role="radiogroup" aria-label="Mode">
-        <label><input type="radio" name="mode" value="sea" checked><span>Sea</span></label>
-        <label><input type="radio" name="mode" value="air"><span>Air</span></label>
-        <label><input type="radio" name="mode" value="land"><span>Land</span></label>
-      </div>
-      <div class="row2">
-        <label class="fld">From<input name="from" value="Jeddah Islamic Port" required></label>
-        <label class="fld">To<select name="to"><option value="1">Jebel Ali, UAE</option><option value="0.7">Riyadh, KSA</option><option value="1.6">Nhava Sheva, India</option><option value="1.4">Karachi, Pakistan</option><option value="1.1">Port Said, Egypt</option><option value="3.2">Rotterdam, NL</option></select></label>
-      </div>
-      <div class="row2">
-        <label class="fld">Load<select name="load"><option value="1">20ft container</option><option value="1.7">40ft container</option><option value="0.35">LCL / pallets</option></select></label>
-        <label class="fld">Ready date<input type="date" name="date"></label>
-      </div>
-      <div class="row2">
-        <label class="fld">Name<input name="name" autocomplete="name" placeholder="Your name" required></label>
-        <label class="fld">Phone or email<input name="contact" placeholder="+966 5x xxx xxxx" required></label>
-      </div>
-      <label class="chk"><input type="checkbox" name="customs" checked> Include customs clearance</label>
-      <button class="btn btn-full" type="submit">See my estimate</button>
-      <div class="estimate" id="estimate" hidden></div>
-      <p class="fine light">Demo form. Nothing is sent anywhere.</p>
-    </form>
+<section class="cta" id="contact">
+  <img src="img/wing.webp?v=1" alt="" loading="lazy" class="cta-bg">
+  <div class="wrap cta-in">
+    <h2 class="h2 light">Need it there tomorrow?</h2>
+    <p>Air cargo out of Jeddah, booked the same day.</p>
+    <a href="#quote" class="pill lime">Talk to the desk <i>→</i></a>
   </div>
 </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap fgrid">
-    <div>
-      <a class="logo light" href="#top"><svg viewBox="0 0 40 24" aria-hidden="true"><rect x="2" y="4" width="22" height="16" rx="8" fill="none" stroke="currentColor" stroke-width="3.2"/><rect x="16" y="4" width="22" height="16" rx="8" fill="none" stroke="#ff6a1a" stroke-width="3.2"/></svg><span>HALQA<small>Freight</small></span></a>
-      <p>Office 12, Gate 3 Logistics Building<br>North Quay Road, Jeddah Islamic Port<br>Jeddah, Saudi Arabia (fictional address)</p>
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-top">
+      <a href="#top" class="logo light"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 22 13 8h6L9 22Z"/><path d="M13 22 23 8h6L19 22Z" opacity=".45"/></svg><span>QAFILA</span></a>
+      <div class="cols">
+        <div><h4>Head office</h4><p>Warehouse 7, Street 41<br>Al Khumrah Logistics Park<br>Jeddah 22526, Saudi Arabia</p></div>
+        <div><h4>Port desk</h4><p>Office 12, Gate 3 Building<br>Al Mina District<br>Jeddah 22312</p></div>
+        <div><h4>Contact</h4><p>+966 12 600 0000<br>desk@qafila-freight.example<br>Sat to Thu, 8:00 to 20:00</p></div>
+      </div>
     </div>
-    <div><h4>Services</h4><a href="#services">Ocean freight</a><a href="#services">Air freight</a><a href="#services">Land freight</a><a href="#services">Customs</a></div>
-    <div><h4>Company</h4><a href="#milestones">Tracking</a><a href="#coverage">Coverage</a><a href="#quote">Get a quote</a></div>
-    <div><h4>Contact</h4><p>+966 12 000 0000<br>hello@halqa.example<br>Sun to Thu, 8:00 to 18:00</p></div>
-  </div>
-  <div class="wrap fbot">
-    <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
-    <p class="photos">HALQA is a fictional brand; machines and ship drawn for this demo. Photos via Wikimedia Commons: Earth and clouds from orbit, ISS Expedition 34 crew, NASA (public domain); "Arabian sea waves" by Galib Tufan (CC BY-SA 4.0); "Container-Terminal Bremerhaven 01" by H. Zell (CC BY-SA 3.0); "Red Hook Container Terminal New York September 2016 002" by King of Hearts (CC BY-SA 4.0); "Container cranes at the MPET terminal, Port of Antwerp, civil twilight" by Trougnouf (CC BY 4.0). Photos cropped and tinted.</p>
+    <p class="credits">Photos from Pexels: <a href="https://www.pexels.com/photo/18468424/">truck</a>, <a href="https://www.pexels.com/photo/33512155/">port cranes</a>, <a href="https://www.pexels.com/photo/14810115/">ship</a>, <a href="https://www.pexels.com/photo/14482714/">wing</a>, <a href="https://www.pexels.com/photo/4487363/">warehouse</a>. Qafila Freight is a fictional brand.</p>
+    <p class="by">Concept demo by Mohammad Gulab Kauser</p>
   </div>
 </footer>
-
+<div class="toast" id="toast" role="status"></div>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="script.js?v=1"></script>
+<script src="main.js?v=1"></script>
 </body>
 </html>
