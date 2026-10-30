@@ -8,11 +8,11 @@
 <meta property="og:title" content="Keyforge K7 | Feel every keystroke">
 <meta property="og:description" content="Interactive 3D keyboard website concept. Scroll to build the switch.">
 <meta property="og:image" content="https://mohammadgulab.github.io/demo-3d/og.jpg">
-<meta name="theme-color" content="#b9babd">
+<meta name="theme-color" content="#7a7a7a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <div class="bg"></div>
@@ -20,15 +20,16 @@
 <div class="fallback" aria-hidden="true"><img src="fallback.jpg" alt=""></div>
 
 <header class="nav">
-  <a class="logo" href="#top"><span class="logo-mark"></span>KEYFORGE</a>
+  <a class="logo" href="#top"><span>KEYFORGE</span><span class="logo-2"><i>/</i><i>K7</i></span></a>
   <nav class="links">
-    <a href="#switch">Switch</a><a href="#board">Board</a><a href="#swap">Hot-swap</a><a href="#editions">Editions</a>
+    <a href="#top">Home,</a><a href="#switch">Features,</a><a href="#swap">Overview.</a>
   </nav>
-  <a class="btn btn-dark btn-sm" href="#editions">Pre-order</a>
+  <a class="ulink" href="#editions">Where to buy?</a>
 </header>
 
+<div class="bottombar"><button class="share" id="shareBtn" type="button">&#10148; Share</button><span class="scroll-cue">&darr;&nbsp; Scroll</span></div>
 <aside class="rail" aria-hidden="true">
-  <span class="rail-num"><b id="secNum">001</b> / 006</span>
+  <span class="rail-num"><b id="secNum">001</b> /006</span>
   <span class="rail-bar"><i id="railFill"></i></span>
   <span class="rail-label" id="secLabel">Hot-swappable design</span>
 </aside>
@@ -40,11 +41,14 @@
       <h1>Feel every<br>keystroke.</h1>
       <p class="lead">A keyboard built around one idea: the switch is the soul of the board. Scroll to put one together.</p>
       <div class="ctas">
-        <a class="btn btn-dark" href="#editions">Pre-order the K7</a>
-        <a class="btn btn-glass" href="#switch">Explore</a>
+        <a class="btn btn-light" href="#editions">Pre-order the K7</a>
+        <a class="ulink" href="#switch">Explore the switch</a>
       </div>
     </div>
-    <div class="scroll-hint"><span></span>Scroll</div>
+    <div class="hero-aside">
+      <p>The K7 is a compact 75% board with a gasket-mounted plate, south-facing light and hot-swap sockets under every key.</p>
+      <a class="ulink" href="#switch">See all switches</a>
+    </div>
   </section>
 
   <section class="sec right" id="switch" data-label="Inside the switch">
@@ -102,7 +106,7 @@
           <span class="badge">Most picked</span>
           <p class="ed-name">K7 Pro</p><p class="ed-price">549 <small>SAR</small></p>
           <p class="ed-note">Red linear switches and double-shot caps, ready to type.</p>
-          <a class="btn btn-dark" href="#editions">Choose Pro</a>
+          <a class="btn btn-light" href="#editions">Choose Pro</a>
         </article>
         <article class="glass ed">
           <p class="ed-name">K7 Forged</p><p class="ed-price">799 <small>SAR</small></p>
@@ -118,7 +122,7 @@
       <p class="eyebrow">006 · Pre-order</p>
       <h2>Built for hands<br>that create.</h2>
       <p class="lead">Free delivery across Saudi Arabia. Ships in two weeks.</p>
-      <div class="ctas center"><a class="btn btn-dark" href="#editions">Pre-order the K7</a></div>
+      <div class="ctas center"><a class="btn btn-light" href="#editions">Pre-order the K7</a></div>
     </div>
     <footer class="foot glass">
       <span>Keyforge is a fictional brand made for this demo.</span>
@@ -132,6 +136,6 @@
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
 </script>
-<script type="module" src="main.js?v=1"></script>
+<script type="module" src="main.js?v=2"></script>
 </body>
 </html>

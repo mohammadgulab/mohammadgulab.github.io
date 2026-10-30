@@ -29,11 +29,15 @@ function updateRail(s) {
   if (i !== lastSec) { lastSec = i; secNum.textContent = String(i + 1).padStart(3, '0'); secLabel.textContent = secs[i].dataset.label || ''; }
 }
 if (coarse) { const t = document.getElementById('typeTip'); if (t) t.remove(); }
+const shareBtn = document.getElementById('shareBtn');
+if (shareBtn) shareBtn.addEventListener('click', async () => {
+  try { if (navigator.share) await navigator.share({ title: document.title, url: location.href }); else { await navigator.clipboard.writeText(location.href); shareBtn.textContent = 'Link copied'; setTimeout(() => shareBtn.innerHTML = '&#10148; Share', 1600); } } catch (e) {}
+});
 
 if (window.gsap && window.ScrollTrigger && !reduce) {
   gsap.registerPlugin(ScrollTrigger);
   secs.forEach((sec, si) => {
-    const items = sec.querySelectorAll('.copy > *, .parts li, .cards .card, .editions .ed, .foot');
+    const items = sec.querySelectorAll('.copy > *, .hero-aside, .parts li, .cards .card, .editions .ed, .foot');
     items.forEach(el => el.classList.add('reveal'));
     if (si === 0) { gsap.to(items, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.09, delay: 0.25 }); return; }
     ScrollTrigger.create({ trigger: sec, start: 'top 72%', once: true,
@@ -237,7 +241,7 @@ function start() {
 
   /* poses: [x,y,z, rx,ry,rz, scale] ; landscape (L) and portrait (P) */
   const HERO = {
-    L: [[3.0, 0.0, 0, 0.42, -0.6, -0.22, 1.85], [-2.9, -0.2, 1.2, 0.55, 0.65, 0.08, 2.25]],
+    L: [[2.1, -0.4, 0, 0.42, -0.6, -0.22, 1.7], [-2.9, -0.2, 1.2, 0.55, 0.65, 0.08, 2.25]],
     P: [[0, 1.3, 0, 0.42, -0.6, -0.22, 1.04], [0, 1.55, 0, 0.55, 0.65, 0.08, 1.65]],
   };
   const KB = {
