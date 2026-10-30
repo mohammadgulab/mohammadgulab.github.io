@@ -3,7 +3,9 @@ const $=s=>document.querySelector(s);
 const hd=$('#hd');
 $('#mb').addEventListener('click',()=>{const o=document.body.classList.toggle('menu');$('#mb').setAttribute('aria-expanded',o);});
 document.querySelectorAll('.nv a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu')));
-addEventListener('scroll',()=>hd.classList.toggle('solid',scrollY>innerHeight*0.9),{passive:true});
+let solidAt=()=>innerHeight*0.9;
+const setHd=()=>hd.classList.toggle('solid',scrollY>solidAt());
+addEventListener('scroll',setHd,{passive:true});
 $('#form').addEventListener('submit',e=>{e.preventDefault();$('#ok').hidden=false;});
 $('#cr').addEventListener('click',e=>{e.preventDefault();$('#crl').hidden=!$('#crl').hidden;});
 $('#crl').innerHTML=Object.entries(window.CREDITS).map(([id,s])=>`<li><a href="https://www.pexels.com/photo/${s}/" target="_blank" rel="noopener">Pexels photo ${id}</a></li>`).join('');
@@ -13,8 +15,9 @@ document.querySelectorAll('#fin button').forEach(b=>b.addEventListener('click',(
 // pinned fill
 if(!window.gsap||!window.ScrollTrigger){return;}
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ignoreMobileResize:true});
 const ly=gsap.utils.toArray('.ly'), caps=gsap.utils.toArray('.cap');
-const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#fill',start:'top top',end:()=>'+='+innerHeight*4.2,pin:true,scrub:0.6,anticipatePin:1,invalidateOnRefresh:true,
+const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#fill',start:'top top',end:()=>'+='+document.getElementById('fill').offsetHeight*4.2,pin:true,scrub:0.6,anticipatePin:1,invalidateOnRefresh:true,
   onUpdate:s=>{$('#pbar').style.width=(s.progress*100)+'%'; $('#hint').style.opacity=s.progress>0.02?0:0.85;}}});
 gsap.set(ly[0],{scale:1.06});
 tl.to(ly[0],{scale:1,duration:1},0);
@@ -25,5 +28,6 @@ for(let i=1;i<ly.length;i++){
     .fromTo(caps[i],{opacity:0,y:40},{opacity:1,y:0,duration:0.35},t+0.4);
 }
 tl.to({},{duration:0.4});
+solidAt=()=>tl.scrollTrigger.end-hd.offsetHeight; setHd();
 const q=new URLSearchParams(location.search); if(q.has('p')){const st=tl.scrollTrigger; requestAnimationFrame(()=>scrollTo(0,st.start+(st.end-st.start)*parseFloat(q.get('p'))));}
 })();
