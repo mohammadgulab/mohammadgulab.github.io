@@ -270,6 +270,38 @@ body.menu-open{overflow:hidden}
 .js .pop,.js .do-item,.js .wcard,.js .dcard,.js .xcard,.js .timeline li{opacity:0;transform:translateY(26px) scale(.97);transition:opacity .5s,transform .6s cubic-bezier(.2,1.3,.4,1)}
 .js .in{opacity:1!important;transform:none!important}
 
+
+/* v4 2026-10-30: red comic-page montage into a red box KAISH logo, then the face reveal */
+.mred{position:absolute;inset:0;background:#c8101b;mix-blend-mode:multiply;opacity:0;pointer-events:none;z-index:2}
+.m1 .mred{opacity:.78}
+.lg2 .mred{opacity:0}
+.m1 .flipbook{opacity:1}
+.m1 .pgrid{opacity:0;pointer-events:none}
+.mf{position:absolute;inset:-4%;visibility:hidden;transform:var(--tf);will-change:transform}
+.mf.on{visibility:visible;animation:mfb .12s ease-out}
+.mf.gh{visibility:visible;opacity:.38}
+@keyframes mfb{from{transform:var(--tf) translate3d(0,-7%,0) skewY(-3deg);filter:blur(3px)}to{transform:var(--tf);filter:blur(0)}}
+.mf .pnl-in{inset:0;border-width:5px;outline:none}
+.mf .pnl-cap{font-size:20px;left:8%;top:12%;padding:6px 10px}
+.mpg{position:absolute;inset:0;background:#fbf5e6;display:grid;gap:10px;padding:10% 8%}
+.mpg .cell{position:relative;overflow:hidden;border:3px solid #000;background:#111}
+.mpg .cell .pnl-in{inset:0;border:0;outline:none}
+.mpg .cell svg{transform:var(--cz)}
+.mf .cz svg{transform:var(--cz)}
+.lg2 .flipbook{opacity:0!important;transition:none}
+.mlogo{position:absolute;left:50%;top:50%;z-index:4;display:flex;flex-direction:column;align-items:center;opacity:0;transform:translate(-50%,-50%) scale(1.7);pointer-events:none;width:max-content;max-width:92vw}
+.lg1 .mlogo{opacity:1;transform:translate(-50%,-50%) scale(1);transition:transform .6s cubic-bezier(.16,.84,.3,1),opacity .12s}
+.mlogo-box{position:relative;background:rgba(214,16,28,.5);padding:.07em .1em .01em;overflow:hidden;text-align:center;font-family:'Anton',Impact,'Arial Narrow Bold',sans-serif;font-size:min(29vw,200px);line-height:1.1;transition:background-color .12s;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.lg2 .mlogo-box{background:#e3141f}
+.mlogo-txt{display:inline-block;color:#fff;letter-spacing:-.005em;transform:scaleY(1.14);transform-origin:50% 60%}
+.mlogo-gleam{position:absolute;top:0;bottom:0;left:-40%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);opacity:0}
+.lg2 .mlogo-gleam{opacity:1;animation:mglm .7s .15s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes mglm{to{left:125%}}
+.mlogo-sub{margin-top:.5em;font-family:'Anton',Impact,'Arial Narrow Bold',sans-serif;color:#fff;font-size:min(6.4vw,40px);letter-spacing:.5em;padding-left:.5em;text-transform:uppercase;line-height:1;opacity:0}
+.lg2 .mlogo-sub{opacity:1;transition:opacity .25s .1s}
+.s4 .mlogo{opacity:0;transform:translate(-50%,-50%) scale(1.12);transition:opacity .3s,transform .4s ease-in}
+.s4 .mred{opacity:0}
+
 @media (prefers-reduced-motion:reduce){
  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
  .js .pop,.js .do-item,.js .wcard,.js .dcard,.js .xcard,.js .timeline li{opacity:1;transform:none}
