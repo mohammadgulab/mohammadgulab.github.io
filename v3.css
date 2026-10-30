@@ -144,3 +144,13 @@ html[data-theme=light] .core{background:radial-gradient(circle at 35% 30%,#bff8f
 .sec-head h2,.contact h2.big,.glitch{text-shadow:none}
 
 /* v6: hero name + "Have a project in mind?" back to the v3 look (dark = v2.css rules untouched; light = same layout, deeper stops) */
+
+/* phone fit: demo cards never wider than the screen */
+.screens{grid-template-columns:minmax(0,1fr)}
+@media (min-width:700px){.screens{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.screens{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.screen,.scr-frame,.scr-b{min-width:0;max-width:100%;box-sizing:border-box}
+.scr-frame{width:100%}
+.scr-bar{min-width:0}
+.scr-bar b{min-width:0}
+.scr-img img{max-width:100%}
