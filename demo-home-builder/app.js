@@ -70,14 +70,14 @@ const mulchMat=new THREE.MeshStandardMaterial({color:'#4a3426',map:loadTex('img/
 for(const [x,z,w,d] of [[-3.4,4.85,3.4,1.1],[3.9,4.85,2.6,1.1],[-5.6,0.5,0.9,7.6]]){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,d),mulchMat);m.rotation.x=-Math.PI/2;m.position.set(x,0.035,z);scene.add(m)}
 // trees (the far tree line comes from the sky photo)
 const treeG=new THREE.Group();scene.add(treeG);
-const leafMs=['#3f6a2e','#4d7a35','#5a843c','#375f2a'].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:.9}));
+const leafMs=['#2c4520','#34502a','#3d5a2c','#283f1d'].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:.95,envMapIntensity:.6}));
 const trunkM=new THREE.MeshStandardMaterial({color:'#5a4535',roughness:1});
 const leafM=leafMs[0];
 function blob(r,det){const g=new THREE.SphereGeometry(r,10+det*4,8+det*3);const p=g.attributes.position;const ph=rnd()*9;for(let i=0;i<p.count;i++){const x=p.getX(i)/r,y=p.getY(i)/r,z=p.getZ(i)/r;const k=1+0.13*Math.sin(x*5.1+ph)*Math.sin(y*4.3+ph*.7)*Math.sin(z*4.7+ph*1.3)+0.07*Math.sin(x*11+y*9+z*7+ph);p.setXYZ(i,x*r*k,y*r*k*.9,z*r*k)}g.computeVertexNormals();return g}
 function tree(x,z,s,parent=treeG){const g=new THREE.Group();const tr=new THREE.Mesh(new THREE.CylinderGeometry(.12*s,.22*s,3.2*s,8),trunkM);tr.position.y=1.6*s;tr.castShadow=true;g.add(tr);
  for(let i=0;i<9;i++){const r=(0.75+rnd()*.6)*s;const b=new THREE.Mesh(blob(r,2),leafMs[i%4]);const a=rnd()*Math.PI*2,rr=(i<3?0:0.9+rnd()*.5)*s;b.position.set(Math.cos(a)*rr,(3.4+rnd()*1.9)*s,Math.sin(a)*rr);b.castShadow=true;b.receiveShadow=true;g.add(b)}
  g.position.set(x,0,z);g.rotation.y=rnd()*6;parent.add(g);return g}
-for(const [x,z,s] of [[-14,-7,1.3],[17,-9,1.25],[3,-15,1.4]])tree(x,z,s);
+
 
 /* ---------- house definition ---------- */
 // main block x -5..5, z -4..4, walls 0.2..6.2 ; wing x 5..10.5, z -3..3, 0.2..3.4 ; porch slab x -2..2.4 z 4..6.4
@@ -245,7 +245,7 @@ function setFraming(k){ // k 0..1 fraction built
  studMesh.instanceMatrix.needsUpdate=true}
 
 /* ---------- landscaping ---------- */
-const shrubM=new THREE.MeshStandardMaterial({color:'#456f34',roughness:.9});
+const shrubM=new THREE.MeshStandardMaterial({color:'#36552a',roughness:.95,envMapIntensity:.7});
 const flowerM=new THREE.MeshStandardMaterial({color:'#e8a2b5',roughness:.8});
 const shrubs=[];
 function shrub(x,z,s,fl){const m=new THREE.Mesh(blob(s,2),shrubM);m.position.set(x,s*.6,z);m.castShadow=true;m.userData.s=1;scene.add(m);shrubs.push(m);
@@ -339,11 +339,11 @@ const yawNow=()=>clamp(AMP*Math.sin(swayT*SPEED)+dragYaw+orbit(),-YMAX-0.5,YMAX+
 const camA=new THREE.Vector3(),tgtA=new THREE.Vector3(),camB=new THREE.Vector3(),tgtB=new THREE.Vector3();
 function frameCam(z){
  const asp=camera.aspect;const vf=THREE.MathUtils.degToRad(camera.fov);const hf=2*Math.atan(Math.tan(vf/2)*asp);
- const needW=asp<0.8?10.9:19.5, needH=asp<0.8?8:10.8;
+ const needW=asp<0.8?10.4:19.5, needH=asp<0.8?8:10.8;
  const dist=Math.max(needW/Math.tan(hf/2),needH/Math.tan(vf/2));
  const dir=new THREE.Vector3(0.48,0.21,1).normalize();
  tgtA.set(asp<0.8?3.0:(asp>1.5?1.4:2.6),asp<0.8?6.6:3.2,0.8);
- if(asp>1.5)tgtA.x-=dist*0.17; // shift house right on wide screens (text on left)
+ if(asp>1.5)tgtA.x-=dist*0.22; // shift house right on wide screens (text on left)
  camA.copy(tgtA).addScaledVector(dir,dist);
  tgtB.set(0.2,1.9,4.2);camB.set(asp<0.8?1.6:2.6,2.0,asp<0.8?13.8:11.5);
  // orbit around the house (auto sway + finger drag), eased out before the photo stages and the porch zoom
