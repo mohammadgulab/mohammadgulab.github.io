@@ -330,3 +330,4 @@ body{background:radial-gradient(1100px 520px at 50% -8%,#1b2b78 0,transparent 60
 }
 .badge[hidden]{display:none}
 @media (min-width:561px){.playp{left:auto;right:9%;top:24%}}
+@media (min-width:761px) and (max-width:1180px){.views{right:390px;overflow-x:auto;scrollbar-width:none}.views::-webkit-scrollbar{display:none}.views button{padding:9px 11px}}
