@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import * as M from './models.js';
+import * as M from './models.js?v=3';
 
 const canvas=document.getElementById('stage');
 const loader=document.getElementById('loader');
@@ -23,13 +23,13 @@ try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'hi
 catch(e){ canvas.style.display='none'; document.getElementById('fallback').hidden=false; done(); reveals(); throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.6:1.75));
 const scene=new THREE.Scene();
-const bgCols=['#f3e7df','#f1e1d8','#eed9d0','#f2e5dc'].map(c=>new THREE.Color(c));
+const bgCols=['#f3edf2','#f1e9f0','#efe6ee','#f3edf2'].map(c=>new THREE.Color(c));
 scene.background=bgCols[0].clone();
 await M.stage(THREE,renderer,scene,RoomEnvironment);
 const camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0.6,10); camera.lookAt(0,0,0);
 
 const L=await M.labels(THREE);
-const jar=M.buildJar(THREE,{labelTex:L.jar,lidTex:L.lid});
+const jar=M.buildJar(THREE,{labelTex:L.jar,lidTex:L.lid,lidMat:M.lacquerMat(THREE)});
 const rig=new THREE.Group(); scene.add(rig);
 const pivot=new THREE.Group(); rig.add(pivot); pivot.add(jar.group); jar.group.position.y=-jar.H*0.55;
 const lidBase=jar.lid.position.clone();
@@ -49,15 +49,15 @@ for(let i=0;i<14;i++){ const p=M.buildPetal(THREE,pcols[i%4]); p.userData={x:(Ma
 
 // scroll states
 const D=[
- {x:0,y:-0.62,s:0.78,rx:0.3,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:1},
+ {x:1.45,y:-0.05,s:0.95,rx:0.32,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:0},
  {x:1.6,y:-0.15,s:1.25,rx:0.12,ry:1.85,ly:0,lx:0,lz:0,bloom:0,sh:0},
- {x:-1.65,y:-0.55,s:1.15,rx:0.55,ry:2.75,ly:1.3,lx:0.45,lz:-0.4,bloom:0,sh:0},
- {x:0,y:-0.36,s:0.92,rx:1.2,ry:6.28,ly:0.2,lx:1.95,lz:-0.1,bloom:0,sh:0}];
+ {x:1.5,y:-0.55,s:1.15,rx:0.55,ry:2.75,ly:1.3,lx:-0.45,lz:0.4,bloom:0,sh:0},
+ {x:0.75,y:-0.2,s:0.95,rx:1.2,ry:6.28,ly:0.2,lx:1.75,lz:-0.1,bloom:0,sh:0}];
 const MB=[
- {x:0,y:-0.05,s:0.66,rx:0.3,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:1},
+ {x:0,y:0.75,s:0.62,rx:0.32,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:0},
  {x:0,y:1.2,s:0.66,rx:0.12,ry:1.85,ly:0,lx:0,lz:0,bloom:0,sh:0},
  {x:0,y:1.12,s:0.6,rx:0.55,ry:2.75,ly:1.25,lx:0.3,lz:-0.4,bloom:0,sh:0},
- {x:-0.5,y:-0.1,s:0.58,rx:1.2,ry:6.28,ly:0.2,lx:1.6,lz:-0.1,bloom:0,sh:0}];
+ {x:-0.5,y:0.0,s:0.58,rx:1.2,ry:6.28,ly:0.2,lx:1.6,lz:-0.1,bloom:0,sh:0}];
 const st={...(mobile?MB:D)[0], bg:0};
 const intro={k:0};
 
@@ -77,9 +77,10 @@ function resize(){
   camera.fov = w/h<0.75 ? 34 : 30; camera.updateProjectionMatrix();
   mobile=w<760; if(tl){ buildTimeline(); ScrollTrigger.refresh(); }
   const sx=mobile?0.6:1; const fx=mobile?1:Math.min(1,Math.max(0.6,(w/h)/1.45));
-  b1.position.set(mobile?-0.95:-1.05*fx,mobile?-0.95:-1.45,0.9); b1.scale.setScalar(0.62*sx*(mobile?1:Math.max(fx,0.8))); b1.rotation.set(0.6,0.4,0.2);
-  b2.position.set(mobile?0.95:1.1*fx,mobile?-1.0:-1.5,0.7); b2.scale.setScalar(0.55*sx*(mobile?1:Math.max(fx,0.8))); b2.rotation.set(0.55,1.3,-0.25);
-  b3.position.set(mobile?0.55:0.75*fx,mobile?-0.55:-0.75,-1.3); b3.scale.setScalar(0.6*sx); b3.rotation.set(0.75,2.1,-0.3);
+  const cx=mobile?0:1.45*fx, cy=mobile?0.75:-0.05;
+  b1.position.set(cx-0.05, cy-(mobile?0.6:0.85), -0.3); b1.scale.setScalar((mobile?0.8:1.05)*Math.max(fx,0.75)); b1.rotation.set(0.35,0.4,0.05);
+  b2.position.set(cx-(mobile?0.95:1.55), cy-(mobile?0.75:1.15), -0.4); b2.scale.setScalar((mobile?0.6:0.95)*Math.max(fx,0.75)); b2.rotation.set(0.45,1.3,-0.25);
+  b3.position.set(cx+(mobile?0.95:1.5), cy-(mobile?0.7:1.05), -0.6); b3.scale.setScalar((mobile?0.55:0.9)*Math.max(fx,0.75)); b3.rotation.set(0.5,2.1,0.3);
 }
 let lastW=0,lastH=0;
 addEventListener('resize',()=>{ if(innerWidth!==lastW||Math.abs(innerHeight-lastH)>140){ lastW=innerWidth; lastH=innerHeight; resize(); } });

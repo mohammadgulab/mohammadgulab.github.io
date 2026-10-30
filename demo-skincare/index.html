@@ -8,9 +8,9 @@
 <meta property="og:title" content="Aurelle Botanica · Peony Cloud Cream">
 <meta property="og:description" content="Whipped peony moisture, picked at dawn. Scroll-driven 3D concept website.">
 <meta property="og:image" content="https://mohammadgulab.github.io/demo-skincare/img/og.jpg">
-<meta name="theme-color" content="#f3e7df">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#f3edf2">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
@@ -18,30 +18,29 @@
 <canvas id="stage" aria-hidden="true"></canvas>
 <img class="fallback" id="fallback" src="img/p-jar.jpg" alt="Peony Cloud Cream jar" hidden>
 
-<header class="nav">
-  <a class="nav-link hide-sm" href="#ritual">Ritual</a>
-  <a class="nav-link hide-sm" href="#ingredients">Ingredients</a>
-  <a class="brand" href="#top">Aurelle<small>Botanica</small></a>
-  <a class="nav-link hide-sm" href="#collection">Collection</a>
-  <a class="nav-link bag" href="#collection">Bag <span id="bagCount">0</span></a>
-</header>
+<header class="nav"><nav class="pill">
+  <a class="brand" href="#top">Aurelle</a>
+  <a class="nav-link hide-sm" href="#ritual">The flower</a>
+  <a class="nav-link hide-sm" href="#ingredients">The cream</a>
+  <a class="nav-link hide-sm" href="#collection">The line</a>
+  <a class="bag" href="#collection" aria-label="Bag"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg><span id="bagCount">0</span></a>
+  <a class="shop" href="#collection">Shop</a>
+</nav></header>
 
 <main id="top">
-  <section class="panel hero" data-step="0">
-    <div class="copy center">
-      <p class="eyebrow reveal">Peony Cloud Cream · 50 ml</p>
+  <section class="panel hero split right" data-step="0">
+    <div class="copy">
+      <p class="eyebrow reveal">The flower</p>
       <h1 class="reveal">Picked at dawn,<br><em>whipped by hand.</em></h1>
-    </div>
-    <div class="hero-foot">
-      <p class="lede reveal">A weightless peony moisture cream that sinks in like a cloud and leaves skin soft, calm and glowing.</p>
-      <a class="btn reveal" href="#collection">Shop the ritual</a>
+      <p class="lede reveal">We gather our peonies early, when the petals hold the most water, and fold their extract into a cream as light as a cloud.</p>
+      <div class="ctas reveal"><a class="btn" href="#collection">Shop the cream</a><a class="ghost" href="#ritual">The ritual</a></div>
     </div>
     <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
   </section>
 
   <section class="panel split right" id="ritual" data-step="1">
     <div class="copy">
-      <p class="eyebrow reveal">The ritual</p>
+      <p class="eyebrow reveal">The cream</p>
       <h2 class="reveal">One jar,<br><em>three jobs.</em></h2>
       <ol class="jobs">
         <li class="reveal"><b>01</b><span><strong>Hydrates</strong>Peony root and squalane hold water in the skin all day.</span></li>
@@ -51,7 +50,7 @@
     </div>
   </section>
 
-  <section class="panel split left" id="ingredients" data-step="2">
+  <section class="panel split right" id="ingredients" data-step="2">
     <div class="copy">
       <p class="eyebrow reveal">The texture</p>
       <h2 class="reveal">Whipped,<br><em>then it melts.</em></h2>
@@ -66,7 +65,7 @@
   </section>
 
   <section class="panel top-view" data-step="3">
-    <div class="copy center top">
+    <div class="copy top">
       <p class="eyebrow reveal">Made to be seen</p>
       <h2 class="reveal">A swirl you will<br><em>not want to touch.</em></h2>
     </div>
@@ -79,8 +78,9 @@
 
   <section class="collection" id="collection">
     <div class="wrap">
-      <p class="eyebrow reveal">The collection</p>
-      <h2 class="reveal">Four pieces,<br><em>one peony.</em></h2>
+      <p class="eyebrow reveal">The line</p>
+      <h2 class="reveal">Four pieces, <em>one peony.</em></h2>
+      <p class="lede center reveal">Every piece comes in the same heavy glass with a lacquered cap, and every one of them can be refilled.</p>
       <div class="cards">
         <article class="card reveal"><div class="ph"><img src="img/p-jar.jpg" alt="Peony Cloud Cream jar" loading="lazy"></div><h3>Peony Cloud Cream</h3><p>Whipped moisture · 50 ml</p><div class="row"><span>SAR 385</span><button class="add" type="button">Add to bag</button></div></article>
         <article class="card reveal"><div class="ph"><img src="img/p-serum.jpg" alt="Petal Dew Serum dropper bottle" loading="lazy"></div><h3>Petal Dew Serum</h3><p>Glow serum · 30 ml</p><div class="row"><span>SAR 340</span><button class="add" type="button">Add to bag</button></div></article>
@@ -121,6 +121,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script type="module" src="main.js"></script>
+<script type="module" src="main.js?v=3"></script>
 </body>
 </html>

@@ -90,11 +90,11 @@ export function buildDropper(THREE,o={}){
 // Pump bottle
 export function buildPump(THREE,o={}){
   const g=new THREE.Group();
-  const body=new THREE.Mesh(lathe(THREE, roundProfile(0.62,2.1,0.16,0.22),96), new THREE.MeshPhysicalMaterial({color:o.color||0xf3ddd4, roughness:0.32, clearcoat:1, clearcoatRoughness:0.1}));
+  const body=new THREE.Mesh(lathe(THREE, roundProfile(0.62,2.1,0.16,0.22),96), new THREE.MeshPhysicalMaterial({color:o.color||0xf1dfe6, roughness:0.32, clearcoat:1, clearcoatRoughness:0.1}));
   g.add(body);
   const neck=new THREE.Mesh(lathe(THREE,roundProfile(0.3,0.36,0.02,0.05),64), goldMat(THREE)); neck.position.y=2.06; g.add(neck);
   const stem=new THREE.Mesh(new THREE.CylinderGeometry(0.08,0.08,0.3,32), goldMat(THREE)); stem.position.y=2.55; g.add(stem);
-  const head=new THREE.Mesh(new THREE.BoxGeometry(0.34,0.2,0.34), goldMat(THREE)); head.position.y=2.75; g.add(head);
+  const head=new THREE.Mesh(new THREE.BoxGeometry(0.34,0.2,0.34), lacquerMat(THREE)); head.position.y=2.75; g.add(head);
   const spout=new THREE.Mesh(new THREE.CylinderGeometry(0.055,0.055,0.5,24), goldMat(THREE)); spout.rotation.z=Math.PI/2; spout.position.set(0.38,2.78,0); g.add(spout);
   if(o.labelTex){ const band=new THREE.Mesh(new THREE.CylinderGeometry(0.625,0.625,0.9,96,1,true,-Math.PI*0.4,Math.PI*0.8), new THREE.MeshPhysicalMaterial({map:o.labelTex,transparent:true,roughness:0.4})); band.position.y=1.0; g.add(band); }
   return g;
@@ -107,11 +107,11 @@ export function buildPeony(THREE, o={}){
   const mat=new THREE.MeshPhysicalMaterial({vertexColors:true, roughness:0.55, sheen:0.35, sheenColor:new THREE.Color(0xffe0e6), sheenRoughness:0.5, side:THREE.DoubleSide});
   let seed=o.seed||7; const rnd=()=>{seed=(seed*16807)%2147483647; return seed/2147483647;};
   const petalGeo=(w,len,cup,bend,ph)=>{
-    const geo=new THREE.PlaneGeometry(1,1,10,14); const pos=geo.attributes.position; const col=[];
+    const geo=new THREE.PlaneGeometry(1,1,14,16); const pos=geo.attributes.position; const col=[];
     for(let i=0;i<pos.count;i++){ const u=pos.getX(i)*2, v=pos.getY(i)+0.5;
       const vv=Math.pow(Math.min(v,0.999),1.6); const wid=w*Math.sqrt(Math.max(0,1-(2*vv-1)*(2*vv-1)))*0.92+0.04*w;
       const x=u*wid/2, y=v*len;
-      const z=-cup*u*u*wid*0.55 + bend*v*v*len + 0.035*len*Math.sin(u*7+ph)*v*v;
+      const z=-cup*u*u*wid*0.55 + bend*v*v*len + 0.015*len*Math.sin(u*5+ph)*v*v;
       pos.setXYZ(i,x,y,z);
       const c=deep.clone().lerp(base,Math.min(1,v*2)).lerp(tip,Math.max(0,v-0.5)*1.6); col.push(c.r,c.g,c.b); }
     geo.setAttribute('color',new THREE.Float32BufferAttribute(col,3)); geo.computeVertexNormals(); return geo; };
@@ -141,25 +141,27 @@ export async function stage(THREE, renderer, scene, RoomEnvironment){
   scene.add(new THREE.HemisphereLight(0xfff6f0,0xe9c9c0,0.6));
 }
 export async function labels(THREE){
-  await document.fonts.load('400 80px "Cormorant Garamond"'); await document.fonts.load('500 30px "Jost"'); await document.fonts.load('italic 400 60px "Cormorant Garamond"');
-  const ink='#5b3a34';
+  await document.fonts.load('400 80px "Playfair Display"'); await document.fonts.load('500 30px "Inter"'); await document.fonts.load('400 80px "Playfair Display"'); await document.fonts.load('italic 400 60px "Playfair Display"');
+  const ink='#2b2130';
   const jar=makeLabel(THREE,{w:1400,h:330,lines:[
-    {text:'AURELLE',font:'400 120px "Cormorant Garamond"',y:0.33,color:ink,spacing:'26px'},
-    {text:'PEONY CLOUD CREAM',font:'500 34px "Jost"',y:0.66,color:ink,spacing:'12px'},
-    {text:'Whipped moisture  ·  50 ml',font:'italic 400 44px "Cormorant Garamond"',y:0.87,color:'#8a6157'}]});
-  const lid=makeLabel(THREE,{w:512,h:512,lines:[{text:'A',font:'italic 400 230px "Cormorant Garamond"',y:0.5,color:'rgba(120,88,52,0.55)'}]});
+    {text:'AURELLE',font:'400 120px "Playfair Display"',y:0.33,color:ink,spacing:'26px'},
+    {text:'PEONY CLOUD CREAM',font:'500 34px "Inter"',y:0.66,color:ink,spacing:'12px'},
+    {text:'Whipped moisture  ·  50 ml',font:'italic 400 44px "Playfair Display"',y:0.87,color:'#6a5a6e'}]});
+  const lid=makeLabel(THREE,{w:512,h:512,lines:[{text:'A',font:'italic 400 230px "Playfair Display"',y:0.5,color:'rgba(214,190,150,0.75)'}]});
   const serum=makeLabel(THREE,{w:900,h:420,lines:[
-    {text:'AURELLE',font:'400 110px "Cormorant Garamond"',y:0.3,color:ink,spacing:'20px'},
-    {text:'PETAL DEW SERUM',font:'500 38px "Jost"',y:0.62,color:ink,spacing:'9px'},
-    {text:'30 ml',font:'italic 400 46px "Cormorant Garamond"',y:0.84,color:'#7a4e40'}]});
+    {text:'AURELLE',font:'400 110px "Playfair Display"',y:0.3,color:ink,spacing:'20px'},
+    {text:'PETAL DEW SERUM',font:'500 38px "Inter"',y:0.62,color:ink,spacing:'9px'},
+    {text:'30 ml',font:'italic 400 46px "Playfair Display"',y:0.84,color:'#6a5a6e'}]});
   const pump=makeLabel(THREE,{w:900,h:620,lines:[
-    {text:'AURELLE',font:'400 120px "Cormorant Garamond"',y:0.28,color:ink,spacing:'22px'},
-    {text:'ROSE MILK',font:'500 44px "Jost"',y:0.56,color:ink,spacing:'12px'},
-    {text:'CLEANSER',font:'500 44px "Jost"',y:0.68,color:ink,spacing:'12px'},
-    {text:'150 ml',font:'italic 400 50px "Cormorant Garamond"',y:0.86,color:'#8a6157'}]});
+    {text:'AURELLE',font:'400 120px "Playfair Display"',y:0.28,color:ink,spacing:'22px'},
+    {text:'ROSE MILK',font:'500 44px "Inter"',y:0.56,color:ink,spacing:'12px'},
+    {text:'CLEANSER',font:'500 44px "Inter"',y:0.68,color:ink,spacing:'12px'},
+    {text:'150 ml',font:'italic 400 50px "Playfair Display"',y:0.86,color:'#6a5a6e'}]});
   const eye=makeLabel(THREE,{w:1400,h:330,lines:[
-    {text:'AURELLE',font:'400 120px "Cormorant Garamond"',y:0.33,color:ink,spacing:'26px'},
-    {text:'SILK EYE BALM',font:'500 34px "Jost"',y:0.66,color:ink,spacing:'12px'},
-    {text:'15 ml',font:'italic 400 44px "Cormorant Garamond"',y:0.87,color:'#8a6157'}]});
+    {text:'AURELLE',font:'400 120px "Playfair Display"',y:0.33,color:ink,spacing:'26px'},
+    {text:'SILK EYE BALM',font:'500 34px "Inter"',y:0.66,color:ink,spacing:'12px'},
+    {text:'15 ml',font:'italic 400 44px "Playfair Display"',y:0.87,color:'#6a5a6e'}]});
   return {jar,lid,serum,pump,eye};
 }
+
+export function lacquerMat(THREE, color=0x1d1420){ return new THREE.MeshPhysicalMaterial({color, metalness:0.1, roughness:0.18, clearcoat:1, clearcoatRoughness:0.06, envMapIntensity:0.55}); }
