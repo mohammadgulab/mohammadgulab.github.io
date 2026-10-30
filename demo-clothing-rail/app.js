@@ -188,7 +188,7 @@ function loop(now){
 /* ---------- setup rails ---------- */
 var hero=$('#stage'),hero2=$('#stage2');
 var wide=function(){return window.innerWidth>=900};
-var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:.95,spFrac:.27,minSp:84,rodTop:18,sag:70,arch:true,rodW:8,rodCol:'#b4b1bb',depth:.06,caps:false});
+var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:window.innerWidth<700?.6:.95,spFrac:.27,minSp:window.innerWidth<700?78:84,rodTop:window.innerWidth<700?118:18,sag:70,arch:true,rodW:8,rodCol:'#b4b1bb',depth:.06,caps:false});
 var order=[7,1,4,10,8,5,0,9,3,2,6];
 var r2=new Rail(hero2,order.map(function(i){return PRODUCTS[i]}),{id:2,caption:$('.rail2 .caption'),maxH:440,hFrac:.93,spFrac:.27,minSp:64,rodTop:22,sag:40,rodW:6,rodCol:'#c4c1c9',depth:0,caps:true});
 r1.offset=r1.max/2;r2.offset=r2.max/2;
