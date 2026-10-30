@@ -1,57 +1,80 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0b0c">
 <title>Obsidian Detail Co. · Bring it dirty</title>
 <meta name="description" content="Obsidian Detail Co., premium car detailing in Jeddah. Concept demo by Mohammad Gulab Kauser.">
 <meta property="og:title" content="Obsidian Detail Co. · Bring it dirty.">
 <meta property="og:image" content="img/car-clean.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=4">
 </head><body>
 <header class="nav">
   <a class="logo" href="#top"><span class="mark"></span>OBSIDIAN<small>DETAIL CO.</small></a>
-  <a class="btn sm" href="#book">Book a wash</a>
+  <a class="btn sm" href="#book" id="navBook">Book a wash</a>
 </header>
 
-<section class="wash" id="top">
-  <div class="stage">
-    <div class="scene">
-      <img class="car dirty" src="img/car-dirty.webp" alt="Dusty SUV in a dark garage" width="1600" height="880">
-      <img class="car clean" id="clean" src="img/car-clean.webp" alt="The same SUV after detailing, glossy and clean" width="1600" height="880">
-      <div class="wipe" id="wipe"><span></span></div>
-      <div class="mist" id="mist"></div>
+<section class="story" id="top">
+  <div class="stage" id="stage">
+    <div class="studio" id="studio">
+      <div class="wall"></div>
+      <div class="door" id="door"><div class="sun"></div><div class="slats" id="slats"></div></div>
+      <svg class="ceiling" id="ceiling" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+        <g class="tubes" stroke="#fff" stroke-linecap="round" fill="none">
+          <path d="M-40 70 L760 250"/><path d="M180 20 L980 200"/><path d="M520 10 L1320 190" opacity=".9"/><path d="M900 0 L1640 170" opacity=".8"/>
+          <path d="M-60 210 L560 350" opacity=".7"/><path d="M1020 120 L1660 260" opacity=".7"/>
+          <path class="hz" d="M60 330 L1540 330" opacity=".45"/>
+          <path class="hz" d="M260 395 L1340 395" opacity=".3"/>
+        </g>
+      </svg>
+      <div class="shelf" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="floor"></div>
+      <div class="flood" id="flood"></div>
     </div>
-    <div class="vignette"></div>
+
+    <div class="rig" id="rig">
+      <div class="car" id="car">
+        <img class="img dirty" src="img/car-dirty.webp" alt="Mud covered SUV in a dark detailing studio" width="1212" height="663">
+        <img class="img clean" id="clean" src="img/car-clean.webp" alt="The same SUV after the wash, glossy black" width="1212" height="663">
+        <div class="lamp l1" id="lamp1"></div><div class="lamp l2" id="lamp2"></div>
+        <div class="sheen" id="sheen"><i></i><i></i><i></i></div>
+        <svg class="water" id="water" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+          <polyline id="foam" points="" /><polyline id="jet" points="" />
+        </svg>
+        <div class="refl"><img class="img dirty" src="img/car-dirty.webp" alt="" width="1212" height="663"><img class="img clean" id="cleanR" src="img/car-clean.webp" alt="" width="1212" height="663"></div>
+      </div>
+    </div>
+    <canvas class="spray" id="spray"></canvas>
+
+    <div class="macro" id="macro" aria-hidden="true">
+      <div class="paint"></div>
+      <div class="bands" id="bands"><i></i><i></i><i></i><i></i></div>
+      <canvas id="swirl"></canvas>
+      <div class="polish" id="polish"></div>
+      <canvas id="drops"></canvas>
+    </div>
+    <div class="vig"></div>
+
     <div class="copy">
-      <p class="tag">Hand detailing · Jeddah</p>
-      <h1 class="h t1">Bring it <b>dirty.</b></h1>
-      <h1 class="h t2">Scroll to <b>wash it.</b></h1>
-      <h1 class="h t3">Showroom <b>clean.</b></h1>
-      <div class="meter"><span id="meterBar"></span><em id="meterTxt">0% clean</em></div>
+      <h1 class="h t1 bl"><span class="ln"><span>Bring it</span></span><span class="ln"><span><b>dirty.</b></span></span></h1>
+      <h2 class="h t2 br"><span class="ln"><span>Scroll to</span></span><span class="ln"><span><b>wash it.</b></span></span></h2>
+      <h2 class="h t3 bl"><span class="ln"><span>Look</span></span><span class="ln"><span><b>closer.</b></span></span></h2>
+      <h2 class="h t4 bl"><span class="ln"><span>Swirls out.</span></span><span class="ln"><span><b>Glass on.</b></span></span></h2>
+      <h2 class="h t5 tl"><span class="ln"><span>Keys back.</span></span><span class="ln ln2"><span><b>Jaw drops.</b></span></span></h2>
+      <p class="hint" id="hint"><span></span>Scroll</p>
+      <div class="meter" id="meter"><span id="meterBar"></span><em id="meterTxt">0% clean</em></div>
     </div>
+
+    <div class="dock" id="dock"></div>
   </div>
 </section>
 
-<section class="closer" id="closer">
-  <div class="stage dark">
-    <div class="zoom"><img id="closeImg" src="img/car-close.webp" alt="Close-up of glossy paint and wheel" width="1200" height="680"><div class="sweep" id="sweep"></div></div>
-    <div class="copy">
-      <h2 class="h c1">Look <b>closer.</b></h2>
-      <h2 class="h c2">Swirls out. <b>Glass on.</b></h2>
-      <ul class="specs" id="specs"><li><b>2-step</b> machine polish</li><li><b>Ceramic</b> glass coat</li><li><b>pH neutral</b> foam bath</li></ul>
-    </div>
-  </div>
-</section>
-
-<section class="reveal" id="book">
-  <div class="stage garage">
-    <div class="door" id="door"><div class="slats"></div></div>
-    <div class="light" id="light"></div>
-    <img class="car-lit" id="carLit" src="img/car-clean.webp" alt="" width="1600" height="880">
-    <div class="copy left">
-      <h2 class="h k1">Keys back. <b>Jaw drops.</b></h2>
-      <p class="sub">Pick a package, pick a slot. We collect the car from your door anywhere in Jeddah.</p>
+<section class="book" id="book">
+  <div class="bookIn" id="bookIn">
+    <div class="bookHead">
+      <p class="tag">Pickup anywhere in Jeddah</p>
+      <h2 class="h bh">Book your <b>detail.</b></h2>
     </div>
     <form class="panel" id="panel" onsubmit="return false">
       <h3>Book your detail</h3>
@@ -67,14 +90,14 @@
       <div class="chips" id="times"><button type="button" class="chip">9:00 AM</button><button type="button" class="chip on">11:30 AM</button><button type="button" class="chip">2:00 PM</button><button type="button" class="chip">4:30 PM</button><button type="button" class="chip">8:00 PM</button></div>
       <button class="btn wide" id="confirm" type="button">Confirm booking · <span id="price">SAR 149</span></button>
       <p class="fine">Demo only, no booking is sent.</p>
+      <div class="confirm" id="confirmCard" aria-live="polite">
+        <div class="tick">✓</div>
+        <h3>You're booked.</h3>
+        <p id="confText">Express Gloss · Sat · 11:30 AM</p>
+        <p class="ref">Ref <b id="ref">OBS-2741</b></p>
+        <button class="btn ghost" id="again" type="button">Change booking</button>
+      </div>
     </form>
-    <div class="confirm" id="confirmCard" aria-live="polite">
-      <div class="tick">✓</div>
-      <h3>You're booked.</h3>
-      <p id="confText">Express Gloss · Sat · 11:30 AM</p>
-      <p class="ref">Ref <b id="ref">OBS-2741</b></p>
-      <button class="btn ghost" id="again" type="button">Change booking</button>
-    </div>
   </div>
 </section>
 
@@ -87,8 +110,8 @@
 </section>
 <footer class="foot">
   <p>Concept demo by <b>Mohammad Gulab Kauser</b></p>
-  <p class="cred">Car photo: Pexels (free licence). The dusty version was made from the same photo. Badges removed. Brand, prices and address are fictional.</p>
+  <p class="cred">Car photo: Pexels (free licence). The muddy version was made from the same photo. Badges and plate removed. Brand, prices and address are fictional.</p>
 </footer>
 <script src="gsap.min.js"></script><script src="ScrollTrigger.min.js"></script>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=4"></script>
 </body></html>
