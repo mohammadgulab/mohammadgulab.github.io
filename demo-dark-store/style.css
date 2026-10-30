@@ -242,3 +242,16 @@ input[type=range]{width:100%;accent-color:var(--or)}
 .showcase .btn-dark{background:#f2efe9;color:#141317}
 .bag-open .toast{bottom:190px}.bag-open .toast:not(.show){opacity:0}
 @media (min-width:901px){#filtersApply{display:none}}
+
+/* v3: clean cut-out garments floating on dark tiles, like the reel */
+.ph{background:radial-gradient(120% 90% at 50% 38%,#26232b 0%,#1a181e 55%,#141217 100%)}
+.ph img:first-child{inset:9% 12% 11%;width:76%;height:80%;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(0,0,0,.55)) drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+.card:hover .ph img:first-child{transform:translateY(-6px) scale(1.03)}
+.ph::after{content:"";position:absolute;left:22%;right:22%;bottom:6%;height:5%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),rgba(0,0,0,0));pointer-events:none}
+.card.show-on .ph::after{opacity:0}
+#qvProd{object-fit:contain!important;filter:drop-shadow(0 22px 22px rgba(0,0,0,.55))}
+.bi img{object-fit:contain;background:#1c1a20;padding:4px}
+.sc-flat{background:radial-gradient(110% 90% at 50% 40%,#26232b 0%,#18161c 70%)}
+.sc-flat img{object-fit:contain!important;padding:8% 12%;filter:drop-shadow(0 22px 20px rgba(0,0,0,.55))}
+.qv-stage{background:radial-gradient(110% 90% at 50% 40%,#26232b 0%,#16141a 75%);border-radius:18px;overflow:hidden}
+#qvProd{inset:7% 12% 9%!important;width:76%!important;height:84%!important}

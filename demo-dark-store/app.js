@@ -16,7 +16,7 @@ function render(){
   if(sort==='lo')list.sort((a,b)=>a.price-b.price); if(sort==='hi')list.sort((a,b)=>b.price-a.price);
   $('#count').textContent=list.length+' product'+(list.length===1?'':'s');
   cardsEl.innerHTML=list.map((i,k)=>`<article class="card" data-id="${i.id}" style="--d:${k*60}ms" tabindex="0">
-    <div class="ph"><img src="img/g${i.g}.webp?v=2" alt="${i.name}" loading="lazy"><img class="on" src="img/m${i.men}.webp" alt="${i.name} on a model" loading="lazy">
+    <div class="ph"><img src="img/${i.g}.webp?v=3" alt="${i.name}" loading="lazy"><img class="on" src="img/m${i.men}.webp" alt="${i.name} on a model" loading="lazy">
       ${k<3?'<span class="new">New</span>':''}${i.old?'<span class="new sale">Sale</span>':''}
       <button class="fav" aria-label="Save ${i.name}"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></button>
       <button class="see" data-see="${i.id}"><svg viewBox="0 0 24 24"><path d="M12 5a2 2 0 1 1 2 2c-1 0-2 .7-2 2l-8 5a1 1 0 0 0 .6 2h14.8a1 1 0 0 0 .6-2l-8-5"/></svg>See it on</button></div>
@@ -37,7 +37,7 @@ let cur=null, g='men';
 function openQV(id){cur=items.find(i=>i.id===id);
   $('#qvName').textContent=cur.name; $('#qvCat').textContent=cur.cat; $('#qvPrice').textContent=fmt(cur.price); $('#qvPrice').className=cur.old?'hot':'';
   $('#qvOld').textContent=cur.old?fmt(cur.old):''; $('#qvRate').outerHTML=stars(cur.rating).replace('class="rate"','class="rate" id="qvRate"'); $('#qvDesc').textContent=cur.desc;
-  $('#qvProd').src='img/g'+cur.g+'.webp?v=2'; $('#qvProd').alt=cur.name; setG(g); setView('product');
+  $('#qvProd').src='img/'+cur.g+'.webp?v=3'; $('#qvProd').alt=cur.name; setG(g); setView('product');
   $('#qvAdd').classList.remove('loading','done'); $('#qvAdd span').textContent='Add to bag';
   document.body.classList.add('qv-open');}
 function setView(v){$('#qvStage').classList.toggle('on',v==='on'); $$('.qv-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v)); $('#qvG').classList.toggle('show',v==='on'); $('#qvSee').textContent=v==='on'?'Back to product':'See it on a model';}
@@ -53,7 +53,7 @@ $('#qvAdd').addEventListener('click',()=>{const b=$('#qvAdd'); if(b.classList.co
 // bag
 function addToBag(it,size,open){const ex=bag.find(b=>b.id===it.id&&b.size===size); ex?ex.qty++:bag.push({id:it.id,size,qty:1}); drawBag(); toast(it.name+' added'); if(open){setTimeout(()=>{document.body.classList.remove('qv-open');document.body.classList.add('bag-open');},450);} }
 function drawBag(){const n=bag.reduce((a,b)=>a+b.qty,0); $('#bagCount').textContent=n; $('#bagCount').classList.toggle('show',n>0); $('#bagN').textContent=n?'('+n+')':'';
-  $('#bagList').innerHTML=bag.length?bag.map((b,k)=>{const it=items.find(i=>i.id===b.id);return `<div class="bi"><img src="img/g${it.g}.webp?v=2" alt=""><div><h4>${it.name}</h4><p>Size ${b.size}</p><div class="qty"><button data-k="${k}" data-d="-1" aria-label="Less">−</button><span>${b.qty}</span><button data-k="${k}" data-d="1" aria-label="More">+</button></div></div><b>${fmt(it.price*b.qty)}</b></div>`}).join(''):'<p class="empty">Your bag is empty.</p>';
+  $('#bagList').innerHTML=bag.length?bag.map((b,k)=>{const it=items.find(i=>i.id===b.id);return `<div class="bi"><img src="img/${it.g}.webp?v=3" alt=""><div><h4>${it.name}</h4><p>Size ${b.size}</p><div class="qty"><button data-k="${k}" data-d="-1" aria-label="Less">−</button><span>${b.qty}</span><button data-k="${k}" data-d="1" aria-label="More">+</button></div></div><b>${fmt(it.price*b.qty)}</b></div>`}).join(''):'<p class="empty">Your bag is empty.</p>';
   const sub=bag.reduce((a,b)=>a+items.find(i=>i.id===b.id).price*b.qty,0); $('#bagSub').textContent=fmt(sub); $('#bagDel').textContent=sub>=500||!sub?'Free':'SAR 25';}
 $('#bagList').addEventListener('click',e=>{const b=e.target.closest('[data-k]');if(!b)return;const it=bag[+b.dataset.k];it.qty+=+b.dataset.d;if(it.qty<1)bag.splice(+b.dataset.k,1);drawBag();});
 $('#bagOpen').addEventListener('click',()=>document.body.classList.add('bag-open')); $('#bagClose').addEventListener('click',closeAll);
@@ -69,7 +69,7 @@ $('#creditList').innerHTML=Object.entries(window.CREDITS).map(([id,slug])=>`<li>
 // showcase: scroll driven product by product
 const scItems=items.filter(i=>i.sc), sc=$('#showcase'), model=$('#scModel'), flat=$('#scFlat'); let sg='men', si=-1;
 model.innerHTML=scItems.map((i,k)=>`<img data-k="${k}" alt="${i.name} on a model">`).join('');
-flat.innerHTML=scItems.map((i,k)=>`<img data-k="${k}" src="img/g${i.g}.webp?v=2" alt="${i.name}">`).join('');
+flat.innerHTML=scItems.map((i,k)=>`<img data-k="${k}" src="img/${i.g}.webp?v=3" alt="${i.name}">`).join('');
 $('#scDots').innerHTML=scItems.map((_,k)=>`<i data-k="${k}"></i>`).join('');
 function scModels(){$$('#scModel img').forEach((im,k)=>im.src='img/m'+scItems[k][sg]+'.webp');}
 scModels();
