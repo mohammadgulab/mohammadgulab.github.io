@@ -9,8 +9,9 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.02em;color:var(--txt);text-decoration:none;min-height:44px}
 .logo i{width:22px;height:22px;border-radius:7px;background:conic-gradient(from 200deg,var(--acc),var(--acc2),#f472b6,var(--acc));box-shadow:0 0 18px rgba(139,92,246,.6)}
 .nav-cta{min-height:44px;display:inline-flex;align-items:center;padding:0 20px;border-radius:999px;background:#fff;color:#000;font-weight:600;font-size:14px;text-decoration:none}
-.hero{position:relative;padding:72px clamp(18px,5vw,64px) 56px;overflow:hidden;max-width:1280px;margin:0 auto}
-.hero-mesh{position:absolute;inset:-20% -10% auto;height:120%;z-index:-1;filter:blur(60px);opacity:.75}
+.hero{position:relative;padding:72px clamp(18px,5vw,64px) 56px;padding-inline:max(clamp(18px,5vw,64px),calc((100% - 1152px)/2));overflow:hidden;isolation:isolate}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(transparent,var(--bg));z-index:-1;pointer-events:none}
+.hero-mesh{position:absolute;inset:-20% -10% auto;height:120%;z-index:-2;filter:blur(60px);opacity:.75}
 .hero-mesh i{position:absolute;border-radius:50%;width:60vw;max-width:620px;aspect-ratio:1;animation:drift 14s ease-in-out infinite alternate}
 .hero-mesh i:nth-child(1){background:#5b21b6;left:-10%;top:0}
 .hero-mesh i:nth-child(2){background:#0e7490;right:-15%;top:10%;animation-delay:-5s}
