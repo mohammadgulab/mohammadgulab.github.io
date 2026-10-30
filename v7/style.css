@@ -339,3 +339,7 @@ html{scroll-padding-top:70px}
   .cur-dot,.cur-ring{display:none}
   .m-img img,.c-shot img{transform:none}
 }
+
+.logo{min-height:44px;display:inline-flex;align-items:center}
+.menu .menu-foot a{font:600 13px var(--mono);text-transform:none;display:inline-flex;min-height:44px;align-items:center;word-break:break-all}
+.h3-bottom .h3-hint{order:-1;margin:0 0 4px}

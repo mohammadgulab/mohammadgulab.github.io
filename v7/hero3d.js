@@ -4,7 +4,9 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let renderer;
 try{
   renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
-}catch(e){hero.classList.add('no-gl');hero.classList.remove('gl-pending');throw e;}
+}catch(e){hero.classList.add('no-gl');hero.classList.remove('gl-pending');}
+if(renderer)init();
+function init(){
 renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
@@ -122,3 +124,4 @@ function tick(){
 req();
 hero.classList.add('gl-ready');hero.classList.remove('gl-pending');
 window.__gl={get t(){return t;},pulse:()=>{pulse=1;}};
+}

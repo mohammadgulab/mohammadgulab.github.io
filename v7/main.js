@@ -159,7 +159,7 @@ if(row){
     prev.disabled=row.scrollLeft<4;next.disabled=row.scrollLeft>=max;
     if(!reduce){const rr=row.getBoundingClientRect();cards.forEach(c=>{const b=c.getBoundingClientRect();const off=(b.left+b.width/2-(rr.left+rr.width/2))/rr.width;
       const im=c.querySelector('.m-img img');if(im)im.style.setProperty('--px',(-off*28).toFixed(1)+'px');});}};
-  row.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
+  row.scrollLeft=0;row.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
   row.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(cur()+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(cur()-1);}});
 }
 
@@ -213,7 +213,7 @@ $$('.card').forEach((c,i)=>{
   gsap.from(c.querySelectorAll('.tags li'),{y:16,opacity:0,stagger:.06,duration:.5,ease:'back.out(2)',scrollTrigger:{trigger:c,start:'top 70%'}});
 });
 gsap.from('.more-head',{y:30,opacity:0,duration:.7,scrollTrigger:{trigger:'.more',start:'top 88%'}});
-gsap.from('.m-card',{x:80,opacity:0,stagger:.07,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.more',start:'top 85%'}});
+gsap.from('.m-card',{y:50,opacity:0,stagger:.07,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.more',start:'top 85%'}});
 // services
 gsap.from('.t-title .serif',{y:60,opacity:0,duration:.9,delay:.12,ease:'expo.out',scrollTrigger:{trigger:'.toolkit',start:'top 70%'}});
 gsap.from('.skills li',{x:-60,opacity:0,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.skills',start:'top 80%'}});
