@@ -7,7 +7,7 @@ gsap.from('.hero .ln',{yPercent:60,opacity:0,duration:1,stagger:.12,ease:'power3
 gsap.from('.vine',{y:-200,opacity:0,duration:1.4,ease:'elastic.out(1,.6)'});
 gsap.to('.vine',{yPercent:-25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 // build: pinned choreography
-gsap.set('#oven',{xPercent:-49,yPercent:-78,x:()=>window.innerWidth,autoAlpha:1});
+gsap.set('#oven',{xPercent:-49,yPercent:-78,x:()=>window.innerWidth*.5+document.getElementById('oven').offsetWidth*.6,autoAlpha:1});
 const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.stage',start:'top top',end:()=>'+='+Math.round(window.innerHeight*3.4),pin:true,scrub:.6,invalidateOnRefresh:true}});
 tl.fromTo('.build-title span',{y:60,opacity:0},{y:0,opacity:1,stagger:.1,duration:.4})
   .fromTo('#base',{scale:.6,rotation:-40,opacity:0},{scale:1,rotation:0,opacity:1,duration:.5,ease:'back.out(1.6)'},'<');
