@@ -69,3 +69,49 @@ gsap.fromTo('.cta-bg',{yPercent:-8},{yPercent:8,ease:'none',scrollTrigger:{trigg
 gsap.from('.cta-in>*',{y:40,opacity:0,stagger:.12,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.cta',start:'top 80%'}});
 addEventListener('load',()=>ScrollTrigger.refresh());
 })();
+
+// crane scene
+(()=>{
+const sec=document.querySelector('.crane-sec');if(!sec)return;
+const q=s=>sec.querySelector(s),qa=s=>[...sec.querySelectorAll(s)];
+const cam=q('#cam'),hang=q('#crHang'),trol=q('#crTrolley'),spr=q('#crSpreader'),bS=q('#boxStack'),bH=q('#boxHang'),bT=q('#boxTruck'),truck=q('#crTruck'),shd=q('#crShadow'),bar=q('#crBar'),cap=q('#crCap');
+const cbl=qa('.cbl'),leds=qa('.led'),locks=qa('.lock'),spins=qa('#crTruck .spin'),steps=qa('.cr-steps li');
+const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),seg=(p,a,b)=>cl((p-a)/(b-a)),io=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,ein=t=>t*t*t;
+const X0=114,X1=402,UP=170,STK=253,TOP=137,TRK=365;
+const caps=['Spreader locks onto the container','Trolley carries it across the yard','Lowered onto the trailer, twistlocks set','Sealed and on the road'];
+let tgt=0,cur=-1,last=-1;const svg=q('.cr-svg');let VB=null;
+function fit(){if(innerWidth>=900){VB=null;svg.setAttribute('viewBox','0 -110 640 640');return}const r=svg.getBoundingClientRect();const asp=r.height/Math.max(1,r.width);let vw=Math.min(520,640),vh=vw*asp;if(vh>620){vh=620;vw=vh/asp}VB={vw,vh,vy:Math.min(30,540-vh)}}
+addEventListener('resize',()=>{fit();cur=-1});
+function measure(){const r=sec.getBoundingClientRect(),span=r.height-innerHeight;tgt=cl(-r.top/(span>0?span:1))}
+function render(p){
+  let x=X0,sy=UP,att=false,onT=false,lk=false,dx=0;
+  const a=seg(p,0,.10),c=seg(p,.15,.32),d=seg(p,.32,.52),e=seg(p,.52,.68),g=seg(p,.72,.84),h=seg(p,.78,1);
+  if(p<.15){sy=UP+(STK-UP)*io(a);lk=p>=.11}
+  else if(p<.32){sy=STK+(TOP-STK)*io(c);att=lk=true}
+  else if(p<.52){sy=TOP;x=X0+(X1-X0)*io(d);att=lk=true}
+  else if(p<.70){x=X1;sy=TOP+(TRK-TOP)*io(e);att=lk=true}
+  else{x=X1;onT=true;sy=TRK+(UP-TRK)*io(g);lk=p<.72}
+  dx=onT?820*ein(h):0;
+  const sw=(p>=.32&&p<.6)?Math.sin(d*Math.PI*2)*1.4*(1-e):0;
+  trol.setAttribute('transform',`translate(${x} 0)`);
+  spr.setAttribute('transform',`translate(${x} ${sy})`);
+  hang.setAttribute('transform',`rotate(${sw.toFixed(3)} ${x} 134)`);
+  cbl.forEach(l=>{l.setAttribute('x1',x+ +l.dataset.x1);l.setAttribute('x2',x+ +l.dataset.x2);l.setAttribute('y2',sy-11)});
+  bS.setAttribute('visibility',att||onT?'hidden':'visible');
+  bH.setAttribute('visibility',att?'visible':'hidden');bH.setAttribute('x',x-90);bH.setAttribute('y',sy+13);
+  bT.setAttribute('visibility',onT?'visible':'hidden');
+  truck.setAttribute('transform',`translate(${dx.toFixed(2)} 0)`);
+  const rot=(dx/18)*57.2958;spins.forEach(s=>s.setAttribute('transform',`rotate(${rot.toFixed(1)})`));
+  const col=lk?'#d8ff3e':'#e05a3a';leds.forEach(l=>l.setAttribute('fill',col));locks.forEach(l=>l.setAttribute('fill',lk?'#b9c23a':'#5b6066'));
+  const lift=att&&p<.70?cl((TRK+13-(sy+13))/ (TRK-TOP)):0;
+  shd.setAttribute('cx',x);shd.setAttribute('opacity',att?(0.25+0.55*(1-lift)).toFixed(2):0);shd.setAttribute('rx',(90+40*lift).toFixed(1));
+  const zb=Math.sin(seg(p,.40,.80)*Math.PI),z=1+.14*zb*zb,fx=x+160,fy=TRK-30;cam.setAttribute('transform',z>1.001?`translate(${fx} ${fy}) scale(${z.toFixed(4)}) translate(${-fx} ${-fy})`:'');
+  if(VB){const pc=p<.30?0:p<.50?io(seg(p,.30,.50)):1;const vx=cl(-10+pc*(660-VB.vw),-10,660-VB.vw);svg.setAttribute('viewBox',`${vx.toFixed(2)} ${VB.vy.toFixed(2)} ${VB.vw.toFixed(2)} ${VB.vh.toFixed(2)}`)}
+  bar.style.transform=`scaleX(${p.toFixed(4)})`;
+  const st=p<.32?0:p<.52?1:p<.74?2:3;
+  if(st!==last){last=st;steps.forEach((s,i)=>s.classList.toggle('on',i<=st));cap.textContent=caps[st]}
+}
+fit();
+function loop(){measure();const k=cur<0?1:.14;const n=cur<0?tgt:cur+(tgt-cur)*k;if(Math.abs(n-cur)>.0002||cur<0){cur=Math.abs(tgt-n)<.0005?tgt:n;render(cur)}requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+})();
