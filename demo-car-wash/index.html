@@ -8,7 +8,7 @@
 <meta property="og:image" content="img/car-clean.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 </head><body>
 <header class="nav">
   <a class="logo" href="#top"><span class="mark"></span>OBSIDIAN<small>DETAIL CO.</small></a>
@@ -19,7 +19,7 @@
   <div class="stage" id="stage">
     <div class="studio" id="studio">
       <div class="wall"></div>
-      <div class="door" id="door"><div class="sun"></div><div class="slats" id="slats"></div></div>
+      <div class="door" id="door"><div class="sun"></div><div class="slats" id="slats"></div></div><div class="sunfloor" id="sunfloor"></div>
       <svg class="ceiling" id="ceiling" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
         <g class="tubes" stroke="#fff" stroke-linecap="round" fill="none">
           <path d="M-40 70 L760 250"/><path d="M180 20 L980 200"/><path d="M520 10 L1320 190" opacity=".9"/><path d="M900 0 L1640 170" opacity=".8"/>
@@ -34,15 +34,15 @@
     </div>
 
     <div class="rig" id="rig">
-      <div class="car" id="car">
-        <img class="img dirty" src="img/car-dirty.webp" alt="Mud covered SUV in a dark detailing studio" width="1212" height="663">
+      <div class="car" id="car"><div class="backglow"></div>
+        <img class="img dirty" src="img/car-dirty3.webp" alt="Mud covered SUV in a dark detailing studio" width="1212" height="663">
         <img class="img clean" id="clean" src="img/car-clean.webp" alt="The same SUV after the wash, glossy black" width="1212" height="663">
         <div class="lamp l1" id="lamp1"></div><div class="lamp l2" id="lamp2"></div>
         <div class="sheen" id="sheen"><i></i><i></i><i></i></div>
         <svg class="water" id="water" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
           <polyline id="foam" points="" /><polyline id="jet" points="" />
         </svg>
-        <div class="refl"><img class="img dirty" src="img/car-dirty.webp" alt="" width="1212" height="663"><img class="img clean" id="cleanR" src="img/car-clean.webp" alt="" width="1212" height="663"></div>
+        <div class="refl"><img class="img dirty" src="img/car-dirty3.webp" alt="" width="1212" height="663"><img class="img clean" id="cleanR" src="img/car-clean.webp" alt="" width="1212" height="663"></div>
       </div>
     </div>
     <canvas class="spray" id="spray"></canvas>
@@ -113,5 +113,5 @@
   <p class="cred">Car photo: Pexels (free licence). The muddy version was made from the same photo. Badges and plate removed. Brand, prices and address are fictional.</p>
 </footer>
 <script src="gsap.min.js"></script><script src="ScrollTrigger.min.js"></script>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body></html>

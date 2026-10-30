@@ -50,16 +50,20 @@ function spray(dt){
 const sw=$('#swirl'),swx=sw.getContext('2d'),dr=$('#drops'),drx=dr.getContext('2d');
 function paintSwirls(){
   sizeCanvas(sw);const w=sw.width,h=sw.height;swx.clearRect(0,0,w,h);
-  const centers=[[.56*w,.46*h,Math.max(w,h)*.55],[.2*w,.75*h,Math.max(w,h)*.3]];
-  for(const [cx,cy,RM] of centers){const n=isPhone()?260:420;
-    for(let i=0;i<n;i++){const rr=Math.pow(Math.random(),.8)*RM;const a0=Math.random()*6.283,a1=a0+.15+Math.random()*.9;
-      swx.strokeStyle='rgba(230,236,242,'+(.06+Math.random()*.2)*(1-rr/RM*.6)+')';swx.lineWidth=(.5+Math.random()*1.1)*DPR;
-      swx.beginPath();swx.arc(cx+(Math.random()-.5)*6*DPR,cy+(Math.random()-.5)*6*DPR,rr,a0,a1);swx.stroke();}}
-  const g=swx.createRadialGradient(centers[0][0],centers[0][1],0,centers[0][0],centers[0][1],centers[0][2]*.5);
-  g.addColorStop(0,'rgba(255,255,255,.18)');g.addColorStop(1,'rgba(255,255,255,0)');swx.fillStyle=g;swx.fillRect(0,0,w,h);
+  const M=Math.max(w,h),ph=isPhone();
+  const centers=[[.55*w,.40*h,M*.62,ph?1500:1700],[.16*w,.80*h,M*.34,ph?600:700],[.92*w,.86*h,M*.26,ph?350:400]];
+  const g=swx.createRadialGradient(centers[0][0],centers[0][1],0,centers[0][0],centers[0][1],centers[0][2]*.55);
+  g.addColorStop(0,'rgba(255,255,255,.22)');g.addColorStop(1,'rgba(255,255,255,0)');swx.fillStyle=g;swx.fillRect(0,0,w,h);
+  swx.globalCompositeOperation='lighter';swx.lineCap='round';
+  for(const [cx,cy,RM,n] of centers){
+    for(let i=0;i<n;i++){const rr=(.03+.97*Math.pow(Math.random(),.75))*RM;const a0=Math.random()*6.283,a1=a0+.18+Math.random()*1.3;
+      const fall=Math.pow(1-rr/RM,.55);
+      swx.strokeStyle='rgba(236,242,248,'+((.10+Math.random()*.38)*fall).toFixed(3)+')';swx.lineWidth=(.7+Math.random()*1.3)*DPR*(ph?1.15:1);
+      swx.beginPath();swx.arc(cx+(Math.random()-.5)*10*DPR,cy+(Math.random()-.5)*10*DPR,rr,a0,a1);swx.stroke();}}
+  swx.globalCompositeOperation='source-over';
 }
 let drops=[];
-function makeDrops(){sizeCanvas(dr);drops=[];const n=isPhone()?60:120;for(let i=0;i<n;i++){drops.push({x:Math.random(),y:Math.random(),r:(3+Math.pow(Math.random(),2)*18)*(isPhone()?.8:1),d:Math.random()})}}
+function makeDrops(){sizeCanvas(dr);drops=[];const ph=isPhone(),n=ph?85:120;for(let i=0;i<n;i++){drops.push({x:Math.random(),y:Math.random(),r:ph?(6+Math.pow(Math.random(),1.6)*22):(3+Math.pow(Math.random(),2)*18),d:Math.random()})}}
 const D={p:0};
 function drawDrops(){
   const w=dr.width,h=dr.height;drx.clearRect(0,0,w,h);if(D.p<=0)return;
@@ -67,7 +71,7 @@ function drawDrops(){
     const r=q.r*DPR*(.4+.6*k),x=q.x*w,y=q.y*h+(1-k)*-20*DPR;
     const g=drx.createRadialGradient(x-r*.3,y-r*.35,r*.05,x,y,r);
     g.addColorStop(0,'rgba(255,255,255,'+(.95*k)+')');g.addColorStop(.18,'rgba(200,215,230,'+(.35*k)+')');g.addColorStop(.7,'rgba(20,24,28,'+(.25*k)+')');g.addColorStop(1,'rgba(255,255,255,'+(.5*k)+')');
-    drx.fillStyle=g;drx.beginPath();drx.arc(x,y,r,0,6.283);drx.fill();
+    drx.fillStyle=g;drx.beginPath();drx.arc(x,y,r,0,6.283);drx.fill();drx.strokeStyle='rgba(230,240,250,'+(.55*k)+')';drx.lineWidth=Math.max(1,r*.08);drx.stroke();drx.fillStyle='rgba(255,255,255,'+(.95*k)+')';drx.beginPath();drx.ellipse(x-r*.35,y-r*.4,r*.22,r*.14,-.6,0,6.283);drx.fill();
     drx.fillStyle='rgba(0,0,0,'+(.35*k)+')';drx.beginPath();drx.ellipse(x+r*.15,y+r*.9,r*.8,r*.25,0,0,6.283);drx.fill();}
 }
 
@@ -88,7 +92,7 @@ function build(){
   if(master){master.scrollTrigger.kill();master.kill();}
   gsap.set('#rig',{clearProps:'all'});
   const phone=isPhone();
-  const zoom=phone?2.5:2.7;
+  const zoom=phone?2.6:2.7;
   const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#stage',start:'top top',end:()=>'+='+Math.round(innerHeight*(phone?8:9.5)),pin:true,scrub:.8,anticipatePin:1,invalidateOnRefresh:true}});
   // 0-1 settle + push in, swap headline
   tl.to('#rig',{scale:1.06,duration:1,ease:'power1.inOut',transformOrigin:'50% 60%'},0)
@@ -98,7 +102,7 @@ function build(){
   tl.to(W,{p:1,duration:3,ease:'power1.inOut',onUpdate:drawWash},1.05);
   // 4-5.5 look closer: camera dives to the front corner
   hide('.t2',4.0,tl); show('.t3',4.25,tl);
-  tl.to('#rig',{scale:zoom,xPercent:phone?-59:-32,yPercent:phone?5:-22,duration:1.5,ease:'power2.inOut'},4.0)
+  tl.to('#rig',{scale:zoom,xPercent:phone?-69:-32,yPercent:phone?3:-22,duration:1.5,ease:'power2.inOut'},4.0)
     .to('#lamp1,#lamp2',{opacity:.35,duration:.6},4.0)
     .fromTo('.sheen i',{left:'-20%',opacity:1},{left:'120%',duration:.9,stagger:.12,ease:'power1.inOut'},4.9);
   // 5.6-6 cut to macro of the paint
@@ -115,12 +119,14 @@ function build(){
   tl.fromTo('.t5 .ln:not(.ln2)>span',{yPercent:110},{yPercent:0,duration:.35,ease:'power3.out',immediateRender:false},7.75);
   // 8-9 pull back out to the whole car, warm
   tl.to('#macro',{autoAlpha:0,duration:.4},8.0)
-    .to('#rig',{scale:phone?.96:.9,xPercent:phone?6:-13,yPercent:phone?2:4,duration:1.1,ease:'power2.inOut'},7.95)
+    .to('#rig',{scale:phone?.97:.72,xPercent:phone?0:-11,yPercent:phone?2:6,duration:1.1,ease:'power2.inOut'},7.95)
     .to('#lamp1,#lamp2',{opacity:1,duration:.4},8.4);
   tl.fromTo('.t5 .ln2>span',{yPercent:110},{yPercent:0,duration:.35,ease:'power3.out',immediateRender:false},8.45);
   // 8.6-9.6 garage door rolls up, sunlight floods the studio
   tl.to('#slats',{yPercent:-100,duration:1,ease:'power1.inOut'},8.6)
     .to('#flood',{opacity:1,duration:1},8.6)
+    .to('#sunfloor',{opacity:1,duration:1},8.7)
+    .to('#door',{boxShadow:'0 0 0 6px #121417,0 0 0 7px #23262a,0 0 120px 30px rgba(255,190,120,.45)',duration:1},8.6)
     .to('.wall',{filter:'brightness(1.6)',duration:1},8.6)
     .to('.tubes path',{opacity:.45,duration:.6},8.8);
   // desktop: booking panel slides in from the right on the same shot

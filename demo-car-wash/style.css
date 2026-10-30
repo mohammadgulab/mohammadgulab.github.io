@@ -18,8 +18,9 @@ a{color:inherit;text-decoration:none}
 .stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:#07080a;isolation:isolate}
 .studio{position:absolute;inset:0;z-index:0}
 .wall{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 38%,#1a1d21 0,#0e1012 45%,#060708 80%)}
-.door{position:absolute;left:4%;top:37%;width:min(30vw,460px);height:31%;overflow:hidden;border-radius:2px;box-shadow:0 0 0 6px #121417,0 0 0 7px #23262a}
-.sun{position:absolute;inset:0;background:linear-gradient(#fff6e6 0,#ffe0b0 45%,#ffb36b 80%,#ff9845)}
+.door{position:absolute;left:2%;top:25%;width:min(31vw,560px);height:47%;overflow:hidden;border-radius:2px;box-shadow:0 0 0 6px #121417,0 0 0 7px #23262a}
+.sun{position:absolute;inset:0;background:radial-gradient(70% 45% at 40% 30%,#fffdf6 0,rgba(255,250,235,0) 70%),linear-gradient(#fff8ea 0,#ffe7bf 40%,#ffc27e 75%,#ffa652)}
+.sunfloor{position:absolute;left:0;bottom:0;width:62%;height:34%;background:linear-gradient(100deg,rgba(255,214,160,.55),rgba(255,180,110,.22) 45%,transparent 80%);clip-path:polygon(2% 0,31% 0,100% 100%,0 100%);mix-blend-mode:screen;opacity:0;pointer-events:none;filter:blur(6px)}
 .slats{position:absolute;inset:0;background:repeating-linear-gradient(#24272b 0 13px,#16181b 13px 15px);will-change:transform}
 .ceiling{position:absolute;left:0;right:0;top:0;width:100%;height:27%;overflow:visible}
 .tubes path{stroke-width:3;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 9px rgba(200,230,255,.6));opacity:0}
@@ -28,9 +29,10 @@ a{color:inherit;text-decoration:none}
 .shelf i{display:block;height:22%;border-bottom:2px solid #2a2d31;background:repeating-linear-gradient(90deg,transparent 0 10px,rgba(120,130,140,.35) 10px 16px,transparent 16px 22px,rgba(56,225,198,.25) 22px 26px,transparent 26px 34px);background-size:auto 70%;background-repeat:repeat-x;background-position:bottom}
 .floor{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(#0c0d0f,#141619 40%,#0b0c0e);}
 .floor::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),rgba(255,255,255,.04) calc(12.5% - 1px) 12.5%);transform:perspective(400px) rotateX(55deg);transform-origin:top}
-.flood{position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 36%,rgba(255,196,128,.55),rgba(255,150,70,.18) 45%,transparent 75%);mix-blend-mode:screen;opacity:0}
+.flood{position:absolute;inset:0;background:radial-gradient(38% 60% at 15% 42%,rgba(255,214,160,.6),rgba(255,170,90,.2) 50%,transparent 80%),radial-gradient(60% 55% at 50% 36%,rgba(255,196,128,.4),rgba(255,150,70,.12) 45%,transparent 75%);mix-blend-mode:screen;opacity:0}
 .rig{position:absolute;inset:0;z-index:2;will-change:transform}
 .car{position:absolute;left:50%;top:63%;width:min(64vw,1040px);aspect-ratio:1212/663;transform:translate(-50%,-50%)}
+.backglow{position:absolute;left:-18%;right:-18%;top:-10%;bottom:-25%;background:radial-gradient(closest-side,rgba(160,180,200,.2),rgba(120,140,160,.07) 55%,transparent);pointer-events:none}
 .img{position:absolute;inset:0;width:100%;height:100%;-webkit-user-drag:none;user-select:none}
 .clean{clip-path:polygon(0 0,0 0,0 100%,0 100%);will-change:clip-path}
 .refl{position:absolute;left:0;right:0;top:96%;height:100%;transform:scaleY(-1);opacity:.22;-webkit-mask-image:linear-gradient(to top,#000 0,transparent 38%);mask-image:linear-gradient(to top,#000 0,transparent 38%);filter:blur(2px);pointer-events:none}
@@ -51,7 +53,7 @@ a{color:inherit;text-decoration:none}
 .bands i{opacity:.6}.bands i:nth-child(1){left:36%;width:1.4%}.bands i:nth-child(2){left:39%;width:.5%;opacity:.4}.bands i:nth-child(3){left:62%;width:2.2%;opacity:.5}.bands i:nth-child(4){display:none}
 #swirl,#drops{position:absolute;inset:0;width:100%;height:100%}
 #swirl{will-change:clip-path}
-.polish{position:absolute;top:-10%;bottom:-10%;left:0;width:22%;transform:translateX(-120%) skewX(-12deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 30%,rgba(255,255,255,.55) 52%,rgba(210,240,255,.18) 70%,transparent);filter:blur(4px);mix-blend-mode:screen}
+.polish{position:absolute;top:-10%;bottom:-10%;left:0;width:22%;transform:translateX(-120%) skewX(-12deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.12) 25%,rgba(255,255,255,.85) 50%,rgba(225,245,255,.35) 66%,transparent);filter:blur(3px);mix-blend-mode:screen;box-shadow:0 0 60px 20px rgba(200,230,255,.12)}
 .vig{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.55) 0,transparent 22%,transparent 55%,rgba(0,0,0,.8) 100%)}
 
 .copy{position:absolute;inset:0;z-index:6;pointer-events:none}
@@ -62,7 +64,7 @@ a{color:inherit;text-decoration:none}
 .bl{left:clamp(18px,5vw,72px);bottom:clamp(64px,11vh,120px)}
 .br{right:clamp(18px,5vw,72px);bottom:clamp(64px,11vh,120px);text-align:right}
 .tl{left:clamp(18px,5vw,72px);top:clamp(90px,13vh,150px)}
-.t5{text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.t5{text-shadow:0 2px 26px rgba(0,0,0,.9),0 0 6px rgba(0,0,0,.6)}
 .hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:8px}
 .hint span{width:1px;height:34px;background:linear-gradient(transparent,#fff);animation:dn 1.6s infinite}
 @keyframes dn{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
@@ -104,7 +106,10 @@ a{color:inherit;text-decoration:none}
  .book.docked{padding:0;height:0;overflow:hidden}
 }
 @media (max-width:899px){
- .car{width:112vw;left:40%;top:55%}
+ .car{width:88vw;left:50%;top:57%}
+ .car>.img{filter:brightness(1.22) contrast(1.06)}
+ .panel>h3{display:none}
+ .sunfloor{width:90%}
  .door{width:78vw;top:19%}
  .ceiling{height:20%}
  .tubes .hz{display:none}
