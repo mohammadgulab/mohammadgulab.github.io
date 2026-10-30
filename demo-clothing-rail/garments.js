@@ -10,16 +10,15 @@ var TYPE={hoodie:['sand','midnight','lilac','ivory','forest','ash','clay','mist'
 var P=[
  {id:'dune',type:'hoodie',c:'sand',name:'Dune Heavyweight Hoodie',kind:'Hoodie',price:289,desc:'Our signature 480 gsm hoodie in a warm sand tone. Double layer hood, flat drawcords and a deep kangaroo pocket.'},
  {id:'midnight',type:'hoodie',c:'midnight',name:'Midnight Hoodie',kind:'Hoodie',price:299,desc:'A deep charcoal black that stays dark wash after wash. Brushed inside, clean outside, made for layering.'},
- {id:'heritage',type:'crew',c:'heritage',name:'Heritage Block Crew',kind:'Sweatshirt',price:269,desc:'A colour block crewneck in navy, cream and clay with a wide rib collar and dropped shoulders.'},
  {id:'lilac',type:'hoodie',c:'lilac',name:'Lilac Cloud Hoodie',kind:'Hoodie',price:289,desc:'The signature hoodie in a calm lilac with tone on tone chest embroidery.'},
  {id:'denim',type:'denim',c:'indigo',name:'Washed Denim Overshirt',kind:'Jacket',price:349,desc:'A 12 oz washed denim overshirt with chest pockets and pearl snaps. Wear it open over a hoodie.'},
  {id:'ivory',type:'hoodie',c:'ivory',name:'Ivory Oversized Hoodie',kind:'Hoodie',price:299,desc:'An off white hoodie cut extra roomy, with ribbed cuffs that keep the sleeves stacked.'},
  {id:'clay',type:'hoodie',c:'clay',name:'Clay Hoodie',kind:'Hoodie',price:289,desc:'Garment dyed in a burnt clay colour that softens with every wash.'},
- {id:'sage',type:'crew',c:'sageb',name:'Forest Block Crew',kind:'Sweatshirt',price:269,desc:'Forest green, cream and sage. Heavy brushed fleece with a relaxed fit.'},
+ {id:'cobalt',type:'hoodie',c:'cobalt',name:'Cobalt Hoodie',kind:'Hoodie',price:299,desc:'A bold cobalt blue that keeps its colour. Heavy brushed fleece with a double layer hood.'},
  {id:'forest',type:'hoodie',c:'forest',big:true,name:'Forest Original Hoodie',kind:'Hoodie',price:319,desc:'Deep forest green, our most loved piece this season. Heavy, soft and built to keep its shape.'},
  {id:'ash',type:'hoodie',c:'ash',big:true,name:'Ash Grey Hoodie',kind:'Hoodie',price:299,desc:'Heather grey fleece that goes with everything in your wardrobe.'},
  {id:'black-denim',type:'denim',c:'black',name:'Black Denim Overshirt',kind:'Jacket',price:349,desc:'The overshirt in a washed black denim with tonal snaps.'},
- {id:'mono',type:'crew',c:'mono',name:'Onyx Block Crew',kind:'Sweatshirt',price:269,desc:'Onyx, ash and charcoal blocks for a quiet, all dark look.'}
+ {id:'mist',type:'hoodie',c:'mist',name:'Mist Blue Hoodie',kind:'Hoodie',price:289,desc:'A soft mist blue, garment dyed for a lived in look from day one.'}
 ];
 var BYHEX={};
 P.forEach(function(p){
