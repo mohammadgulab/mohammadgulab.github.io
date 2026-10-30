@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Asas Custom Homes | Built from the blueprint up</title>
+<meta name="description" content="Asas Custom Homes, Jeddah. Custom villas and family homes, designed and built from the blueprint up.">
+<meta property="og:title" content="Asas Custom Homes | Built from the blueprint up">
+<meta property="og:description" content="Scroll and watch a home rise from blueprint to keys. Concept demo by Mohammad Gulab Kauser.">
+<meta name="theme-color" content="#0b1626">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="#top"><span class="mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 16 16 6l12 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14v12h16V14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 26h16" stroke="currentColor" stroke-width="4"/></svg></span>ASAS<small>Custom Homes</small></a>
+  <nav class="links"><a href="#services">Services</a><a href="#process">Process</a><a href="#projects">Projects</a></nav>
+  <a class="btn sm" href="#contact">Start your home</a>
+</header>
+
+<section class="build" id="top">
+  <div class="stick">
+    <canvas id="scene" aria-label="A house being built in stages as you scroll"></canvas>
+    <div class="photo" id="phExt"><img src="img/exterior.webp" alt="Finished white family home with lawn"></div>
+    <div class="photo" id="phHome"><img src="img/home.webp" alt="The finished home at dusk with lights on"></div>
+    <div class="photo" id="phPorch"><img src="img/porch.webp" alt="Front porch with warm lanterns"></div>
+    <div class="veil"></div><div class="bar"><i id="bar"></i></div>
+    <div class="hero-copy" id="heroCopy">
+      <p class="eyebrow">Custom home builders · Jeddah</p>
+      <h1>Built from the<br><em>blueprint</em> up.</h1>
+      <p class="lede">One team from the first line on paper to the day you turn the key. Scroll to watch your home rise.</p>
+      <a class="btn" href="#contact">Book a plot visit</a>
+      <div class="scroll-hint"><span></span>Scroll to build</div>
+    </div>
+    <div class="stage-card" id="stageCard">
+      <div class="num" id="stNum">01</div>
+      <div><h2 id="stTitle">Foundation</h2><p id="stText">Engineered slab poured and cured on a fully surveyed plot.</p></div>
+    </div>
+    <ol class="rail" id="rail">
+      <li data-i="0"><i></i><span>Blueprint</span></li>
+      <li data-i="1"><i></i><span>Foundation</span></li>
+      <li data-i="2"><i></i><span>Framing</span></li>
+      <li data-i="3"><i></i><span>Dried in</span></li>
+      <li data-i="4"><i></i><span>Exterior</span></li>
+      <li data-i="5"><i></i><span>Home</span></li>
+    </ol>
+    <div class="welcome" id="welcome"><p class="eyebrow">Handover day</p><h2>Welcome home.</h2><p>Keys, warranty pack and a walkthrough with the people who built it.</p></div>
+  </div>
+</section>
+
+<section class="sec intro">
+  <div class="wrap two">
+    <h2 class="big">Every home we build starts as a single line on a blueprint. <span>It ends with your family at the door.</span></h2>
+    <div class="stats">
+      <div><b>140+</b><span>Homes handed over</span></div>
+      <div><b>18 yr</b><span>Structural warranty</span></div>
+      <div><b>1</b><span>Team, design to keys</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="services">
+  <div class="wrap">
+    <p class="eyebrow dark">What we build</p>
+    <h2 class="h2">Services</h2>
+    <div class="cards">
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M6 22 24 8l18 14M11 19v21h26V19M20 40V28h8v12"/></svg><h3>Custom villas</h3><p>Ground-up family homes designed around how you actually live, from majlis to rooftop.</p></article>
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M8 40V12h22l10 10v18zM30 12v10h10M14 22h10M14 28h20M14 34h20"/></svg><h3>Design and permits</h3><p>Architectural drawings, structural design and municipality approvals handled in house.</p></article>
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M6 40h36M10 40V18M18 40V18M26 40V18M34 40V18M42 40V18M6 18h38M6 12h38"/></svg><h3>Structure and framing</h3><p>Reinforced concrete and steel frames, inspected at every pour and every floor.</p></article>
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M6 24 24 10l18 14M12 20v20h24V20M18 26h12v8H18z"/></svg><h3>Renovations</h3><p>Extensions, second floors and full refits for homes that need to grow with you.</p></article>
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M24 6v6M24 36v6M6 24h6M36 24h6M24 16a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"/></svg><h3>MEP and smart home</h3><p>Cooling, solar ready wiring, lighting scenes and security planned before the walls close.</p></article>
+      <article class="card"><svg viewBox="0 0 48 48"><path d="M8 40h32M12 40V26h24v14M16 26v-6a8 8 0 0 1 16 0v6M22 32h4"/></svg><h3>Turnkey interiors</h3><p>Joinery, finishes and landscaping so the house is ready to live in on day one.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec dark" id="process">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2 class="h2">From first sketch to keys in four steps</h2>
+    <ol class="steps">
+      <li><span>01</span><h3>Plot visit and brief</h3><p>We walk your plot, test the soil and listen. You leave with a written brief and a budget range.</p><em>Week 1</em></li>
+      <li><span>02</span><h3>Design and approvals</h3><p>Plans, 3D views and structural drawings. We file and follow the permits for you.</p><em>Weeks 2 to 10</em></li>
+      <li><span>03</span><h3>Build</h3><p>Foundation, frame, roof, envelope, finishes. A site report with photos lands in your phone every Thursday.</p><em>Months 3 to 13</em></li>
+      <li><span>04</span><h3>Handover</h3><p>Snag list closed, keys, warranty pack and a 12 month care visit plan.</p><em>Month 14</em></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="projects">
+  <div class="wrap">
+    <p class="eyebrow dark">Recent projects</p>
+    <h2 class="h2">Homes we have handed over</h2>
+    <div class="projects">
+      <article class="proj"><div class="ph"><img src="img/p1.webp" alt="White two storey home with a columned porch" loading="lazy"></div><div class="pi"><h3>Al Shati Villa</h3><p>North Jeddah · 5 bed · 620 m²</p><span>Handed over 2026</span></div></article>
+      <article class="proj"><div class="ph"><img src="img/p2.webp" alt="Family home at dusk with warm lights" loading="lazy"></div><div class="pi"><h3>Obhur Courtyard House</h3><p>Obhur · 4 bed · 480 m²</p><span>Handed over 2025</span></div></article>
+      <article class="proj"><div class="ph"><img src="img/p3.webp" alt="White family home with a wide lawn" loading="lazy"></div><div class="pi"><h3>Al Rawdah Family Home</h3><p>Al Rawdah · 6 bed · 710 m²</p><span>Handed over 2025</span></div></article>
+    </div>
+    <div class="quote"><p>“We saw our home every Thursday in photos while we were in Riyadh. When we flew back for handover it was exactly the drawing, down to the porch light.”</p><span>Faisal and Noura, Al Shati Villa</span></div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact">
+  <div class="wrap two">
+    <div>
+      <p class="eyebrow">Start your home</p>
+      <h2 class="h2">Tell us about your plot.</h2>
+      <p class="muted">A project lead calls you back within one working day. Plot visits are free inside Jeddah.</p>
+      <ul class="info">
+        <li><b>Studio</b>Building 14, Al Murjan Business Park, Al Zahra District, Jeddah</li>
+        <li><b>Hours</b>Sunday to Thursday, 8:00 to 17:00</li>
+        <li><b>Phone</b>+966 12 000 4400</li>
+      </ul>
+    </div>
+    <form class="form" id="form" novalidate>
+      <label>Full name<input name="name" required placeholder="Your name"></label>
+      <label>Mobile<input name="phone" required inputmode="tel" placeholder="05x xxx xxxx"></label>
+      <div class="row">
+        <label>Plot area<select name="area"><option>North Jeddah</option><option>Obhur</option><option>Al Rawdah</option><option>Al Shati</option><option>Other</option></select></label>
+        <label>Budget<select name="budget"><option>SAR 1.5M to 2.5M</option><option>SAR 2.5M to 4M</option><option>SAR 4M+</option><option>Not sure yet</option></select></label>
+      </div>
+      <label>Project type</label>
+      <div class="chips" id="chips"><button type="button" class="on">New villa</button><button type="button">Extension</button><button type="button">Renovation</button></div>
+      <label>Anything else<textarea name="msg" rows="3" placeholder="Plot size, bedrooms, timeline"></textarea></label>
+      <button class="btn full" type="submit">Request a plot visit</button>
+      <p class="ok" id="ok" hidden>Thank you. A project lead will call you within one working day.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="mark"><svg viewBox="0 0 32 32"><path d="M4 16 16 6l12 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14v12h16V14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M8 26h16" stroke="currentColor" stroke-width="4"/></svg></span>ASAS<small>Custom Homes</small></a>
+    <p>Asas Custom Homes is a fictional brand. Build stages are a 3D model made in code; finished home and porch photos from Pexels (free licence).</p>
+    <p class="by">Concept demo by Mohammad Gulab Kauser</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
