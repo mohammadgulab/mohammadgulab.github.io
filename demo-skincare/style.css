@@ -4,8 +4,6 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-#stage{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;z-index:0;display:block;pointer-events:none}
-.fallback{position:fixed;left:50%;top:50%;width:min(70vw,420px);transform:translate(-50%,-50%);z-index:0;mix-blend-mode:multiply;border-radius:24px}
 .loader{position:fixed;inset:0;background:var(--bg);z-index:50;display:grid;place-items:center;transition:opacity .9s ease,visibility .9s}
 .loader span{font-family:var(--serif);font-size:1.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink2);animation:pulse 1.6s ease-in-out infinite}
 .loader.done{opacity:0;visibility:hidden}
@@ -129,3 +127,17 @@ blockquote{font-family:var(--serif);font-style:italic;font-weight:400;font-size:
 .steps span{color:var(--ink2)}
 .facts b{font-size:clamp(1.7rem,3.4vw,3rem)}
 @media (max-width:760px){.facts{gap:1rem}.facts b{font-size:1.45rem}.facts span{font-size:.68rem;letter-spacing:.12em;text-align:center}.howto{padding:3rem 0 5rem}}
+
+/* v5: photographed glass jar on real peonies */
+.stage{position:fixed;inset:0;width:100%;height:100vh;height:100lvh;z-index:0;pointer-events:none;overflow:hidden}
+.rig{position:absolute;left:0;top:0;aspect-ratio:763/713;will-change:transform,opacity;opacity:0}
+.tilt{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;z-index:2}
+.tilt::after{content:"";position:absolute;left:8%;right:8%;bottom:-5%;height:12%;border-radius:50%;background:radial-gradient(closest-side,rgba(90,45,60,.28),rgba(90,45,60,0));z-index:-1}
+.jar{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain;display:block;will-change:opacity,transform}
+.jar.closed{filter:drop-shadow(0 14px 18px rgba(80,40,55,.16))}
+.jar.open{width:100%;height:auto;top:50%;margin-top:-48.5%;opacity:0}
+.bloom{position:absolute;display:block;will-change:transform,opacity}
+.b1{width:74%;left:14%;top:70%;z-index:3}
+.b2{width:78%;left:-42%;top:30%;z-index:1}
+.b3{width:86%;left:52%;top:40%;z-index:1}
+.b4{width:150%;left:50%;top:54%;z-index:0;opacity:0}

@@ -1,11 +1,6 @@
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import * as M from './models.js?v=3';
-
-const canvas=document.getElementById('stage');
+// Aurelle: real photo jar, scroll choreography with GSAP, gentle float and tilt
 const loader=document.getElementById('loader');
 const done=()=>loader.classList.add('done');
-let mobile=innerWidth<760;
 
 // bag
 let bag=0; const toast=document.getElementById('toast');
@@ -18,107 +13,81 @@ function reveals(){
   gsap.utils.toArray('.reveal').filter(el=>!el.closest('.hero')).forEach(el=>gsap.from(el,{y:46,opacity:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 97%',toggleActions:'play none none reverse'}}));
 }
 
-let renderer;
-try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'}); }
-catch(e){ canvas.style.display='none'; document.getElementById('fallback').hidden=false; done(); reveals(); throw e; }
-renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.6:1.75));
-const scene=new THREE.Scene();
-const bgCols=['#faf6f5','#f8f2f2','#f6efef','#faf6f5'].map(c=>new THREE.Color(c));
-scene.background=bgCols[0].clone();
-await M.stage(THREE,renderer,scene,RoomEnvironment);
-const camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0.6,10); camera.lookAt(0,0,0);
+const $=id=>document.getElementById(id);
+const stage=$('stage'), rig=$('rig'), tilt=$('tilt'), jarC=$('jarC'), jarO=$('jarO');
+const b1=$('b1'), b2=$('b2'), b3=$('b3'), b4=$('b4');
 
-const L=await M.labels(THREE);
-const jar=M.buildJar(THREE,{labelTex:L.jar,lidTex:L.lid,lidMat:M.lacquerMat(THREE)});
-const rig=new THREE.Group(); scene.add(rig);
-const pivot=new THREE.Group(); rig.add(pivot); pivot.add(jar.group); jar.group.position.y=-jar.H*0.55;
-const lidBase=jar.lid.position.clone();
-
-// soft contact shadow
-const sc=document.createElement('canvas'); sc.width=sc.height=256; const sg=sc.getContext('2d'); const grd=sg.createRadialGradient(128,128,10,128,128,128);
-grd.addColorStop(0,'rgba(120,70,60,.38)'); grd.addColorStop(1,'rgba(120,70,60,0)'); sg.fillStyle=grd; sg.fillRect(0,0,256,256);
-const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.6,3.6), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));
-shadow.rotation.x=-Math.PI/2; shadow.position.y=-jar.H*0.55-0.01; pivot.add(shadow);
-
-// blooms: real peony photo cut-outs on planes (no loose petals)
-const blooms=new THREE.Group(); scene.add(blooms);
-const texL=new THREE.TextureLoader();
-function photoBloom(src,w,h){ const t=texL.load(src); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=4;
-  const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,toneMapped:false}));
-  const g=new THREE.Group(); g.add(m); return g; }
-const b1=photoBloom('img/peony-a.webp',3.0,3.0*772/900); const b2=photoBloom('img/peony-bunch.webp',2.3,2.3*958/800); const b3=photoBloom('img/peony-a.webp',2.0,2.0*772/900);
-b3.children[0].scale.x=-1;
-b1.renderOrder=-1; b2.renderOrder=-2; b3.renderOrder=-2;
-blooms.add(b2,b3,b1);
-const petals=[];
-
-// scroll states
-const D=[
- {x:1.45,y:-0.05,s:0.95,rx:0.32,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:0},
- {x:1.6,y:-0.15,s:1.25,rx:0.12,ry:1.85,ly:0,lx:0,lz:0,bloom:0,sh:0},
- {x:1.5,y:-0.55,s:1.15,rx:0.55,ry:2.75,ly:1.3,lx:-0.45,lz:0.4,bloom:0,sh:0},
- {x:0.75,y:-0.2,s:0.95,rx:1.2,ry:6.28,ly:0.2,lx:1.75,lz:-0.1,bloom:0,sh:0}];
-const MB=[
- {x:0,y:0.75,s:0.62,rx:0.32,ry:-0.45,ly:0,lx:0,lz:0,bloom:1,sh:0},
- {x:0,y:1.2,s:0.66,rx:0.12,ry:1.85,ly:0,lx:0,lz:0,bloom:0,sh:0},
- {x:0,y:1.12,s:0.6,rx:0.55,ry:2.75,ly:1.25,lx:0.3,lz:-0.4,bloom:0,sh:0},
- {x:-0.5,y:0.0,s:0.58,rx:1.2,ry:6.28,ly:0.2,lx:1.6,lz:-0.1,bloom:0,sh:0}];
-const st={...(mobile?MB:D)[0], bg:0};
+// scroll states: x,y = centre in viewport fractions, w = jar width in px, r = roll (deg)
+// c = closed jar opacity, bl = hero blooms (0 hidden), pk = big peony behind the open jar
+function states(){
+  const vw=innerWidth, vh=innerHeight, mob=vw<760;
+  if(mob){
+    const w=Math.min(vw*0.6,310);
+    return [
+      {x:.5, y:.31, w:w,      r:0,  c:1, bl:1, pk:0, pr:0},
+      {x:.5, y:.26, w:w*0.92, r:-7, c:1, bl:0, pk:0, pr:0},
+      {x:.5, y:.25, w:w*0.82, r:0,  c:0, bl:0, pk:1, pr:-8},
+      {x:.5, y:.53, w:Math.min(vw*0.66,330), r:0, c:0, bl:0, pk:1, pr:20}];
+  }
+  const w=Math.max(260,Math.min(vw*0.29,440,vh*0.5));
+  return [
+    {x:.70, y:.53, w:w,      r:0,  c:1, bl:1, pk:0, pr:0},
+    {x:.70, y:.50, w:w*1.12, r:-7, c:1, bl:0, pk:0, pr:0},
+    {x:.69, y:.50, w:w*0.95, r:0,  c:0, bl:0, pk:1, pr:-8},
+    {x:.50, y:.50, w:w*0.92, r:0,  c:0, bl:0, pk:1, pr:20}];
+}
+const st={...states()[0]};
 const intro={k:0};
-
 let tl;
 function buildTimeline(){
   if(tl){ tl.scrollTrigger.kill(); tl.kill(); }
-  const asp=innerWidth/innerHeight, f=Math.min(1,Math.max(0.55,asp/1.45));
-  const A=(mobile?MB:D).map((s,i)=>mobile?s:{...s,x:s.x*f,s:s.s*(i===0?Math.max(f,0.85):f)});
-  Object.assign(st,A[0],{bg:0});
+  const A=states(); Object.assign(st,A[0]);
   tl=gsap.timeline({defaults:{ease:'power1.inOut',duration:1},scrollTrigger:{trigger:'main',start:'top top',endTrigger:'#collection',end:'top 60%',scrub:1.1}});
-  for(let i=1;i<A.length;i++) tl.to(st,{...A[i],bg:i},i-1);
+  for(let i=1;i<A.length;i++) tl.to(st,{...A[i]},i-1);
   tl.to({},{duration:0.6});
 }
 
-function resize(){
-  const w=innerWidth,h=innerHeight; renderer.setSize(w,h,false); camera.aspect=w/h;
-  camera.fov = w/h<0.75 ? 34 : 30; camera.updateProjectionMatrix();
-  mobile=w<760; if(tl){ buildTimeline(); ScrollTrigger.refresh(); }
-  const sx=mobile?0.6:1; const fx=mobile?1:Math.min(1,Math.max(0.6,(w/h)/1.45));
-  const cx=mobile?0:1.45*fx, cy=mobile?0.75:-0.05;
-  const k1=Math.max(fx,0.75);
-  b1.position.set(cx+0.02, cy-(mobile?0.62:0.95), -0.25); b1.scale.setScalar((mobile?0.78:1.0)*k1); b1.rotation.set(0,0,0.04);
-  b2.position.set(cx-(mobile?0.95:1.3), cy-(mobile?0.62:1.0), -0.9); b2.scale.setScalar((mobile?0.62:0.78)*k1); b2.rotation.set(0,0,0.18);
-  b3.position.set(cx+(mobile?1.0:1.65), cy-(mobile?0.75:1.15), -0.8); b3.scale.setScalar((mobile?0.6:0.9)*k1); b3.rotation.set(0,0,-0.12);
-}
-let lastW=0,lastH=0;
-addEventListener('resize',()=>{ if(innerWidth!==lastW||Math.abs(innerHeight-lastH)>140){ lastW=innerWidth; lastH=innerHeight; resize(); } });
-lastW=innerWidth; lastH=innerHeight; resize(); buildTimeline();
-
+// pointer on desktop, phone tilt on mobile (no permission prompt; ignored if unavailable)
 const pointer={x:0,y:0,tx:0,ty:0};
 addEventListener('pointermove',e=>{ if(e.pointerType==='mouse'){ pointer.tx=(e.clientX/innerWidth-.5); pointer.ty=(e.clientY/innerHeight-.5);} });
+addEventListener('deviceorientation',e=>{ if(e.gamma==null) return; pointer.tx=Math.max(-.5,Math.min(.5,e.gamma/40)); pointer.ty=Math.max(-.5,Math.min(.5,(e.beta-45)/50)); });
+let touchX=null;
+addEventListener('touchmove',e=>{ const t=e.touches[0]; if(!t) return; pointer.tx=(t.clientX/innerWidth-.5)*0.6; },{passive:true});
 
-let visible=true; const coll=document.getElementById('collection');
-const clock=new THREE.Clock(); const tmp=new THREE.Color();
-function frame(){
+let lastW=innerWidth,lastH=innerHeight;
+addEventListener('resize',()=>{ if(innerWidth!==lastW||Math.abs(innerHeight-lastH)>140){ lastW=innerWidth; lastH=innerHeight; buildTimeline(); ScrollTrigger.refresh(); } });
+
+const coll=$('collection');
+const t0=performance.now();
+function frame(now){
   requestAnimationFrame(frame);
-  visible = coll.getBoundingClientRect().top > 0;
-  if(!visible) return;
-  const t=clock.getElapsedTime();
-  pointer.x+=(pointer.tx-pointer.x)*0.05; pointer.y+=(pointer.ty-pointer.y)*0.05;
-  const k=intro.k;
-  rig.position.set(st.x, st.y + Math.sin(t*1.1)*0.04 - (1-k)*0.8, 0);
-  rig.scale.setScalar(st.s*(0.82+0.18*k));
-  pivot.rotation.set(st.rx + pointer.y*0.12, st.ry + Math.sin(t*0.45)*0.12 + pointer.x*0.35 - (1-k)*0.9, 0);
-  jar.lid.position.set(lidBase.x+st.lx, lidBase.y+st.ly, lidBase.z); jar.lid.rotation.z=st.lz + (st.ly>0.05? Math.sin(t*0.9)*0.05:0);
-  shadow.material.opacity=st.sh;
-  // blooms
-  const bl=st.bloom; blooms.position.y=-(1-bl)*3.2 - (1-k)*1.5; blooms.position.x=0; blooms.visible=bl>0.01;
-  blooms.children.forEach((b,i)=>{ b.children[0].rotation.z=Math.sin(t*0.35+i*2)*0.025; });
-  // petals parallax with scroll
-  const sp=scrollY/innerHeight;
-  petals.forEach((p,i)=>{ const u=p.userData; p.position.set(u.x+Math.sin(t*u.sp+i)*0.25, ((u.y+sp*1.6*u.sp+ t*0.05*u.sp)%7+7)%7-3.5, u.z); p.rotation.set(u.r+t*u.sp*0.6, u.r*0.5+t*u.sp*0.4, u.r); });
-  // bg colour
-  const bi=Math.min(bgCols.length-1.001,Math.max(0,st.bg)); const i0=Math.floor(bi); tmp.copy(bgCols[i0]).lerp(bgCols[i0+1],bi-i0); scene.background.copy(tmp);
-  renderer.render(scene,camera);
+  if(coll.getBoundingClientRect().top<=0){ stage.style.visibility='hidden'; return; }
+  stage.style.visibility='visible';
+  const t=(now-t0)/1000, k=intro.k;
+  pointer.x+=(pointer.tx-pointer.x)*0.06; pointer.y+=(pointer.ty-pointer.y)*0.06;
+  const vw=innerWidth, vh=innerHeight;
+  const fy=Math.sin(t*1.1)*st.w*0.022;
+  rig.style.width=st.w+'px';
+  rig.style.transform=`translate3d(${st.x*vw}px,${st.y*vh + fy + (1-k)*40}px,0) translate(-50%,-50%) scale(${0.86+0.14*k})`;
+  rig.style.opacity=k;
+  const ry=Math.sin(t*0.5)*5 + pointer.x*14, rx=Math.cos(t*0.42)*2 - pointer.y*8;
+  tilt.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${st.r}deg)`;
+  jarC.style.opacity=st.c; jarO.style.opacity=1-st.c;
+  jarC.style.transform=`scale(${0.92+0.08*st.c})`; jarO.style.transform=`scale(${1-0.08*st.c})`;
+  // hero blooms: parallax against the jar, slow sway, drop away on scroll
+  const px=-pointer.x*18, py=-pointer.y*10, drop=(1-st.bl)*st.w*0.9;
+  b1.style.transform=`translate3d(${px*1.4}px,${py+drop*1.2}px,0) rotate(${Math.sin(t*0.35)*1.6}deg)`;
+  b2.style.transform=`translate3d(${px*0.7}px,${py*0.6+drop}px,0) rotate(${10+Math.sin(t*0.3+2)*1.5}deg)`;
+  b3.style.transform=`translate3d(${px*0.8}px,${py*0.7+drop}px,0) scaleX(-1) rotate(${8+Math.sin(t*0.33+4)*1.5}deg)`;
+  b1.style.opacity=b2.style.opacity=b3.style.opacity=st.bl;
+  // big peony behind the open jar
+  b4.style.opacity=st.pk;
+  b4.style.transform=`translate(-50%,-50%) translate3d(${px*0.6}px,${py*0.6}px,0) scale(${0.85+0.15*st.pk}) rotate(${st.pr+Math.sin(t*0.25)*2}deg)`;
 }
-renderer.compile(scene,camera);
-frame();
-requestAnimationFrame(()=>{ done(); gsap.to(intro,{k:1,duration:1.8,ease:'power3.out'}); reveals(); window.SITE_READY=true; });
+
+function start(){
+  buildTimeline(); requestAnimationFrame(frame);
+  done(); gsap.to(intro,{k:1,duration:1.6,ease:'power3.out'}); reveals(); window.SITE_READY=true;
+}
+const imgs=[jarC,jarO,b1,b2].map(im=>im.decode?im.decode().catch(()=>{}):Promise.resolve());
+Promise.race([Promise.all(imgs),new Promise(r=>setTimeout(r,2500))]).then(start);
