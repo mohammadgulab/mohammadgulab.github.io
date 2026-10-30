@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zafran House | Dum Biryani and Tandoor, Jeddah</title>
+<meta name="description" content="Zafran House, a concept restaurant site: dum biryani, tandoor and curries in Al Zahra, Jeddah.">
+<meta name="theme-color" content="#0c0805">
+<meta property="og:title" content="Zafran House | Dum Biryani and Tandoor, Jeddah">
+<meta property="og:description" content="Seven dishes, one slow fire. A concept restaurant website.">
+<meta property="og:image" content="https://mohammadgulab.github.io/demo-biryani/img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/biryani.webp">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <a class="brand" href="#serve" aria-label="Zafran House home">
+    <span class="brand-mark" aria-hidden="true">Z</span>
+    <span class="brand-text">Zafran <em>House</em></span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#menu">Menu</a><a href="#story">Story</a><a href="#spices">Spices</a><a href="#visit">Visit</a>
+  </nav>
+  <div class="nav-right">
+    <button class="cart" id="cartBtn" type="button" aria-label="Your order, 0 items"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.3 11.2a2 2 0 0 1-2 1.8H8.3a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span id="cartCount">0</span></button>
+    <a class="btn btn-gold nav-cta" href="#visit">Reserve</a>
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="#menu">Menu</a><a href="#story">Story</a><a href="#spices">Spices</a><a href="#visit">Reserve a table</a>
+  <p class="drawer-foot">Al Zahra, Jeddah<br>Daily 12:30 PM to 1:00 AM</p>
+</div>
+
+<main>
+<!-- HERO: dish carousel -->
+<section class="serve" id="serve" aria-label="Signature dishes">
+  <div class="serve-pin">
+    <canvas class="embers" id="embers" aria-hidden="true"></canvas>
+    <div class="glow" aria-hidden="true"></div>
+
+    <div class="serve-info">
+      <div class="dish-num"><span class="num" id="dNum">01</span><span class="of">/ 07</span><span class="tag" id="dTag">The signature</span></div>
+      <h1 class="dish-name" id="dName"><span class="l1">Chicken Dum</span><span class="l2">Biryani</span></h1>
+      <p class="dish-desc" id="dDesc">Aged basmati and saffron layered over chicken marinated overnight, sealed in the handi and slow cooked on dum.</p>
+      <div class="dish-buy">
+        <span class="price"><small>SAR</small> <b id="dPrice">58</b></span>
+        <button class="btn btn-line add" id="addBtn" type="button">Add to order <span aria-hidden="true">+</span></button>
+      </div>
+    </div>
+
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="plate-ring" aria-hidden="true"></div>
+      <div class="bits" id="bits" aria-hidden="true"></div>
+      <img class="dish" id="dish" src="img/biryani.webp" alt="Chicken dum biryani in a white bowl" width="900" height="637">
+    </div>
+
+    <div class="giant" id="giant" aria-hidden="true">Biryani</div>
+
+    <div class="mobile-buy">
+      <span class="price"><small>SAR</small> <b id="mPrice">58</b></span>
+      <button class="btn btn-line add" id="mAdd" type="button">Add to order <span aria-hidden="true">+</span></button>
+    </div>
+
+    <ol class="index" id="index" aria-label="Dishes"></ol>
+
+    <div class="serve-foot">
+      <span class="hint">Scroll to serve the next dish</span>
+      <span class="bar"><i id="bar"></i></span>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="wrap">
+    <p class="eyebrow"><span>02</span> The method</p>
+    <h2 class="h2 split">Ninety minutes. <em>Not one shortcut.</em></h2>
+    <div class="story-grid">
+      <figure class="story-fig">
+        <img src="img/biryani.webp" alt="Biryani bowl" loading="lazy" width="900" height="637" class="spin">
+        <img src="img/anise.webp" alt="" loading="lazy" class="sf sf1" aria-hidden="true">
+        <img src="img/mint.webp" alt="" loading="lazy" class="sf sf2" aria-hidden="true">
+        <img src="img/chili.webp" alt="" loading="lazy" class="sf sf3" aria-hidden="true">
+      </figure>
+      <ol class="steps">
+        <li class="step"><span class="sn">01</span><div><h3>Marinate</h3><p>Chicken rests overnight in yogurt, ginger, garlic and our own masala.</p></div></li>
+        <li class="step"><span class="sn">02</span><div><h3>Par-boil</h3><p>Long grain basmati, boiled with whole spices until it is almost there.</p></div></li>
+        <li class="step"><span class="sn">03</span><div><h3>Layer</h3><p>Rice over meat, then saffron milk, fried onions, mint and ghee.</p></div></li>
+        <li class="step"><span class="sn">04</span><div><h3>Seal and dum</h3><p>The handi is sealed with dough and left over low coals. Nobody opens it early.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- SPICES -->
+<section class="spices" id="spices">
+  <img src="img/anise.webp" alt="" class="fl fl1" loading="lazy" aria-hidden="true">
+  <img src="img/redchili.webp" alt="" class="fl fl2" loading="lazy" aria-hidden="true">
+  <img src="img/mint.webp" alt="" class="fl fl3" loading="lazy" aria-hidden="true">
+  <img src="img/chili.webp" alt="" class="fl fl4" loading="lazy" aria-hidden="true">
+  <div class="wrap">
+    <p class="eyebrow"><span>03</span> The masala</p>
+    <h2 class="h2 split">Eleven spices. <em>Toasted every morning.</em></h2>
+    <ul class="spice-list">
+      <li><span>01</span>Green cardamom<i lang="ar">هيل</i></li>
+      <li><span>02</span>Cinnamon bark<i lang="ar">قرفة</i></li>
+      <li><span>03</span>Clove<i lang="ar">قرنفل</i></li>
+      <li><span>04</span>Star anise<i lang="ar">يانسون نجمي</i></li>
+      <li><span>05</span>Cumin<i lang="ar">كمون</i></li>
+      <li><span>06</span>Saffron<i lang="ar">زعفران</i></li>
+      <li><span>07</span>Black pepper<i lang="ar">فلفل أسود</i></li>
+      <li><span>08</span>Bay leaf<i lang="ar">ورق غار</i></li>
+      <li><span>09</span>Nutmeg<i lang="ar">جوزة الطيب</i></li>
+      <li><span>10</span>Mace<i lang="ar">بسباسة</i></li>
+      <li><span>11</span>Coriander seed<i lang="ar">كزبرة</i></li>
+    </ul>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="wrap">
+    <p class="eyebrow"><span>04</span> The menu</p>
+    <h2 class="h2 split">Everything comes <em>from the fire.</em></h2>
+    <div class="tabs" role="tablist" aria-label="Menu categories">
+      <button role="tab" aria-selected="true" data-cat="rice">Biryani</button>
+      <button role="tab" aria-selected="false" data-cat="tandoor">Tandoor</button>
+      <button role="tab" aria-selected="false" data-cat="curry">Curries</button>
+      <button role="tab" aria-selected="false" data-cat="bread">Breads and drinks</button>
+    </div>
+    <div class="menu-list" id="menuList"></div>
+    <p class="menu-note">Prices in Saudi riyals, VAT included. Ask us about spice levels and allergies.</p>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="wrap">
+    <p class="big-quote split">No handi leaves our kitchen <em>before its time.</em></p>
+    <p class="quote-by">The house rule at Zafran</p>
+  </div>
+</section>
+
+<!-- VISIT / ORDER -->
+<section class="visit" id="visit">
+  <div class="wrap visit-grid">
+    <div>
+      <p class="eyebrow"><span>05</span> Visit or order</p>
+      <h2 class="h2 split">Come lift <em>the lid.</em></h2>
+      <p class="lead">Dine in under brass lamps, or have the handi sent home still sealed.</p>
+      <ul class="facts">
+        <li><b>Address</b>Building 14, Al Nahda Street, Al Zahra, Jeddah</li>
+        <li><b>Hours</b>Daily 12:30 PM to 1:00 AM, Friday from 1:30 PM</li>
+        <li><b>Delivery</b>Across north and central Jeddah</li>
+      </ul>
+      <div class="cta-row">
+        <button class="btn btn-gold" type="button" id="orderBtn">Order for delivery</button>
+        <a class="btn btn-line" href="#menu">See the menu</a>
+      </div>
+    </div>
+    <form class="reserve" id="reserve" novalidate>
+      <h3>Reserve a table</h3>
+      <label>Name<input type="text" name="name" autocomplete="name" required placeholder="Your name"></label>
+      <div class="two">
+        <label>Date<input type="date" name="date" required></label>
+        <label>Time<select name="time"><option>7:00 PM</option><option>8:00 PM</option><option selected>9:00 PM</option><option>10:00 PM</option><option>11:00 PM</option></select></label>
+      </div>
+      <label>Guests
+        <span class="guests"><button type="button" class="g-btn" data-d="-1" aria-label="Fewer guests">−</button><output id="guests">2</output><button type="button" class="g-btn" data-d="1" aria-label="More guests">+</button></span>
+      </label>
+      <button class="btn btn-gold full" type="submit">Request table</button>
+      <p class="form-note">Concept demo: nothing is sent.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-grid">
+    <div class="brand foot-brand"><span class="brand-mark" aria-hidden="true">Z</span><span class="brand-text">Zafran <em>House</em></span></div>
+    <p>Fictional restaurant for a concept website. Food photos from Pexels.</p>
+    <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="main.js?v=1"></script>
+</body>
+</html>
