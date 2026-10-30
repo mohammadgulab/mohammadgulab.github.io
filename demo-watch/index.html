@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maison Verdane | More than a watch</title>
+<meta name="description" content="Maison Verdane, hand-assembled rose gold chronographs from Jeddah. Scroll to take the watch apart.">
+<meta name="theme-color" content="#06140f">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" aria-label="Maison Verdane home">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M11 12 L20 29 L29 12" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M20 6v4" stroke="currentColor" stroke-width="1.2"/></svg>
+    <span><b>VERDANE</b><small>Maison horlogère</small></span>
+  </a>
+  <nav class="nav" id="nav">
+    <a href="#collection">Collection</a><a href="#craft">Craftsmanship</a><a href="#story">Our Story</a><a href="#visit">Boutique</a>
+  </nav>
+  <div class="hdr-r">
+    <button class="cart" id="cartBtn" aria-label="Bag">Bag <span id="bagCount">0</span></button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="scrolly" id="scrolly">
+    <div class="stage">
+      <div class="glow g1"></div><div class="glow g2"></div>
+      <canvas id="gl" aria-label="Rose gold chronograph that takes itself apart as you scroll"></canvas>
+      <div class="fallback" id="fallback" hidden>
+        <p>Your browser could not start the 3D view.</p>
+      </div>
+      <div class="labels" id="labels"></div>
+
+      <div class="hero-copy" id="heroCopy">
+        <p class="eyebrow">Time lives in detail</p>
+        <h1>More<br>than a<br>watch</h1>
+        <p class="lede">A fusion of precision, design and quiet elegance. Crafted for those who notice the finer things.</p>
+        <div class="ctas"><a class="btn" href="#collection">Discover the collection</a><span class="scrollhint"><i></i>Scroll to open it</span></div>
+      </div>
+
+      <div class="cap cap1" id="cap1"><p class="eyebrow">Calibre VD 01</p><h2>Every part,<br>made to last</h2></div>
+      <div class="cap cap2" id="cap2"><p class="eyebrow">Assembled by one hand</p><h2>Back together,<br>in one heartbeat</h2><a class="btn" href="#collection">Choose yours</a></div>
+
+      <div class="rail" aria-hidden="true"><span></span><b id="railDot"></b><em id="railNum">01</em></div>
+    </div>
+  </section>
+
+  <section class="craft" id="craft">
+    <div class="wrap">
+      <p class="eyebrow">Craftsmanship</p>
+      <h2 class="h2">Two hundred and twelve parts.<br>One quiet heartbeat.</h2>
+      <div class="specs">
+        <div><b>42 mm</b><span>Solid rose gold case, hand polished</span></div>
+        <div><b>72 h</b><span>Power reserve, self winding</span></div>
+        <div><b>100 m</b><span>Water resistant, screw down crown</span></div>
+        <div><b>Sapphire</b><span>Domed crystal, anti glare both sides</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="collection" id="collection">
+    <div class="wrap">
+      <div class="col-head"><div><p class="eyebrow">The collection</p><h2 class="h2">Three dials, one soul</h2></div><p class="muted">Each piece is made to order in our Jeddah atelier and delivered in six weeks.</p></div>
+      <div class="cards" id="cards">
+        <article class="card"><div class="ph"><img data-variant="0" alt="Verdane Chrono 42 with green dial"></div><div class="ci"><h3>Chrono 42 Émeraude</h3><p>Rose gold, green sunburst dial, green rubber strap</p><div class="row"><span class="price">SAR 48,500</span><button class="add" data-name="Chrono 42 Émeraude">Add to bag</button></div></div></article>
+        <article class="card"><div class="ph"><img data-variant="1" alt="Verdane Chrono 42 with black dial"></div><div class="ci"><h3>Chrono 42 Nuit</h3><p>Rose gold, deep black dial, black rubber strap</p><div class="row"><span class="price">SAR 46,900</span><button class="add" data-name="Chrono 42 Nuit">Add to bag</button></div></div></article>
+        <article class="card"><div class="ph"><img data-variant="2" alt="Verdane Chrono 42 with ivory dial"></div><div class="ci"><h3>Chrono 42 Sable</h3><p>Rose gold, sand ivory dial, tan rubber strap</p><div class="row"><span class="price">SAR 49,200</span><button class="add" data-name="Chrono 42 Sable">Add to bag</button></div></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" id="story">
+    <div class="wrap story-in">
+      <p class="eyebrow">Our story</p>
+      <blockquote>“We build watches the slow way, because the people who wear them notice.”</blockquote>
+      <p class="muted">Maison Verdane began as a small repair bench in Al Balad. Today every Chrono 42 is still assembled, tested and signed by a single watchmaker before it leaves the atelier.</p>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="wrap visit-in">
+      <div>
+        <p class="eyebrow">Private boutique</p>
+        <h2 class="h2">Visit the atelier</h2>
+        <p class="muted">Building 14, Prince Sultan Road, Al Zahra District, Jeddah<br>Saturday to Thursday, 11:00 to 22:00</p>
+      </div>
+      <form class="book" id="book">
+        <label>Name<input required name="n" autocomplete="name" placeholder="Your name"></label>
+        <label>Preferred day<input required name="d" type="date"></label>
+        <button class="btn" type="submit">Book a private viewing</button>
+        <p class="ok" id="bookOk" hidden>Thank you. This is a demo, nothing was sent.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <span class="logo sm"><b>VERDANE</b></span>
+    <p>Maison Verdane is a fictional brand. Address is fictional.</p>
+    <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="main.js?v=1"></script>
+</body>
+</html>
