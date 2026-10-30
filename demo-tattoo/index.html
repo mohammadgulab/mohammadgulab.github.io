@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Qalam Ink Atelier | The Ink Experience, Jeddah</title>
+<meta name="description" content="A private tattoo atelier in Jeddah. Fine line, blackwork and custom pieces. Preview your design on the body before you book.">
+<meta property="og:title" content="Qalam Ink Atelier | The Ink Experience">
+<meta property="og:description" content="Pick a design, choose a placement, see it on the body. Concept demo by Mohammad Gulab Kauser.">
+<meta name="theme-color" content="#0d0f0e">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<header class="nav"><a class="brand" href="#top">QALAM<span>INK ATELIER</span></a><nav><a href="#work">Work</a><a href="#preview">Preview</a><a href="#artists">Artists</a></nav><a class="bookbtn" href="#book">Book a consultation</a></header>
+
+<section class="hero" id="top">
+  <div class="hero-bg"><img src="img/studio.webp" alt="Inside the atelier: warm lamps, black chairs, framed flash on the walls"></div>
+  <div class="hero-in">
+    <p class="kicker">Private tattoo atelier · Jeddah</p>
+    <h1>The Ink<br><em>Experience</em></h1>
+    <p class="sub">Fine line, blackwork and custom pieces, drawn for one body only. By appointment.</p>
+    <div class="cta"><a class="btn" href="#preview">See it on the body</a><a class="btn ghost" href="#book">Book a consultation</a></div>
+  </div>
+  <div class="hero-foot"><span>Est. 2019</span><span>Al Shati, Jeddah</span><span>Scroll</span></div>
+</section>
+
+<section class="forever" id="work">
+  <div class="fv-img"><img src="img/forearm.webp" alt="Geometric line tattoo on a forearm" loading="lazy"></div>
+  <div class="fv-txt">
+    <p class="kicker">The craft</p>
+    <h2>Made to stay.<br><em>Forever.</em></h2>
+    <p>Every piece starts as a pencil sketch at our table. We draw it to your arm, your back, your story, then we take our time. Single use needles, medical grade studio, aftercare that actually works.</p>
+    <ul class="facts"><li><b>4</b>resident artists</li><li><b>1</b>client at a time</li><li><b>100%</b>custom drawings</li></ul>
+  </div>
+</section>
+
+<section class="preview" id="preview">
+  <div class="pv-head"><p class="kicker">Try before you ink</p><h2>See it on <em>the body</em></h2><p class="lead">Choose a design, pick the placement and size. Drag to turn the model.</p></div>
+  <div class="pv-grid">
+    <div class="stage">
+      <canvas id="body"></canvas>
+      <div class="stage-top"><span id="partName">Forearm</span><span class="hint">Drag to rotate</span></div>
+      <div class="parts" id="parts">
+        <button data-p="chest">Chest</button><button data-p="back">Back</button><button data-p="arm">Upper arm</button><button data-p="forearm" class="on">Forearm</button><button data-p="leg">Leg</button><button data-p="neck">Neck</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="blk"><h3><i>01</i> Design</h3><div class="designs" id="designs"><button class="dz on" data-d="rose" aria-label="Rose"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="100" cy="72" r="10"/><path d="M100 62c14 0 22 10 20 20s-14 16-24 12-14-14-8-22"/><path d="M84 66c-10 10-8 30 8 36s34-2 36-18-6-26-18-30"/><path d="M78 58c-16 14-14 44 10 52s44-6 46-26c2-14-6-28-20-34"/><path d="M100 112v70"/><path d="M100 140c-14-12-34-12-44-4 12 10 30 12 44 4z"/><path d="M100 156c14-10 32-10 42-2-12 8-28 10-42 2z"/><path d="M100 128l-6-6M100 166l7-6"/></svg><span>Rose</span></button><button class="dz" data-d="swallow" aria-label="Swallow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M40 110c30-10 50-24 64-46 6 16 20 26 40 28-16 6-30 4-40-2-6 16-22 30-46 40l-18 36 4-30-18 10 14-36z"/><path d="M104 64c4-8 12-12 20-10-6 2-10 6-12 12"/><circle cx="118" cy="66" r="1.8"/><path d="M60 108c14 2 28-4 38-14M104 92c10 6 24 8 36 2"/></svg><span>Swallow</span></button><button class="dz" data-d="moon" aria-label="Moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M118 40a62 62 0 1 0 0 120 50 50 0 1 1 0-120z"/><path d="M150 60l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M160 120l2.5 6 6 2.5-6 2.5-2.5 6-2.5-6-6-2.5 6-2.5z"/><circle cx="142" cy="96" r="2"/><path d="M100 168v24M100 8v20"/></svg><span>Moon</span></button><button class="dz" data-d="web" aria-label="Web"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M100 20v160M20 100h160M44 44l112 112M156 44 44 156"/><path d="M100 40l26 10 24 24 10 26-10 26-24 24-26 10-26-10-24-24-10-26 10-26 24-24z"/><path d="M100 64l14 6 14 14 6 16-6 16-14 14-14 6-14-6-14-14-6-16 6-16 14-14z"/><path d="M100 84l8 4 6 6 2 6-2 6-6 6-8 4-8-4-6-6-2-6 2-6 6-6z"/><path d="M146 150v28"/><circle cx="146" cy="184" r="5"/></svg><span>Web</span></button><button class="dz" data-d="serpent" aria-label="Serpent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M70 30c30-10 56 6 50 30s-50 24-56 54 26 46 54 36 30 26 6 36"/><path d="M70 30c-8 4-12 12-8 18 6-2 12-6 14-12"/><circle cx="72" cy="36" r="1.6"/><path d="M60 40l-10 4 6 2-8 4"/><path d="M98 52l8 6M84 70l10 4M76 92l8 8M74 118l10 2M88 140l8-6M110 150l4-8M126 162l-2-8"/></svg><span>Serpent</span></button><button class="dz" data-d="sprig" aria-label="Sprig"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M100 186C96 140 104 90 128 22"/><path d="M104 150c-20-4-34-18-36-36 18 2 32 16 36 36z"/><path d="M106 120c18-6 30-20 32-38-18 4-30 18-32 38z"/><path d="M110 92c-16-6-26-20-26-36 16 4 26 18 26 36z"/><path d="M118 62c14-6 22-18 22-32-14 4-22 16-22 32z"/><circle cx="128" cy="22" r="3"/></svg><span>Sprig</span></button></div></div>
+      <div class="blk"><h3><i>02</i> Or describe your own</h3><form class="desc" id="desc"><input id="descIn" placeholder="A small olive branch with my daughter's initial" maxlength="140"><button type="submit">Send</button></form><p class="note" id="descNote" hidden></p></div>
+      <div class="blk two"><div><h3><i>03</i> Scale <b id="sv">100%</b></h3><input type="range" id="scale" min="50" max="170" value="100"></div><div><h3><i>04</i> Rotation <b id="rv">0°</b></h3><input type="range" id="rot" min="-180" max="180" value="0"></div></div>
+      <div class="blk"><h3><i>05</i> Skin</h3><div class="skins" id="skins"><button style="--c:#f1d3bd" data-c="#f1d3bd" aria-label="Light"></button><button style="--c:#dcb08c" data-c="#dcb08c" class="on" aria-label="Light medium"></button><button style="--c:#b98260" data-c="#b98260" aria-label="Medium"></button><button style="--c:#8c5a3c" data-c="#8c5a3c" aria-label="Medium deep"></button><button style="--c:#5e3a26" data-c="#5e3a26" aria-label="Deep"></button></div></div>
+      <a class="btn wide" href="#book" id="useBtn">Book this placement</a>
+    </div>
+  </div>
+</section>
+
+<section class="artists" id="artists">
+  <div class="ar-head"><p class="kicker">The artists</p><h2>Four hands, <em>four styles</em></h2></div>
+  <div class="ar-grid">
+    <article><div class="ph"><img src="img/a1.webp" alt="Artist at work in black and white" loading="lazy"></div><h3>Yousef Al Harbi</h3><p>Blackwork and ornamental. Eleven years behind the machine.</p><span>From SAR 900</span></article>
+    <article><div class="ph"><img src="img/a2.webp" alt="Artist working on an arm piece" loading="lazy"></div><h3>Lina Farouk</h3><p>Fine line botanicals and script. Patient with first timers.</p><span>From SAR 650</span></article>
+    <article><div class="ph"><img src="img/a3.webp" alt="Artist inking in the studio" loading="lazy"></div><h3>Omar Siddiq</h3><p>Realism and large back pieces, built over several sessions.</p><span>From SAR 1,400</span></article>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="bk-txt"><p class="kicker">Book</p><h2>Start with a <em>conversation</em></h2><p>Thirty minutes at the atelier, a sketch, an honest quote. Consultations are free and there is no obligation to book.</p>
+  <ul><li><b>Atelier</b>Villa 7, Corniche Lane, Al Shati District, Jeddah</li><li><b>Hours</b>Saturday to Thursday, 2 pm to 11 pm</li><li><b>Deposit</b>SAR 200, counted towards your piece</li></ul></div>
+  <form class="bk-form" id="bk">
+    <label>Name<input required placeholder="Your name"></label>
+    <label>Mobile<input required inputmode="tel" placeholder="05x xxx xxxx"></label>
+    <div class="row"><label>Placement<select id="bkPart"><option>Forearm</option><option>Chest</option><option>Back</option><option>Upper arm</option><option>Leg</option><option>Neck</option></select></label><label>Size<select><option>Small, under 8 cm</option><option>Medium, 8 to 15 cm</option><option>Large, 15 cm+</option></select></label></div>
+    <label>Preferred artist<select><option>No preference</option><option>Yousef Al Harbi</option><option>Lina Farouk</option><option>Omar Siddiq</option></select></label>
+    <label>Idea<textarea rows="3" id="bkIdea" placeholder="Tell us about the piece"></textarea></label>
+    <button class="btn wide" type="submit">Request consultation</button>
+    <p class="ok" id="bkOk" hidden>Request received. We will message you within a day to confirm a time.</p>
+  </form>
+</section>
+
+<footer class="foot"><div class="brand">QALAM<span>INK ATELIER</span></div><p>Qalam Ink Atelier is a fictional studio. Photos from Pexels (free licence). Tattoo designs and 3D model drawn for this demo. 18+ only.</p><p class="by">Concept demo by Mohammad Gulab Kauser</p></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module" src="app.js?v=1"></script>
+</body></html>
