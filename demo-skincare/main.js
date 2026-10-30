@@ -23,7 +23,7 @@ try{ renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'hi
 catch(e){ canvas.style.display='none'; document.getElementById('fallback').hidden=false; done(); reveals(); throw e; }
 renderer.setPixelRatio(Math.min(devicePixelRatio, mobile?1.6:1.75));
 const scene=new THREE.Scene();
-const bgCols=['#f3edf2','#f1e9f0','#efe6ee','#f3edf2'].map(c=>new THREE.Color(c));
+const bgCols=['#faf6f5','#f8f2f2','#f6efef','#faf6f5'].map(c=>new THREE.Color(c));
 scene.background=bgCols[0].clone();
 await M.stage(THREE,renderer,scene,RoomEnvironment);
 const camera=new THREE.PerspectiveCamera(30,1,0.1,100); camera.position.set(0,0.6,10); camera.lookAt(0,0,0);
@@ -40,12 +40,17 @@ grd.addColorStop(0,'rgba(120,70,60,.38)'); grd.addColorStop(1,'rgba(120,70,60,0)
 const shadow=new THREE.Mesh(new THREE.PlaneGeometry(3.6,3.6), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),transparent:true,depthWrite:false}));
 shadow.rotation.x=-Math.PI/2; shadow.position.y=-jar.H*0.55-0.01; pivot.add(shadow);
 
-// blooms + loose petals
+// blooms: real peony photo cut-outs on planes (no loose petals)
 const blooms=new THREE.Group(); scene.add(blooms);
-const b1=M.buildPeony(THREE,{seed:11}); const b2=M.buildPeony(THREE,{seed:29,color:0xe98f9c,deep:0xb04059,tip:0xf8c9cd}); const b3=M.buildPeony(THREE,{seed:5,color:0xf0a7ae,deep:0xc45d70,tip:0xfbd6d6});
-blooms.add(b1,b2,b3);
-const petals=[]; const pcols=[0xf0a9b0,0xf4bdbd,0xeb9aa5,0xf7cfcb];
-for(let i=0;i<14;i++){ const p=M.buildPetal(THREE,pcols[i%4]); p.userData={x:(Math.random()-.5)*9, y:(Math.random()-.5)*7, z:-1.5-Math.random()*3, r:Math.random()*6, s:.6+Math.random()*.9, sp:.2+Math.random()*.5}; p.scale.setScalar(p.userData.s); scene.add(p); petals.push(p); }
+const texL=new THREE.TextureLoader();
+function photoBloom(src,w,h){ const t=texL.load(src); t.colorSpace=THREE.SRGBColorSpace; t.anisotropy=4;
+  const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,toneMapped:false}));
+  const g=new THREE.Group(); g.add(m); return g; }
+const b1=photoBloom('img/peony-a.webp',3.0,3.0*772/900); const b2=photoBloom('img/peony-bunch.webp',2.3,2.3*958/800); const b3=photoBloom('img/peony-a.webp',2.0,2.0*772/900);
+b3.children[0].scale.x=-1;
+b1.renderOrder=-1; b2.renderOrder=-2; b3.renderOrder=-2;
+blooms.add(b2,b3,b1);
+const petals=[];
 
 // scroll states
 const D=[
@@ -78,9 +83,10 @@ function resize(){
   mobile=w<760; if(tl){ buildTimeline(); ScrollTrigger.refresh(); }
   const sx=mobile?0.6:1; const fx=mobile?1:Math.min(1,Math.max(0.6,(w/h)/1.45));
   const cx=mobile?0:1.45*fx, cy=mobile?0.75:-0.05;
-  b1.position.set(cx-0.05, cy-(mobile?0.6:0.85), -0.3); b1.scale.setScalar((mobile?0.8:1.05)*Math.max(fx,0.75)); b1.rotation.set(0.35,0.4,0.05);
-  b2.position.set(cx-(mobile?0.95:1.55), cy-(mobile?0.75:1.15), -0.4); b2.scale.setScalar((mobile?0.6:0.95)*Math.max(fx,0.75)); b2.rotation.set(0.45,1.3,-0.25);
-  b3.position.set(cx+(mobile?0.95:1.5), cy-(mobile?0.7:1.05), -0.6); b3.scale.setScalar((mobile?0.55:0.9)*Math.max(fx,0.75)); b3.rotation.set(0.5,2.1,0.3);
+  const k1=Math.max(fx,0.75);
+  b1.position.set(cx+0.02, cy-(mobile?0.62:0.95), -0.25); b1.scale.setScalar((mobile?0.78:1.0)*k1); b1.rotation.set(0,0,0.04);
+  b2.position.set(cx-(mobile?0.95:1.7), cy-(mobile?0.62:1.0), -0.9); b2.scale.setScalar((mobile?0.62:0.95)*k1); b2.rotation.set(0,0,0.18);
+  b3.position.set(cx+(mobile?1.0:1.65), cy-(mobile?0.75:1.15), -0.8); b3.scale.setScalar((mobile?0.6:0.9)*k1); b3.rotation.set(0,0,-0.12);
 }
 let lastW=0,lastH=0;
 addEventListener('resize',()=>{ if(innerWidth!==lastW||Math.abs(innerHeight-lastH)>140){ lastW=innerWidth; lastH=innerHeight; resize(); } });
@@ -105,7 +111,7 @@ function frame(){
   shadow.material.opacity=st.sh;
   // blooms
   const bl=st.bloom; blooms.position.y=-(1-bl)*3.2 - (1-k)*1.5; blooms.position.x=0; blooms.visible=bl>0.01;
-  blooms.children.forEach((b,i)=>{ b.rotation.y+=0.0012*(i%2?1:-1); });
+  blooms.children.forEach((b,i)=>{ b.children[0].rotation.z=Math.sin(t*0.35+i*2)*0.025; });
   // petals parallax with scroll
   const sp=scrollY/innerHeight;
   petals.forEach((p,i)=>{ const u=p.userData; p.position.set(u.x+Math.sin(t*u.sp+i)*0.25, ((u.y+sp*1.6*u.sp+ t*0.05*u.sp)%7+7)%7-3.5, u.z); p.rotation.set(u.r+t*u.sp*0.6, u.r*0.5+t*u.sp*0.4, u.r); });
