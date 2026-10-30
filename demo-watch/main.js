@@ -1,315 +1,60 @@
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
-
-const $ = s => document.querySelector(s);
-const canvas = $('#gl');
-const isMobile = matchMedia('(max-width: 640px)').matches || matchMedia('(pointer: coarse)').matches;
-
-/* ---------- UI bits (work even without WebGL) ---------- */
-const hdr = $('#hdr');
-$('#burger').addEventListener('click', () => { const o = document.body.classList.toggle('menu-open'); $('#burger').setAttribute('aria-expanded', o); });
-document.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => document.body.classList.remove('menu-open')));
-let bag = 0; const toast = $('#toast'); let tt;
-const showToast = m => { toast.textContent = m; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('show'), 2200); };
-document.querySelectorAll('.add').forEach(b => b.addEventListener('click', () => { bag++; $('#bagCount').textContent = bag; showToast(b.dataset.name + ' added to your bag'); }));
-$('#cartBtn').addEventListener('click', () => showToast(bag ? bag + ' piece' + (bag > 1 ? 's' : '') + ' in your bag' : 'Your bag is empty'));
-$('#book').addEventListener('submit', e => { e.preventDefault(); $('#bookOk').hidden = false; });
-
-/* ---------- renderer ---------- */
-let renderer;
-try {
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-} catch (e) { $('#fallback').hidden = false; throw e; }
-renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
-
-const scene = new THREE.Scene();
-const pmrem = new THREE.PMREMGenerator(renderer);
-scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
-
-const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-camera.position.set(0, 0, 9);
-
-const key = new THREE.DirectionalLight(0xfff1e6, 2.4); key.position.set(3, 4, 5); scene.add(key);
-const rim = new THREE.DirectionalLight(0x9fe0c0, 1.4); rim.position.set(-4, 2, -3); scene.add(rim);
-const fill = new THREE.PointLight(0xffc9a8, 12, 20); fill.position.set(-2, -2, 4); scene.add(fill);
-scene.add(new THREE.AmbientLight(0x204a3a, 0.6));
-
-/* ---------- materials ---------- */
-const roseGold = new THREE.MeshStandardMaterial({ color: 0xe8a987, metalness: 1, roughness: 0.2 });
-const roseBrushed = new THREE.MeshStandardMaterial({ color: 0xd99a78, metalness: 1, roughness: 0.42 });
-const steel = new THREE.MeshStandardMaterial({ color: 0xc9ccd0, metalness: 1, roughness: 0.32 });
-const brass = new THREE.MeshStandardMaterial({ color: 0xd7b46a, metalness: 1, roughness: 0.3 });
-const ruby = new THREE.MeshStandardMaterial({ color: 0xb0102a, metalness: 0.1, roughness: 0.1, emissive: 0x300008 });
-const rubber = new THREE.MeshStandardMaterial({ color: 0x163a2b, metalness: 0, roughness: 0.62 });
-const crystalMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0, roughness: 0, transparent: true, opacity: 0.16, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2.2 });
-const lume = new THREE.MeshStandardMaterial({ color: 0xf4fff6, roughness: 0.4, emissive: 0x0d2a1c });
-
-/* ---------- dial texture ---------- */
-const DIALS = [
-  { a: '#1c5a41', b: '#04170f', ink: '#f6e2d2', sub: '#0d3326', strap: 0x163a2b },
-  { a: '#2a2a2a', b: '#050505', ink: '#f3dccb', sub: '#141414', strap: 0x111111 },
-  { a: '#f3e6d2', b: '#cdb796', ink: '#4a2e1c', sub: '#e6d4ba', strap: 0x9a6a45 }
-];
-function dialTexture(v) {
-  const S = 1024, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d');
-  const cx = S / 2;
-  const grd = g.createRadialGradient(cx, cx * 0.85, 20, cx, cx, cx); grd.addColorStop(0, v.a); grd.addColorStop(1, v.b);
-  g.fillStyle = grd; g.fillRect(0, 0, S, S);
-  // sunburst
-  g.save(); g.translate(cx, cx);
-  for (let i = 0; i < 360; i++) { g.rotate(Math.PI / 180); g.fillStyle = i % 2 ? 'rgba(255,255,255,0.035)' : 'rgba(0,0,0,0.05)'; g.fillRect(0, -1, cx, 2); }
-  g.restore();
-  // minute track
-  g.save(); g.translate(cx, cx); g.strokeStyle = v.ink; g.globalAlpha = .8;
-  for (let i = 0; i < 60; i++) { const r1 = cx * 0.94, r2 = i % 5 ? cx * 0.905 : cx * 0.88; const a = i / 60 * Math.PI * 2; g.lineWidth = i % 5 ? 2 : 4; g.beginPath(); g.moveTo(Math.sin(a) * r1, -Math.cos(a) * r1); g.lineTo(Math.sin(a) * r2, -Math.cos(a) * r2); g.stroke(); }
-  g.restore();
-  // subdials at 9, 3, 6
-  [[-0.42, 0], [0.42, 0], [0, 0.44]].forEach(([x, y]) => {
-    const sx = cx + x * cx, sy = cx + y * cx, r = cx * 0.17;
-    g.fillStyle = v.sub; g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.fill();
-    g.strokeStyle = v.ink; g.globalAlpha = .25; for (let k = 1; k < 6; k++) { g.lineWidth = 1; g.beginPath(); g.arc(sx, sy, r * k / 6, 0, Math.PI * 2); g.stroke(); }
-    g.globalAlpha = .9; g.lineWidth = 3; g.beginPath(); g.arc(sx, sy, r, 0, Math.PI * 2); g.stroke();
-    for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2; g.lineWidth = 2; g.beginPath(); g.moveTo(sx + Math.sin(a) * r * .8, sy - Math.cos(a) * r * .8); g.lineTo(sx + Math.sin(a) * r * .95, sy - Math.cos(a) * r * .95); g.stroke(); }
-    g.globalAlpha = 1;
-  });
-  // text
-  g.fillStyle = v.ink; g.textAlign = 'center';
-  g.font = '500 54px Georgia, serif'; g.fillText('VERDANE', cx, cx * 0.52);
-  g.font = '300 22px Georgia, serif'; g.globalAlpha = .75; g.fillText('JEDDAH', cx, cx * 0.6);
-  g.font = '300 20px sans-serif'; g.fillText('CHRONOGRAPH  AUTOMATIC', cx, cx * 1.3); g.globalAlpha = 1;
-  // date window at 4:30
-  g.save(); g.translate(cx + cx * 0.5, cx + cx * 0.5); g.rotate(-Math.PI / 4);
-  g.fillStyle = '#f7f1ea'; g.fillRect(-34, -24, 68, 48); g.strokeStyle = '#e3a982'; g.lineWidth = 4; g.strokeRect(-34, -24, 68, 48);
-  g.fillStyle = '#1b1b1b'; g.font = '600 34px Georgia, serif'; g.textBaseline = 'middle'; g.fillText('30', 0, 2); g.restore();
-  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
-}
-const dialTex = DIALS.map(dialTexture);
-const dialMat = new THREE.MeshStandardMaterial({ map: dialTex[0], metalness: 0.35, roughness: 0.38 });
-
-/* ---------- geometry helpers ---------- */
-function lathe(points, seg = 96) { return new THREE.LatheGeometry(points.map(p => new THREE.Vector2(p[0], p[1])), seg); }
-function gearGeo(r, teeth, depth, hole = 0.08, spokes = 5) {
-  const s = new THREE.Shape(); const th = r * 0.12; const n = teeth * 4;
-  for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2; const k = i % 4; const rr = (k === 1 || k === 2) ? r + th : r; const x = Math.cos(a) * rr, y = Math.sin(a) * rr; i ? s.lineTo(x, y) : s.moveTo(x, y); }
-  const hp = new THREE.Path(); hp.absarc(0, 0, hole, 0, Math.PI * 2, true); s.holes.push(hp);
-  if (r > 0.3) for (let k = 0; k < spokes; k++) { const a0 = k / spokes * Math.PI * 2 + 0.25, a1 = a0 + Math.PI * 2 / spokes - 0.5; const p = new THREE.Path(); p.absarc(0, 0, r * 0.78, a0, a1, false); p.absarc(0, 0, r * 0.32, a1, a0, true); p.closePath(); s.holes.push(p); }
-  const geo = new THREE.ExtrudeGeometry(s, { depth, bevelEnabled: true, bevelSize: 0.008, bevelThickness: 0.008, bevelSegments: 1, curveSegments: 6 });
-  geo.translate(0, 0, -depth / 2); return geo;
-}
-
-/* ---------- build the watch: each part a group with its own explode offset ---------- */
-const watch = new THREE.Group(); scene.add(watch);
-const parts = [];
-function part(name, sub, explode, anchor, side) { const g = new THREE.Group(); g.userData = { name, sub, explode, anchor, side }; watch.add(g); parts.push(g); return g; }
-
-// case (z = 0 center)
-const caseP = part('Rose gold case', '42 mm, hand polished', new THREE.Vector3(0, 0, 0), new THREE.Vector3(1.12, -0.25, 0), 'r');
-const caseBody = new THREE.Mesh(lathe([[0, -0.2], [0.86, -0.2], [0.98, -0.16], [1.04, -0.05], [1.04, 0.12], [0.98, 0.2], [0.9, 0.2], [0.9, 0.05], [0, 0.05]]), roseGold); caseBody.rotation.x = Math.PI / 2; caseP.add(caseBody);
-for (const sx of [-1, 1]) for (const sy of [-1, 1]) { const lug = new THREE.Mesh(new RoundedBoxGeometry(0.2, 0.42, 0.26, 3, 0.06), roseGold); lug.position.set(sx * 0.58, sy * 1.02, -0.02); lug.rotation.z = sx * sy * -0.12; caseP.add(lug); }
-const crown = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.16, 24), roseBrushed); crown.rotation.z = Math.PI / 2; crown.position.set(1.12, 0, 0.02); caseP.add(crown);
-for (const a of [0.55, -0.55]) { const p = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.2, 16), roseGold); p.rotation.z = Math.PI / 2; p.position.set(Math.cos(a) * 1.08, Math.sin(a) * 1.08, 0.02); p.rotation.z = Math.PI / 2 + a; caseP.add(p); }
-
-// caseback
-const backP = part('Sapphire case back', 'see the calibre at work', new THREE.Vector3(0, 0, -1.9), new THREE.Vector3(0.95, 0, -0.24), 'r');
-const back = new THREE.Mesh(lathe([[0, -0.3], [0.7, -0.3], [0.86, -0.24], [0.88, -0.2], [0, -0.2]]), roseBrushed); back.rotation.x = Math.PI / 2; backP.add(back);
-const backWin = new THREE.Mesh(new THREE.CircleGeometry(0.55, 64), new THREE.MeshPhysicalMaterial({ color: 0x1d3a30, roughness: 0.05, metalness: 0.2, clearcoat: 1 })); backWin.position.z = -0.305; backWin.rotation.y = Math.PI; backP.add(backWin);
-
-// movement plate + gears
-const moveP = part('Calibre VD 01', 'self winding, 72 h reserve', new THREE.Vector3(0, 0, -1.15), new THREE.Vector3(-0.95, 0.1, -0.1), 'l');
-const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.86, 0.86, 0.06, 64), steel); plate.rotation.x = Math.PI / 2; plate.position.z = -0.12; moveP.add(plate);
-const gearsP = part('Gear train', 'brass wheels, ruby jewels', new THREE.Vector3(0.0, 0, -0.62), new THREE.Vector3(0.95, 0.35, 0), 'r');
-const gearDefs = [[0.42, 30, -0.25, 0.1, brass, 0.045], [0.26, 20, 0.36, -0.22, brass, 0.04], [0.2, 16, -0.05, -0.48, steel, 0.04], [0.16, 14, 0.42, 0.34, brass, 0.035], [0.12, 10, -0.55, -0.32, roseGold, 0.035]];
-const gears = gearDefs.map(([r, t, x, y, m, d], i) => { const g = new THREE.Mesh(gearGeo(r, t, d, 0.04), m); g.position.set(x, y, -0.06 + (i % 2) * 0.03); gearsP.add(g); const j = new THREE.Mesh(new THREE.SphereGeometry(0.03, 12, 8), ruby); j.position.set(x, y, -0.03 + (i % 2) * 0.03); gearsP.add(j); g.userData.speed = (i % 2 ? -1 : 1) * (0.6 / r); return g; });
-const balance = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.018, 8, 48), roseGold); balance.position.set(0.25, 0.48, -0.03); gearsP.add(balance);
-
-// dial + indices
-const dialP = part('Sunburst dial', 'three subdials, date at half past four', new THREE.Vector3(0, 0, 0.55), new THREE.Vector3(-0.88, -0.2, 0.06), 'l');
-const dial = new THREE.Mesh(new THREE.CircleGeometry(0.88, 96), dialMat); dial.position.z = 0.06; dialP.add(dial);
-for (let h = 0; h < 12; h++) {
-  if (h === 3 || h === 9 || h === 6) continue;
-  const a = h / 12 * Math.PI * 2; const big = h === 0;
-  const idx = new THREE.Mesh(new RoundedBoxGeometry(big ? 0.1 : 0.05, 0.16, 0.03, 2, 0.01), roseGold);
-  idx.position.set(Math.sin(a) * 0.68, Math.cos(a) * 0.68, 0.08); idx.rotation.z = -a; dialP.add(idx);
-  if (big) { const i2 = idx.clone(); idx.position.x -= 0.04; i2.position.x += 0.04; dialP.add(i2); }
-}
-
-// hands
-const handsP = part('Hand set', 'faceted, with luminous inlay', new THREE.Vector3(0, 0, 1.05), new THREE.Vector3(0.75, 0.32, 0.12), 'r');
-function hand(len, w, mat) { const g = new THREE.Group(); const m = new THREE.Mesh(new RoundedBoxGeometry(w, len, 0.02, 2, 0.008), mat); m.position.y = len / 2 - 0.08; g.add(m); if (w > 0.03) { const l = new THREE.Mesh(new THREE.BoxGeometry(w * 0.4, len * 0.6, 0.024), lume); l.position.y = len * 0.55 - 0.08; g.add(l); } return g; }
-const hourH = hand(0.5, 0.06, roseGold); hourH.position.z = 0.1; handsP.add(hourH);
-const minH = hand(0.72, 0.045, roseGold); minH.position.z = 0.12; handsP.add(minH);
-const secH = hand(0.82, 0.012, roseGold); secH.position.z = 0.14; handsP.add(secH);
-const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.06, 20), roseGold); hub.rotation.x = Math.PI / 2; hub.position.z = 0.13; handsP.add(hub);
-const subHands = [[-0.42 * 0.88, 0], [0.42 * 0.88, 0], [0, -0.44 * 0.88]].map(([x, y]) => { const h = hand(0.15, 0.012, roseGold); h.position.set(x, y, 0.1); handsP.add(h); return h; });
-hourH.rotation.z = -(10 / 12) * Math.PI * 2 - (8 / 60) * (Math.PI * 2 / 12);
-minH.rotation.z = -(8 / 60) * Math.PI * 2;
-
-// bezel + screws
-const bezelP = part('Rose gold bezel', 'eight polished screws', new THREE.Vector3(0, 0, 1.45), new THREE.Vector3(-1.02, 0.3, 0.22), 'l');
-const bezel = new THREE.Mesh(lathe([[0.86, 0.18], [1.0, 0.18], [1.03, 0.22], [1.0, 0.29], [0.9, 0.31], [0.86, 0.28]]), roseGold); bezel.rotation.x = Math.PI / 2; bezelP.add(bezel);
-for (let k = 0; k < 8; k++) { const a = k / 8 * Math.PI * 2 + Math.PI / 8; const s = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.03, 12), roseBrushed); s.rotation.x = Math.PI / 2; s.position.set(Math.cos(a) * 0.95, Math.sin(a) * 0.95, 0.305); bezelP.add(s); }
-
-// crystal
-const crystalP = part('Sapphire crystal', 'domed, anti glare', new THREE.Vector3(0, 0, 1.95), new THREE.Vector3(0.88, -0.1, 0.32), 'r');
-const crystal = new THREE.Mesh(new THREE.SphereGeometry(1.6, 64, 16, 0, Math.PI * 2, 0, 0.58), crystalMat); crystal.rotation.x = Math.PI / 2; crystal.position.z = 0.32 - 1.6 * Math.cos(0.58) + 0.0; crystalP.add(crystal);
-crystal.scale.set(1, 0.18 / (1.6 * (1 - Math.cos(0.58))), 1);
-crystal.position.z = 0.27 - 1.6 * Math.cos(0.58) * crystal.scale.y;
-
-// straps: two halves of curved segments
-const strapMat = rubber;
-function strap(dir) {
-  const g = new THREE.Group();
-  for (let i = 0; i < 7; i++) {
-    const seg = new THREE.Mesh(new RoundedBoxGeometry(0.98 - i * 0.02, 0.36, 0.16, 3, 0.06), strapMat);
-    const t = i * 0.34; const ang = Math.min(i * 0.2, 1.3);
-    seg.position.set(0, dir * (1.32 + Math.sin(ang) * t * 0.9 + (i ? 0 : 0)), -Math.max(0, (1 - Math.cos(ang)) * t * 1.4) - 0.02);
-    seg.position.y = dir * (1.32 + i * 0.33 * Math.cos(ang * 0.8));
-    seg.position.z = -0.02 - (i * i) * 0.045;
-    seg.rotation.x = dir * (i * 0.17);
-    g.add(seg);
+(()=>{
+const LBL={"1":[[0.5,0.4477,0.6519,0.5805],[0.5,0.4602,0.6506,0.5925],[0.5,0.4749,0.6491,0.6068],[0.5,0.487,0.6478,0.6184],[0.5,0.5146,0.645,0.645],[0.5,0.5356,0.6428,0.6652],[0.5,0.5059,0.6459,0.6366]],"2":[[0.5,0.4478,0.6533,0.5802],[0.5,0.4603,0.652,0.5922],[0.5,0.475,0.6504,0.6064],[0.5,0.487,0.6492,0.618],[0.5,0.5145,0.6463,0.6445],[0.5,0.5355,0.6441,0.6646],[0.5,0.5058,0.6472,0.6361]],"3":[[0.5,0.4482,0.6573,0.5793],[0.5,0.4606,0.656,0.5912],[0.5,0.4752,0.6544,0.6052],[0.5,0.4871,0.6531,0.6167],[0.5,0.5144,0.6502,0.643],[0.5,0.5352,0.6479,0.6629],[0.5,0.5058,0.6511,0.6347]],"4":[[0.5,0.4489,0.6638,0.5777],[0.5,0.4611,0.6624,0.5894],[0.5,0.4755,0.6608,0.6032],[0.5,0.4873,0.6594,0.6145],[0.5,0.5142,0.6563,0.6404],[0.5,0.5347,0.654,0.66],[0.5,0.5057,0.6573,0.6322]],"5":[[0.5,0.4498,0.6723,0.5752],[0.5,0.4618,0.6708,0.5867],[0.5,0.4759,0.669,0.6002],[0.5,0.4875,0.6676,0.6113],[0.5,0.5139,0.6643,0.6365],[0.5,0.5341,0.6618,0.6558],[0.5,0.5056,0.6653,0.6286]],"6":[[0.5,0.451,0.6821,0.5716],[0.5,0.4627,0.6805,0.5828],[0.5,0.4765,0.6787,0.596],[0.5,0.4878,0.6771,0.6068],[0.5,0.5136,0.6736,0.6314],[0.5,0.5333,0.671,0.6501],[0.5,0.5055,0.6747,0.6236]],"7":[[0.5,0.4523,0.6927,0.5669],[0.5,0.4637,0.691,0.5778],[0.5,0.4771,0.689,0.5905],[0.5,0.4881,0.6874,0.601],[0.5,0.5132,0.6837,0.6249],[0.5,0.5323,0.6808,0.643],[0.5,0.5053,0.6848,0.6173]],"8":[[0.5,0.4538,0.7034,0.561],[0.5,0.4649,0.7016,0.5715],[0.5,0.4779,0.6995,0.5838],[0.5,0.4885,0.6977,0.5939],[0.5,0.5128,0.6938,0.617],[0.5,0.5313,0.6907,0.6345],[0.5,0.5052,0.695,0.6097]],"9":[[0.5,0.4554,0.7136,0.5539],[0.5,0.4661,0.7117,0.5641],[0.5,0.4786,0.7094,0.576],[0.5,0.4889,0.7076,0.5857],[0.5,0.5124,0.7034,0.6079],[0.5,0.5302,0.7002,0.6248],[0.5,0.505,0.7047,0.6009]],"10":[[0.5,0.4571,0.7228,0.546],[0.5,0.4674,0.7208,0.5558],[0.5,0.4794,0.7184,0.5672],[0.5,0.4893,0.7165,0.5766],[0.5,0.5119,0.712,0.598],[0.5,0.529,0.7086,0.6142],[0.5,0.5048,0.7134,0.5912]],"11":[[0.5,0.4587,0.7307,0.5375],[0.5,0.4686,0.7285,0.5469],[0.5,0.4802,0.726,0.5579],[0.5,0.4897,0.724,0.5669],[0.5,0.5114,0.7194,0.5875],[0.5,0.5279,0.7158,0.6031],[0.5,0.5046,0.7208,0.581]],"12":[[0.5,0.4603,0.737,0.5288],[0.5,0.4698,0.7348,0.5378],[0.5,0.481,0.7322,0.5485],[0.5,0.4901,0.7301,0.5572],[0.5,0.511,0.7253,0.577],[0.5,0.5268,0.7217,0.592],[0.5,0.5044,0.7268,0.5708]],"13":[[0.5,0.4618,0.7418,0.5204],[0.5,0.471,0.7396,0.5292],[0.5,0.4817,0.7369,0.5395],[0.5,0.4905,0.7347,0.5478],[0.5,0.5106,0.7298,0.567],[0.5,0.5258,0.7261,0.5815],[0.5,0.5043,0.7314,0.561]],"14":[[0.5,0.4631,0.7453,0.5128],[0.5,0.4719,0.743,0.5213],[0.5,0.4823,0.7403,0.5313],[0.5,0.4908,0.7381,0.5394],[0.5,0.5102,0.733,0.558],[0.5,0.5249,0.7292,0.5721],[0.5,0.5041,0.7346,0.5522]],"15":[[0.5,0.4642,0.7476,0.5064],[0.5,0.4728,0.7452,0.5147],[0.5,0.4829,0.7425,0.5244],[0.5,0.4911,0.7403,0.5324],[0.5,0.5099,0.7352,0.5505],[0.5,0.5241,0.7313,0.5642],[0.5,0.504,0.7368,0.5448]],"16":[[0.5,0.465,0.749,0.5016],[0.5,0.4734,0.7466,0.5097],[0.5,0.4832,0.7439,0.5193],[0.5,0.4913,0.7416,0.5271],[0.5,0.5097,0.7365,0.5448],[0.5,0.5236,0.7326,0.5583],[0.5,0.5039,0.7381,0.5393]],"17":[[0.5,0.4654,0.7497,0.4986],[0.5,0.4737,0.7474,0.5066],[0.5,0.4835,0.7446,0.5161],[0.5,0.4914,0.7423,0.5238],[0.5,0.5095,0.7371,0.5413],[0.5,0.5233,0.7332,0.5546],[0.5,0.5038,0.7388,0.5358]],"18":[[0.5,0.4656,0.75,0.4976],[0.5,0.4739,0.7476,0.5056],[0.5,0.4836,0.7448,0.515],[0.5,0.4915,0.7425,0.5227],[0.5,0.5095,0.7373,0.5401],[0.5,0.5232,0.7334,0.5534],[0.5,0.5038,0.739,0.5346]],"19":[[0.5,0.4649,0.75,0.4955],[0.5,0.4734,0.7476,0.5038],[0.5,0.4833,0.7448,0.5135],[0.5,0.4915,0.7426,0.5214],[0.5,0.5097,0.7374,0.5391],[0.5,0.5236,0.7334,0.5526],[0.5,0.5045,0.739,0.5341]],"20":[[0.5,0.4629,0.7496,0.4921],[0.5,0.4721,0.7473,0.5011],[0.5,0.4827,0.7445,0.5115],[0.5,0.4915,0.7422,0.5201],[0.5,0.5104,0.737,0.5384],[0.5,0.5248,0.7331,0.5526],[0.5,0.5065,0.7386,0.5348]],"21":[[0.5,0.4596,0.7489,0.4874],[0.5,0.4699,0.7465,0.4975],[0.5,0.4816,0.7437,0.509],[0.5,0.4915,0.7414,0.5187],[0.5,0.5114,0.7363,0.5381],[0.5,0.5269,0.7324,0.5533],[0.5,0.5098,0.7378,0.5367]],"22":[[0.5,0.4551,0.7478,0.4815],[0.5,0.467,0.7454,0.4931],[0.5,0.4802,0.7426,0.5062],[0.5,0.4916,0.7403,0.5174],[0.5,0.5128,0.7352,0.5382],[0.5,0.5297,0.7313,0.5547],[0.5,0.5142,0.7367,0.5397]],"23":[[0.5,0.4495,0.7463,0.4744],[0.5,0.4633,0.744,0.488],[0.5,0.4784,0.7412,0.5029],[0.5,0.4916,0.7389,0.516],[0.5,0.5146,0.7338,0.5386],[0.5,0.5331,0.7299,0.5568],[0.5,0.5197,0.7352,0.5439]],"24":[[0.5,0.4429,0.7446,0.4663],[0.5,0.459,0.7422,0.4822],[0.5,0.4763,0.7394,0.4994],[0.5,0.4917,0.7371,0.5146],[0.5,0.5167,0.7321,0.5393],[0.5,0.5372,0.7282,0.5595],[0.5,0.5262,0.7334,0.549]],"25":[[0.5,0.4354,0.7426,0.4573],[0.5,0.4541,0.7402,0.4759],[0.5,0.4739,0.7374,0.4955],[0.5,0.4918,0.7351,0.5133],[0.5,0.5191,0.7301,0.5403],[0.5,0.5418,0.7263,0.5628],[0.5,0.5336,0.7313,0.5549]],"26":[[0.5,0.4272,0.7403,0.4476],[0.5,0.4486,0.7379,0.4689],[0.5,0.4713,0.7351,0.4914],[0.5,0.4919,0.7328,0.5119],[0.5,0.5217,0.7279,0.5415],[0.5,0.547,0.7241,0.5665],[0.5,0.5417,0.7289,0.5617]],"27":[[0.5,0.4182,0.7379,0.4371],[0.5,0.4428,0.7354,0.4616],[0.5,0.4684,0.7327,0.4871],[0.5,0.4919,0.7304,0.5106],[0.5,0.5245,0.7255,0.5429],[0.5,0.5525,0.7217,0.5707],[0.5,0.5505,0.7264,0.5691]],"28":[[0.5,0.4086,0.7352,0.426],[0.5,0.4365,0.7328,0.4539],[0.5,0.4653,0.73,0.4826],[0.5,0.492,0.7277,0.5093],[0.5,0.5276,0.7228,0.5446],[0.5,0.5584,0.7191,0.5753],[0.5,0.5599,0.7236,0.5771]],"29":[[0.5,0.3985,0.7324,0.4145],[0.5,0.4298,0.73,0.4458],[0.5,0.4621,0.7272,0.478],[0.5,0.4921,0.7249,0.508],[0.5,0.5308,0.7201,0.5464],[0.5,0.5647,0.7164,0.5802],[0.5,0.5698,0.7207,0.5857]],"30":[[0.5,0.3879,0.7294,0.4025],[0.5,0.4229,0.727,0.4375],[0.5,0.4587,0.7242,0.4733],[0.5,0.4922,0.7219,0.5067],[0.5,0.5341,0.7172,0.5484],[0.5,0.5711,0.7135,0.5853],[0.5,0.5801,0.7177,0.5946]],"31":[[0.5,0.3771,0.7264,0.3903],[0.5,0.4158,0.7239,0.429],[0.5,0.4553,0.7212,0.4684],[0.5,0.4924,0.7189,0.5055],[0.5,0.5375,0.7142,0.5505],[0.5,0.5778,0.7106,0.5907],[0.5,0.5907,0.7146,0.6038]],"32":[[0.5,0.3659,0.7232,0.3778],[0.5,0.4086,0.7208,0.4204],[0.5,0.4517,0.718,0.4636],[0.5,0.4925,0.7157,0.5043],[0.5,0.541,0.7111,0.5528],[0.5,0.5847,0.7076,0.5963],[0.5,0.6015,0.7114,0.6134]],"33":[[0.5,0.3546,0.72,0.3652],[0.5,0.4012,0.7176,0.4117],[0.5,0.4481,0.7148,0.4587],[0.5,0.4926,0.7125,0.5031],[0.5,0.5446,0.708,0.555],[0.5,0.5916,0.7045,0.602],[0.5,0.6124,0.7081,0.623]],"34":[[0.5,0.3432,0.7168,0.3525],[0.5,0.3937,0.7143,0.403],[0.5,0.4445,0.7116,0.4538],[0.5,0.4927,0.7093,0.502],[0.5,0.5482,0.7048,0.5574],[0.5,0.5986,0.7014,0.6077],[0.5,0.6234,0.7048,0.6328]],"35":[[0.5,0.3318,0.7135,0.3398],[0.5,0.3862,0.711,0.3943],[0.5,0.4409,0.7083,0.4489],[0.5,0.4928,0.706,0.5009],[0.5,0.5518,0.7017,0.5598],[0.5,0.6056,0.6982,0.6136],[0.5,0.6345,0.7015,0.6426]],"36":[[0.5,0.3204,0.7102,0.3272],[0.5,0.3788,0.7078,0.3856],[0.5,0.4372,0.7051,0.4441],[0.5,0.4929,0.7028,0.4998],[0.5,0.5554,0.6985,0.5622],[0.5,0.6126,0.6951,0.6194],[0.5,0.6455,0.6982,0.6525]],"37":[[0.5,0.309,0.7069,0.3147],[0.5,0.3713,0.7045,0.3771],[0.5,0.4336,0.7018,0.4394],[0.5,0.493,0.6995,0.4988],[0.5,0.559,0.6953,0.5647],[0.5,0.6196,0.6919,0.6252],[0.5,0.6564,0.6949,0.6622]],"38":[[0.5,0.2977,0.7037,0.3023],[0.5,0.364,0.7013,0.3686],[0.5,0.4301,0.6986,0.4347],[0.5,0.4931,0.6963,0.4978],[0.5,0.5625,0.6921,0.5671],[0.5,0.6264,0.6888,0.631],[0.5,0.6672,0.6916,0.6719]],"39":[[0.5,0.2866,0.7005,0.2901],[0.5,0.3567,0.6981,0.3603],[0.5,0.4265,0.6954,0.4301],[0.5,0.4933,0.6931,0.4968],[0.5,0.566,0.689,0.5695],[0.5,0.6332,0.6858,0.6367],[0.5,0.6778,0.6884,0.6814]],"40":[[0.5,0.2757,0.6973,0.2782],[0.5,0.3496,0.6949,0.3521],[0.5,0.4231,0.6923,0.4256],[0.5,0.4934,0.69,0.4959],[0.5,0.5694,0.686,0.5719],[0.5,0.6399,0.6827,0.6424],[0.5,0.6883,0.6852,0.6908]],"41":[[0.5,0.265,0.6942,0.2665],[0.5,0.3426,0.6918,0.3441],[0.5,0.4197,0.6892,0.4212],[0.5,0.4935,0.6869,0.495],[0.5,0.5727,0.683,0.5742],[0.5,0.6464,0.6798,0.6479],[0.5,0.6985,0.6821,0.7]],"42":[[0.5,0.2545,0.6911,0.255],[0.5,0.3358,0.6887,0.3363],[0.5,0.4164,0.6862,0.4169],[0.5,0.4936,0.6839,0.4941],[0.5,0.576,0.68,0.5765],[0.5,0.6528,0.6769,0.6533],[0.5,0.7084,0.6791,0.7089]],"43":[[0.5,0.2443,0.6882,0.2439],[0.5,0.3292,0.6858,0.3287],[0.5,0.4131,0.6832,0.4127],[0.5,0.4937,0.6809,0.4933],[0.5,0.5792,0.6771,0.5788],[0.5,0.6589,0.674,0.6585],[0.5,0.7181,0.6761,0.7176]],"44":[[0.5,0.2344,0.6853,0.2331],[0.5,0.3227,0.6829,0.3214],[0.5,0.41,0.6803,0.4087],[0.5,0.4938,0.6781,0.4924],[0.5,0.5823,0.6743,0.5809],[0.5,0.665,0.6713,0.6636],[0.5,0.7274,0.6732,0.7261]],"45":[[0.5,0.2248,0.6824,0.2226],[0.5,0.3164,0.6801,0.3142],[0.5,0.407,0.6775,0.4048],[0.5,0.4939,0.6753,0.4916],[0.5,0.5853,0.6716,0.5831],[0.5,0.6708,0.6686,0.6686],[0.5,0.7365,0.6704,0.7342]],"46":[[0.5,0.2155,0.6797,0.2125],[0.5,0.3104,0.6773,0.3074],[0.5,0.404,0.6748,0.401],[0.5,0.494,0.6726,0.4909],[0.5,0.5882,0.669,0.5851],[0.5,0.6764,0.666,0.6733],[0.5,0.7453,0.6677,0.7421]],"47":[[0.5,0.2066,0.677,0.2028],[0.5,0.3046,0.6747,0.3007],[0.5,0.4012,0.6722,0.3973],[0.5,0.4941,0.67,0.4901],[0.5,0.591,0.6664,0.587],[0.5,0.6818,0.6635,0.6779],[0.5,0.7537,0.6651,0.7497]],"48":[[0.5,0.198,0.6745,0.1934],[0.5,0.299,0.6722,0.2943],[0.5,0.3985,0.6697,0.3938],[0.5,0.4941,0.6675,0.4894],[0.5,0.5936,0.664,0.5889],[0.5,0.6871,0.6611,0.6823],[0.5,0.7618,0.6626,0.7569]],"49":[[0.5,0.1897,0.672,0.1844],[0.5,0.2936,0.6697,0.2882],[0.5,0.3959,0.6673,0.3904],[0.5,0.4942,0.6651,0.4887],[0.5,0.5962,0.6616,0.5907],[0.5,0.6921,0.6587,0.6865],[0.5,0.7696,0.6602,0.7639]],"50":[[0.5,0.1818,0.6697,0.1757],[0.5,0.2884,0.6674,0.2823],[0.5,0.3934,0.6649,0.3872],[0.5,0.4943,0.6628,0.488],[0.5,0.5987,0.6593,0.5924],[0.5,0.6968,0.6565,0.6905],[0.5,0.777,0.6579,0.7705]],"51":[[0.5,0.1742,0.6674,0.1674],[0.5,0.2835,0.6651,0.2766],[0.5,0.391,0.6627,0.384],[0.5,0.4944,0.6605,0.4873],[0.5,0.601,0.6572,0.5939],[0.5,0.7014,0.6544,0.6943],[0.5,0.7841,0.6557,0.7767]],"52":[[0.5,0.167,0.6652,0.1596],[0.5,0.2788,0.663,0.2712],[0.5,0.3887,0.6605,0.3811],[0.5,0.4944,0.6584,0.4867],[0.5,0.6033,0.6551,0.5954],[0.5,0.7057,0.6523,0.6979],[0.5,0.7908,0.6535,0.7827]],"53":[[0.5,0.1602,0.6632,0.152],[0.5,0.2744,0.6609,0.2661],[0.5,0.3866,0.6585,0.3782],[0.5,0.4945,0.6564,0.486],[0.5,0.6054,0.6531,0.5968],[0.5,0.7099,0.6504,0.7013],[0.5,0.7971,0.6515,0.7883]],"54":[[0.5,0.1538,0.6612,0.1449],[0.5,0.2702,0.6589,0.2612],[0.5,0.3846,0.6566,0.3755],[0.5,0.4946,0.6545,0.4854],[0.5,0.6074,0.6512,0.5981],[0.5,0.7138,0.6485,0.7045],[0.5,0.8032,0.6496,0.7936]],"55":[[0.5,0.1477,0.6593,0.1382],[0.5,0.2662,0.6571,0.2566],[0.5,0.3827,0.6547,0.3729],[0.5,0.4946,0.6526,0.4847],[0.5,0.6093,0.6494,0.5993],[0.5,0.7174,0.6468,0.7074],[0.5,0.8088,0.6478,0.7985]],"56":[[0.5,0.142,0.6576,0.1318],[0.5,0.2625,0.6553,0.2522],[0.5,0.3809,0.653,0.3704],[0.5,0.4947,0.6509,0.4841],[0.5,0.611,0.6477,0.6004],[0.5,0.7209,0.6451,0.7102],[0.5,0.8141,0.6461,0.8031]],"57":[[0.5,0.1366,0.6559,0.1259],[0.5,0.2591,0.6537,0.2481],[0.5,0.3792,0.6514,0.3681],[0.5,0.4947,0.6493,0.4835],[0.5,0.6127,0.6461,0.6014],[0.5,0.7241,0.6435,0.7127],[0.5,0.8191,0.6445,0.8074]],"58":[[0.5,0.1317,0.6543,0.1203],[0.5,0.2558,0.6521,0.2443],[0.5,0.3776,0.6498,0.3659],[0.5,0.4948,0.6478,0.4829],[0.5,0.6142,0.6447,0.6022],[0.5,0.7271,0.6421,0.715],[0.5,0.8237,0.643,0.8113]],"59":[[0.5,0.1271,0.6529,0.1151],[0.5,0.2529,0.6507,0.2407],[0.5,0.3762,0.6484,0.3638],[0.5,0.4948,0.6463,0.4823],[0.5,0.6156,0.6433,0.603],[0.5,0.7298,0.6407,0.7171],[0.5,0.8279,0.6415,0.8148]],"60":[[0.5,0.1229,0.6515,0.1103],[0.5,0.2502,0.6494,0.2373],[0.5,0.3749,0.6471,0.3619],[0.5,0.4949,0.645,0.4817],[0.5,0.6169,0.642,0.6036],[0.5,0.7323,0.6394,0.7189],[0.5,0.8318,0.6402,0.818]],"61":[[0.5,0.1191,0.6503,0.1059],[0.5,0.2477,0.6481,0.2343],[0.5,0.3737,0.6459,0.36],[0.5,0.4949,0.6438,0.4811],[0.5,0.6181,0.6408,0.6041],[0.5,0.7346,0.6383,0.7205],[0.5,0.8353,0.639,0.8208]],"62":[[0.5,0.1157,0.6491,0.1019],[0.5,0.2455,0.647,0.2314],[0.5,0.3726,0.6447,0.3583],[0.5,0.495,0.6427,0.4804],[0.5,0.6191,0.6397,0.6045],[0.5,0.7366,0.6372,0.7219],[0.5,0.8385,0.6379,0.8233]],"63":[[0.5,0.1127,0.6481,0.0983],[0.5,0.2435,0.646,0.2288],[0.5,0.3717,0.6437,0.3567],[0.5,0.495,0.6417,0.4798],[0.5,0.6201,0.6387,0.6048],[0.5,0.7385,0.6362,0.723],[0.5,0.8413,0.637,0.8254]],"64":[[0.5,0.1101,0.6472,0.0951],[0.5,0.2418,0.6451,0.2265],[0.5,0.3708,0.6428,0.3553],[0.5,0.495,0.6408,0.4792],[0.5,0.6209,0.6379,0.6049],[0.5,0.74,0.6354,0.7239],[0.5,0.8437,0.6361,0.8271]],"65":[[0.5,0.1079,0.6464,0.0923],[0.5,0.2404,0.6443,0.2245],[0.5,0.3702,0.642,0.3539],[0.5,0.495,0.64,0.4786],[0.5,0.6216,0.6371,0.605],[0.5,0.7413,0.6346,0.7246],[0.5,0.8457,0.6353,0.8285]],"66":[[0.5,0.1061,0.6457,0.0899],[0.5,0.2393,0.6436,0.2227],[0.5,0.3696,0.6414,0.3527],[0.5,0.495,0.6394,0.4779],[0.5,0.6221,0.6364,0.6048],[0.5,0.7424,0.634,0.725],[0.5,0.8473,0.6346,0.8294]],"67":[[0.5,0.1048,0.6451,0.0879],[0.5,0.2384,0.643,0.2212],[0.5,0.3692,0.6408,0.3517],[0.5,0.4951,0.6388,0.4773],[0.5,0.6225,0.6359,0.6046],[0.5,0.7432,0.6334,0.7251],[0.5,0.8486,0.6341,0.8299]],"68":[[0.5,0.1039,0.6447,0.0864],[0.5,0.2378,0.6425,0.2199],[0.5,0.3689,0.6403,0.3507],[0.5,0.4951,0.6383,0.4766],[0.5,0.6228,0.6355,0.6042],[0.5,0.7437,0.633,0.7249],[0.5,0.8494,0.6336,0.83]],"69":[[0.5,0.1035,0.6443,0.0853],[0.5,0.2375,0.6422,0.219],[0.5,0.3688,0.64,0.3499],[0.5,0.4951,0.638,0.4759],[0.5,0.6229,0.6351,0.6036],[0.5,0.744,0.6327,0.7245],[0.5,0.8498,0.6333,0.8297]],"70":[[0.5,0.1034,0.6441,0.0845],[0.5,0.2375,0.642,0.2183],[0.5,0.3687,0.6398,0.3492],[0.5,0.4951,0.6378,0.4752],[0.5,0.6229,0.6349,0.6029],[0.5,0.744,0.6325,0.7238],[0.5,0.8498,0.6331,0.829]],"71":[[0.5,0.1034,0.6438,0.0839],[0.5,0.2375,0.6417,0.2176],[0.5,0.3687,0.6395,0.3485],[0.5,0.4951,0.6376,0.4745],[0.5,0.6229,0.6347,0.6022],[0.5,0.744,0.6323,0.7231],[0.5,0.8498,0.6329,0.8283]],"72":[[0.5,0.1034,0.6436,0.0832],[0.5,0.2375,0.6415,0.2169],[0.5,0.3687,0.6393,0.3478],[0.5,0.4951,0.6373,0.4738],[0.5,0.6229,0.6345,0.6014],[0.5,0.744,0.6321,0.7223],[0.5,0.8498,0.6327,0.8275]]};
+const NAMES=[["Sapphire crystal","Domed, anti glare both sides"],["Octagonal bezel","Eight hand set screws"],["Hands","Faceted, filled with lume"],["Tapisserie dial","Three chronograph counters"],["Calibre VD 01","Self winding, 72 h reserve"],["Exhibition case back","Sapphire window"],["42 mm case","Rose gold, rubber strap"]];
+const SIDE=[1,-1,1,-1,1,-1,1];
+const phone=matchMedia('(max-width:700px)').matches;
+const N=72, STEP=phone?2:1;
+const list=[];for(let f=1;f<=N;f+=STEP)list.push(f); if(list[list.length-1]!==N)list.push(N);
+const pad=n=>String(n).padStart(3,'0');
+const imgs={};let loaded=0;let need=true,lastF=-1,P=0;
+const cv=document.getElementById('seq'),ctx=cv.getContext('2d'),box=document.getElementById('frameBox');
+const loader=document.getElementById('loader'),pct=document.getElementById('loadPct');
+function load(f,first){return new Promise(r=>{const im=new Image();im.decoding='async';im.onload=()=>{imgs[f]=im;loaded++;pct.textContent=Math.round(loaded/list.length*100)+'%';if(loaded>=Math.min(list.length,8))loader.classList.add('done');need=true;r()};im.onerror=r;im.src='frames/f'+pad(f)+'.jpg';if(first)im.fetchPriority='high'})}
+(async()=>{const h=phone?17:18;await load(1,true);await load(h,true);const rest=list.filter(f=>f!==1&&f!==h);let i=0;const worker=async()=>{while(i<rest.length){await load(rest[i++])}};await Promise.all([worker(),worker(),worker(),worker()])})();
+function nearest(f){if(imgs[f])return f;let best=null,d=1e9;for(const k in imgs){const dd=Math.abs(k-f);if(dd<d){d=dd;best=+k}}return best}
+let W=0,H=0;
+function size(){const r=box.getBoundingClientRect();const dpr=Math.min(devicePixelRatio||1,phone?2:1.5);W=cv.width=Math.round(r.width*dpr);H=cv.height=Math.round(r.height*dpr);need=true}
+addEventListener('resize',size);size();
+// labels
+const SHORT=['Sapphire crystal','Bezel','Hands','Dial','Calibre','Case back','42 mm case'];const lw=document.getElementById('labels');const labEls=NAMES.map((n,i)=>{if(phone)n=[SHORT[i],''];const d=document.createElement('div');d.className='lab';d.innerHTML=(SIDE[i]<0?'<span>'+n[0]+'<small>'+n[1]+'</small></span><i></i>':'<i></i><span>'+n[0]+'<small>'+n[1]+'</small></span>');lw.appendChild(d);return d});
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)),lin=(p,a,b)=>clamp((p-a)/(b-a));
+const ease=x=>x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2;
+function frameAt(p){if(p<.04)return 1;if(p<.18)return 1+17*ease(lin(p,.04,.18));if(p<.5)return 18+54*lin(p,.18,.5);if(p<.6)return 72;if(p<.9)return 72-54*lin(p,.6,.9);return 18}
+const sc=document.getElementById('scrolly');const hero=document.getElementById('heroCopy'),hint=document.getElementById('hint'),c1=document.getElementById('cap1'),c2=document.getElementById('cap2');
+const fill=document.getElementById('railFill'),num=document.getElementById('railNum'),hdr=document.getElementById('hdr');
+function prog(){const r=sc.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight))}
+function drawImg(im,a){if(!im)return;ctx.globalAlpha=a;ctx.drawImage(im,0,0,W,H)}
+function render(){
+  P=prog();const f=frameAt(P);
+  if(need||Math.abs(f-lastF)>.001){
+    // pick from available list frames
+    let lo=f,hi=f;if(STEP>1){lo=Math.floor((f-1)/2)*2+1;hi=Math.min(lo+2,N)}else{lo=Math.floor(f);hi=Math.min(lo+1,N)}
+    const t=hi>lo?(f-lo)/(hi-lo):0;const a=nearest(lo),b=nearest(hi);
+    if(a){ctx.globalAlpha=1;ctx.fillStyle='#0b2017';ctx.fillRect(0,0,W,H);drawImg(imgs[a],1);if(b&&b!==a&&t>.01)drawImg(imgs[b],t);ctx.globalAlpha=1}
+    lastF=f;need=false;
+    // labels
+    const ex=f<=18?0:(f-18)/54;const op=clamp((ex-.62)/.3);
+    const k=Math.min(N,Math.max(19,Math.round(f)));const L=LBL[k];
+    const bw=box.clientWidth,bh=box.clientHeight;
+    labEls.forEach((el,i)=>{const v=L[i];const cx=v[0]*bw,cy=v[1]*bh,edge=Math.abs(v[2]-v[0])*bw;const s=SIDE[i];
+      const len=phone?14:Math.max(30,bw*.1);el.style.setProperty('--w',len+'px');
+      if(s>0){el.style.left=(cx+edge*1.02)+'px';el.style.right='auto'}else{el.style.left='auto';el.style.right=(bw-(cx-edge*1.02))+'px'}
+      el.style.top=cy+'px';el.style.opacity=op;if(op>0){const r=el.getBoundingClientRect();if(r.left<6){el.style.right=(parseFloat(el.style.right)+r.left-6)+'px'}else if(r.right>innerWidth-6){el.style.left=(parseFloat(el.style.left)-(r.right-innerWidth+6))+'px'}}});
   }
-  return g;
-}
-const strapTop = part('Rubber strap', 'soft, sweat proof', new THREE.Vector3(0, 1.0, -0.2), new THREE.Vector3(0.5, 2.1, -0.4), 'r'); strapTop.add(strap(1));
-const strapBot = part('Folding clasp', 'rose gold, micro adjust', new THREE.Vector3(0, -1.0, -0.2), new THREE.Vector3(-0.5, -2.1, -0.4), 'l'); strapBot.add(strap(-1));
-const clasp = new THREE.Mesh(new RoundedBoxGeometry(0.7, 0.3, 0.1, 2, 0.04), roseGold); clasp.position.set(0, -3.5, -1.5); clasp.rotation.x = -1.0; strapBot.add(clasp);
-
-/* ---------- labels ---------- */
-const labelsEl = $('#labels');
-parts.forEach(p => {
-  const el = document.createElement('div'); el.className = 'lbl ' + (p.userData.side === 'l' ? 'left' : '');
-  el.innerHTML = `<i></i><s></s><span>${p.userData.name}<small>${p.userData.sub}</small></span>`;
-  labelsEl.appendChild(el); p.userData.el = el;
-});
-
-/* ---------- collection snapshots (rendered once from this model) ---------- */
-function snapshots() {
-  const size = isMobile ? 480 : 640;
-  const r2 = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
-  r2.setSize(size, size, false); r2.outputColorSpace = THREE.SRGBColorSpace; r2.toneMapping = THREE.ACESFilmicToneMapping;
-  const sc2 = new THREE.Scene(); const pm2 = new THREE.PMREMGenerator(r2); sc2.environment = pm2.fromScene(new RoomEnvironment(r2), 0.04).texture;
-  sc2.add(key.clone(), rim.clone(), new THREE.AmbientLight(0x204a3a, 0.6));
-  const cam2 = new THREE.PerspectiveCamera(30, 1, 0.1, 100); cam2.position.set(0, 0, 10.5);
-  const saveRot = watch.rotation.clone(), savePos = watch.position.clone();
-  watch.position.set(0, 0.25, 0); watch.rotation.set(-0.35, -0.5, 0.12); parts.forEach(p => p.position.set(0, 0, 0));
-  sc2.add(watch);
-  document.querySelectorAll('img[data-variant]').forEach(img => {
-    const v = +img.dataset.variant; dialMat.map = dialTex[v]; rubber.color.setHex(DIALS[v].strap); dialMat.needsUpdate = true;
-    r2.render(sc2, cam2); img.src = r2.domElement.toDataURL('image/png'); img.onload = () => img.classList.add('ready');
-  });
-  dialMat.map = dialTex[0]; rubber.color.setHex(DIALS[0].strap); dialMat.needsUpdate = true;
-  scene.add(watch); watch.rotation.copy(saveRot); watch.position.copy(savePos);
-  pm2.dispose(); r2.dispose(); r2.forceContextLoss();
-}
-
-/* ---------- scroll + layout ---------- */
-const scrolly = $('#scrolly'), heroCopy = $('#heroCopy'), cap1 = $('#cap1'), cap2 = $('#cap2'), railDot = $('#railDot'), railNum = $('#railNum');
-let W = 0, H = 0, portrait = false;
-function resize() {
-  W = canvas.clientWidth; H = canvas.clientHeight; portrait = W / H < 0.85; document.body.classList.toggle('portrait', portrait); parts.forEach(p => p.userData.el && (p.userData.el._w = 0));
-  renderer.setSize(W, H, false); camera.aspect = W / H;
-  camera.fov = portrait ? 44 : 32; camera.updateProjectionMatrix();
-}
-addEventListener('resize', resize); resize();
-
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
-const lerp = (a, b, t) => a + (b - a) * t;
-const params = new URLSearchParams(location.search);
-const forced = params.has('p') ? parseFloat(params.get('p')) : null;
-let target = 0, prog = forced ?? 0;
-function readScroll() {
-  const r = scrolly.getBoundingClientRect(); const total = r.height - innerHeight;
-  target = forced ?? clamp(-r.top / total);
-  hdr.classList.toggle('solid', scrollY > scrolly.offsetHeight - innerHeight * 1.05);
-}
-addEventListener('scroll', readScroll, { passive: true }); readScroll();
-
-let px = 0, py = 0, tpx = 0, tpy = 0;
-addEventListener('pointermove', e => { tpx = e.clientX / innerWidth - 0.5; tpy = e.clientY / innerHeight - 0.5; }, { passive: true });
-
-const v3 = new THREE.Vector3();
-const clock = new THREE.Clock();
-function frame() {
-  const dt = Math.min(clock.getDelta(), 0.05), t = clock.elapsedTime;
-  prog = forced ?? lerp(prog, target, 1 - Math.pow(0.0015, dt));
-  px = lerp(px, tpx, 0.05); py = lerp(py, tpy, 0.05);
-  const p = prog;
-
-  // stages
-  const toCenter = smooth(0.06, 0.2, p);      // hero -> center
-  const ex = smooth(0.22, 0.48, p) * (1 - smooth(0.7, 0.88, p)); // explode then reassemble
-  const lab = smooth(0.4, 0.48, p) * (1 - smooth(0.64, 0.7, p));
-  const spin = smooth(0.7, 0.92, p);
-
-  // watch placement
-  const heroX = portrait ? 0 : 1.75, heroY = portrait ? -1.55 : -0.05, heroS = portrait ? 0.78 : 1.05;
-  const midS = portrait ? 0.8 : 0.95;
-  watch.position.x = lerp(heroX, portrait ? 0 : 0.1, toCenter);
-  watch.position.y = lerp(heroY, portrait ? -0.25 : 0, toCenter) + Math.sin(t * 1.2) * 0.04 * (1 - ex);
-  const endY = portrait ? 0.45 : 0.42; watch.position.y = lerp(watch.position.y, endY, smooth(0.88, 0.96, p));
-  const s = lerp(heroS, midS, toCenter) * lerp(1, portrait ? (W < 500 ? 0.5 : 0.6) : 0.7, ex) * lerp(1, portrait ? 0.95 : 0.85, smooth(0.88, 0.96, p));
-  watch.scale.setScalar(s);
-  // rotation: hero slight 3/4, explode: tilted so layers stack upward, end: front with a full turn
-  const rxHero = -0.28, ryHero = -0.55, rzHero = 0.16;
-  const rxEx = -1.02, ryEx = 0.5, rzEx = 0.2;
-  let rx = lerp(rxHero, rxEx, smooth(0.14, 0.34, p)), ry = lerp(ryHero, ryEx, smooth(0.14, 0.34, p)), rz = lerp(rzHero, rzEx, smooth(0.14, 0.34, p));
-  rx = lerp(rx, -0.18, spin); ry = lerp(ry, Math.PI * 2 - 0.25, spin); rz = lerp(rz, 0.05, spin);
-  watch.rotation.set(rx + py * 0.15, ry + px * 0.3 + Math.sin(t * 0.5) * 0.03, rz);
-
-  parts.forEach(pt => pt.position.copy(pt.userData.explode).multiplyScalar(ex));
-  gears.forEach(g => g.rotation.z += dt * g.userData.speed * (0.4 + ex * 2));
-  balance.rotation.z = Math.sin(t * 9) * 0.9;
-  secH.rotation.z = -(t % 60) / 60 * Math.PI * 2;
-  subHands.forEach((h, i) => h.rotation.z = -t * (0.2 + i * 0.13));
-
-  // copy
-  heroCopy.style.opacity = 1 - smooth(0.04, 0.13, p);
-  heroCopy.style.transform = (portrait ? '' : 'translateY(-46%) ') + `translateY(${-smooth(0.04, 0.13, p) * 60}px)`;
-  heroCopy.style.visibility = p > 0.14 ? 'hidden' : 'visible';
-  const c1 = smooth(0.24, 0.32, p) * (1 - smooth(0.6, 0.68, p));
-  cap1.style.opacity = c1; cap1.style.transform = `translateY(${(1 - c1) * 30}px)`;
-  const c2 = smooth(0.9, 0.97, p);
-  cap2.style.opacity = c2; cap2.style.transform = `translate(-50%, ${(1 - c2) * 30}px)`; cap2.classList.toggle('on', c2 > 0.5);
-  if (railDot) { railDot.style.top = (p * 173) + 'px'; railNum.textContent = '0' + (1 + Math.min(3, Math.floor(p * 3.999))); }
-
-  renderer.render(scene, camera);
-
-  // labels after render (matrices fresh), with per-side spacing so they never overlap
-  const show = lab > 0.01;
-  const items = [];
-  parts.forEach((pt, i) => {
-    const el = pt.userData.el;
-    if (!el.isConnected) return;
-    if (!show) { el.style.opacity = 0; return; }
-    v3.copy(pt.userData.anchor); pt.localToWorld(v3); v3.project(camera);
-    items.push({ el, i, left: pt.userData.side === 'l', x: (v3.x * 0.5 + 0.5) * W, y: (-v3.y * 0.5 + 0.5) * H });
-  });
-  const gap = portrait ? 40 : 48;
-  for (const side of [true, false]) {
-    const list = items.filter(o => o.left === side).sort((a, b) => a.y - b.y);
-    let last = 70 - gap;
-    list.forEach(o => { o.y = Math.max(o.y, last + gap); last = o.y; });
-    const over = last - (H - 40); if (over > 0) list.forEach(o => o.y -= over);
-  }
-  const lw = portrait ? 16 : 56;
-  items.forEach(o => {
-    o.el.style.setProperty('--lw', lw + 'px');
-    const ew = o.el._w || (o.el._w = o.el.offsetWidth);
-    o.x = o.left ? Math.max(o.x, ew + 6) : Math.min(o.x, W - ew - 6);
-    o.el.style.opacity = clamp((lab - o.i * 0.04) / 0.6);
-    o.el.style.transform = o.left ? `translate(${o.x}px, ${o.y}px) translate(-100%, -50%) translateX(3.5px)` : `translate(${o.x}px, ${o.y}px) translate(-3.5px, -50%)`;
-  });
-  requestAnimationFrame(frame);
-}
-
-// hide labels that would collide on tiny screens
-parts.forEach(pt => { if (pt.userData.name === 'Rubber strap' || (isMobile && ['Folding clasp', 'Gear train', 'Rose gold case'].includes(pt.userData.name))) { pt.userData.el.remove(); pt.userData.el = document.createElement('div'); } });
-if (false) parts.forEach(pt => { if (['Folding clasp', 'Gear train', 'Rose gold case'].includes(pt.userData.name)) pt.userData.el.remove(), pt.userData.el = document.createElement('div'); });
-
-try { snapshots(); } catch (e) { console.warn('snapshot skipped', e); }
-requestAnimationFrame(frame);
+  hero.style.opacity=1-lin(P,.05,.12);hero.style.transform=(innerWidth>900?'translateY(calc(-50% - ':'translateY(-')+(lin(P,.05,.12)*40)+'px'+(innerWidth>900?'))':')');
+  hero.style.pointerEvents=P<.1?'auto':'none';hint.style.opacity=1-lin(P,.01,.05);
+  const o1=lin(P,.45,.5)*(1-lin(P,.6,.64));c1.style.opacity=o1;
+  const o2=lin(P,.88,.93);c2.style.opacity=o2;c2.classList.toggle('on',o2>.5);
+  fill.style.height=(P*100)+'%';num.textContent='0'+(1+Math.min(3,Math.floor(P*4)));
+  hdr.classList.toggle('solid',scrollY>innerHeight*5.5);
+  requestAnimationFrame(render)}
+requestAnimationFrame(render);
+// menu
+const burger=document.getElementById('burger');burger.onclick=()=>{const o=document.body.classList.toggle('menu-open');burger.setAttribute('aria-expanded',o)};
+document.querySelectorAll('.nav a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+// bag
+const toast=document.getElementById('toast');let tt;const say=m=>{toast.textContent=m;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('on'),2200)};
+let bag=0;document.querySelectorAll('.add').forEach(b=>b.onclick=()=>{bag++;document.getElementById('bagCount').textContent=bag;say(b.dataset.name+' added to bag (demo)')});
+document.getElementById('cartBtn').onclick=()=>say(bag?bag+' piece'+(bag>1?'s':'')+' in your bag. Checkout is off in this demo.':'Your bag is empty');
+document.getElementById('book').onsubmit=e=>{e.preventDefault();document.getElementById('bookOk').hidden=false;say('Viewing request saved (demo, nothing sent)')};
+})();
