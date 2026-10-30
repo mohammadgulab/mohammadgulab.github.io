@@ -61,7 +61,7 @@ function layout(){
   root.position.set(cx*vw/2,cy*vh/2,0);
   const fitPx=Math.max(Math.min(s.width,s.height*1.15),180);   // px the object may use
   baseScale=(fitPx/W*vw)/7.0;
-  if(W>=900) baseScale*=1.3;
+  if(W>=900) baseScale*=1.08;
 }
 addEventListener('resize',layout);layout();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(layout);
