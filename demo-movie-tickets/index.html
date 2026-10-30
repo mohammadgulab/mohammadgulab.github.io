@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CineNova | Book movie tickets in 3D</title>
+<meta name="description" content="CineNova concept: browse films in a 3D carousel, pick showtimes and choose your seat inside a 3D cinema hall.">
+<meta property="og:title" content="CineNova | 3D movie ticket booking">
+<meta property="og:description" content="Pick your film, explore the hall in 3D and choose the perfect seat.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="theme-color" content="#07070b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="intro" class="intro" aria-hidden="true"><div class="intro-wall" id="introWall"></div><div class="intro-logo"><span class="logo-mark"></span>CINENOVA</div></div>
+
+<header class="hdr" id="hdr">
+  <a class="logo" href="#/" aria-label="CineNova home"><span class="logo-mark"></span><b>CINE</b>NOVA</a>
+  <nav class="nav"><a href="#/" class="on">Movies</a><a href="#/" data-soon>Events</a><a href="#/" data-soon>Plays</a><a href="#/" data-soon>Sports</a></nav>
+  <div class="hdr-r">
+    <button class="pill" id="cityBtn" type="button"><svg viewBox="0 0 24 24" width="15" height="15"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>Jeddah</button>
+    <a class="pill pill-y" href="#/ticket" id="myTickets">My tickets</a>
+  </div>
+</header>
+
+<main>
+<!-- HOME -->
+<section class="screen" id="home" data-screen="home">
+  <div class="hero">
+    <div class="beam"></div>
+    <div class="orb"><div class="orb-ring"></div></div>
+    <div class="hero-txt">
+      <p class="eyebrow">Now showing in Jeddah</p>
+      <h1 class="brand">CINENOVA</h1>
+      <p class="sub">Every story is one seat away. Pick a film, walk the hall in 3D, choose your seat.</p>
+    </div>
+  </div>
+  <div class="stage" id="stage">
+    <div class="ring" id="ring"></div>
+    <div class="floor"></div>
+  </div>
+  <div class="car-ui">
+    <button class="arrow" id="prev" aria-label="Previous film">&#8249;</button>
+    <div class="car-info" id="carInfo"></div>
+    <button class="arrow" id="next" aria-label="Next film">&#8250;</button>
+  </div>
+  <p class="hint"><span class="hand"></span>Drag or swipe to explore</p>
+
+  <div class="wrap">
+    <h2 class="sec-t">Why book with CineNova</h2>
+    <div class="feats">
+      <div class="feat"><i>3D</i><h3>See your view first</h3><p>Walk the hall in 3D and check the screen from any seat before you pay.</p></div>
+      <div class="feat"><i>4</i><h3>Four seat classes</h3><p>Classic, Prime, Royal Recliner and Balcony, each priced clearly in SAR.</p></div>
+      <div class="feat"><i>QR</i><h3>Ticket on your phone</h3><p>Your QR ticket is ready the second you book. No printing, no queues.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL -->
+<section class="screen" id="detail" data-screen="detail">
+  <div class="bd"><div class="bd-img" id="bdImg"></div><div class="bd-shade"></div></div>
+  <div class="d-top wrap"><a class="back" href="#/">&#8249; All films</a></div>
+  <div class="d-head wrap">
+    <img class="d-poster" id="dPoster" alt="">
+    <div>
+      <span class="tag">Now showing</span>
+      <h1 class="d-title" id="dTitle"></h1>
+      <div class="d-meta" id="dMeta"></div>
+      <p class="d-syn" id="dSyn"></p>
+      <div class="d-btns"><a class="btn btn-y" href="#times" id="bookBtn">Book tickets</a><button class="btn btn-g" id="watchBtn" type="button">&#9825; Watchlist</button></div>
+    </div>
+  </div>
+  <div class="wrap" id="times">
+    <h2 class="sec-t">Where it's playing</h2>
+    <div class="dates" id="dates"></div>
+    <div class="fmt" id="fmt"></div>
+    <div class="theatres" id="theatres"></div>
+    <div class="avail-legend"><span><i class="g"></i>Plenty of seats</span><span><i class="a"></i>Filling fast</span><span><i class="r"></i>Almost full</span></div>
+  </div>
+</section>
+
+<!-- SEATS -->
+<section class="screen" id="seats" data-screen="seats">
+  <canvas id="hall"></canvas>
+  <div class="fallback" id="fallback" hidden></div>
+  <div class="s-top">
+    <a class="back round" href="#" id="seatBack" aria-label="Back">&#8249;</a>
+    <div class="s-info"><b id="sTitle"></b><span id="sSub"></span></div>
+  </div>
+  <div class="views" id="views">
+    <button data-v="overview" class="on">Overview</button><button data-v="stage">From stage</button><button data-v="balcony">Balcony</button><button data-v="bird">Bird's eye</button><button data-v="tour">Tour</button>
+  </div>
+  <div class="tip" id="tip"></div>
+  <aside class="panel" id="panel">
+    <button class="handle" id="handle" aria-label="Show seat details"><span></span></button>
+    <div class="p-body">
+      <h3 class="p-t">Seat classes</h3>
+      <div class="classes" id="classes"></div>
+      <div class="legend"><span><i class="l-av"></i>Available</span><span><i class="l-sel"></i>Selected</span><span><i class="l-bk"></i>Booked</span></div>
+      <h3 class="p-t">Quick pick</h3>
+      <div class="qp"><div class="stepper"><button id="qMinus" aria-label="Fewer">&minus;</button><b id="qN">2</b><button id="qPlus" aria-label="More">+</button></div><button class="btn btn-o" id="bestBtn">Best 2 seats</button></div>
+      <h3 class="p-t">Your seats</h3>
+      <div class="chips" id="chips"><span class="muted">Tap a seat in the hall</span></div>
+    </div>
+    <div class="p-foot">
+      <div><small id="pCount">0 seats</small><b id="pTotal">SAR 0</b></div>
+      <button class="btn btn-y" id="contBtn" disabled>Continue</button>
+    </div>
+  </aside>
+</section>
+
+<!-- CHECKOUT -->
+<section class="screen" id="checkout" data-screen="checkout">
+  <div class="wrap co">
+    <a class="back" href="#" id="coBack">&#8249; Change seats</a>
+    <h1 class="co-t">Review and pay</h1>
+    <div class="co-grid">
+      <div class="card co-sum" id="coSum"></div>
+      <div class="card">
+        <h3 class="p-t">Price breakdown</h3>
+        <div id="coRows"></div>
+        <h3 class="p-t">Pay with</h3>
+        <div class="pay" id="pay">
+          <label><input type="radio" name="pay" checked><span>Apple Pay</span></label>
+          <label><input type="radio" name="pay"><span>mada</span></label>
+          <label><input type="radio" name="pay"><span>Credit card</span></label>
+          <label><input type="radio" name="pay"><span>STC Pay</span></label>
+        </div>
+        <button class="btn btn-y wide" id="payBtn">Pay</button>
+        <p class="muted small">Concept demo. No payment is taken.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKET -->
+<section class="screen" id="ticket" data-screen="ticket">
+  <div class="wrap tk-wrap">
+    <p class="eyebrow ok">&#10003; Booking confirmed</p>
+    <h1 class="co-t">Enjoy the show</h1>
+    <div class="tk-scene" id="tkScene"><div class="tk" id="tk"></div></div>
+    <p class="muted small center">Show this QR at the entrance. Tilt or drag the ticket.</p>
+    <div class="tk-btns"><button class="btn btn-g" id="icsBtn">Add to calendar</button><a class="btn btn-y" href="#/">Book another film</a></div>
+  </div>
+</section>
+</main>
+
+<div class="modal" id="snacks" hidden>
+  <div class="m-card">
+    <h2>Grab a bite?</h2><p class="muted">Pre-order and skip the counter queue.</p>
+    <div id="snackList"></div>
+    <div class="m-btns"><button class="btn btn-g" id="skipSn">Skip</button><button class="btn btn-y" id="addSn">Continue</button></div>
+  </div>
+</div>
+<div class="proc" id="proc" hidden><div class="spin"></div><p>Confirming your seats...</p></div>
+<div class="toast" id="toast"></div>
+
+<footer class="foot" id="foot">
+  <p><b>CineNova</b> is a fictional brand. All films, cinemas and prices are invented for this concept.</p>
+  <p class="credits">Photos from Unsplash by <span id="credits"></span>.</p>
+  <p>Concept demo by <a href="https://mohammadgulab.github.io/">Mohammad Gulab Kauser</a></p>
+</footer>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
