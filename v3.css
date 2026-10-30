@@ -144,3 +144,16 @@ html[data-theme=light] .core{background:radial-gradient(circle at 35% 30%,#bff8f
 .h-id{bottom:-10%}
 @media (max-width:979px){.h-tag.t4{bottom:14%}.h-id{bottom:-13%}.hero-vis{margin-bottom:22px}}
 .sec-head h2,.contact h2.big,.glitch{text-shadow:none}
+
+/* ---------- gradient name + headings restored (v5) ---------- */
+@keyframes mgGrad{from{background-position:0% 50%}to{background-position:100% 50%}}
+.glitch,.glitch.g2,.contact h2.big{width:fit-content;max-width:100%;background-size:200% 100%;background-repeat:repeat;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:mgGrad 7s linear infinite}
+html:not([data-theme=light]) .glitch{background-image:linear-gradient(100deg,#6ff6ff 0%,#b9a6ff 16.6%,#ff8fe0 33.3%,#6ff6ff 50%,#b9a6ff 66.6%,#ff8fe0 83.3%,#6ff6ff 100%);filter:drop-shadow(0 0 1px rgba(3,5,11,.95)) drop-shadow(0 0 18px rgba(80,220,255,.28))}
+html:not([data-theme=light]) .glitch.g2{background-image:linear-gradient(100deg,#ff8fe0 0%,#6ff6ff 16.6%,#b9a6ff 33.3%,#ff8fe0 50%,#6ff6ff 66.6%,#b9a6ff 83.3%,#ff8fe0 100%)}
+html:not([data-theme=light]) .contact h2.big{background-image:linear-gradient(100deg,#ffffff 0%,#6ff6ff 16.6%,#ff8fe0 33.3%,#ffffff 50%,#6ff6ff 66.6%,#ff8fe0 83.3%,#ffffff 100%)}
+html[data-theme=light] .glitch{background-image:linear-gradient(100deg,#00657f 0%,#5a2ee0 16.6%,#a3106a 33.3%,#00657f 50%,#5a2ee0 66.6%,#a3106a 83.3%,#00657f 100%);filter:drop-shadow(0 0 1px rgba(255,255,255,.95)) drop-shadow(0 0 12px rgba(238,243,251,.9))}
+html[data-theme=light] .glitch.g2{background-image:linear-gradient(100deg,#a3106a 0%,#00657f 16.6%,#5a2ee0 33.3%,#a3106a 50%,#00657f 66.6%,#5a2ee0 83.3%,#a3106a 100%)}
+html[data-theme=light] .contact h2.big{background-image:linear-gradient(100deg,#0a1430 0%,#00657f 16.6%,#a3106a 33.3%,#0a1430 50%,#00657f 66.6%,#a3106a 83.3%,#0a1430 100%)}
+html[data-theme=light] h2:not(.big){background:linear-gradient(100deg,#0a1430 10%,#00657f 45%,#4b25c4 80%);-webkit-background-clip:text;background-clip:text}
+.contact h2.big{margin-left:auto;margin-right:auto}
+@media (prefers-reduced-motion:reduce){.glitch,.glitch.g2,.contact h2.big{animation:none}}
