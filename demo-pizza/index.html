@@ -7,7 +7,7 @@
 <meta property="og:image" content="img/pizza-board.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=3">
 </head><body>
 <header class="nav">
   <a class="logo" href="#top"><span class="leaf"></span>Wildleaf</a>
@@ -33,16 +33,14 @@
     <div class="table">
       <div class="base" id="base"><div class="sauce"></div></div>
       <img class="pz-baked" id="baked" src="img/pizza-pan.webp" alt="Baked margherita pizza" width="667" height="667">
-      <div class="ing mozz m1"></div><div class="ing mozz m2"></div><div class="ing mozz m3"></div><div class="ing mozz m4"></div>
-      <img class="ing tom t1" src="img/tomato.webp" alt="" width="500" height="333">
-      <img class="ing tom t2" src="img/tomato.webp" alt="" width="500" height="333">
-      <img class="ing bas b1" src="img/basil.webp" alt="" width="493" height="500">
+      <div class="ing mz m1"><img src="img/mozz1.webp" alt="" width="220" height="220"></div><div class="ing mz m2"><img src="img/mozz2.webp" alt="" width="220" height="220"></div><div class="ing mz m3"><img src="img/mozz3.webp" alt="" width="220" height="220"></div>
+      <img class="ing tom t1" src="img/tomato-whole.webp" alt="" width="360" height="360">
+      <img class="ing tom t2" src="img/tomato-whole.webp" alt="" width="360" height="360">
+      <img class="ing tom t3" src="img/tomato-half.webp" alt="" width="360" height="349">
+      <img class="ing bas b1" src="img/basil2.webp" alt="" width="400" height="191">
       <img class="ing bas b2" src="img/basil2.webp" alt="" width="400" height="191">
     </div>
-    <div class="oven" id="oven" aria-hidden="true">
-      <div class="dome"><div class="mouth"><div class="fire"></div><div class="glow"></div></div><div class="stamp">WILDLEAF</div></div>
-      <div class="plinth"></div>
-    </div>
+    <div class="oven" id="oven" aria-hidden="true"><img src="img/oven.webp" alt="" width="1000" height="896"><div class="glow"></div></div>
     <div class="labels">
       <span class="lab l1">Vine tomatoes</span><span class="lab l2">Fresh basil</span><span class="lab l3">Fior di latte</span>
     </div>
@@ -80,9 +78,9 @@
 
 <footer class="foot">
   <p>Concept demo by <b>Mohammad Gulab Kauser</b></p>
-  <p class="cred">Photos: Pexels (free licence), tomatoes and basil by Pexels contributors, pizza photos via Pexels. Brand, menu and address are fictional.</p>
+  <p class="cred">Photos: Pexels (free licence): tomatoes, basil, pizzas and the wood-fired oven (oven tiles recoloured). Brand, menu and address are fictional.</p>
 </footer>
 <div class="toast" id="toast"></div>
 <script src="gsap.min.js"></script><script src="ScrollTrigger.min.js"></script>
-<script src="app.js?v=1"></script>
+<script src="app.js?v=3"></script>
 </body></html>

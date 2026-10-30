@@ -7,13 +7,13 @@ gsap.from('.hero .ln',{yPercent:60,opacity:0,duration:1,stagger:.12,ease:'power3
 gsap.from('.vine',{y:-200,opacity:0,duration:1.4,ease:'elastic.out(1,.6)'});
 gsap.to('.vine',{yPercent:-25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 // build: pinned choreography
-gsap.set('#oven',{xPercent:-50,yPercent:-70,x:()=>window.innerWidth,autoAlpha:1});
+gsap.set('#oven',{xPercent:-49,yPercent:-78,x:()=>window.innerWidth,autoAlpha:1});
 const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.stage',start:'top top',end:()=>'+='+Math.round(window.innerHeight*3.4),pin:true,scrub:.6,invalidateOnRefresh:true}});
 tl.fromTo('.build-title span',{y:60,opacity:0},{y:0,opacity:1,stagger:.1,duration:.4})
   .fromTo('#base',{scale:.6,rotation:-40,opacity:0},{scale:1,rotation:0,opacity:1,duration:.5,ease:'back.out(1.6)'},'<');
-const drops=[['.m1',-20],['.m2',25],['.m3',-35],['.m4',15],['.t1',40],['.t2',-50],['.b1',30],['.b2',-25]];
-drops.forEach(([s,r],i)=>{tl.fromTo(s,{y:()=>-window.innerHeight*.95,x:()=> (i%2?1:-1)*window.innerWidth*.08,rotation:r*4,opacity:0},{y:0,x:0,rotation:r,opacity:1,duration:.45,ease:'bounce.out'},.5+i*.16)});
-tl.to('.l3',{opacity:1,duration:.15},.8).to('.l1',{opacity:1,duration:.15},1.3).to('.l2',{opacity:1,duration:.15},1.65)
+const drops=[['.t1',-20],['.t2',25],['.t3',-15],['.b1',18],['.b2',-150],['.m1',0],['.m2',0],['.m3',0]];
+drops.forEach(([s,r],i)=>{tl.fromTo(s,{y:()=>-window.innerHeight*.9,rotation:r+90,opacity:0},{y:0,rotation:r,opacity:1,duration:.32,ease:'bounce.out'},.45+i*.19)});
+tl.to('.l1',{opacity:1,duration:.12},.75).to('.l2',{opacity:1,duration:.12},1.25).to('.l3',{opacity:1,duration:.12},1.8)
   .add(()=>{},2.1)
   .to('.lab',{opacity:0,duration:.15},2.2)
   .to('#buildSub',{opacity:0,duration:.1},2.2)
@@ -23,7 +23,7 @@ tl.to('.l3',{opacity:1,duration:.15},.8).to('.l1',{opacity:1,duration:.15},1.3).
   .to('#buildSub',{opacity:1,duration:.15},2.55)
   .to('.build-title',{y:()=>-window.innerHeight*.06,opacity:.0,duration:.3},2.5)
   .to('#oven',{x:0,duration:.6,ease:'power2.out'},2.5)
-  .to('#baked',{scaleX:.5,scaleY:.22,y:()=>$('.table').offsetHeight*.08,duration:.5,ease:'power2.inOut'},3.0)
+  .to('#baked',{scaleX:.52,scaleY:.2,y:()=>$('.table').offsetHeight*.12,duration:.5,ease:'power2.inOut'},3.0)
   .to('#baked',{filter:'brightness(.75) drop-shadow(0 0 0 rgba(0,0,0,0))',duration:.3},3.3)
   .to('.glow',{opacity:1,duration:.3},3.3)
   .to('#oven',{scale:1.05,duration:.3,yoyo:true,repeat:1},3.5)
