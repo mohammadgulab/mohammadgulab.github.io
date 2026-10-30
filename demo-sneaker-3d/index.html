@@ -7,8 +7,8 @@
 <meta name="description" content="STRIDE: a concept sneaker landing page. Drag the shoe in 3D, swap its colour, scroll and watch it land in its own box.">
 <meta name="theme-color" content="#ff6a13">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=1">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=2">
 <link rel="preload" href="assets/shoe.glb" as="fetch" crossorigin>
 </head>
 <body>
@@ -70,70 +70,71 @@
     </div>
   </div>
   <div class="boxes" id="boxes">
-    <article class="drop" data-i="0">
+    <article class="drop" data-i="0"><div class="card"><span class="new">NEW</span><span class="count">01/04</span>
       <button class="box awaiting" id="box1" aria-label="Open box: STRIDE Aero 01">
         <span class="box-back"></span>
         <img class="peek" id="peek1" src="assets/shoe-cobalt.webp" alt="STRIDE Aero 01 in the colour you picked" width="592" height="388">
         <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
         <span class="lid"><span class="brand">STRIDE</span></span>
         <span class="tag" id="yourPick">Your pick</span>
-      </button>
-      <h3>Aero 01 <span id="box1Colour">Cobalt</span></h3><p class="price">SAR 549</p><a class="btn dark sm" href="#top">View product</a>
+      </button></div>
+      <h3>Aero 01 <span id="box1Colour">Cobalt</span></h3><a class="buybar" href="#top">View product <b>SAR 549</b></a>
     </article>
-    <article class="drop" data-i="1">
-      <button class="box b-onyx" aria-label="Open box: STRIDE Night Pace">
+    <article class="drop" data-i="1"><div class="card"><span class="new">NEW</span><span class="count">02/04</span>
+      <button class="box" aria-label="Open box: STRIDE Night Pace">
         <span class="box-back"></span>
         <img class="peek" src="assets/shoe-onyx.webp" alt="STRIDE Night Pace, all black" width="592" height="388" loading="lazy">
         <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
         <span class="lid"><span class="brand">STRIDE</span></span>
-      </button>
-      <h3>Night Pace <span>Onyx</span></h3><p class="price">SAR 599</p><a class="btn dark sm" href="#top">View product</a>
+      </button></div>
+      <h3>Night Pace <span>Onyx</span></h3><a class="buybar" href="#top">View product <b>SAR 599</b></a>
     </article>
-    <article class="drop" data-i="2">
-      <button class="box b-blush" aria-label="Open box: STRIDE Cloud Low">
+    <article class="drop" data-i="2"><div class="card"><span class="new">NEW</span><span class="count">03/04</span>
+      <button class="box" aria-label="Open box: STRIDE Cloud Low">
         <span class="box-back"></span>
         <img class="peek" src="assets/shoe-blush.webp" alt="STRIDE Cloud Low in blush pink" width="592" height="388" loading="lazy">
         <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
         <span class="lid"><span class="brand">STRIDE</span></span>
-      </button>
-      <h3>Cloud Low <span>Blush</span></h3><p class="price">SAR 499</p><a class="btn dark sm" href="#top">View product</a>
+      </button></div>
+      <h3>Cloud Low <span>Blush</span></h3><a class="buybar" href="#top">View product <b>SAR 499</b></a>
     </article>
-    <article class="drop" data-i="3">
-      <button class="box b-volt" aria-label="Open box: STRIDE Volt Rush">
+    <article class="drop" data-i="3"><div class="card"><span class="new">NEW</span><span class="count">04/04</span>
+      <button class="box" aria-label="Open box: STRIDE Volt Rush">
         <span class="box-back"></span>
         <img class="peek" src="assets/shoe-volt.webp" alt="STRIDE Volt Rush in neon volt" width="592" height="388" loading="lazy">
         <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
         <span class="lid"><span class="brand">STRIDE</span></span>
-      </button>
-      <h3>Volt Rush <span>Volt</span></h3><p class="price">SAR 649</p><a class="btn dark sm" href="#top">View product</a>
+      </button></div>
+      <h3>Volt Rush <span>Volt</span></h3><a class="buybar" href="#top">View product <b>SAR 649</b></a>
     </article>
   </div>
 </section>
 
 <section class="cats" id="categories">
-  <div class="cats-head"><p class="eyebrow light">Shop by feel</p><h2>FIND YOUR PAIR</h2></div>
-  <div class="cat-row">
-    <a class="cat c1" href="#top"><img src="assets/shoe-cobalt.webp" alt="" loading="lazy" width="592" height="388"><span>Lifestyle</span><b>24 styles</b></a>
-    <a class="cat c2" href="#top"><img src="assets/shoe-volt.webp" alt="" loading="lazy" width="592" height="388"><span>Running</span><b>18 styles</b></a>
-    <a class="cat c3" href="#top"><img src="assets/shoe-onyx.webp" alt="" loading="lazy" width="592" height="388"><span>Court</span><b>12 styles</b></a>
-    <a class="cat c4" href="#top"><img src="assets/shoe-blush.webp" alt="" loading="lazy" width="592" height="388"><span>Training</span><b>15 styles</b></a>
+  <div class="cats-head"><h2>CATEGORIES</h2><div class="arrows"><button class="arr" data-d="-1" aria-label="Previous">&#8592;</button><button class="arr" data-d="1" aria-label="Next">&#8594;</button></div></div>
+  <div class="cat-row" id="catRow">
+    <a class="cat" href="#top"><img src="assets/shoe-cobalt.webp" alt="" loading="lazy" width="592" height="388"><span>Lifestyle<br>Shoes</span><i>&#8599;</i></a>
+    <a class="cat" href="#top"><img src="assets/shoe-volt.webp" alt="" loading="lazy" width="592" height="388"><span>Running<br>Shoes</span><i>&#8599;</i></a>
+    <a class="cat" href="#top"><img src="assets/shoe-onyx.webp" alt="" loading="lazy" width="592" height="388"><span>Court<br>Shoes</span><i>&#8599;</i></a>
+    <a class="cat" href="#top"><img src="assets/shoe-blush.webp" alt="" loading="lazy" width="592" height="388"><span>Training<br>Shoes</span><i>&#8599;</i></a>
   </div>
 </section>
 
 <section class="reviews">
-  <div class="rev-head"><p class="eyebrow">Sample reviews</p><h2>WORN AND LOVED</h2></div>
+  <div class="rev-head"><h2>REVIEWS</h2><p class="sub">Sample reviews for this concept store.</p></div>
   <div class="rev-row">
-    <figure><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Wore them for a full day at the mall and my feet still felt fresh. The cobalt looks even better in person."</blockquote><figcaption><span class="av">S</span>Sara A. <em>Jeddah</em></figcaption></figure>
-    <figure><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Light, soft and they arrived in that blue box. Unboxing felt like a little event."</blockquote><figcaption><span class="av">Y</span>Yousef K. <em>Riyadh</em></figcaption></figure>
-    <figure><div class="stars" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;<i>&#9733;</i></div><blockquote>"Great grip for evening runs on the Corniche. Sizing is true, go with your usual size."</blockquote><figcaption><span class="av">R</span>Rahul M. <em>Dammam</em></figcaption></figure>
+    <figure><div class="rv-top"><div><h3>Good Quality</h3><p>Really comfy for long days, would buy again from STRIDE.</p><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733; <em>5.0</em></div></div><span class="av">SA</span></div><div class="rv-img"><img src="assets/shoe-cobalt.webp" alt="" loading="lazy" width="592" height="388"></div></figure>
+    <figure><div class="rv-top"><div><h3>Love the colour</h3><p>The pink pair looks even better in person and the box is a vibe.</p><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733; <em>5.0</em></div></div><span class="av">YK</span></div><div class="rv-img"><img src="assets/shoe-blush.webp" alt="" loading="lazy" width="592" height="388"></div></figure>
+    <figure><div class="rv-top"><div><h3>Great grip</h3><p>Good for evening runs on the Corniche. Sizing is true.</p><div class="stars" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;<i>&#9733;</i> <em>4.0</em></div></div><span class="av">RM</span></div><div class="rv-img"><img src="assets/shoe-onyx.webp" alt="" loading="lazy" width="592" height="388"></div></figure>
   </div>
 </section>
 
 <section class="club">
   <div class="club-in">
-    <h2>Join STRIDE+ and get 15% off your first pair</h2>
-    <form id="clubForm" novalidate><label class="sr" for="email">Email</label><input id="email" type="email" placeholder="Your email" autocomplete="email"><button class="btn white" type="submit">Join the club</button></form>
+    <div><h2>JOIN OUR STRIDE+ CLUB &amp; GET 15% OFF</h2><p class="club-sub">Sign up for free and join the community.</p></div>
+    <form id="clubForm" novalidate><label class="sr" for="email">Email</label><input id="email" type="email" placeholder="Your email" autocomplete="email"><button class="btn dark" type="submit">Join the club</button></form>
     <p class="note" id="clubNote" aria-live="polite">Demo form: nothing is sent anywhere.</p>
+    <div class="club-word" aria-hidden="true">STRIDE</div>
   </div>
 </section>
 </main>
@@ -155,6 +156,6 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
-<script type="module" src="script.js?v=1"></script>
+<script type="module" src="script.js?v=2"></script>
 </body>
 </html>

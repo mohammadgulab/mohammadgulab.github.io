@@ -182,7 +182,6 @@ if (!SNAP) {
   gsap.from('.headline span, .headline em', { yPercent: 60, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12 });
   gsap.from('.stage', { y: 40, opacity: 0, duration: 1, ease: 'power3.out', delay: 0.15 });
   ['.cats-head', '.rev-head'].forEach((s) => gsap.from(s, { y: 40, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: s, start: 'top 88%' } }));
-  gsap.from('.cat', { y: 50, opacity: 0, duration: .8, stagger: .08, ease: 'power3.out', scrollTrigger: { trigger: '.cat-row', start: 'top 88%' } });
   gsap.from('.rev-row figure', { y: 40, opacity: 0, duration: .8, stagger: .08, ease: 'power3.out', scrollTrigger: { trigger: '.rev-row', start: 'top 90%' } });
 }
 
@@ -196,7 +195,8 @@ function frame() {
   smoothP += (progress - smoothP) * Math.min(1, dt * 10);
   if (Math.abs(progress - smoothP) < 0.0008) smoothP = progress;
   const p = SNAP ? 0 : smoothP;
-  const isLanded = p >= 0.995;
+  if (!SNAP && progress >= 0.999 && smoothP > 0.93) smoothP = 1;
+  const isLanded = (SNAP ? 0 : smoothP) >= 0.995;
   if (!SNAP && isLanded !== landed) {
     landed = isLanded;
     canvas.classList.toggle('off', landed);
@@ -259,7 +259,7 @@ const nav = document.querySelector('.nav'), burger = document.querySelector('.bu
 burger.addEventListener('click', () => { const o = nav.classList.toggle('menu-open'); burger.setAttribute('aria-expanded', o); });
 document.querySelectorAll('.nav-links a').forEach((a) => a.addEventListener('click', () => nav.classList.remove('menu-open')));
 let bag = 0;
-document.querySelectorAll('.drop .btn').forEach((a) => a.addEventListener('click', () => { bag++; document.getElementById('bagCount').textContent = bag; }));
+document.querySelectorAll('.drop .buybar').forEach((a) => a.addEventListener('click', () => { bag++; document.getElementById('bagCount').textContent = bag; }));
 document.getElementById('clubForm').addEventListener('submit', (e) => {
   e.preventDefault();
   const v = document.getElementById('email').value.trim();
@@ -267,3 +267,6 @@ document.getElementById('clubForm').addEventListener('submit', (e) => {
 });
 window.__st = st;
 window.__stride = { setColour, get progress() { return smoothP; } };
+
+const catRow = document.getElementById('catRow');
+document.querySelectorAll('.arr').forEach((b) => b.addEventListener('click', () => catRow.scrollBy({ left: catRow.clientWidth * 0.6 * Number(b.dataset.d), behavior: 'smooth' })));
