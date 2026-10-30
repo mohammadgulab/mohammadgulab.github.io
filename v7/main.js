@@ -23,7 +23,9 @@ hb.addEventListener('pointermove',moveTorch);hb.addEventListener('pointerdown',m
 
 /* ---------- v8: hand + rope (verlet physics) ---------- */
 const stage=$('#stage'), hire=$('#hire'), ropes=$('#ropes'), hand=$('#hand');
-const tipEl=$('.tip',hand), handBody=$('.h-body',hand), fingers=$('.h-fingers',hand), thumb=$('.h-thumb',hand);
+const tipEl=$('.tip',hand), tipIn=$('.tip-in',hand), tipTail=$('.tip-tail',hand), grip=$('.h-grip',hand);
+const rpx=['.rp-in','.rp-tl-o','.rp-tl-b','.rp-tl-t'].map(c=>$(c,ropes));
+const HAND_AR=1201/720; let HW=200, RW=14;
 const rp=['.rp-o','.rp-b','.rp-t','.rp-o2','.rp-b2','.rp-t2'].map(c=>$(c,ropes));
 const cv=$('#confetti'), cx2=cv.getContext('2d');
 const tBar=$('#tensionBar'), tPct=$('#tensionPct'), tBox=$('#tension'), hireT=$('#hireT'), hireS=$('#hireS');
@@ -34,16 +36,21 @@ let off={x:0,y:0},vel={x:0,y:0},drag=null,moved=0,broken=false,brokeAt=0,cut=11;
 let pts=[],hoff={x:0,y:0},hvel={x:0,y:0},look=0,lookT=0,tension=0,squeeze=0,lastTug=performance.now();
 let parts=[];
 const mob=()=>innerWidth<=560;
-function anchor(){const s=stage.getBoundingClientRect(),b=tipEl.getBoundingClientRect();return{x:b.left+b.width/2-s.left,y:b.top+b.height/2-s.top};}
+function cen(el,s){const b=el.getBoundingClientRect();return{x:b.left+b.width/2-s.left,y:b.top+b.height/2-s.top};}
+function anchor(){return cen(tipEl,stage.getBoundingClientRect());}
 function attachPt(bx,by){return{x:bx-bw/2+16,y:by+2};}
 function initRope(){
   const A=anchor(),B=attachPt(rest.x,rest.y);
-  Ltot=Math.hypot(B.x-A.x,B.y-A.y)*1.18; segL=Ltot/(N-1);
+  Ltot=Math.hypot(B.x-A.x,B.y-A.y)*(mob()?1.1:1.05); segL=Ltot/(N-1);
   pts=[];for(let i=0;i<N;i++){const t=i/(N-1);const x=A.x+(B.x-A.x)*t,y=A.y+(B.y-A.y)*t+Math.sin(t*Math.PI)*20;pts.push({x,y,px:x,py:y});}
 }
 function layout(){
   const r=stage.getBoundingClientRect();SW=r.width;SH=r.height;bw=hire.offsetWidth;bh=hire.offsetHeight;
-  let x=SW*(mob()?0.7:0.72), y=SH*(mob()?0.66:0.6);
+  // size the photo hand so the whole fist, wrist and forearm sit inside the stage
+  HW=mob()?Math.min(SW*0.5,(SH-24)/HAND_AR,210):Math.min(SW*0.27,(SH-10)/HAND_AR,330);HW=Math.max(HW,120);
+  hand.style.width=HW.toFixed(1)+'px';hand.style.left=(mob()?Math.max(6,SW*0.02):SW*0.06).toFixed(1)+'px';hand.style.top=(mob()?6:4)+'px';
+  RW=Math.max(9,Math.min(HW*0.075,22));stage.style.setProperty('--rw',RW.toFixed(1)+'px');
+  let x=SW*(mob()?0.72:0.72), y=SH*(mob()?0.6:0.6);
   x=Math.min(Math.max(x,bw/2+8),SW-bw/2-8); y=Math.min(Math.max(y,bh/2+8),SH-bh/2-34);
   rest={x,y};
   const d=Math.min(devicePixelRatio||1,2);cv.width=SW*d;cv.height=SH*d;cx2.setTransform(d,0,0,d,0,0);
@@ -99,34 +106,41 @@ function frame(now){
   // hand: pulled toward the button by tension, springs home
   const A0=anchor();
   const dist=Math.hypot(B.x-(A0.x-hoff.x),B.y-(A0.y-hoff.y));
-  const tTarget=broken?0:Math.max(0,Math.min(1,(dist-Ltot)/Math.min(Ltot*0.5,mob()?100:150)));
+  const tTarget=broken?0:Math.max(0,Math.min(1,(dist-Ltot)/Math.min(Ltot*0.5+30,mob()?95:105)));
   tension+=(tTarget-tension)*0.3;
   const dl=dist||1, ux=(B.x-(A0.x-hoff.x))/dl, uy=(B.y-(A0.y-hoff.y))/dl;
-  const want={x:ux*tension*46,y:uy*tension*30};
+  const pullK=mob()?42:56, want={x:ux*tension*pullK,y:uy*tension*pullK*0.7};
   hvel.x+=(want.x-hoff.x)*0.12;hvel.y+=(want.y-hoff.y)*0.12;hvel.x*=0.78;hvel.y*=0.78;hoff.x+=hvel.x;hoff.y+=hvel.y;
   look+=((lookT)-look)*0.08;
   const ang=Math.atan2(uy,ux)*180/Math.PI;
-  const rot=(broken?hvel.x*-0.6:Math.max(-14,Math.min(14,(ang-25)*0.18*tension)))+look+Math.sin(t*1.6)*1.2*idle;
-  hand.style.transform=`translate(${hoff.x.toFixed(2)}px,${(hoff.y+Math.sin(t*1.2)*3*idle).toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
-  squeeze+=((drag&&!broken?0.55:0)+tension*0.45-squeeze)*0.25;
-  fingers.style.transform=`translateX(${(-squeeze*5).toFixed(2)}px) scaleX(${(1-squeeze*0.05).toFixed(3)})`;
-  thumb.style.transform=`translate(${(squeeze*3).toFixed(2)}px,${(squeeze*1.5).toFixed(2)}px) rotate(${(broken?-6:-squeeze*3).toFixed(2)}deg)`;
+  // the arm pivots at the elbow: the fist leans toward the pull, trembles under strain, recoils on the snap
+  const strain=Math.max(0,tension-0.45)/0.55;
+  const shake=strain*strain*(Math.sin(t*61)*0.9+Math.sin(t*37)*0.6);
+  const lean=broken?hvel.x*0.5:tension*(7+Math.max(-5,Math.min(5,(ang-30)*0.1)));
+  const rot=lean+shake+look*0.35+Math.sin(t*1.5)*0.9*idle;
+  hand.style.transform=`translate(${(hoff.x+shake*0.6).toFixed(2)}px,${(hoff.y+Math.sin(t*1.2)*2.5*idle).toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
+  squeeze+=((drag&&!broken?0.4:0)+tension*0.6-squeeze)*0.22;
+  // grip tightens: fist compresses a touch, knuckles go pale and contrasty
+  grip.style.transform=`scale(${(1-squeeze*0.025).toFixed(4)},${(1+squeeze*0.012).toFixed(4)})`;
+  grip.style.filter=`contrast(${(1+squeeze*0.12).toFixed(3)}) saturate(${(1-squeeze*0.12).toFixed(3)}) brightness(${(1+squeeze*0.05).toFixed(3)})`;
   hand.style.setProperty('--sq',squeeze.toFixed(3));
   hire.style.transform=`translate(${(bx-bw/2).toFixed(1)}px,${(by-bh/2).toFixed(1)}px) rotate(${(off.x*0.035+(broken?0:tension*-4)).toFixed(2)}deg) scale(${(1+tension*0.05).toFixed(3)})`;
   hire.classList.toggle('taut',tension>0.55&&!broken);
   // rope physics
-  const A=anchor();
+  const A=anchor(), Pi0=cen(tipIn,stage.getBoundingClientRect());
+  let dux=A.x-Pi0.x, duy=A.y-Pi0.y; const dd0=Math.hypot(dux,duy)||1; dux/=dd0; duy/=dd0;
+  const P1={x:A.x+dux*segL*0.85,y:A.y+duy*segL*0.85};
   for(let i=0;i<N;i++){const p=pts[i];
-    const pinned=(i===0)||(!broken&&i===N-1)||(broken&&i===N-1);
+    const pinned=(i<=1)||(i===N-1);
     if(pinned)continue;
     const vx=(p.x-p.px)*0.985, vy=(p.y-p.py)*0.985;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+G;}
-  pts[0].x=A.x;pts[0].y=A.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
+  pts[0].x=A.x;pts[0].y=A.y;pts[1].x=P1.x;pts[1].y=P1.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
   for(let k=0;k<18;k++){
     for(let i=0;i<N-1;i++){ if(broken&&i===cut)continue;
       const a=pts[i],b=pts[i+1];const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,diff=(d-segL)/d;
-      const aP=i===0, bP=i+1===N-1; const wa=aP?0:(bP?1:.5), wb=bP?0:(aP?1:.5);
+      const aP=i<=1, bP=i+1===N-1; const wa=aP?0:(bP?1:.5), wb=bP?0:(aP?1:.5);
       a.x+=dx*diff*wa;a.y+=dy*diff*wa;b.x-=dx*diff*wb;b.y-=dy*diff*wb;}
-    pts[0].x=A.x;pts[0].y=A.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
+    pts[0].x=A.x;pts[0].y=A.y;pts[1].x=P1.x;pts[1].y=P1.y;pts[N-1].x=B.x;pts[N-1].y=B.y;
   }
   // floor so the loose ends rest on the stage
   pts.forEach(p=>{if(p.y>SH-6)p.y=SH-6;});
@@ -134,8 +148,18 @@ function frame(now){
   const d1=broken?smooth(pts.slice(0,cut+1)):smooth(pts), d2=broken?smooth(pts.slice(cut+1)):'';
   rp[0].setAttribute('d',d1);rp[1].setAttribute('d',d1);rp[2].setAttribute('d',d1);
   rp[3].setAttribute('d',d2);rp[4].setAttribute('d',d2);rp[5].setAttribute('d',d2);
-  rp[0].style.strokeWidth=(9*w).toFixed(2);rp[1].style.strokeWidth=(6.4*w).toFixed(2);rp[2].style.strokeWidth=(6.4*w).toFixed(2);
-  rp[1].style.stroke=tension>0.75?'#e9a07a':'';
+  const ow=(RW*w).toFixed(2), iw=(RW*w-2.6).toFixed(2);
+  [rp[0],rp[3]].forEach(p=>p.style.strokeWidth=ow);[rp[1],rp[4]].forEach(p=>p.style.strokeWidth=iw);[rp[2],rp[5]].forEach(p=>p.style.strokeWidth=(RW*w*0.42).toFixed(2));
+  // rope inside the fist and the loose tail on the thumb side, both follow the hand
+  const sR=stage.getBoundingClientRect(), Pi=cen(tipIn,sR), Pt=cen(tipTail,sR);
+  rpx[0].setAttribute('d',`M${Pi.x.toFixed(1)},${Pi.y.toFixed(1)} L${A.x.toFixed(1)},${A.y.toFixed(1)}`);
+  const sw=Math.sin(t*1.7)*3+(broken?Math.sin((now-brokeAt)/60)*6*Math.max(0,1-(now-brokeAt)/900):0)-tension*3;
+  // loose end hangs under gravity behind the thumb
+  const cxT=Pi.x-HW*0.065+sw*0.2, cyT=Pi.y-HW*0.004, exT=Pi.x-HW*0.075+sw*0.6, eyT=Pi.y+HW*0.12+Math.abs(sw)*0.3;
+  const td=`M${Pi.x.toFixed(1)},${Pi.y.toFixed(1)} Q${cxT.toFixed(1)},${cyT.toFixed(1)} ${exT.toFixed(1)},${eyT.toFixed(1)}`;
+  rpx.slice(1).forEach(p=>p.setAttribute('d',td));
+  rpx[0].style.strokeWidth=iw;rpx[1].style.strokeWidth=ow;rpx[2].style.strokeWidth=iw;rpx[3].style.strokeWidth=(RW*0.42).toFixed(2);
+  rp[1].style.stroke=tension>0.8?'#f1d9c9':'';
   rp[2].style.strokeDashoffset=(-t*4-tension*30).toFixed(1);
   // tension meter
   const pc=Math.round(tension*100);tBar.style.transform=`scaleX(${tension.toFixed(3)})`;tPct.textContent=broken?'SNAP':pc+'%';tBox.classList.toggle('hot',tension>0.7||broken);tBox.classList.toggle('on',!!drag||broken||tension>0.02);

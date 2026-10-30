@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#f3efe6">
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js" crossorigin>
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 <div class="progress" id="progress" aria-hidden="true"><i></i></div>
@@ -61,47 +61,8 @@
     <p class="kicker mono"><span class="dot"></span>Hiring? <span class="muted">/ A small game</span></p>
     <h2 class="ha-title"><span class="ha-l1 split">PULL ME INTO</span><span class="ha-l2 serif">your team.</span></h2>
     <div class="stage" id="stage">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 240" class="hand2" id="hand" aria-hidden="true">
-<defs>
-<linearGradient id="hgSkin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6cfae"/><stop offset=".55" stop-color="#eab48d"/><stop offset="1" stop-color="#d3936b"/></linearGradient>
-<linearGradient id="hgFing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8d6b8"/><stop offset=".6" stop-color="#ebb690"/><stop offset="1" stop-color="#cf8d65"/></linearGradient>
-<linearGradient id="hgThumb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3c6a2"/><stop offset="1" stop-color="#dc9f77"/></linearGradient>
-<linearGradient id="hgSleeve" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a2a"/><stop offset=".5" stop-color="#121212"/><stop offset="1" stop-color="#050505"/></linearGradient>
-<linearGradient id="hgCuff" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6dfd0"/></linearGradient>
-<linearGradient id="hgRope" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b48a52"/><stop offset=".5" stop-color="#e2c088"/><stop offset="1" stop-color="#a77d47"/></linearGradient>
-<radialGradient id="hgShade" cx=".3" cy=".35" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
-</defs>
-<g class="h-body">
-<!-- rope tail above the fist -->
-<g class="h-tail">
-<path d="M181,86 C182,66 174,52 168,36" fill="none" stroke="#3b2a17" stroke-width="10" stroke-linecap="round"/>
-<path d="M181,86 C182,66 174,52 168,36" fill="none" stroke="url(#hgRope)" stroke-width="7" stroke-linecap="round"/>
-<path d="M181,86 C182,66 174,52 168,36" fill="none" stroke="#8a6436" stroke-width="7" stroke-dasharray="3 5" stroke-linecap="butt" opacity=".7"/>
-<path d="M168,37 l-6,-9 M168,37 l-1,-11 M168,37 l5,-9" stroke="#b48a52" stroke-width="2" stroke-linecap="round"/>
-</g>
-<!-- sleeve and cuff -->
-<path d="M-6,90 L74,84 Q83,132 77,182 L-6,190 Z" fill="url(#hgSleeve)"/>
-<path d="M6,100 L66,95" stroke="#3a3a3a" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-<path d="M70,84 L95,87 Q103,133 95,179 L73,182 Q82,132 70,84 Z" fill="url(#hgCuff)" stroke="#141414" stroke-width="2.4" stroke-linejoin="round"/>
-<circle cx="86" cy="148" r="3.6" fill="#f3efe6" stroke="#141414" stroke-width="1.6"/>
-<!-- wrist and back of the hand -->
-<path d="M92,98 Q116,92 128,100 L132,172 Q112,182 93,176 Q101,136 92,98 Z" fill="url(#hgSkin)" stroke="#5e3522" stroke-width="2.4" stroke-linejoin="round"/>
-<path d="M112,86 Q152,70 198,78 Q216,84 216,106 L216,170 Q214,198 186,202 Q140,208 114,188 Q100,140 112,86 Z" fill="url(#hgSkin)" stroke="#5e3522" stroke-width="2.6" stroke-linejoin="round"/>
-<path d="M120,96 Q150,84 186,88" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
-<path d="M124,128 Q128,150 126,170" fill="none" stroke="#b9775a" stroke-width="1.6" stroke-linecap="round" opacity=".6"/>
-<!-- curled fingers: pinky first so upper fingers overlap -->
-<g class="h-fingers"><g class="h-f f4"><path d="M142,154 H206 A13.0,13.0 0 0 1 206,180 H142 Z" fill="url(#hgFing)"/><path d="M150,154 H206 A13.0,13.0 0 0 1 206,180 H150" fill="none" stroke="#5e3522" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M196,158 Q201,167.0 196,176" fill="none" stroke="#a8684a" stroke-width="1.6" stroke-linecap="round"/><path d="M156,158 H200" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/></g><g class="h-f f3"><path d="M140,127 H212 A14.0,14.0 0 0 1 212,155 H140 Z" fill="url(#hgFing)"/><path d="M148,127 H212 A14.0,14.0 0 0 1 212,155 H148" fill="none" stroke="#5e3522" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M201,131 Q206,141.0 201,151" fill="none" stroke="#a8684a" stroke-width="1.6" stroke-linecap="round"/><path d="M154,131 H206" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/></g><g class="h-f f2"><path d="M140,100 H216 A14.0,14.0 0 0 1 216,128 H140 Z" fill="url(#hgFing)"/><path d="M148,100 H216 A14.0,14.0 0 0 1 216,128 H148" fill="none" stroke="#5e3522" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M205,104 Q210,114.0 205,124" fill="none" stroke="#a8684a" stroke-width="1.6" stroke-linecap="round"/><path d="M154,104 H210" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/></g><g class="h-f f1"><path d="M150,74 H212 A13.5,13.5 0 0 1 212,101 H150 Z" fill="url(#hgFing)"/><path d="M150,74 H212 A13.5,13.5 0 0 1 212,101 H150" fill="none" stroke="#5e3522" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M201,78 Q206,87.5 201,97" fill="none" stroke="#a8684a" stroke-width="1.6" stroke-linecap="round"/><path d="M156,78 H206" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round"/></g></g>
-<!-- thumb wraps over the index and middle fingers -->
-<g class="h-thumb">
-<path d="M116,184 Q118,142 148,120 Q168,106 192,104 Q207,105 206,118 Q205,130 190,132 Q168,134 154,148 Q140,162 142,188 Z" fill="url(#hgThumb)" stroke="#5e3522" stroke-width="2.6" stroke-linejoin="round"/>
-<path d="M186,109 Q200,108 201,117 Q200,126 189,127 Q183,118 186,109 Z" fill="#f9e1cf" stroke="#9c5f43" stroke-width="1.6"/>
-<path d="M166,118 Q170,126 166,134" fill="none" stroke="#a8684a" stroke-width="1.6" stroke-linecap="round"/>
-<path d="M128,150 Q140,128 162,116" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="2.4" stroke-linecap="round"/>
-</g>
-<circle class="tip" cx="182" cy="182" r="1" fill="none"/>
-</g>
-</svg>
-      <svg class="ropes" id="ropes" aria-hidden="true"><path class="rp-o"/><path class="rp-b"/><path class="rp-t"/><path class="rp-o2"/><path class="rp-b2"/><path class="rp-t2"/></svg>
+      <div class="hand2" id="hand" aria-hidden="true"><div class="h-grip"><img src="img/hand-grip.webp?v=9" alt="" width="720" height="1201" decoding="async" draggable="false"></div><i class="tip"></i><i class="tip-in"></i><i class="tip-tail"></i></div>
+      <svg class="ropes" id="ropes" aria-hidden="true"><path class="rp-in"/><path class="rp-tl-o"/><path class="rp-tl-b"/><path class="rp-tl-t"/><path class="rp-o"/><path class="rp-b"/><path class="rp-t"/><path class="rp-o2"/><path class="rp-b2"/><path class="rp-t2"/></svg>
       <canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
       <button class="hire" id="hire" type="button" aria-label="Hire me, open contact options">
         <span class="hire-ring"></span>
@@ -287,7 +248,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="main.js?v=8"></script>
-<script type="module" src="hero3d.js?v=8"></script>
+<script src="main.js?v=9"></script>
+<script type="module" src="hero3d.js?v=9"></script>
 </body>
 </html>
