@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STRIDE Aero 01 | 3D Sneaker Concept</title>
+<meta name="description" content="STRIDE: a concept sneaker landing page. Drag the shoe in 3D, swap its colour, scroll and watch it land in its own box.">
+<meta name="theme-color" content="#ff6a13">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=1">
+<link rel="preload" href="assets/shoe.glb" as="fetch" crossorigin>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <button class="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#drops">New Drops</a><a href="#categories">Men</a><a href="#categories">Women</a><a href="#categories">Kids</a>
+  </nav>
+  <a class="logo" href="#top" aria-label="STRIDE home">STRIDE<i></i></a>
+  <div class="nav-icons">
+    <button aria-label="Search" class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    <button aria-label="Bag" class="ico bag"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b id="bagCount">0</b></button>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <h1 class="headline"><span>RUN IT</span> <em id="accentWord">RIGHT</em></h1>
+  <div class="stage" id="stage">
+    <div class="stage-tab">Featured Product</div>
+    <div class="watermark" aria-hidden="true">AERO 01</div>
+    <div class="pill-hint"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Drag to rotate</div>
+    <div class="platform" aria-hidden="true"></div>
+    <div class="shoe-anchor" id="shoeAnchor" aria-label="3D sneaker, drag to rotate" role="img">
+      <div class="loader" id="loader"><span></span>Loading 3D</div>
+    </div>
+    <div class="hotspot h1"><i></i><span>Cushioned midsole</span></div>
+    <div class="hotspot h2"><i></i><span>Breathable knit upper</span></div>
+    <div class="info">
+      <span class="chip">Featured Lifestyle</span>
+      <h2>STRIDE <b>AERO 01</b></h2>
+      <p>A light everyday runner with a soft foam midsole and a knit upper that breathes through the Jeddah heat.</p>
+      <div class="price-row"><strong id="heroPrice">SAR 549</strong><span id="colourName">Cobalt</span></div>
+      <div class="btns"><a class="btn blue" href="#drops" id="shopNow">Shop now</a><a class="btn ghost" href="#drops">View new drops</a></div>
+    </div>
+    <div class="swatches" role="radiogroup" aria-label="Choose colour">
+      <button class="sw active" role="radio" aria-checked="true" data-c="cobalt" style="--a:#2f63ff;--p:#1b1d24" aria-label="Cobalt"></button>
+      <button class="sw" role="radio" aria-checked="false" data-c="onyx" style="--a:#2b2b2e;--p:#0d0d0f" aria-label="Onyx"></button>
+      <button class="sw" role="radio" aria-checked="false" data-c="blush" style="--a:#ff8db1;--p:#f1ece8" aria-label="Blush"></button>
+      <button class="sw" role="radio" aria-checked="false" data-c="volt" style="--a:#c8f53a;--p:#24272c" aria-label="Volt"></button>
+    </div>
+    <a class="scroll-cue" href="#drops">Scroll for more drops <span>&#8595;</span></a>
+  </div>
+</section>
+
+<section class="drops" id="drops">
+  <div class="drops-head">
+    <div>
+      <p class="eyebrow">Don't miss out</p>
+      <h2>NEW DROPS</h2>
+      <p class="sub">Fresh pairs land every Friday at 8 PM. Hover a box (or tap it on your phone) to unbox.</p>
+    </div>
+    <div class="timer-wrap">
+      <div class="timer" id="timer" aria-label="Time to next drop">
+        <div><b id="tD">00</b><span>Days</span></div><div><b id="tH">00</b><span>Hours</span></div><div><b id="tM">00</b><span>Mins</span></div><div><b id="tS">00</b><span>Secs</span></div>
+      </div>
+      <a class="btn dark" href="#drops">Shop all drops</a>
+    </div>
+  </div>
+  <div class="boxes" id="boxes">
+    <article class="drop" data-i="0">
+      <button class="box awaiting" id="box1" aria-label="Open box: STRIDE Aero 01">
+        <span class="box-back"></span>
+        <img class="peek" id="peek1" src="assets/shoe-cobalt.webp" alt="STRIDE Aero 01 in the colour you picked" width="592" height="388">
+        <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
+        <span class="lid"><span class="brand">STRIDE</span></span>
+        <span class="tag" id="yourPick">Your pick</span>
+      </button>
+      <h3>Aero 01 <span id="box1Colour">Cobalt</span></h3><p class="price">SAR 549</p><a class="btn dark sm" href="#top">View product</a>
+    </article>
+    <article class="drop" data-i="1">
+      <button class="box b-onyx" aria-label="Open box: STRIDE Night Pace">
+        <span class="box-back"></span>
+        <img class="peek" src="assets/shoe-onyx.webp" alt="STRIDE Night Pace, all black" width="592" height="388" loading="lazy">
+        <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
+        <span class="lid"><span class="brand">STRIDE</span></span>
+      </button>
+      <h3>Night Pace <span>Onyx</span></h3><p class="price">SAR 599</p><a class="btn dark sm" href="#top">View product</a>
+    </article>
+    <article class="drop" data-i="2">
+      <button class="box b-blush" aria-label="Open box: STRIDE Cloud Low">
+        <span class="box-back"></span>
+        <img class="peek" src="assets/shoe-blush.webp" alt="STRIDE Cloud Low in blush pink" width="592" height="388" loading="lazy">
+        <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
+        <span class="lid"><span class="brand">STRIDE</span></span>
+      </button>
+      <h3>Cloud Low <span>Blush</span></h3><p class="price">SAR 499</p><a class="btn dark sm" href="#top">View product</a>
+    </article>
+    <article class="drop" data-i="3">
+      <button class="box b-volt" aria-label="Open box: STRIDE Volt Rush">
+        <span class="box-back"></span>
+        <img class="peek" src="assets/shoe-volt.webp" alt="STRIDE Volt Rush in neon volt" width="592" height="388" loading="lazy">
+        <span class="box-front"><span class="brand">STRIDE</span><span class="stripe"></span></span>
+        <span class="lid"><span class="brand">STRIDE</span></span>
+      </button>
+      <h3>Volt Rush <span>Volt</span></h3><p class="price">SAR 649</p><a class="btn dark sm" href="#top">View product</a>
+    </article>
+  </div>
+</section>
+
+<section class="cats" id="categories">
+  <div class="cats-head"><p class="eyebrow light">Shop by feel</p><h2>FIND YOUR PAIR</h2></div>
+  <div class="cat-row">
+    <a class="cat c1" href="#top"><img src="assets/shoe-cobalt.webp" alt="" loading="lazy" width="592" height="388"><span>Lifestyle</span><b>24 styles</b></a>
+    <a class="cat c2" href="#top"><img src="assets/shoe-volt.webp" alt="" loading="lazy" width="592" height="388"><span>Running</span><b>18 styles</b></a>
+    <a class="cat c3" href="#top"><img src="assets/shoe-onyx.webp" alt="" loading="lazy" width="592" height="388"><span>Court</span><b>12 styles</b></a>
+    <a class="cat c4" href="#top"><img src="assets/shoe-blush.webp" alt="" loading="lazy" width="592" height="388"><span>Training</span><b>15 styles</b></a>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="rev-head"><p class="eyebrow">Sample reviews</p><h2>WORN AND LOVED</h2></div>
+  <div class="rev-row">
+    <figure><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Wore them for a full day at the mall and my feet still felt fresh. The cobalt looks even better in person."</blockquote><figcaption><span class="av">S</span>Sara A. <em>Jeddah</em></figcaption></figure>
+    <figure><div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>"Light, soft and they arrived in that blue box. Unboxing felt like a little event."</blockquote><figcaption><span class="av">Y</span>Yousef K. <em>Riyadh</em></figcaption></figure>
+    <figure><div class="stars" aria-label="4 stars">&#9733;&#9733;&#9733;&#9733;<i>&#9733;</i></div><blockquote>"Great grip for evening runs on the Corniche. Sizing is true, go with your usual size."</blockquote><figcaption><span class="av">R</span>Rahul M. <em>Dammam</em></figcaption></figure>
+  </div>
+</section>
+
+<section class="club">
+  <div class="club-in">
+    <h2>Join STRIDE+ and get 15% off your first pair</h2>
+    <form id="clubForm" novalidate><label class="sr" for="email">Email</label><input id="email" type="email" placeholder="Your email" autocomplete="email"><button class="btn white" type="submit">Join the club</button></form>
+    <p class="note" id="clubNote" aria-live="polite">Demo form: nothing is sent anywhere.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div><a class="logo light" href="#top">STRIDE<i></i></a><p>Concept sneaker brand. Not a real store.</p></div>
+    <div><h4>Shop</h4><a href="#drops">New drops</a><a href="#categories">Running</a><a href="#categories">Lifestyle</a></div>
+    <div><h4>Help</h4><a href="#top">Shipping in KSA</a><a href="#top">Returns</a><a href="#top">Size guide</a></div>
+  </div>
+  <div class="giant" aria-hidden="true">STRIDE</div>
+  <div class="credits">
+    <p><strong>Concept demo by Mohammad Gulab Kauser</strong></p>
+    <p>3D shoe: "Materials Variants Shoe" by Shopify, from the Khronos glTF Sample Assets, licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank">CC BY 4.0</a>. Changes: recoloured, mark on the tongue removed, textures resized. Brand, products and prices are fictional.</p>
+  </div>
+</footer>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module" src="script.js?v=1"></script>
+</body>
+</html>
