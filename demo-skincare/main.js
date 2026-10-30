@@ -85,7 +85,7 @@ function resize(){
   const cx=mobile?0:1.45*fx, cy=mobile?0.75:-0.05;
   const k1=Math.max(fx,0.75);
   b1.position.set(cx+0.02, cy-(mobile?0.62:0.95), -0.25); b1.scale.setScalar((mobile?0.78:1.0)*k1); b1.rotation.set(0,0,0.04);
-  b2.position.set(cx-(mobile?0.95:1.7), cy-(mobile?0.62:1.0), -0.9); b2.scale.setScalar((mobile?0.62:0.95)*k1); b2.rotation.set(0,0,0.18);
+  b2.position.set(cx-(mobile?0.95:1.3), cy-(mobile?0.62:1.0), -0.9); b2.scale.setScalar((mobile?0.62:0.78)*k1); b2.rotation.set(0,0,0.18);
   b3.position.set(cx+(mobile?1.0:1.65), cy-(mobile?0.75:1.15), -0.8); b3.scale.setScalar((mobile?0.6:0.9)*k1); b3.rotation.set(0,0,-0.12);
 }
 let lastW=0,lastH=0;
