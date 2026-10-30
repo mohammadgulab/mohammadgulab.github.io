@@ -38,8 +38,6 @@ h1 .hi{font-weight:400}
 .orb b{font-size:clamp(11px,1.6vw,12.5px);font-weight:600}
 .menu-list a i{font-size:13px}
 .ftr-in{font-size:14px;color:#c3cfe6}
-.glitch{background:linear-gradient(100deg,#fff 10%,#d8fbff 40%,#5ff4ff 64%,#b49cff 92%);-webkit-background-clip:text;background-clip:text}
-.glitch.g2{background:linear-gradient(100deg,#5ff4ff,#b49cff 48%,#ff7adc 92%);-webkit-background-clip:text;background-clip:text}
 .stat b,.pk-price{background:var(--gradt);-webkit-background-clip:text;background-clip:text}
 .vignette{background:radial-gradient(120% 80% at 50% 30%,transparent 45%,rgba(1,2,6,.6) 100%)}
 /* text over the particle field: soft halo */
@@ -84,8 +82,8 @@ html[data-theme=light] .floor i{background-image:linear-gradient(rgba(0,92,120,.
 html[data-theme=light] .hud-corners i{border-color:rgba(0,92,120,.55)}
 html[data-theme=light] .hud-top{color:#34425f}
 html[data-theme=light] .avail{color:#05603a;border-color:rgba(5,150,90,.45);background:rgba(5,150,90,.09)}
-html[data-theme=light] .glitch{background:linear-gradient(100deg,#070b1a 10%,#0b3a55 42%,#005c78 64%,#5a2ee0 92%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 16px rgba(238,243,251,.9))}
-html[data-theme=light] .glitch.g2{background:linear-gradient(100deg,#005c78,#5a2ee0 48%,#bd1279 92%);-webkit-background-clip:text;background-clip:text}
+html[data-theme=light] .glitch{background:linear-gradient(100deg,#0a1838 10%,#0a4d6b 40%,#00809f 60%,#5a2ee0 85%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 16px rgba(238,243,251,.9))}
+html[data-theme=light] .glitch.g2{background:linear-gradient(100deg,#00809f,#5a2ee0 45%,#bd1279 90%);-webkit-background-clip:text;background-clip:text}
 html[data-theme=light] .lead,html[data-theme=light] .contact p{color:#1c2742}
 html[data-theme=light] .sec-head p{color:#26334f}
 html[data-theme=light] .btn{background:rgba(255,255,255,.85);border-color:rgba(20,50,110,.25)}
@@ -145,15 +143,4 @@ html[data-theme=light] .core{background:radial-gradient(circle at 35% 30%,#bff8f
 @media (max-width:979px){.h-tag.t4{bottom:14%}.h-id{bottom:-13%}.hero-vis{margin-bottom:22px}}
 .sec-head h2,.contact h2.big,.glitch{text-shadow:none}
 
-/* ---------- gradient name + headings restored (v5) ---------- */
-@keyframes mgGrad{from{background-position:0% 50%}to{background-position:100% 50%}}
-.glitch,.glitch.g2,.contact h2.big{width:fit-content;max-width:100%;background-size:200% 100%;background-repeat:repeat;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:mgGrad 7s linear infinite}
-html:not([data-theme=light]) .glitch{background-image:linear-gradient(100deg,#6ff6ff 0%,#b9a6ff 16.6%,#ff8fe0 33.3%,#6ff6ff 50%,#b9a6ff 66.6%,#ff8fe0 83.3%,#6ff6ff 100%);filter:drop-shadow(0 0 1px rgba(3,5,11,.95)) drop-shadow(0 0 18px rgba(80,220,255,.28))}
-html:not([data-theme=light]) .glitch.g2{background-image:linear-gradient(100deg,#ff8fe0 0%,#6ff6ff 16.6%,#b9a6ff 33.3%,#ff8fe0 50%,#6ff6ff 66.6%,#b9a6ff 83.3%,#ff8fe0 100%)}
-html:not([data-theme=light]) .contact h2.big{background-image:linear-gradient(100deg,#ffffff 0%,#6ff6ff 16.6%,#ff8fe0 33.3%,#ffffff 50%,#6ff6ff 66.6%,#ff8fe0 83.3%,#ffffff 100%)}
-html[data-theme=light] .glitch{background-image:linear-gradient(100deg,#00657f 0%,#5a2ee0 16.6%,#a3106a 33.3%,#00657f 50%,#5a2ee0 66.6%,#a3106a 83.3%,#00657f 100%);filter:drop-shadow(0 0 1px rgba(255,255,255,.95)) drop-shadow(0 0 12px rgba(238,243,251,.9))}
-html[data-theme=light] .glitch.g2{background-image:linear-gradient(100deg,#a3106a 0%,#00657f 16.6%,#5a2ee0 33.3%,#a3106a 50%,#00657f 66.6%,#5a2ee0 83.3%,#a3106a 100%)}
-html[data-theme=light] .contact h2.big{background-image:linear-gradient(100deg,#0a1430 0%,#00657f 16.6%,#a3106a 33.3%,#0a1430 50%,#00657f 66.6%,#a3106a 83.3%,#0a1430 100%)}
-html[data-theme=light] h2:not(.big){background:linear-gradient(100deg,#0a1430 10%,#00657f 45%,#4b25c4 80%);-webkit-background-clip:text;background-clip:text}
-.contact h2.big{margin-left:auto;margin-right:auto}
-@media (prefers-reduced-motion:reduce){.glitch,.glitch.g2,.contact h2.big{animation:none}}
+/* v6: hero name + "Have a project in mind?" back to the v3 look (dark = v2.css rules untouched; light = same layout, deeper stops) */
