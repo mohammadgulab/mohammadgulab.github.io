@@ -6,7 +6,7 @@ function sar(n){return 'SAR '+n.toLocaleString('en-US')}
 var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Rail engine ---------- */
-var rails=[];
+var rails=[];var HOOK=30/1160; /* hook tip position inside every garment image */
 function Rail(stage,list,opt){
   var self=this;
   this.stage=stage;this.list=list;this.opt=opt;
@@ -16,8 +16,8 @@ function Rail(stage,list,opt){
   this.drag=null;this.visible=true;
   list.forEach(function(p,i){
     var el=document.createElement('div');el.className='g';el.dataset.i=i;
-    el.innerHTML='<div class="g-swing"><div class="g-lift"><div class="g-turn"><img alt="'+p.name+'" draggable="false"></div></div><div class="tag"><b>'+sar(p.price).replace('SAR ','SAR<br>')+'<small>'+String(i+1).padStart(2,'0')+'</small></b></div></div>';
-    $('img',el).src=G.url(p,'front');
+    el.innerHTML='<div class="g-swing"><div class="g-lift"><div class="g-turn"><img alt="'+p.name+'" draggable="false"></div></div><div class="tag"><i class="str"></i><b>'+sar(p.price).replace('SAR ','SAR<br>')+'<small>'+String(i+1).padStart(2,'0')+'</small></b></div></div>';
+    $('img',el).src=G.url(p,'front');$('.tag',el).style.top=(p.neck*100).toFixed(2)+'%';
     self.track.appendChild(el);
     self.items.push({el:el,swing:$('.g-swing',el),tag:$('.tag',el),img:$('img',el),p:p,th:0,w:0,tt:0,tw:0,part:0,
       k:40+Math.random()*16,c:1.3+Math.random()*.5,ph:Math.random()*6.28,x:0});
@@ -37,7 +37,7 @@ Rail.prototype.layout=function(){
   this.sag=Math.min(o.sag,W*.05);
   this.min=0;this.max=(this.list.length-1)*this.sp;
   var self=this;
-  this.items.forEach(function(it){it.el.style.width=gw+'px';});
+  this.items.forEach(function(it){it.el.style.width=gw+'px';var sl=$('.str',it.el);if(sl)sl.style.height=Math.max(4,(0.175-it.p.neck)*gh).toFixed(1)+'px';});
   // rod path
   var pts=[],steps=40;
   for(var s=0;s<=steps;s++){var x=-30+(W+60)*s/steps;pts.push((s?'L':'M')+x.toFixed(1)+' '+this.rodY(x).toFixed(1));}
@@ -67,7 +67,7 @@ Rail.prototype.bind=function(){
     var d=self.drag;if(!d||e.pointerId!==d.id)return;
     var dx=e.clientX-d.x0,dy=e.clientY-d.y0;
     if(!d.moved){
-      if(Math.abs(dx)>7&&Math.abs(dx)>Math.abs(dy)){d.moved=true;st.classList.add('dragging');try{st.setPointerCapture(e.pointerId)}catch(_){}}
+      if(Math.abs(dx)>7&&Math.abs(dx)>Math.abs(dy)){d.moved=true;st.classList.add('dragging');st.classList.add('used');try{st.setPointerCapture(e.pointerId)}catch(_){}}
       else if(Math.abs(dy)>10){self.drag=null;return;}
       else return;
     }
@@ -123,7 +123,7 @@ Rail.prototype.setFocus=function(i){
   if(i>=0){
     var it=this.items[i];it.el.classList.add('is-focus');
     this.snap=this.center(i);
-    it.w+=(Math.random()>.5?1:-1)*40; // a little swing as it turns
+    it.w+=(Math.random()>.5?1:-1)*10; // a small swing as it is picked
     if(this.cap){$('.cap-name',this.cap).textContent=it.p.name;$('.cap-price',this.cap).textContent=sar(it.p.price);this.cap.classList.add('has');}
   } else if(this.cap)this.cap.classList.remove('has');
 };
@@ -148,7 +148,7 @@ Rail.prototype.tick=function(dt,t){
   this.mv=(this.mv||0)*.6+mv*.4;
   var acc=(this.mv-(this.pmv||0))/dt;this.pmv=this.mv;
   this.acc=(this.acc||0)*.5+acc*.5;
-  var air=Math.max(-12,Math.min(12,-this.mv*.0042));
+  var air=Math.max(-3.5,Math.min(3.5,-this.mv*.0016));
   var gain=-.026;
   var f=this.focus;
   for(var i=0;i<this.items.length;i++){
@@ -159,15 +159,15 @@ Rail.prototype.tick=function(dt,t){
     var on=x>-this.gw&&x<W+this.gw;
     if(on!==it.on){it.el.style.visibility=on?'':'hidden';it.on=on;}
     // pendulum: rail acceleration and air drag push the hem
-    var breeze=Math.sin(t*.9+it.ph)*.7;
-    var aTh=-it.k*(it.th-air-breeze)-it.c*it.w+gain*this.acc;
+    var breeze=Math.sin(t*.9+it.ph)*.35;
+    var aTh=-it.k*(it.th-air-breeze)-it.c*it.w+gain*.35*this.acc;
     it.w+=aTh*dt;it.th+=it.w*dt;
-    if(it.th>26){it.th=26;it.w*=-.3}else if(it.th<-26){it.th=-26;it.w*=-.3}
+    if(it.th>4.5){it.th=4.5;it.w*=-.3}else if(it.th<-4.5){it.th=-4.5;it.w*=-.3}
     var aT=-26*(it.tt)-1.4*it.tw-aTh*.9;
     it.tw+=aT*dt;it.tt+=it.tw*dt;it.tt=Math.max(-40,Math.min(40,it.tt));
     if(!on)continue;
     var u=(x/W)*2-1,s=this.opt.depth?1-this.opt.depth*Math.min(1,u*u):1;
-    var y=this.rodY(x)-this.gw*.012*4/3;
+    var y=this.rodY(x)-this.opt.rodW*.5-this.gh*HOOK;
     it.el.style.transform='translate3d('+(x-this.gw/2).toFixed(2)+'px,'+y.toFixed(2)+'px,0) scale('+s.toFixed(4)+')';
     it.el.style.zIndex=i===f?50:(20-Math.round(Math.abs(u)*10));
     it.swing.style.transform='rotate('+it.th.toFixed(3)+'deg)';
@@ -190,8 +190,8 @@ function loop(now){
 /* ---------- setup rails ---------- */
 var hero=$('#stage'),hero2=$('#stage2');
 var wide=function(){return window.innerWidth>=900};
-var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:window.innerWidth<700?.6:.95,spFrac:.27,minSp:window.innerWidth<700?78:84,rodTop:window.innerWidth<700?118:18,sag:70,arch:true,rodW:8,rodCol:'#b4b1bb',depth:.06,caps:false});
-var order=[7,1,4,10,8,5,0,9,3,2,6];
+var r1=new Rail(hero,PRODUCTS.slice(0,8),{id:1,caption:$('.hero .caption'),maxH:640,hFrac:window.innerWidth<700?.72:.95,spFrac:.27,minSp:window.innerWidth<700?78:84,rodTop:window.innerWidth<700?104:18,sag:26,arch:false,rodW:8,rodCol:'#b4b1bb',depth:.06,caps:false});
+var order=[8,0,3,6,1,4,7,2,5];
 var r2=new Rail(hero2,order.map(function(i){return PRODUCTS[i]}),{id:2,caption:$('.rail2 .caption'),maxH:440,hFrac:.93,spFrac:.27,minSp:64,rodTop:22,sag:40,rodW:6,rodCol:'#c4c1c9',depth:0,caps:true});
 r1.offset=r1.max/2;r2.offset=r2.max/2;
 function size2(){var w=window.innerWidth;hero2.style.setProperty('--h2',Math.round(w<700?Math.min(400,Math.max(320,w*.86)):Math.min(520,Math.max(380,w*.34)))+'px');}
