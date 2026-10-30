@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Keyforge K7 | Feel every keystroke</title>
+<meta name="description" content="Keyforge K7, a hot-swappable 75% mechanical keyboard. Interactive 3D concept site.">
+<meta property="og:title" content="Keyforge K7 | Feel every keystroke">
+<meta property="og:description" content="Interactive 3D keyboard website concept. Scroll to build the switch.">
+<meta property="og:image" content="https://mohammadgulab.github.io/demo-3d/og.jpg">
+<meta name="theme-color" content="#b9babd">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div class="bg"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="fallback" aria-hidden="true"><img src="fallback.jpg" alt=""></div>
+
+<header class="nav">
+  <a class="logo" href="#top"><span class="logo-mark"></span>KEYFORGE</a>
+  <nav class="links">
+    <a href="#switch">Switch</a><a href="#board">Board</a><a href="#swap">Hot-swap</a><a href="#editions">Editions</a>
+  </nav>
+  <a class="btn btn-dark btn-sm" href="#editions">Pre-order</a>
+</header>
+
+<aside class="rail" aria-hidden="true">
+  <span class="rail-num"><b id="secNum">001</b> / 006</span>
+  <span class="rail-bar"><i id="railFill"></i></span>
+  <span class="rail-label" id="secLabel">Hot-swappable design</span>
+</aside>
+
+<main id="top">
+  <section class="sec hero" data-label="Hot-swappable design">
+    <div class="copy">
+      <p class="eyebrow">Keyforge K7 · 75% mechanical</p>
+      <h1>Feel every<br>keystroke.</h1>
+      <p class="lead">A keyboard built around one idea: the switch is the soul of the board. Scroll to put one together.</p>
+      <div class="ctas">
+        <a class="btn btn-dark" href="#editions">Pre-order the K7</a>
+        <a class="btn btn-glass" href="#switch">Explore</a>
+      </div>
+    </div>
+    <div class="scroll-hint"><span></span>Scroll</div>
+  </section>
+
+  <section class="sec right" id="switch" data-label="Inside the switch">
+    <div class="copy">
+      <p class="eyebrow">002 · Inside the switch</p>
+      <h2>Five parts.<br>One perfect press.</h2>
+      <p class="lead">A clear top housing lets the light through, the red linear stem glides with no bump, and a long spring brings it home every time.</p>
+      <ul class="parts">
+        <li class="glass"><b>Clear housing</b><span>Polycarbonate top, bright and even glow</span></li>
+        <li class="glass"><b>Linear stem</b><span>Smooth travel, factory lubed</span></li>
+        <li class="glass"><b>Long spring</b><span>Light at the top, firm at the bottom</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="board" data-label="The board">
+    <div class="copy">
+      <p class="eyebrow">003 · The board</p>
+      <h2>The best of both<br>worlds.</h2>
+      <p class="lead">Aluminium case, gasket-mounted plate and double-shot keycaps. Quiet at the office, loud when you want it to be.</p>
+      <p class="tip glass" id="typeTip">Try it: type on your keyboard and the K7 types with you.</p>
+    </div>
+  </section>
+
+  <section class="sec right" id="swap" data-label="Hot-swap">
+    <div class="copy">
+      <p class="eyebrow">004 · Hot-swap</p>
+      <h2>Swap any switch<br>in seconds.</h2>
+      <p class="lead">Every key sits on a hot-swap socket. Pull a switch, drop in another, no soldering and no tools beyond the puller in the box.</p>
+      <div class="cards">
+        <div class="glass card"><span class="ic">⌁</span><b>Hot-swap sockets</b><span>3 and 5 pin switches</span></div>
+        <div class="glass card"><span class="ic">◎</span><b>Tri-mode</b><span>USB-C, 2.4 GHz, Bluetooth</span></div>
+        <div class="glass card"><span class="ic">≋</span><b>Gasket mount</b><span>Soft, cushioned typing feel</span></div>
+        <div class="glass card"><span class="ic">✦</span><b>Per-key light</b><span>South-facing, glows through the caps</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="editions" data-label="Editions">
+    <div class="copy wide">
+      <p class="eyebrow">005 · Make it yours</p>
+      <h2>Pick your colourway.</h2>
+      <div class="swatches" role="radiogroup" aria-label="Colourway">
+        <button class="sw active" data-pal="graphite" aria-label="Graphite"><i style="--a:#2a2b2f;--b:#d8302a"></i>Graphite</button>
+        <button class="sw" data-pal="arctic" aria-label="Arctic"><i style="--a:#eceef1;--b:#4a7bd8"></i>Arctic</button>
+        <button class="sw" data-pal="sand" aria-label="Sandstone"><i style="--a:#e6dccb;--b:#e0782c"></i>Sandstone</button>
+      </div>
+      <div class="editions">
+        <article class="glass ed">
+          <p class="ed-name">K7 Core</p><p class="ed-price">399 <small>SAR</small></p>
+          <p class="ed-note">Barebones. Bring your own switches and caps.</p>
+          <a class="btn btn-glass" href="#editions">Choose Core</a>
+        </article>
+        <article class="glass ed featured">
+          <span class="badge">Most picked</span>
+          <p class="ed-name">K7 Pro</p><p class="ed-price">549 <small>SAR</small></p>
+          <p class="ed-note">Red linear switches and double-shot caps, ready to type.</p>
+          <a class="btn btn-dark" href="#editions">Choose Pro</a>
+        </article>
+        <article class="glass ed">
+          <p class="ed-name">K7 Forged</p><p class="ed-price">799 <small>SAR</small></p>
+          <p class="ed-note">Brass weight, extra switch set and a travel case.</p>
+          <a class="btn btn-glass" href="#editions">Choose Forged</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec end" data-label="Pre-order">
+    <div class="copy center">
+      <p class="eyebrow">006 · Pre-order</p>
+      <h2>Built for hands<br>that create.</h2>
+      <p class="lead">Free delivery across Saudi Arabia. Ships in two weeks.</p>
+      <div class="ctas center"><a class="btn btn-dark" href="#editions">Pre-order the K7</a></div>
+    </div>
+    <footer class="foot glass">
+      <span>Keyforge is a fictional brand made for this demo.</span>
+      <span>Concept demo by <a href="https://mohammadgulab.github.io/">Mohammad Gulab Kauser</a></span>
+    </footer>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module" src="main.js?v=1"></script>
+</body>
+</html>
