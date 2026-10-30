@@ -80,7 +80,7 @@ const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),seg=(p,a,b)=>cl((p-a)/(b-a)),io=
 const X0=114,X1=402,UP=170,STK=253,TOP=137,TRK=365;
 const caps=['Spreader locks onto the container','Trolley carries it across the yard','Lowered onto the trailer, twistlocks set','Sealed and on the road'];
 let tgt=0,cur=-1,last=-1;const svg=q('.cr-svg');let VB=null;
-function fit(){if(innerWidth>=900){VB=null;svg.setAttribute('viewBox','0 -110 640 640');return}const r=svg.getBoundingClientRect();const asp=r.height/Math.max(1,r.width);let vw=Math.min(520,640),vh=vw*asp;if(vh>620){vh=620;vw=vh/asp}VB={vw,vh,vy:Math.min(30,540-vh)}}
+function fit(){if(innerWidth>=900){VB=null;svg.setAttribute('viewBox','0 -110 640 640');return}const r=svg.getBoundingClientRect();const asp=r.height/Math.max(1,r.width);let vw=Math.min(520,640),vh=vw*asp;if(vh>560){vh=560;vw=vh/asp}VB={vw,vh,vy:Math.min(30,540-vh)}}
 addEventListener('resize',()=>{fit();cur=-1});
 function measure(){const r=sec.getBoundingClientRect(),span=r.height-innerHeight;tgt=cl(-r.top/(span>0?span:1))}
 function render(p){
