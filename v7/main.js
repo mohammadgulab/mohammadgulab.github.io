@@ -67,7 +67,7 @@ function frame(now){
   requestAnimationFrame(frame);
 }
 hire.addEventListener('pointerdown',e=>{
-  hire.setPointerCapture(e.pointerId);
+  try{hire.setPointerCapture(e.pointerId);}catch(_){}
   drag={sx:e.clientX,sy:e.clientY,ox:off.x,oy:off.y};moved=0;maxPull=0;vel={x:0,y:0};
 });
 hire.addEventListener('pointermove',e=>{
@@ -90,23 +90,104 @@ addEventListener('resize',layout);
 (document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>{layout();});
 layout();requestAnimationFrame(frame);
 // gentle intro tug so people see it moves
-setTimeout(()=>{if(!drag){vel.x=9;vel.y=4;}},1400);
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){setTimeout(()=>{if(!drag){vel.x=9;vel.y=4;}},500);o.disconnect();}},{threshold:.4}).observe(stage);
+
+/* ---------- v5: progress bar ---------- */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+const bar=$('#progress i');
+const prog=()=>{const m=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${m>0?Math.min(scrollY/m,1):0})`;};
+addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);prog();
+
+/* ---------- WebGL fallback guard ---------- */
+const h3=$('.hero3d');
+setTimeout(()=>{if(h3&&!h3.classList.contains('gl-ready'))h3.classList.add('no-gl');},5000);
+
+/* ---------- split text ---------- */
+$$('[data-split]').forEach(el=>{const txt=el.textContent;el.textContent='';
+  const w=document.createElement('span');w.className='wd';
+  [...txt].forEach(c=>{const s=document.createElement('span');s.className='ch';s.textContent=c;w.appendChild(s);});el.appendChild(w);});
+$$('.w-title .heavy,.t-title .heavy,.ab-h .heavy,.ct-title .heavy').forEach(el=>{el.setAttribute('data-split-w','');const words=el.textContent.trim().split(/\s+/);el.textContent='';
+  words.forEach((wd,i)=>{const o=document.createElement('span');o.className='wd';const n=document.createElement('span');n.className='wi';n.textContent=wd;o.appendChild(n);el.appendChild(o);if(i<words.length-1)el.appendChild(document.createTextNode(' '));});});
+
+/* ---------- custom cursor (desktop) ---------- */
+if(fine&&!reduce){
+  document.documentElement.classList.add('has-cursor');
+  const d=$('#curDot'),r=$('#curRing');let mx=-100,my=-100,rx=-100,ry=-100;
+  addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;mx=e.clientX;my=e.clientY;d.style.transform=`translate(${mx}px,${my}px)`;},{passive:true});
+  const loop=()=>{rx+=(mx-rx)*.18;ry+=(my-ry)*.18;r.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(loop);};loop();
+  document.addEventListener('pointerover',e=>{r.classList.toggle('big',!!e.target.closest('a,button,.hire'));});
+  document.addEventListener('mouseleave',()=>{mx=my=-100;});
+}
+
+/* ---------- magnetic buttons ---------- */
+if(fine&&!reduce){
+  $$('.mag').forEach(b=>{const t=$('.mag-t',b);
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+      b.style.transform=`translate(${x*.28}px,${y*.38}px)`;if(t)t.style.transform=`translate(${x*.12}px,${y*.16}px)`;});
+    b.addEventListener('pointerleave',()=>{b.style.transform='';if(t)t.style.transform='';});});
+}
+
+/* ---------- 3D tilt cards (mouse + touch) ---------- */
+if(!reduce){
+  $$('.tilt').forEach(el=>{
+    const set=(cx,cy,on)=>{const r=el.getBoundingClientRect();const px=(cx-r.left)/r.width,py=(cy-r.top)/r.height;
+      const ry=(px-.5)*14,rx=(.5-py)*12;
+      el.style.transform=on?`perspective(900px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) scale(1.02)`:'';
+      el.style.setProperty('--gx',(px*100).toFixed(1)+'%');el.style.setProperty('--gy',(py*100).toFixed(1)+'%');el.style.setProperty('--go',on?1:0);};
+    el.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')set(e.clientX,e.clientY,true);});
+    el.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')set(0,0,false);});
+    el.addEventListener('touchstart',e=>{const t=e.touches[0];set(t.clientX,t.clientY,true);},{passive:true});
+    el.addEventListener('touchmove',e=>{const t=e.touches[0];set(t.clientX,t.clientY,true);},{passive:true});
+    const off=()=>setTimeout(()=>set(0,0,false),120);
+    el.addEventListener('touchend',off,{passive:true});el.addEventListener('touchcancel',off,{passive:true});
+  });
+}
+
+/* ---------- carousel ---------- */
+const row=$('#carRow'),prev=$('#carPrev'),next=$('#carNext'),dotsBox=$('#carDots'),count=$('#carCount');
+if(row){
+  const cards=$$('.m-card',row);const total=cards.length;const pad=n=>String(n).padStart(2,'0');
+  const dots=cards.map((c,i)=>{const b=document.createElement('button');b.type='button';b.className='car-dot';b.setAttribute('aria-label','Go to project '+(i+1));
+    b.addEventListener('click',()=>go(i));dotsBox.appendChild(b);return b;});
+  const step=()=>cards[1]?cards[1].offsetLeft-cards[0].offsetLeft:row.clientWidth;
+  const go=i=>{i=Math.max(0,Math.min(total-1,i));row.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft,behavior:reduce?'auto':'smooth'});};
+  const cur=()=>Math.round(row.scrollLeft/step());
+  prev.addEventListener('click',()=>go(cur()-1));next.addEventListener('click',()=>go(cur()+1));
+  const upd=()=>{const max=row.scrollWidth-row.clientWidth-2;let i=cur();if(row.scrollLeft>=max)i=total-1;i=Math.max(0,Math.min(total-1,i));
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));count.textContent=pad(i+1)+' / '+pad(total);
+    prev.disabled=row.scrollLeft<4;next.disabled=row.scrollLeft>=max;
+    if(!reduce){const rr=row.getBoundingClientRect();cards.forEach(c=>{const b=c.getBoundingClientRect();const off=(b.left+b.width/2-(rr.left+rr.width/2))/rr.width;
+      const im=c.querySelector('.m-img img');if(im)im.style.setProperty('--px',(-off*28).toFixed(1)+'px');});}};
+  row.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();
+  row.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();go(cur()+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(cur()-1);}});
+}
 
 /* ---------- GSAP ---------- */
-if(!window.gsap||!window.ScrollTrigger)return;
+if(!window.gsap||!window.ScrollTrigger||reduce)return;
 gsap.registerPlugin(ScrollTrigger);
-const mm=gsap.matchMedia();
-// hero A intro
-gsap.from('.ha-l1',{yPercent:60,opacity:0,duration:1,ease:'expo.out',delay:.1});
-gsap.from('.ha-l2',{yPercent:60,opacity:0,duration:1,ease:'expo.out',delay:.25});
-gsap.from(['.kicker','.hint','.plain'],{y:20,opacity:0,duration:.8,stagger:.08,delay:.4});
-gsap.from(['#hand','#hire'],{x:-80,opacity:0,duration:1.1,ease:'power3.out',delay:.35});
-// hero A recedes as hero B rises over it
+// hero 3d intro: name letters rise one by one
+const intro=gsap.timeline({delay:.15});
+intro.from('.h3-k',{y:16,opacity:0,duration:.6,ease:'power3.out'})
+  .from('.h3-name .l1 .ch',{yPercent:110,rotate:8,duration:.9,ease:'expo.out',stagger:.035},'-=.35')
+  .from('.h3-name .l2 .ch',{yPercent:110,rotate:8,duration:1,ease:'expo.out',stagger:.05},'-=.75')
+  .from('.h3-name .l3 .ch',{yPercent:110,opacity:0,duration:.9,ease:'expo.out',stagger:.04},'-=.7')
+  .from('.h3-role > *',{y:22,opacity:0,stagger:.1,duration:.7,ease:'power3.out'},'-=.55')
+  .from('.h3-cta > *',{y:22,opacity:0,stagger:.08,duration:.6,ease:'back.out(2)'},'-=.45')
+  .from(['.h3-hint','.scroll-cue'],{opacity:0,duration:.6},'-=.3');
+// hero 3d text drifts as you scroll away
+gsap.to('.h3-name',{yPercent:-22,ease:'none',scrollTrigger:{trigger:'.hero3d',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('.h3-name .l3',{xPercent:12,ease:'none',scrollTrigger:{trigger:'.hero3d',start:'top top',end:'bottom top',scrub:true}});
+// hero A (pull) enters
+gsap.from('.ha-l1',{yPercent:60,opacity:0,duration:1,ease:'expo.out',scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
+gsap.from('.ha-l2',{yPercent:60,opacity:0,duration:1,ease:'expo.out',delay:.15,scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
+gsap.from(['.hero-a .kicker','.hint','.plain'],{y:20,opacity:0,duration:.8,stagger:.08,delay:.3,scrollTrigger:{trigger:'.hero-a',start:'top 70%'}});
+gsap.from(['#hand','#hire'],{x:-80,opacity:0,duration:1.1,ease:'power3.out',delay:.25,scrollTrigger:{trigger:'.hero-a',start:'top 60%'}});
 gsap.to('.ha-inner',{yPercent:18,scale:.94,opacity:.35,ease:'none',scrollTrigger:{trigger:'.hero-b',start:'top bottom',end:'top top',scrub:true}});
 // hero B: motion-blur name reveal
 const tlB=gsap.timeline({scrollTrigger:{trigger:'.hero-b',start:'top 65%'}});
 tlB.from('.hb-full',{opacity:0,y:14,duration:.5})
-   .fromTo('#bigName',{xPercent:-38,scaleX:1.5,opacity:0,filter:'blur(22px)',textShadow:'-60px 0 0 rgba(255,255,255,.35),-120px 0 0 rgba(255,255,255,.18)'},{xPercent:0,scaleX:1,opacity:1,filter:'blur(0px)',textShadow:'0 0 0 rgba(255,255,255,0),0 0 0 rgba(255,255,255,0)',duration:1.05,ease:'expo.out'},'<.05')
+   .fromTo('#bigName',{xPercent:-38,scaleX:1.5,opacity:0,filter:'blur(22px)'},{xPercent:0,scaleX:1,opacity:1,filter:'blur(0px)',duration:1.05,ease:'expo.out'},'<.05')
    .from('.circle-tag',{scale:0,rotate:-90,duration:.6,ease:'back.out(2)'},'-=.45')
    .from('.yblock',{scaleY:0,transformOrigin:'top',duration:.8,ease:'expo.out'},.1)
    .from('.rsq',{scale:0,duration:.4,ease:'back.out(3)'},'-=.3')
@@ -114,29 +195,35 @@ tlB.from('.hb-full',{opacity:0,y:14,duration:.5})
    .from('.sticker',{y:30,rotate:-16,opacity:0,duration:.6,ease:'back.out(2)'},'-=.4')
    .from(['.hb-role','.hb-intro','.hb-cta'],{y:24,opacity:0,stagger:.08,duration:.6},'-=.6');
 gsap.fromTo('.outline-word',{yPercent:-10},{yPercent:10,ease:'none',scrollTrigger:{trigger:'.hero-b',start:'top bottom',end:'bottom top',scrub:true}});
+gsap.fromTo('.me',{yPercent:4},{yPercent:-6,ease:'none',scrollTrigger:{trigger:'.hero-b',start:'top bottom',end:'bottom top',scrub:true}});
+// word split reveals on section titles
+$$('[data-split-w]').forEach(el=>gsap.from($$('.wi',el),{yPercent:115,rotate:4,duration:.9,ease:'expo.out',stagger:.08,scrollTrigger:{trigger:el,start:'top 85%'}}));
 // about
 gsap.from('.ab-photo',{clipPath:'inset(100% 0 0 0)',duration:1.1,ease:'expo.out',scrollTrigger:{trigger:'.about',start:'top 75%'}});
-gsap.from('.ab-text > *',{y:30,opacity:0,stagger:.08,duration:.7,scrollTrigger:{trigger:'.about',start:'top 70%'}});
-// work heading
-gsap.from('.w-title .heavy',{xPercent:-12,opacity:0,filter:'blur(14px)',duration:1,ease:'expo.out',scrollTrigger:{trigger:'.work',start:'top 70%'}});
+gsap.fromTo('.ab-photo img',{scale:1.2},{scale:1,ease:'none',scrollTrigger:{trigger:'.about',start:'top bottom',end:'bottom top',scrub:true}});
+gsap.from('.ab-text > *:not(.ab-h)',{y:30,opacity:0,stagger:.08,duration:.7,scrollTrigger:{trigger:'.about',start:'top 70%'}});
+// work
 gsap.from('.w-title .serif',{y:40,opacity:0,duration:.9,delay:.15,ease:'power3.out',scrollTrigger:{trigger:'.work',start:'top 70%'}});
 $$('.card').forEach((c,i)=>{
   gsap.from(c,{y:90,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:c,start:'top 88%'}});
   const nxt=$$('.card')[i+1];
   if(nxt) gsap.to(c,{scale:.94,filter:'brightness(.6)',ease:'none',scrollTrigger:{trigger:nxt,start:'top bottom',end:'top 30%',scrub:true}});
+  const im=c.querySelector('.c-shot img');
+  if(im) gsap.fromTo(im,{yPercent:-6},{yPercent:4,ease:'none',scrollTrigger:{trigger:c,start:'top bottom',end:'bottom top',scrub:true}});
+  gsap.from(c.querySelectorAll('.tags li'),{y:16,opacity:0,stagger:.06,duration:.5,ease:'back.out(2)',scrollTrigger:{trigger:c,start:'top 70%'}});
 });
-gsap.from('.m-card',{y:40,opacity:0,stagger:.07,duration:.6,scrollTrigger:{trigger:'.more',start:'top 85%'}});
-// toolkit
-gsap.from('.t-title .heavy',{y:60,opacity:0,duration:.9,ease:'expo.out',scrollTrigger:{trigger:'.toolkit',start:'top 70%'}});
+gsap.from('.more-head',{y:30,opacity:0,duration:.7,scrollTrigger:{trigger:'.more',start:'top 88%'}});
+gsap.from('.m-card',{x:80,opacity:0,stagger:.07,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.more',start:'top 85%'}});
+// services
 gsap.from('.t-title .serif',{y:60,opacity:0,duration:.9,delay:.12,ease:'expo.out',scrollTrigger:{trigger:'.toolkit',start:'top 70%'}});
 gsap.from('.skills li',{x:-60,opacity:0,stagger:.08,duration:.7,ease:'power3.out',scrollTrigger:{trigger:'.skills',start:'top 80%'}});
-// band speeds with scroll
+$$('.skills li').forEach(li=>ScrollTrigger.create({trigger:li,start:'top 62%',end:'bottom 38%',toggleClass:{targets:li,className:'prime'}}));
 gsap.fromTo('.band',{rotate:-2.5},{rotate:1.5,ease:'none',scrollTrigger:{trigger:'.band',start:'top bottom',end:'bottom top',scrub:true}});
 // last thing
 gsap.from('.l-title .w',{scale:2.2,opacity:0,filter:'blur(16px)',stagger:.16,duration:.9,ease:'expo.out',scrollTrigger:{trigger:'.last',start:'top 55%'}});
 gsap.from(['.l-sub','.l-name'],{y:30,opacity:0,stagger:.12,duration:.8,delay:.5,scrollTrigger:{trigger:'.last',start:'top 55%'}});
-// contact card rises like a sheet
+// contact
 gsap.from('.ct-card',{y:140,scale:.92,ease:'none',scrollTrigger:{trigger:'.contact',start:'top bottom',end:'top 25%',scrub:true}});
-gsap.from(['.ct-title .serif','.ct-title .heavy','.ct-actions'],{y:40,opacity:0,stagger:.1,duration:.8,scrollTrigger:{trigger:'.ct-card',start:'top 70%'}});
+gsap.from(['.ct-title .serif','.ct-actions > *','.ct-list > div'],{y:40,opacity:0,stagger:.08,duration:.8,scrollTrigger:{trigger:'.ct-card',start:'top 70%'}});
 addEventListener('load',()=>ScrollTrigger.refresh());
 })();
