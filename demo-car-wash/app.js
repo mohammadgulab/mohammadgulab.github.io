@@ -98,7 +98,7 @@ function build(){
   tl.to(W,{p:1,duration:3,ease:'power1.inOut',onUpdate:drawWash},1.05);
   // 4-5.5 look closer: camera dives to the front corner
   hide('.t2',4.0,tl); show('.t3',4.25,tl);
-  tl.to('#rig',{scale:zoom,xPercent:phone?-68:-30,yPercent:phone?5:-22,duration:1.5,ease:'power2.inOut'},4.0)
+  tl.to('#rig',{scale:zoom,xPercent:phone?-59:-32,yPercent:phone?5:-22,duration:1.5,ease:'power2.inOut'},4.0)
     .to('#lamp1,#lamp2',{opacity:.35,duration:.6},4.0)
     .fromTo('.sheen i',{left:'-20%',opacity:1},{left:'120%',duration:.9,stagger:.12,ease:'power1.inOut'},4.9);
   // 5.6-6 cut to macro of the paint
@@ -115,7 +115,7 @@ function build(){
   tl.fromTo('.t5 .ln:not(.ln2)>span',{yPercent:110},{yPercent:0,duration:.35,ease:'power3.out',immediateRender:false},7.75);
   // 8-9 pull back out to the whole car, warm
   tl.to('#macro',{autoAlpha:0,duration:.4},8.0)
-    .to('#rig',{scale:phone?.96:.9,xPercent:phone?0:-13,yPercent:phone?2:4,duration:1.1,ease:'power2.inOut'},7.95)
+    .to('#rig',{scale:phone?.96:.9,xPercent:phone?6:-13,yPercent:phone?2:4,duration:1.1,ease:'power2.inOut'},7.95)
     .to('#lamp1,#lamp2',{opacity:1,duration:.4},8.4);
   tl.fromTo('.t5 .ln2>span',{yPercent:110},{yPercent:0,duration:.35,ease:'power3.out',immediateRender:false},8.45);
   // 8.6-9.6 garage door rolls up, sunlight floods the studio

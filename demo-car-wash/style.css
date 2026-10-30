@@ -30,7 +30,7 @@ a{color:inherit;text-decoration:none}
 .floor::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),rgba(255,255,255,.04) calc(12.5% - 1px) 12.5%);transform:perspective(400px) rotateX(55deg);transform-origin:top}
 .flood{position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 36%,rgba(255,196,128,.55),rgba(255,150,70,.18) 45%,transparent 75%);mix-blend-mode:screen;opacity:0}
 .rig{position:absolute;inset:0;z-index:2;will-change:transform}
-.car{position:absolute;left:50%;top:63%;width:min(60vw,980px);aspect-ratio:1212/663;transform:translate(-50%,-50%)}
+.car{position:absolute;left:50%;top:63%;width:min(64vw,1040px);aspect-ratio:1212/663;transform:translate(-50%,-50%)}
 .img{position:absolute;inset:0;width:100%;height:100%;-webkit-user-drag:none;user-select:none}
 .clean{clip-path:polygon(0 0,0 0,0 100%,0 100%);will-change:clip-path}
 .refl{position:absolute;left:0;right:0;top:96%;height:100%;transform:scaleY(-1);opacity:.22;-webkit-mask-image:linear-gradient(to top,#000 0,transparent 38%);mask-image:linear-gradient(to top,#000 0,transparent 38%);filter:blur(2px);pointer-events:none}
@@ -104,7 +104,7 @@ a{color:inherit;text-decoration:none}
  .book.docked{padding:0;height:0;overflow:hidden}
 }
 @media (max-width:899px){
- .car{width:124vw;left:47%;top:55%}
+ .car{width:112vw;left:40%;top:55%}
  .door{width:78vw;top:19%}
  .ceiling{height:20%}
  .tubes .hz{display:none}
