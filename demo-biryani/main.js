@@ -10,13 +10,13 @@ var D=[
  {n:"07",tag:"To cool the fire",l1:"Mango",l2:"Lassi",word:"Lassi",img:"lassi",sc:0.62,alt:"Mango lassi in a glass",price:18,desc:"Ripe mango whisked with chilled yogurt, a pinch of cardamom and a thread of saffron.",hue:"240,170,40"}
 ];
 var BITS=[
- [["anise",-.46,-.34,64,20],["mint",.44,-.36,92,-15],["chili",-.5,.26,70,40],["redchili",.48,.3,104,-30],["anise",.18,-.5,38,80,1],["mint",-.22,.48,54,160,1]],
- [["chili",-.46,-.3,74,-20],["mint",.46,-.28,86,25],["anise",-.44,.34,52,60],["redchili",.4,.38,110,10],["mint",-.12,-.52,46,-60,1],["anise",.3,.5,40,120,1]],
- [["redchili",-.48,-.32,112,-35],["chili",.46,-.34,76,30],["mint",-.46,.32,80,-10],["anise",.46,.3,58,45],["redchili",.14,-.52,70,60,1],["mint",-.2,.5,50,90,1]],
- [["mint",-.46,-.34,92,15],["chili",.46,-.32,70,-35],["redchili",-.42,.36,100,20],["anise",.44,.36,56,-20],["chili",.2,-.52,44,70,1],["anise",-.24,.52,40,140,1]],
- [["chili",-.46,-.32,72,25],["redchili",.46,-.34,106,-25],["mint",-.44,.34,84,40],["anise",.44,.34,54,10],["mint",.16,-.52,48,-40,1],["chili",-.2,.52,46,100,1]],
- [["mint",-.44,-.34,86,-20],["anise",.44,-.34,58,30],["chili",-.46,.3,66,50],["mint",.44,.34,74,140],["anise",.14,-.52,38,-70,1],["redchili",-.22,.5,70,40,1]],
- [["mint",-.44,-.32,90,20],["anise",.46,-.3,56,-30],["mint",-.46,.34,64,-120],["anise",.42,.36,48,70],["mint",.18,-.52,44,60,1],["anise",-.2,.52,36,110,1]]
+ [["rice",-0.4,0.02,85,-12,1],["saffron",0.38,-0.3,99,20,0],["chicken",-0.35,0.3,129,-18,2],["egg",0.36,0.29,118,14,2],["friedonion",0.14,-0.42,88,8,1],["mint",-0.37,-0.32,94,-30,0]],
+ [["butter",-0.37,-0.32,108,-10,0],["tomato",0.38,-0.3,110,16,0],["chunk",-0.35,0.3,123,-22,2],["cream",0.36,0.29,136,8,2],["coriander",0.14,-0.42,81,-24,1]],
+ [["leg",-0.35,0.3,154,-28,2],["lemonhalf",0.38,-0.3,102,18,0],["onionrings",0.36,0.29,129,12,2],["redchilli",0.14,-0.42,121,-36,1],["coriander",-0.37,-0.32,89,30,0]],
+ [["kebab",-0.35,0.3,140,-20,2],["lemonhalf",0.38,-0.3,97,24,0],["greenchilli2",0.36,0.29,114,18,2],["onionrings",-0.37,-0.32,113,-14,0],["mint2",0.14,-0.42,74,-18,1],["kebab2",-0.4,0.02,101,8,1]],
+ [["paneer",-0.35,0.3,129,-12,2],["capsicum",0.38,-0.3,110,20,0],["tomatohalf",0.36,0.29,114,-16,2],["capsicumred",-0.37,-0.32,99,26,0],["onionpetal",0.14,-0.42,70,-30,1]],
+ [["naan",-0.35,0.3,145,-14,2],["garlic",0.38,-0.3,81,22,0],["butter1",0.36,0.29,92,-10,2],["coriander",-0.37,-0.32,108,18,0],["naan2",0.14,-0.42,94,10,1]],
+ [["mangohalf",-0.35,0.3,118,-16,2],["cardamom",0.38,-0.3,72,30,0],["mangocubes",0.36,0.29,129,-12,2],["milk",-0.37,-0.32,121,10,0],["mint",0.14,-0.42,72,-26,1]]
 ];
 var N=D.length,cur=-1,busy=false,cart=0;
 var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
@@ -26,9 +26,9 @@ var fine=window.matchMedia("(pointer: fine)").matches;
 if(G&&ST){G.registerPlugin(ST);ST.config({ignoreMobileResize:true});}
 // preload
 D.forEach(function(d){var i=new Image();i.src="img/"+d.img+".webp";});
-["anise","mint","chili","redchili"].forEach(function(k){var i=new Image();i.src="img/"+k+".webp";});
+var PRE={};BITS.forEach(function(L){L.forEach(function(b){if(!PRE[b[0]]){PRE[b[0]]=1;var i=new Image();i.src="img/ing/"+b[0]+".webp?v=2";}})});
 
-var dish=$("#dish"),bits=$("#bits"),giant=$("#giant"),stage=$("#stage"),glow=$(".glow"),bar=$("#bar");
+var dish=$("#dish"),bits=$("#bits"),bitsB=$("#bitsB"),giant=$("#giant"),stage=$("#stage"),glow=$(".glow"),bar=$("#bar");
 var idx=$("#index");
 D.forEach(function(d,i){var li=document.createElement("li");li.innerHTML='<button type="button" aria-label="'+d.l1+" "+d.l2+'"><span class="nm">'+d.word+'</span>'+d.n+'</button>';li.firstChild.addEventListener("click",function(){go(i)});idx.appendChild(li);});
 
@@ -39,11 +39,11 @@ var bitEls=[];
 function makeBits(i){
   var r=stage.getBoundingClientRect(),sw=Math.min(r.width,720),sh=Math.max(260,r.height);
   var k=Math.min(1.25,Math.max(.72,sw/430));
-  var els=BITS[i].map(function(b){var im=document.createElement("img");im.src="img/"+b[0]+".webp";im.alt="";im.className="bit"+(b[5]?" back":"");im.style.setProperty("--s",Math.round(b[3]*k)+"px");im._x=b[1]*sw*.95;im._y=b[2]*sh*.9;im._r=b[4];bits.appendChild(im);return im;});
+  var els=BITS[i].map(function(b){var im=document.createElement("img");im.src="img/ing/"+b[0]+".webp?v=2";im.alt="";im.decoding="async";im.className="bit L"+b[5];im.style.setProperty("--s",Math.round(b[3]*k)+"px");im._x=b[1]*sw*.95;im._y=b[2]*sh*.9;im._r=b[4];im._L=b[5];(b[5]===0&&bitsB?bitsB:bits).appendChild(im);return im;});
   // spice dots burst with the pieces
   var seed=i*97+13,rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
   var cols=["#e5862c","#7a2a10","#f3e6cf","#3a2010","#c9302c","#d9a54e","#5e7d2a"];
-  for(var j=0;j<14;j++){var dt=document.createElement("span");dt.className="dot";var a=rnd()*6.283,rr=.22+rnd()*.3,sz=Math.round((4+rnd()*8)*k);
+  for(var j=0;j<10;j++){var dt=document.createElement("span");dt.className="dot";var a=rnd()*6.283,rr=.22+rnd()*.3,sz=Math.round((4+rnd()*8)*k);
     dt.style.width=dt.style.height=sz+"px";dt.style.margin=(-sz/2)+"px 0 0 "+(-sz/2)+"px";dt.style.background=cols[j%cols.length];
     dt._x=Math.cos(a)*rr*sw;dt._y=Math.sin(a)*rr*sh*.85;dt._r=0;bits.appendChild(dt);els.push(dt);}
   return els;
@@ -56,10 +56,10 @@ function setText(d){
 }
 function show(i,dir){
   if(i===cur||i<0||i>=N)return; var prev=cur;cur=i;var d=D[i];dir=dir||(prev<i?1:-1);
-  if(!G||reduce){setText(d);dish.src="img/"+d.img+".webp";dish.alt=d.alt;dish.style.setProperty("--sc",d.sc);giant.textContent=d.word;bits.innerHTML="";bitEls=makeBits(i);bitEls.forEach(function(b){b.style.transform="translate("+b._x+"px,"+b._y+"px) rotate("+b._r+"deg)"});return;}
+  if(!G||reduce){setText(d);dish.src="img/"+d.img+".webp";dish.alt=d.alt;dish.style.setProperty("--sc",d.sc);giant.textContent=d.word;bits.innerHTML="";if(bitsB)bitsB.innerHTML="";bitEls=makeBits(i);bitEls.forEach(function(b){b.style.transform="translate("+b._x+"px,"+b._y+"px) rotate("+b._r+"deg)"+(b._L===2?" scale(1.12)":"")});return;}
   var old=bitEls;bitEls=[];
   // old ingredients scatter outward
-  old.forEach(function(b){G.killTweensOf(b);G.to(b,{x:b._x*2.2,y:b._y*2.2-40*dir,rotation:b._r+180*dir,opacity:0,scale:.6,duration:.6,ease:"power2.in",onComplete:function(){b.remove()}})});
+  old.forEach(function(b){G.killTweensOf(b);G.to(b,{x:b._x*2.4,y:b._y*2.4-60*dir,rotation:b._r+120*dir,opacity:0,scale:(b._L===2?2.6:b._L===1?2:1.6),duration:.55,ease:"power2.in",onComplete:function(){b.remove()}})});
   // dish out
   G.killTweensOf(dish);
   var tl=G.timeline();
@@ -70,9 +70,11 @@ function show(i,dir){
   tl.add(function(){
     bitEls=makeBits(i);
     bitEls.forEach(function(b,j){
-      G.fromTo(b,{x:0,y:0,scale:.15,rotation:b._r-160,opacity:0},{x:b._x,y:b._y,scale:1,rotation:b._r,opacity:1,duration:1.1,delay:j*.04,ease:"back.out(1.6)",onComplete:function(){
-        G.to(b,{y:"+="+(10+j*3),rotation:"+="+(j%2?8:-8),duration:2.2+j*.3,repeat:-1,yoyo:true,ease:"sine.inOut"});
-      }});
+      var L=b._L==null?1:b._L,peak=L===2?1.85:L===1?1.45:1.15,fin=L===2?1.12:L===1?1:.82,tl2=G.timeline({delay:j*.045});
+      // burst out of the dish toward the camera, overshoot, then settle into its orbit
+      tl2.fromTo(b,{x:b._x*.05,y:b._y*.05,scale:.4,rotation:b._r-140,opacity:0},{x:b._x*1.2,y:b._y*1.2,scale:peak,rotation:b._r+14,opacity:1,duration:.6,ease:"power3.out"})
+         .to(b,{x:b._x,y:b._y,scale:fin,rotation:b._r,duration:1.1,ease:"power2.inOut"})
+         .add(function(){G.to(b,{y:"+="+(8+j*3),x:"+="+(j%2?6:-6),rotation:"+="+(j%2?9:-9),duration:2.4+j*.35,repeat:-1,yoyo:true,ease:"sine.inOut"});});
     });
   },"-=0.95");
   // texts
@@ -101,7 +103,7 @@ if(G&&ST){
       var p=s.progress*N,i=Math.min(N-1,Math.floor(p)),loc=Math.min(1,p-i);
       if(i!==cur)show(i);
       // within one dish: slow drift so the plate turns and the spices spread as you scroll
-      G.to(bits,{scale:1+loc*.22,rotation:loc*10,duration:.4,overwrite:"auto"});
+      G.to([bits,bitsB],{scale:1+loc*.34,rotation:loc*8,duration:.4,overwrite:"auto"});
       G.to(stage,{y:-loc*14,duration:.4,overwrite:"auto"});
       if(bar)bar.style.transform="scaleX("+Math.max(.04,s.progress)+")";
     }});
