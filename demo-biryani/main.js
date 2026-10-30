@@ -40,6 +40,12 @@ function makeBits(i){
   var r=stage.getBoundingClientRect(),sw=Math.min(r.width,720),sh=Math.max(260,r.height);
   var k=Math.min(1.25,Math.max(.72,sw/430));
   var els=BITS[i].map(function(b){var im=document.createElement("img");im.src="img/"+b[0]+".webp";im.alt="";im.className="bit"+(b[5]?" back":"");im.style.setProperty("--s",Math.round(b[3]*k)+"px");im._x=b[1]*sw*.95;im._y=b[2]*sh*.9;im._r=b[4];bits.appendChild(im);return im;});
+  // spice dots burst with the pieces
+  var seed=i*97+13,rnd=function(){seed=(seed*16807)%2147483647;return seed/2147483647};
+  var cols=["#e5862c","#7a2a10","#f3e6cf","#3a2010","#c9302c","#d9a54e","#5e7d2a"];
+  for(var j=0;j<14;j++){var dt=document.createElement("span");dt.className="dot";var a=rnd()*6.283,rr=.22+rnd()*.3,sz=Math.round((4+rnd()*8)*k);
+    dt.style.width=dt.style.height=sz+"px";dt.style.margin=(-sz/2)+"px 0 0 "+(-sz/2)+"px";dt.style.background=cols[j%cols.length];
+    dt._x=Math.cos(a)*rr*sw;dt._y=Math.sin(a)*rr*sh*.85;dt._r=0;bits.appendChild(dt);els.push(dt);}
   return els;
 }
 function setText(d){
