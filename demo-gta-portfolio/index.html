@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KAISH City | Mohammad Gulab Kauser, a portfolio you can drive (concept demo)</title>
+<meta name="description" content="A GTA style portfolio: drive a sports car through a neon sunset city to see the about, skills, projects, achievements and contact of Mohammad Gulab Kauser, web designer and document controller in Jeddah.">
+<meta name="theme-color" content="#1a0b33">
+<meta property="og:title" content="Welcome to KAISH City">
+<meta property="og:description" content="Drive through a neon city to explore the portfolio of Mohammad Gulab Kauser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@500;700&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<div id="app">
+  <canvas id="city" aria-label="Neon city driving scene"></canvas>
+  <div id="speedlines" aria-hidden="true"></div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden" aria-hidden="false">
+    <div id="obj" class="hud-chip"><span class="obj-k">OBJECTIVE</span><span id="obj-t">Drive to Origin Avenue</span><span id="obj-d"></span></div>
+    <button id="radar" type="button" aria-label="Open city map"><canvas id="radar-cv" width="200" height="200"></canvas><span class="radar-n">N</span></button>
+    <div id="dash">
+      <div id="speedo"><b id="kmh">0</b><span>KM/H</span></div>
+      <nav id="stops" aria-label="Districts"></nav>
+      <div id="navbtns">
+        <button type="button" id="prev" class="nbtn" aria-label="Previous district">&#9664;</button>
+        <button type="button" id="next" class="nbtn" aria-label="Next district">&#9654;</button>
+      </div>
+    </div>
+    <div id="hint">Swipe up or scroll to drive</div>
+  </div>
+
+  <div id="mission" aria-live="polite"><div class="m-big"></div><div class="m-small"></div></div>
+  <div id="district" aria-hidden="true"><div class="d-name"></div><div class="d-sub"></div></div>
+
+  <!-- Info card -->
+  <section id="card" role="dialog" aria-modal="false" aria-labelledby="card-title" class="closed">
+    <header class="card-h"><span class="card-m" id="card-m">MISSION 01</span><span class="card-l" id="card-l">ABOUT</span></header>
+    <div class="card-body" id="card-body"></div>
+    <footer class="card-f">
+      <button type="button" class="btn ghost" id="card-prev">&#9664; Back</button>
+      <button type="button" class="btn" id="card-next">Drive on &#9654;</button>
+    </footer>
+  </section>
+
+  <!-- Map overlay -->
+  <section id="map" class="closed" role="dialog" aria-label="City map">
+    <div class="map-in">
+      <div class="map-h"><span>KAISH CITY MAP</span><button type="button" id="map-x" class="nbtn" aria-label="Close map">&#10005;</button></div>
+      <p class="map-p">Pick a district and the car drives you there.</p>
+      <div id="map-list"></div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section id="intro">
+    <div class="intro-in">
+      <div class="i-welcome">Welcome to</div>
+      <h1 class="i-city"><span>KAISH</span> CITY</h1>
+      <p class="i-name">Mohammad Gulab Kauser</p>
+      <p class="i-role">Web Designer &middot; Excel &amp; Document Control &middot; Jeddah</p>
+      <button type="button" id="start" class="btn big">&#128273; Take the wheel</button>
+      <p class="i-keys">Scroll, swipe up or use W / &#8593; to drive. Tap the map to fast travel.</p>
+    </div>
+  </section>
+
+  <div id="foot">Concept demo by Mohammad Gulab Kauser</div>
+</div>
+
+<!-- District content (read by the card) -->
+<div id="content" hidden>
+  <template id="t-about">
+    <h2 id="card-title">Mohammad Gulab Kauser <small>aka KAISH</small></h2>
+    <p class="lead">A working Document Controller in Jeddah who also designs websites and brands and builds Excel trackers, taking freelance work online.</p>
+    <ul class="stats">
+      <li><span>Base</span><b>Jeddah, Saudi Arabia</b></li>
+      <li><span>Day job</span><b>Document Controller, Qanbar Dywidag Precast Concrete Co. Ltd (since July 2025)</b></li>
+      <li><span>On site</span><b>ROSHN Al Arous and NHC Maylaa projects</b></li>
+      <li><span>Study</span><b>B.Sc. Physics (Hons), Jai Prakash University</b></li>
+      <li><span>Languages</span><b>English, Hindi, Urdu</b></li>
+      <li><span>Status</span><b class="ok">Open for freelance work</b></li>
+    </ul>
+  </template>
+  <template id="t-skills">
+    <h2 id="card-title">Skills unlocked</h2>
+    <p class="lead">Three garages, one driver. The tools I use every day at work and for clients.</p>
+    <h3>&#128187; Web</h3>
+    <div class="chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React (basics)</span><span>Node.js</span><span>Responsive design</span><span>GitHub Pages</span></div>
+    <h3>&#128202; Data and documents</h3>
+    <div class="chips"><span>Microsoft Excel</span><span>Excel dashboards</span><span>Aconex</span><span>SharePoint</span><span>Document control</span><span>RFIs and submittals</span><span>Transmittals</span></div>
+    <h3>&#127912; Design</h3>
+    <div class="chips"><span>Photoshop</span><span>Illustrator</span><span>Photopea</span><span>Logos and branding</span><span>Social media posts</span><span>Print design</span><span>CV design</span></div>
+  </template>
+  <template id="t-projects">
+    <h2 id="card-title">Projects garage</h2>
+    <p class="lead">Live website demos you can open right now. All are concept projects for fictional brands.</p>
+    <div class="plist">
+      <a href="https://mohammadgulab.github.io/demo-restaurant/" target="_blank" rel="noopener"><b>Sumac Grill</b><span>Restaurant site, Jeddah</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-salon/" target="_blank" rel="noopener"><b>Lumina Beauty Lounge</b><span>Salon site with WhatsApp booking</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/souqly-shop/" target="_blank" rel="noopener"><b>Souqly</b><span>Online shop with cart and filters</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-cinematic/" target="_blank" rel="noopener"><b>Sahn Atelier</b><span>Cinematic scroll site, architecture</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-3d/" target="_blank" rel="noopener"><b>Keyforge K7</b><span>3D product page</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-warehouse-3d/" target="_blank" rel="noopener"><b>Mustawda Control</b><span>3D warehouse dashboard</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-cafe/" target="_blank" rel="noopener"><b>Qahwa House</b><span>Cafe site, English and Arabic</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-sweets/" target="_blank" rel="noopener"><b>Kesar Mithai Ghar</b><span>Sweet shop with gift box builder</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-coaching/" target="_blank" rel="noopener"><b>Sankalp Classes</b><span>Coaching institute site</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-saree/" target="_blank" rel="noopener"><b>Anaya Sarees</b><span>Saree shop, English and Hindi</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-barber/" target="_blank" rel="noopener"><b>Northside Barbers</b><span>Barber shop site</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/demo-clinic/" target="_blank" rel="noopener"><b>Family Clinic</b><span>Clinic site with appointments</span><i>&#8599;</i></a>
+      <a href="https://mohammadgulab.github.io/bazaro-marketplace/" target="_blank" rel="noopener"><b>Bazaro</b><span>Marketplace app with Node.js</span><i>&#8599;</i></a>
+    </div>
+    <h3>&#128190; Excel tools (free download)</h3>
+    <div class="plist">
+      <a href="https://mohammadgulab.github.io/downloads/Document-Register-Transmittal-Tracker.xlsx"><b>Document Register and Transmittal Tracker</b><span>.xlsx</span><i>&#8595;</i></a>
+      <a href="https://mohammadgulab.github.io/downloads/RFI-Log-and-Tracker.xlsx"><b>RFI Log and Tracker</b><span>.xlsx</span><i>&#8595;</i></a>
+      <a href="https://mohammadgulab.github.io/downloads/Material-Submittal-Register.xlsx"><b>Material Submittal Register</b><span>.xlsx</span><i>&#8595;</i></a>
+      <a href="https://mohammadgulab.github.io/downloads/Project-Progress-Dashboard.xlsx"><b>Project Progress Dashboard</b><span>.xlsx</span><i>&#8595;</i></a>
+    </div>
+    <a class="btn wide" href="https://mohammadgulab.github.io/" target="_blank" rel="noopener">Full portfolio &#8599;</a>
+  </template>
+  <template id="t-achievements">
+    <h2 id="card-title">Trophy room</h2>
+    <p class="lead">Real milestones, nothing made up.</p>
+    <ul class="trophies">
+      <li><i>&#127891;</i><div><b>B.Sc. Physics (Hons)</b><span>Jai Prakash University, 2020 to 2023</span></div></li>
+      <li><i>&#127959;</i><div><b>Document Controller on ROSHN Al Arous</b><span>A residential giga-project in Saudi Arabia, plus NHC Maylaa</span></div></li>
+      <li><i>&#127942;</i><div><b>Freelancer.com Orientation exam: 100%</b><span>Passed October 2026</span></div></li>
+      <li><i>&#9883;</i><div><b>React JS certificate</b><span>DUCAT, 2022</span></div></li>
+      <li><i>&#128737;</i><div><b>Cybersecurity Awareness and Innovation</b><span>Coursera, Dec 2025 &middot; <a href="https://coursera.org/verify/E0NKXNG0P865" target="_blank" rel="noopener">verify</a></span></div></li>
+      <li><i>&#127912;</i><div><b>Photoshop and Illustrator 2 in 1 Master Course</b><span>Udemy, 21 hours, Jan 2026 &middot; <a href="https://www.udemy.com/certificate/UC-e7e57c61-d81d-420f-b77a-b45ec58f6640/" target="_blank" rel="noopener">verify</a></span></div></li>
+      <li><i>&#128640;</i><div><b>13 live website demos</b><span>Built and online, see the Projects garage</span></div></li>
+    </ul>
+  </template>
+  <template id="t-contact">
+    <h2 id="card-title">Signal Bay</h2>
+    <p class="lead">Need a website, an Excel tracker, a CV, a logo or social posts? Send a message and get a plan and a price.</p>
+    <div class="cgrid">
+      <a class="btn" href="https://wa.me/917250505964?text=Hi%20Mohammad%2C%20I%20saw%20your%20KAISH%20City%20portfolio." target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn" href="mailto:md.gulab18042002@gmail.com?subject=Project%20enquiry">Email</a>
+      <a class="btn ghost" href="https://www.fiverr.com/k_4_cash" target="_blank" rel="noopener">Fiverr</a>
+      <a class="btn ghost" href="https://www.freelancer.com/u/k4cash" target="_blank" rel="noopener">Freelancer</a>
+      <a class="btn ghost" href="https://github.com/mohammadgulab" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" href="https://mohammadgulab.github.io/" target="_blank" rel="noopener">Portfolio</a>
+    </div>
+  </template>
+</div>
+<script src="app.js?v=1"></script>
+</body>
+</html>
