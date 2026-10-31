@@ -921,7 +921,7 @@ const tourBtn = $('#tour');
 function setTourUI() { tourBtn.classList.toggle('on', tourOn); tourBtn.setAttribute('aria-pressed', tourOn ? 'true' : 'false'); tourBtn.querySelector('span').textContent = tourOn ? 'Pause tour' : 'Play tour'; }
 function tourStep(now) {
   if (!tourOn) return;
-  const dt = Math.min(0.05, (now - tourLast) / 1000); tourLast = now;
+  const dt = Math.min(0.1, (now - tourLast) / 1000); tourLast = now;
   const top = journeyEl.getBoundingClientRect().top + scrollY; const span = journeyEl.offsetHeight - innerHeight;
   tourY += span / TOUR_SECONDS * dt;
   if (tourY >= top + span) { window.scrollTo(0, top + span); stopTour(); return; }
