@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qarura Perfume House · Al Balad, Jeddah</title>
+<meta name="description" content="Qarura is a small perfume house in Al Balad, Jeddah. Taif rose, aged oud, amber and bakhoor, poured into glass by hand.">
+<meta name="theme-color" content="#5a0710">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#perfumes">Skip to perfumes</a>
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Qarura home"><span class="logo-mark">Q</span><span class="logo-word">Qarura</span></a>
+  <nav class="links" aria-label="Main">
+    <a href="#story">Story</a><a href="#perfumes">Perfumes</a><a href="#visit">Visit</a>
+  </nav>
+  <div class="nav-right">
+    <button class="bag" id="bagBtn" aria-label="Bag, 0 items"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span id="bagCount">0</span></button>
+    <a class="btn btn-small desk" href="#visit">Book a session</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#story">Story</a>
+    <a href="#perfumes">Perfumes</a>
+    <a href="#visit">Visit</a>
+    <a class="btn" href="#visit">Book a session</a>
+  </nav>
+  <p class="menu-foot">Souq Al Alawi lane, Al Balad, Jeddah</p>
+</div>
+
+<main id="top">
+  <section class="story" id="story" aria-label="Four notes, one glass">
+    <div class="stage">
+      <canvas id="gl" aria-hidden="true"></canvas>
+      <div class="fallback" id="fallback" aria-hidden="true">
+        <div class="fb-shard"><em id="fbTitle">Taif rose</em><span id="fbLine">picked at first light in Al Hada</span></div>
+      </div>
+      <div class="hud">
+        <div class="hud-top">
+          <h1 class="title">Four notes.<br><em>One glass.</em></h1>
+          <p class="kicker">A small perfume house<br>in Al Balad, Jeddah</p>
+        </div>
+        <div class="hud-bottom">
+          <div class="chapter" aria-live="polite"><span id="chNum">01</span><span class="sep">/</span><span>04</span><span class="ch-name" id="chName">Top note</span></div>
+          <div class="bar"><i id="bar"></i></div>
+          <p class="hint" id="hint"><span class="mouse"></span>Scroll to turn the glass</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="intro">
+    <p class="eyebrow">The house</p>
+    <p class="big">We pour every bottle by hand in a narrow shop off <em>Souq Al Alawi</em>. Come in, smell the raw oils, and leave with something that is only yours.</p>
+  </section>
+
+  <section class="perfumes" id="perfumes">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The library</p>
+        <h2>Perfumes &amp; <em>oils</em></h2>
+      </div>
+      <div class="chips" role="tablist" aria-label="Filter by family">
+        <button class="chip on" data-f="all" role="tab" aria-selected="true">All</button>
+        <button class="chip" data-f="floral" role="tab" aria-selected="false">Floral</button>
+        <button class="chip" data-f="woody" role="tab" aria-selected="false">Woody</button>
+        <button class="chip" data-f="smoke" role="tab" aria-selected="false">Smoke</button>
+      </div>
+    </div>
+    <div class="grid" id="grid">
+      <article class="card" data-f="woody">
+        <div class="ph"><img src="img/p-layl.webp" alt="Matte black perfume bottle on a red surface" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Layl Noir</h3><p>Eau de parfum · 100 ml</p><p class="notes">Aged oud, saffron, leather</p></div><div class="buy"><span class="price">SAR 420</span><button class="add" data-n="Layl Noir">Add</button></div></div>
+      </article>
+      <article class="card" data-f="floral">
+        <div class="ph"><img src="img/p-ward.webp" alt="Clear glass perfume bottle with a blank label" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Ward Taifi</h3><p>Eau de parfum · 100 ml</p><p class="notes">Taif rose, pink pepper, white musk</p></div><div class="buy"><span class="price">SAR 340</span><button class="add" data-n="Ward Taifi">Add</button></div></div>
+      </article>
+      <article class="card" data-f="floral">
+        <div class="ph"><img src="img/p-attar.webp" alt="Small glass attar bottles with gold caps beside red fabric" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Rose attar duo</h3><p>Perfume oil · 2 x 12 ml</p><p class="notes">Rose absolute, sandalwood</p></div><div class="buy"><span class="price">SAR 190</span><button class="add" data-n="Rose attar duo">Add</button></div></div>
+      </article>
+      <article class="card" data-f="woody">
+        <div class="ph"><img src="img/p-oud.webp" alt="Ornate perfume oil bottles resting in an old wooden box" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Oud oil box</h3><p>Perfume oil · 3 x 6 ml</p><p class="notes">Three aged oud oils to compare</p></div><div class="buy"><span class="price">SAR 560</span><button class="add" data-n="Oud oil box">Add</button></div></div>
+      </article>
+      <article class="card" data-f="smoke">
+        <div class="ph"><img src="img/p-mabkhara.webp" alt="Bronze incense burner with smoke rising" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Bakhoor &amp; burner</h3><p>Brass mabkhara · 50 g bakhoor</p><p class="notes">Oud chips, amber, rose</p></div><div class="buy"><span class="price">SAR 260</span><button class="add" data-n="Bakhoor and burner">Add</button></div></div>
+      </article>
+      <article class="card card-cta" data-f="floral woody smoke">
+        <div class="ph"><img src="img/note-rose.webp" alt="Deep red rose with dew drops" loading="lazy" width="900" height="1100"></div>
+        <div class="meta"><div><h3>Blend your own</h3><p>45 minute scent session</p><p class="notes">Leave with a 30 ml bottle</p></div><div class="buy"><span class="price">SAR 250</span><a class="add" href="#visit">Book</a></div></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div class="visit-ph"><img src="img/visit.webp" alt="Silver incense burner with swirling smoke" loading="lazy" width="1400" height="1866"></div>
+    <div class="visit-body">
+      <p class="eyebrow">Visit</p>
+      <h2>Come smell<br><em>the raw oils.</em></h2>
+      <dl class="info">
+        <div><dt>Where</dt><dd>Shop 7, Souq Al Alawi lane<br>Al Balad, Jeddah</dd></div>
+        <div><dt>Hours</dt><dd><span>Sat to Thu · 10:00 to 13:00</span><span>and 16:30 to 23:00</span><span>Fri · 16:30 to 23:30</span></dd></div>
+      </dl>
+      <form class="book" id="book" novalidate>
+        <label>Your name<input name="n" autocomplete="name" required placeholder="Name"></label>
+        <label>Pick a time
+          <select name="t">
+            <option>Today, evening</option><option>Tomorrow, morning</option><option>Tomorrow, evening</option><option>This weekend</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">Request a scent session</button>
+        <p class="note" id="bookMsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-row"><span class="logo-word">Qarura</span><span>Taif rose · oud · amber · bakhoor</span></div>
+  <p>Concept demo by Mohammad Gulab Kauser</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="ui.js?v=1"></script>
+<script type="module" src="glass.js?v=1"></script>
+</body>
+</html>
