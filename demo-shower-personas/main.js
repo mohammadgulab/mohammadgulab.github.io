@@ -184,22 +184,26 @@ function setActive(i){
 }
 setActive(0);
 gsap.set(stage,{'--accent':P[0].c});
-var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:stage,start:'top top',end:function(){return '+='+window.innerHeight*(N-1)*1.1;},pin:true,scrub:0.5,anticipatePin:1,invalidateOnRefresh:true,
-  snap:QA?false:{snapTo:1/(N-1),directional:true,duration:{min:.25,max:.7},delay:.1,ease:'power2.inOut'},
-  onUpdate:function(s){ setActive(Math.round(s.progress*(N-1))); }}});
+var roomsEl=$('#rooms'), dip=document.createElement('div'); dip.className='dip'; stage.insertBefore(dip,$('.stage-shade'));
+// The stage is position:sticky (CSS), so the browser itself keeps it, and the bottle, still.
+// Nothing below ever moves the bottle: only opacity of the stacked bottle images changes.
+var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:roomsEl,start:'top top',end:function(){return '+='+Math.max(1,roomsEl.offsetHeight-stage.offsetHeight);},scrub:0.6,invalidateOnRefresh:true,
+  onUpdate:function(s){ setActive(Math.min(N-1,Math.max(0,Math.round(s.progress*(N-1))))); }}});
+tl.set({},{},0);
 for(var i=1;i<N;i++){
-  var t=i-1;
-  tl.to(rooms[t],{opacity:0,scale:1.1,duration:1},t)
-    .fromTo(rooms[i],{opacity:0,scale:1.14},{opacity:1,scale:1.0,duration:1},t)
-    .to(stage,{'--accent':P[i].c,duration:1},t)
-    .to('.bottles',{keyframes:[{scaleX:.78,rotation:-4,y:-14,duration:.5,ease:'power1.in'},{scaleX:1,rotation:0,y:0,duration:.5,ease:'power1.out'}]},t)
-    .to(bottles[t],{opacity:0,duration:.3},t+.35)
-    .fromTo(bottles[i],{opacity:0},{opacity:1,duration:.3},t+.35)
-    .to(names[t],{opacity:0,y:-50,duration:.4},t+.05)
-    .fromTo(names[i],{opacity:0,y:70},{opacity:1,y:0,duration:.45},t+.5)
-    .to(infos[t],{autoAlpha:0,y:-20,duration:.35},t+.05)
-    .fromTo(infos[i],{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.4},t+.55);
+  var t=i-1+0.18, DU=0.64;
+  tl.to(rooms[i-1],{opacity:0,scale:1.08,duration:DU,ease:'power1.in'},t)
+    .fromTo(rooms[i],{opacity:0,scale:1.12},{opacity:1,scale:1.0,duration:DU,ease:'power1.out'},t+DU*0.25)
+    .fromTo(dip,{opacity:0},{keyframes:[{opacity:.62,duration:DU*.5,ease:'sine.in'},{opacity:0,duration:DU*.5,ease:'sine.out'}]},t)
+    .to(stage,{'--accent':P[i].c,duration:DU},t)
+    .to(bottles[i-1],{opacity:0,duration:DU*.5,ease:'sine.inOut'},t+DU*.25)
+    .fromTo(bottles[i],{opacity:0},{opacity:1,duration:DU*.5,ease:'sine.inOut'},t+DU*.25)
+    .to(names[i-1],{opacity:0,y:-40,duration:DU*.45},t)
+    .fromTo(names[i],{opacity:0,y:60},{opacity:1,y:0,duration:DU*.5},t+DU*.5)
+    .to(infos[i-1],{autoAlpha:0,y:-16,duration:DU*.4},t)
+    .fromTo(infos[i],{autoAlpha:0,y:24},{autoAlpha:1,y:0,duration:DU*.45},t+DU*.55);
 }
+tl.set({},{},N-1);
 // gentle idle float on bottle
 
 dots.forEach(function(d){ d.addEventListener('click',function(){ var st=tl.scrollTrigger, k=+d.getAttribute('data-go'); scrollToY(st.start+(st.end-st.start)*k/(N-1)+1); }); });

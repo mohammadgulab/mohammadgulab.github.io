@@ -52,26 +52,27 @@ a{color:inherit}
 .intro .w{display:inline-block;opacity:.18;transition:none}
 
 /* rooms */
-.rooms{position:relative}
-.stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:#000;--accent:#2fe08a}
+.rooms{position:relative;background:#000;height:calc(100vh + 440vh);height:calc(100lvh + 440svh)}
+.stage{position:-webkit-sticky;position:sticky;top:0;height:100vh;height:100lvh;overflow:hidden;background:#000;--accent:#2fe08a;contain:paint}
+.dip{position:absolute;inset:0;z-index:1;background:#000;opacity:0;pointer-events:none;will-change:opacity}
 .room{position:absolute;inset:0;opacity:0;will-change:opacity,transform}
 .room:first-child{opacity:1}
 .room img{width:100%;height:100%;object-fit:cover}
 .stage-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 52%,rgba(0,0,0,.72) 100%);pointer-events:none}
-.bottle-wrap{position:absolute;left:50%;top:50%;height:min(56vh,600px);aspect-ratio:427/1000;translate:-50% -54%;z-index:3}
+.bottle-wrap{position:absolute;left:50%;top:50vh;top:50svh;height:min(56vh,600px);aspect-ratio:427/1000;translate:-50% -54%;z-index:3}
 .float{position:absolute;inset:0}
 .glow{position:absolute;left:50%;top:50%;width:260%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--accent) 0%,transparent 62%);opacity:.32;mix-blend-mode:screen;transition:background .6s;pointer-events:none}
 .bottles{position:absolute;inset:0}
-.bottle{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity,transform;filter:drop-shadow(-10px 0 18px rgba(0,0,0,.35))}
+.bottle{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:opacity;filter:drop-shadow(-10px 0 18px rgba(0,0,0,.35))}
 .bottle:first-child{opacity:1}
 .contact{position:absolute;left:50%;bottom:-2.2%;width:118%;height:7%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.85) 0%,rgba(0,0,0,.5) 35%,transparent 70%);filter:blur(3px);z-index:-1}
 .contact2{position:absolute;left:50%;bottom:-6%;width:210%;height:16%;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.55) 0%,transparent 70%);filter:blur(10px);z-index:-2}
-.names{position:absolute;left:clamp(18px,4.5vw,64px);bottom:clamp(92px,11vh,110px);z-index:2;pointer-events:none}
+.names{position:absolute;left:clamp(18px,4.5vw,64px);bottom:calc(100lvh - 100svh + clamp(92px,11vh,110px));z-index:2;pointer-events:none}
 .pname{position:absolute;left:0;bottom:0;white-space:nowrap;opacity:0}
 .pname:first-child{opacity:1}
 .pthe{display:block;font-size:13px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:var(--accent);margin-bottom:-4px;transition:color .5s}
 .pword{display:block;font-family:'Bebas Neue',sans-serif;font-size:clamp(84px,15vw,230px);line-height:.82;letter-spacing:.01em;text-transform:uppercase}
-.infos{position:absolute;z-index:4;right:clamp(18px,4.5vw,64px);bottom:clamp(92px,11vh,110px);width:min(340px,40vw)}
+.infos{position:absolute;z-index:4;right:clamp(18px,4.5vw,64px);bottom:calc(100lvh - 100svh + clamp(92px,11vh,110px));width:min(340px,40vw)}
 .pinfo{position:absolute;right:0;bottom:0;width:100%;opacity:0;visibility:hidden}
 .pinfo:first-child{opacity:1;visibility:visible}
 .pno{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--accent);transition:color .5s}
@@ -80,19 +81,19 @@ a{color:inherit}
 .btn-room:hover{background:var(--accent)}
 .counter{position:absolute;z-index:4;left:clamp(18px,4.5vw,64px);top:calc(max(12px,env(safe-area-inset-top)) + 74px);font-size:12px;letter-spacing:.2em;font-weight:600}
 .counter span{color:var(--accent);transition:color .5s}
-.dots{position:absolute;z-index:4;right:clamp(10px,3vw,48px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column}
+.dots{position:absolute;z-index:4;right:clamp(10px,3vw,48px);top:50svh;transform:translateY(-50%);display:flex;flex-direction:column}
 .dot{width:44px;height:44px;display:grid;place-items:center}
 .dot span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .4s}
 .dot.on span{background:var(--accent);transform:scale(1.5)}
 @media (max-width:760px){
   .bottle-wrap{height:min(44svh,420px);translate:-50% -66%}
-  .names{bottom:calc(150px + env(safe-area-inset-bottom))}
+  .names{bottom:calc(100lvh - 100svh + 150px + env(safe-area-inset-bottom))}
   .pword{font-size:clamp(70px,21vw,120px)}
-  .infos{left:18px;right:18px;width:auto;bottom:calc(22px + env(safe-area-inset-bottom))}
+  .infos{left:18px;right:18px;width:auto;bottom:calc(100lvh - 100svh + 22px + env(safe-area-inset-bottom))}
   .pline{display:none}
   .pno{margin-bottom:10px}
   .btn-room{width:100%}
-  .dots{right:2px;top:46%}
+  .dots{right:2px;top:46svh}
 }
 
 /* shop */
@@ -168,10 +169,14 @@ a{color:inherit}
 .room::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 40%,transparent 30%,rgba(0,0,0,.55) 100%),linear-gradient(180deg,var(--c),var(--c));mix-blend-mode:soft-light;opacity:.9;pointer-events:none}
 .room::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(60% 45% at 50% 46%,var(--c),transparent 70%);mix-blend-mode:screen;opacity:.28;pointer-events:none}
 .stage-shade{background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 56%,rgba(0,0,0,.78) 100%)}
-.bottle-wrap{height:min(60vh,640px)}
+.bottle-wrap{height:min(60vh,640px);height:min(60svh,640px)}
 .glow{opacity:.42;width:220%}
-.bottles{-webkit-box-reflect:below -1px linear-gradient(transparent 76%,rgba(255,255,255,.26))}
+.bottles{-webkit-box-reflect:below -1px linear-gradient(transparent 92%,rgba(255,255,255,.16))}
 .bottle{filter:drop-shadow(-14px 0 22px rgba(0,0,0,.4)) drop-shadow(10px 0 18px color-mix(in srgb,var(--accent) 35%,transparent))}
 .plinth{position:absolute;left:50%;bottom:-9%;width:175%;height:18%;transform:translateX(-50%);border-radius:50%;z-index:-1;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.16) 0%,rgba(255,255,255,.05) 38%,transparent 66%),radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.65) 0%,transparent 70%);box-shadow:inset 0 2px 0 color-mix(in srgb,var(--accent) 45%,transparent)}
 .contact{bottom:-1.6%;width:96%;height:5%;filter:blur(2px);background:radial-gradient(ellipse at center,rgba(0,0,0,.95) 0%,rgba(0,0,0,.6) 40%,transparent 72%)}
 @media (max-width:760px){.bottle-wrap{height:min(48svh,460px);translate:-50% -64%}}
+
+/* v4: pinned bottle, no motion on the bottle itself */
+.bottle-wrap,.float,.bottles{transform:none!important}
+.bottle-wrap{backface-visibility:hidden}
