@@ -938,7 +938,7 @@ function startTour() {
 function stopTour() { if (!tourOn) return; tourOn = false; cancelAnimationFrame(tourRaf); setTourUI(); }
 tourBtn.addEventListener('click', e => { e.stopPropagation(); tourOn ? stopTour() : startTour(); });
 const userStops = e => { if (!tourOn) return; if (e.target && e.target.closest && e.target.closest('#tour')) return; stopTour(); };
-addEventListener('wheel', userStops, { passive: true });
+addEventListener('wheel', () => stopTour(), { passive: true });
 addEventListener('touchstart', userStops, { passive: true });
 addEventListener('pointerdown', userStops, { passive: true });
 addEventListener('keydown', e => { if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' ', 'Home', 'End'].includes(e.key)) userStops(e); });
