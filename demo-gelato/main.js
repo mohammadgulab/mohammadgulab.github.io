@@ -6,7 +6,7 @@ var FL=[
  {k:"mango",s:"Mango",name:"Alphonso Mango",big:"MANGO",notes:"Sweet mango pulp churned into a smooth, sunny sorbetto. Dairy free.",price:11,bg:"#f6cf6e",fg:"#3d2a06",w:516,h:325},
  {k:"vanilla",s:"Vanilla",name:"Vanilla Bean Cloud",big:"VANILLA",notes:"Whole vanilla pods steeped overnight in milk. Soft, light and clean.",price:10,bg:"#efe3c4",fg:"#3a3020",w:459,h:260},
  {k:"cocoa",s:"Cocoa",name:"Dark Cocoa 70",big:"COCOA",notes:"Deep cocoa with dark chocolate, rich and not too sweet.",price:12,bg:"#b98b6c",fg:"#2a170c",w:253,h:160},
- {k:"cherry",s:"Cherry",name:"Cherry Ripple",big:"CHERRY",notes:"Fior di latte base with a ripple of cherry sauce and real cherry pieces.",price:12,bg:"#e8a7b6",fg:"#45121f",w:520,h:349}
+ {k:"cherry",s:"Cherry",name:"Cherry Ripple",big:"CHERRY",notes:"Sour cherries churned into a fior di latte base, bright and a little tart.",price:12,bg:"#e8a7b6",fg:"#45121f",w:520,h:349}
 ];
 var hasG=typeof window.gsap!=="undefined";
 if(hasG&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);}
@@ -44,19 +44,18 @@ setProgress(0);
 /* ---------- flavour carousel ---------- */
 var flSec=document.getElementById("flavours"),flScoop=document.getElementById("flScoop"),flBig=document.getElementById("flBig"),flName=document.getElementById("flName"),flNotes=document.getElementById("flNotes"),flPrice=document.getElementById("flPrice"),flIdx=document.getElementById("flIdx"),dots=document.getElementById("flDots"),fi=0,busy=false;
 FL.forEach(function(f,i){var b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.setAttribute("aria-label",f.name);b.setAttribute("aria-selected",i===0?"true":"false");b.addEventListener("click",function(){goFl(i);});dots.appendChild(b);});
-FL.forEach(function(f){var im=new Image();im.src="img/"+f.k+".webp";});
-function paint(i){var f=FL[i];flSec.style.setProperty("--bg",f.bg);flSec.style.setProperty("--fg",f.fg);flName.textContent=f.name;flNotes.textContent=f.notes;flPrice.textContent="SAR "+f.price;flIdx.textContent=String(i+1).padStart(2,"0")+" / 06";flBig.textContent=f.big;fitBig();flScoop.src="img/"+f.k+".webp";flScoop.alt=f.name+" gelato scoop";[].forEach.call(dots.children,function(d,j){d.setAttribute("aria-selected",j===i?"true":"false");});}
+FL.forEach(function(f){var im=new Image();im.src="img/cone-"+f.k+".webp";});
+function paint(i){var f=FL[i];flSec.style.setProperty("--bg",f.bg);flSec.style.setProperty("--fg",f.fg);flName.textContent=f.name;flNotes.textContent=f.notes;flPrice.textContent="SAR "+f.price;flIdx.textContent=String(i+1).padStart(2,"0")+" / 06";flBig.textContent=f.big;fitBig();flScoop.src="img/cone-"+f.k+".webp";flScoop.alt=f.name+" gelato in a waffle cone";[].forEach.call(dots.children,function(d,j){d.setAttribute("aria-selected",j===i?"true":"false");});}
 function fitBig(){var w=Math.min(window.innerWidth,1400)*0.9;flBig.style.fontSize=Math.min(w/(flBig.textContent.length*0.72),190)+"px";}
 fitBig();window.addEventListener("resize",fitBig);
 function goFl(i,dir){i=(i+FL.length)%FL.length;if(i===fi||busy)return;dir=dir||(i>fi?1:-1);fi=i;
   if(!hasG){paint(i);return;}
   busy=true;
   gsap.timeline({onComplete:function(){busy=false;}})
-   .to(flScoop,{y:-140,rotation:dir*25,scale:.6,opacity:0,duration:.35,ease:"power2.in"})
+   .to(flScoop,{x:-dir*70,rotation:-dir*7,opacity:0,duration:.32,ease:"power2.in"})
    .to([flName,flNotes,flBig],{y:-12,opacity:0,duration:.2,stagger:.03},"<")
    .add(function(){paint(i);})
-   .fromTo(flScoop,{y:-260,rotation:-dir*18,scale:.8,opacity:1},{y:0,rotation:0,scale:1,duration:.85,ease:"bounce.out"})
-   .fromTo(".fl-cone",{scaleY:1},{scaleY:.94,yoyo:true,repeat:1,duration:.12,transformOrigin:"50% 100%"},"-=.45")
+   .fromTo(flScoop,{x:dir*90,y:24,rotation:dir*8,opacity:0},{x:0,y:0,rotation:0,opacity:1,duration:.75,ease:"back.out(1.5)"})
    .fromTo([flName,flNotes,flBig],{y:16,opacity:0},{y:0,opacity:function(k){return k===2?.13:1;},duration:.45,stagger:.05,ease:"power3.out"},"-=.7");
 }
 document.getElementById("flPrev").addEventListener("click",function(){goFl(fi-1,-1);});
