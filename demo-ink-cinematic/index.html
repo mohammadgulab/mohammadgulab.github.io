@@ -16,7 +16,7 @@
 <link rel="preload" as="image" href="img/wall.png">
 <link rel="preload" as="image" href="img/hand.png">
 <link rel="preload" as="image" href="img/coin.png">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <a class="skip" href="#visit">Skip the story</a>
@@ -30,11 +30,11 @@
 </header>
 
 <main id="top">
-<section class="film" id="film" aria-label="The story, told as you scroll">
-  <div class="stage" id="stage">
+<div class="story" id="story">
 
-    <!-- 1 THE COIN -->
-    <div class="scene s1" id="s1">
+  <!-- 1 THE COIN (brief pin while the hand takes the coin) -->
+  <section class="sc s1" id="s1" aria-label="Chapter 1, the coin">
+    <div class="in">
       <img class="wall" src="img/wall.png" alt="" width="1125" height="1500">
       <div class="coin-wrap" id="coinWrap"><img class="coin" id="coin" src="img/coin.png" alt="An old coin on a red cracked surface" width="560" height="560"></div>
       <img class="hand" id="hand" src="img/hand.png" alt="" width="592" height="1034">
@@ -42,15 +42,19 @@
       <div class="title" id="title">
         <p class="tag">Chapter 01</p>
         <h1><span>The way of</span><span class="big">the red ink</span></h1>
-        <p class="lede">A Jeddah dojo, told in four scenes. Scroll slowly.</p>
+        <p class="lede">A Jeddah dojo, told in four scenes. Scroll down slowly.</p>
       </div>
       <p class="cap c-a" id="c1a">One coin left.</p>
       <p class="cap c-b" id="c1b">He spent it on a lesson.</p>
+      <div class="hint" id="hint" aria-hidden="true"><span>Scroll</span><i></i></div>
     </div>
+  </section>
 
-    <!-- 2 THE MOON -->
-    <div class="scene s2" id="s2">
-      <div class="dots"></div>
+  <!-- 2 THE MOON (scrolls in, circle opens, then black ink pours) -->
+  <section class="sc s2" id="s2" aria-label="Chapter 2, the moon">
+    <div class="tear t-paper" aria-hidden="true"></div>
+    <div class="in">
+      <div class="dots" id="dots"></div>
       <div class="ring" id="ring"></div>
       <div class="moon-wrap" id="moonWrap">
         <img class="moon" src="img/moon.png" alt="" width="1000" height="1000">
@@ -59,37 +63,39 @@
       <p class="cap c-tag" id="c2t">Chapter 02 · The moon</p>
       <p class="cap c-a" id="c2a">Night class. Steel and silence.</p>
       <p class="kan" id="k2" aria-hidden="true">月</p>
-      <div class="s2w" id="s2w"></div>
+      <svg class="drips" id="drips" aria-hidden="true"></svg>
+      <img class="plume" id="plume" src="img/plume.png" alt="" width="788" height="1400">
     </div>
+  </section>
 
-    <!-- ink drip wipe -->
-    <svg class="drips" id="drips" aria-hidden="true"></svg>
-    <img class="plume" id="plume" src="img/plume.png" alt="" width="788" height="1400">
+  <!-- 3 THE GAZE (panels flow up, one by one) -->
+  <section class="sc s3" id="s3" aria-label="Chapter 3, the gaze">
+    <p class="cap c-tag" id="c3t">Chapter 03 · The gaze</p>
+    <div class="panel p1" id="p1"><img src="img/eyes1.png" alt="Close-up of a pair of eyes behind dark hair" width="1233" height="1400"></div>
+    <p class="cap c-a" id="c3a">Before the strike, the eyes.</p>
+    <div class="panel p2" id="p2"><img src="img/eye2.png" alt="One eye in close-up" width="867" height="1300"></div>
+    <div class="panel p3" id="p3"><img src="img/grip.png" alt="A hand gripping the handle of a sword" width="867" height="1300"></div>
+    <p class="cap c-b" id="c3b">Focus is trained, not given.</p>
+  </section>
 
-    <!-- 3 THE GAZE -->
-    <div class="scene s3" id="s3">
-      <div class="panel p1" id="p1"><img src="img/eyes1.png" alt="Close-up of a pair of eyes behind dark hair" width="1233" height="1400"></div>
-      <div class="panel p2" id="p2"><img src="img/eye2.png" alt="One eye in close-up" width="867" height="1300"></div>
-      <div class="panel p3" id="p3"><img src="img/grip.png" alt="A hand gripping the handle of a sword" width="867" height="1300"></div>
-      <p class="cap c-tag" id="c3t">Chapter 03 · The gaze</p>
-      <p class="cap c-a" id="c3a">Before the strike, the eyes.</p>
-      <p class="cap c-b" id="c3b">Focus is trained, not given.</p>
-    </div>
-
-    <!-- 4 THE HALL -->
-    <div class="scene s4" id="s4">
+  <!-- 4 THE HALL (diagonal ink wipe on the way in, brief pin down the corridor) -->
+  <section class="sc s4" id="s4" aria-label="Chapter 4, the hall">
+    <div class="in" id="s4in">
       <picture><source media="(min-aspect-ratio: 1/1)" srcset="img/torii-wide.png" width="2600" height="1612"><img class="torii" id="torii" src="img/torii.png" alt="A long corridor of red gates with a figure walking at the far end" width="1067" height="1600"></picture>
-      <img class="edge" id="edge" src="img/plume.png" alt="" width="788" height="1400">
       <p class="cap c-tag" id="c4t">Chapter 04 · The hall</p>
       <p class="cap c-a" id="c4a">A hundred gates.</p>
       <p class="cap c-b" id="c4b">One path. Walk it daily.</p>
       <p class="kan" id="k4" aria-hidden="true">門</p>
     </div>
+    <img class="edge" id="edge" src="img/plume.png" alt="" width="788" height="1400">
+  </section>
 
-    <!-- 5 END CARD -->
-    <div class="scene s5" id="s5">
-      <img class="jump" src="img/jump.png" alt="Two martial artists mid-kick against the evening sky" width="1200" height="800">
-      <div class="end">
+  <!-- 5 END CARD -->
+  <section class="sc s5" id="s5" aria-label="Chapter 5, your first class">
+    <div class="tear t-ink" aria-hidden="true"></div>
+    <div class="in">
+      <img class="jump" id="jump" src="img/jump.png" alt="Two martial artists mid-kick against the evening sky" width="1200" height="800">
+      <div class="end" id="end">
         <p class="tag">Chapter 05 · You</p>
         <h2>Your first class<br>is the first gate.</h2>
         <p class="lede">Karate and kenjutsu for kids, adults and women. Trial class SAR 60.</p>
@@ -99,13 +105,10 @@
         </div>
       </div>
     </div>
-
-    <div class="flash" id="flash"></div>
-    <div class="grain" aria-hidden="true"></div>
-    <div class="chapter" aria-hidden="true"><span id="chNum">01</span><span class="ch-bar"><i id="chBar"></i></span><span>05</span></div>
-    <div class="hint" id="hint" aria-hidden="true"><span>Scroll</span><i></i></div>
-  </div>
-</section>
+  </section>
+</div>
+<div class="grain" id="grain" aria-hidden="true"></div>
+<div class="chapter" id="chapter" aria-hidden="true"><span id="chNum">01</span><span class="ch-bar"><i id="chBar"></i></span><span>05</span></div>
 
 <section class="info" id="classes">
   <div class="wrap">
@@ -147,6 +150,6 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="main.js?v=1"></script>
+<script src="main.js?v=2"></script>
 </body>
 </html>
