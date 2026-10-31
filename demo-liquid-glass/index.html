@@ -3,129 +3,137 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MAWJ Studio | Liquid glass digital studio in Jeddah</title>
+<title>MAWJ Studio | Design, delight, inspire. Jeddah</title>
 <meta name="description" content="MAWJ Studio is a concept creative and digital studio in Jeddah: liquid glass interfaces, motion and immersive websites.">
-<meta name="theme-color" content="#d9cff5">
+<meta name="theme-color" content="#e7e1f6">
 <meta property="og:title" content="MAWJ Studio | Liquid glass, made in Jeddah">
-<meta property="og:description" content="A concept demo: real-time liquid glass refraction, a floating jellyfish hero and kinetic type.">
-<meta property="og:image" content="https://mohammadgulab.github.io/demo-liquid-glass/img/og.jpg">
+<meta property="og:description" content="A concept demo: a glowing jellyfish hero, kinetic type and real-time liquid glass.">
+<meta property="og:image" content="https://mohammadgulab.github.io/demo-liquid-glass/img/og2.jpg">
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Pacifico&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
-<a class="skip" href="#main" data-liquid-ignore>Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="nav-wrap">
-  <nav class="nav-glass" aria-label="Main">
-    <a class="brand" href="#top" aria-label="MAWJ Studio home"><span class="brand-dot" aria-hidden="true"></span>MAWJ</a>
-    <div class="nav-links">
-      <a href="#lab">Lab</a>
-      <a href="#work">Work</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a class="nav-cta" href="#contact">Let's talk</a>
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="MAWJ Studio home">mawj<span>studio</span></a>
+  <nav class="nav-pills" aria-label="Main">
+    <a class="pill" href="#glass">Work</a>
+    <a class="pill" href="#contact">Contact</a>
   </nav>
 </header>
 
 <main id="main">
   <section class="hero" id="top" aria-label="Intro">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="words words-back" aria-hidden="true">
-      <div class="word w1">DESIGN</div>
-      <div class="word w3">INSPIRE</div>
-    </div>
-    <div class="jelly-wrap" aria-hidden="true">
-      <canvas class="jelly-canvas"></canvas>
-      <img class="jelly-img" src="img/jelly.webp" alt="" width="700" height="1297">
-    </div>
-    <div class="words words-front" aria-hidden="true">
-      <div class="word w2">DELIGHT</div>
-    </div>
-    <h1 class="sr-only" data-liquid-ignore>MAWJ Studio: design, delight, inspire. A creative and digital studio in Jeddah.</h1>
-    <div class="hero-copy">
-      <p class="eyebrow">Creative &amp; digital studio · Jeddah</p>
-      <p class="hero-line">Interfaces that feel like water. Brands that move.</p>
-    </div>
-    <a class="scroll-cue" href="#lab" aria-label="Scroll to the glass lab"><span></span>Scroll</a>
-  </section>
-
-  <section class="lab" id="lab" aria-labelledby="lab-title">
-    <div class="lab-head">
-      <p class="eyebrow light">The glass lab</p>
-      <h2 id="lab-title">Real glass, <em>bending light</em> in your browser.</h2>
-      <p class="lab-sub">Drag the lens. Everything behind it bends, splits into colour and catches the light, live, sixty times a second.</p>
-    </div>
-    <div class="stage" id="stage">
-      <canvas class="glass-canvas" id="glass"></canvas>
-      <div class="stage-fallback" aria-hidden="true"><div class="fb-text">LIQUID<br>GLASS</div></div>
-      <div class="lens-hit" id="lensHit" role="slider" aria-label="Glass lens, drag to move" aria-valuetext="Drag me" tabindex="0"><span class="lens-tip">Drag me</span></div>
-      <div class="player" id="player">
-        <img class="player-art" src="img/art-orchid.webp" alt="Album art: swirling orchid and violet paint" width="640" height="640">
-        <div class="player-meta">
-          <p class="player-kicker">Now playing</p>
-          <p class="player-title">Tide Lines</p>
-          <p class="player-artist">MAWJ Sound Lab</p>
-        </div>
-        <div class="player-bar"><span id="pbar"></span></div>
-        <div class="player-time"><span id="ptime">0:42</span><span>3:18</span></div>
-        <div class="player-btns">
-          <button type="button" class="pbtn" id="prev" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
-          <button type="button" class="pbtn play" id="play" aria-label="Pause" aria-pressed="true"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
-          <button type="button" class="pbtn" id="next" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    <div class="hero-stage">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="track-wrap" aria-hidden="true">
+        <div class="track" id="track">
+          <div class="slot"><span class="word">MAWJ</span></div>
+          <div class="slot"><span class="word">DESIGN</span></div>
+          <div class="slot"><span class="word">DELIGHT</span></div>
+          <div class="slot"><span class="word">INSPIRE</span></div>
         </div>
       </div>
+      <div class="jelly" id="jelly" aria-hidden="true">
+        <canvas id="jellyCanvas"></canvas>
+        <img class="jelly-img" id="jellyImg" src="img/jellyfish-v2.webp" alt="" width="689" height="1150">
+      </div>
+      <h1 class="sr-only">MAWJ Studio: design, delight, inspire. A creative and digital studio in Jeddah.</h1>
+      <p class="hero-tag" aria-hidden="true">Studio<br>Jeddah</p>
+      <p class="hero-cap">Welcome to MAWJ, a creative studio in Jeddah making brands, websites and motion that move people.</p>
+      <div class="hero-side" id="heroSide"><p>Every project at MAWJ is built like a wave: one clear idea, a lot of craft, and motion you can feel on any screen.</p></div>
+      <div class="scroll-hint" aria-hidden="true"><span></span>Scroll</div>
     </div>
-    <ul class="lab-facts">
-      <li><strong>Refraction</strong><span>The edge of every pane bends what sits behind it, like a real lens.</span></li>
-      <li><strong>Chromatic split</strong><span>Red, green and blue bend by different amounts at the rim.</span></li>
-      <li><strong>Live highlight</strong><span>A soft rim light follows the shape as it moves.</span></li>
-    </ul>
   </section>
 
   <section class="ring-sec" aria-labelledby="ring-title">
-    <h2 id="ring-title" class="sr-only" data-liquid-ignore>MAWJ Studio, Jeddah</h2>
+    <h2 id="ring-title" class="sr-only">MAWJ Studio, Jeddah: design, motion, web</h2>
     <div class="ring-scene" aria-hidden="true">
-      <div class="ring-tilt">
-        <div class="ring" id="ring"></div>
-        <img class="ring-jelly" src="img/jelly-sm.webp" alt="" width="350" height="648">
+      <div class="ring-tilt" id="ringTilt">
+        <div class="ring r1" data-text="MAWJ STUDIO ✦ JEDDAH ✦ "></div>
+        <div class="ring r2 outline" data-text="DESIGN ✦ MOTION ✦ WEB ✦ 3D ✦ "></div>
+        <img class="ring-jelly" src="img/jellyfish-v2.webp" alt="" width="689" height="1150">
       </div>
+      <svg class="sticker s1" viewBox="0 0 100 100"><path d="M50 4l9 25 26-9-13 24 24 12-26 6 4 27-24-14-14 23-6-27-27 4 16-21L5 33l27-3z" fill="#111" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
+      <svg class="sticker s2" viewBox="0 0 100 100"><path d="M50 6l12 30 32 2-25 20 8 32-27-18-27 18 8-32L6 38l32-2z" fill="none" stroke="#f6c51b" stroke-width="5" stroke-linejoin="round"/></svg>
+      <svg class="sticker s3" viewBox="0 0 100 100"><path d="M50 0C54 38 62 46 100 50 62 54 54 62 50 100 46 62 38 54 0 50 38 46 46 38 50 0z" fill="#fff"/></svg>
+      <svg class="sticker s4" viewBox="0 0 100 100"><path d="M50 6l12 30 32 2-25 20 8 32-27-18-27 18 8-32L6 38l32-2z" fill="#f6c51b" stroke="#111" stroke-width="4" stroke-linejoin="round"/></svg>
     </div>
     <p class="ring-copy">Small team. Big waves. We design brands, websites and motion for people who want to be felt, not just seen.</p>
   </section>
 
-  <section class="services" id="work" aria-labelledby="work-title">
-    <p class="eyebrow">What we make</p>
-    <h2 id="work-title">Four ways we make a wave.</h2>
-    <div class="cards">
-      <article class="card">
-        <div class="card-img"><img src="img/art-ember.webp" alt="Molten red and amber paint swirls" loading="lazy" width="640" height="640"></div>
-        <div class="card-glass"><span class="card-no">01</span><h3>Brand worlds</h3><p>Names, marks, colour and type that hold together from a shop sign to a phone screen.</p><p class="price">From SAR 9,500</p></div>
-      </article>
-      <article class="card">
-        <div class="card-img"><img src="img/art-lagoon.webp" alt="Teal and green marbled paint" loading="lazy" width="640" height="640"></div>
-        <div class="card-glass"><span class="card-no">02</span><h3>Immersive websites</h3><p>Scroll stories, glass interfaces and 3D moments that stay fast on a phone.</p><p class="price">From SAR 14,000</p></div>
-      </article>
-      <article class="card">
-        <div class="card-img"><img src="img/art-coral.webp" alt="Coral and blue pastel paint swirls" loading="lazy" width="640" height="640"></div>
-        <div class="card-glass"><span class="card-no">03</span><h3>Motion &amp; 3D</h3><p>Product loops, logo stings and launch films, ready for Reels and big screens.</p><p class="price">From SAR 6,000</p></div>
-      </article>
-      <article class="card">
-        <div class="card-img"><img src="img/art-orchid.webp" alt="Pink and violet paint swirls" loading="lazy" width="640" height="640"></div>
-        <div class="card-glass"><span class="card-no">04</span><h3>Launch campaigns</h3><p>Social content systems and landing pages built around one strong idea.</p><p class="price">From SAR 7,500</p></div>
-      </article>
+  <section class="night" data-nav="dark" data-trim="80" aria-labelledby="night-title">
+    <div class="moon" aria-hidden="true"></div>
+    <div class="hang" aria-hidden="true">
+      <span style="--h:70px;--d:0s"></span><span style="--h:120px;--d:.6s"></span><span style="--h:46px;--d:1.1s"></span><span style="--h:96px;--d:.3s"></span>
+    </div>
+    <div class="twinkles" aria-hidden="true"></div>
+    <h2 id="night-title" class="type"><span id="typed">Welcome to MAWJ</span><i class="cursor" aria-hidden="true"></i></h2>
+    <p class="night-sub">Day or night, we keep the ideas moving.</p>
+  </section>
+
+  <section class="glass-sec" id="glass" aria-labelledby="glass-title">
+    <p class="chip">MAWJ Glass</p>
+    <h2 id="glass-title"><span class="hl">Liquid Glass</span> for the web, made in Jeddah.</h2>
+    <p class="lead">Real refraction, colour split at the edges and a soft light that moves with every shape. Built to run smoothly on your phone.</p>
+    <div class="cta-row">
+      <a class="gbtn dark" href="#contact">Start a project</a>
+      <a class="gbtn" href="#services">See services</a>
+    </div>
+
+    <div class="navy" id="navy" data-nav="dark">
+      <canvas id="navyCanvas"></canvas>
+      <div class="navy-fb" aria-hidden="true"></div>
+      <div class="player" id="player">
+        <div class="art" aria-hidden="true"></div>
+        <div class="meta">
+          <p class="kicker">Now playing</p>
+          <p class="title" id="ptitle">Red Sea Drift</p>
+          <p class="artist" id="partist">MAWJ Sound Lab</p>
+        </div>
+        <div class="bar"><span id="pbar"></span></div>
+        <div class="times"><span id="ptime">0:42</span><span id="plen">3:18</span></div>
+        <div class="btns">
+          <button type="button" class="pb" id="prev" aria-label="Previous track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+          <button type="button" class="pb play" id="play" aria-label="Pause" aria-pressed="true"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></button>
+          <button type="button" class="pb" id="next" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        </div>
+      </div>
+      <p class="drag-tip" aria-hidden="true">Drag the player</p>
+    </div>
+
+    <p class="big-line">One script, real glass. Light bends at every edge, splits into colour and catches a highlight, live, as you scroll and touch.</p>
+    <ul class="facts">
+      <li><b>Refraction</b><span>The rim of every pane bends what sits behind it, like a real lens.</span></li>
+      <li><b>Chromatic split</b><span>Red, green and blue bend by different amounts at the edge.</span></li>
+      <li><b>Frost and light</b><span>A soft blur and a moving rim light make it feel like glass, not plastic.</span></li>
+    </ul>
+  </section>
+
+  <section class="services" id="services" aria-labelledby="svc-title">
+    <p class="chip">What we make</p>
+    <h2 id="svc-title">Four ways we make a wave.</h2>
+    <div class="grid" id="grid">
+      <canvas id="gridCanvas" aria-hidden="true"></canvas>
+      <article class="tile"><div class="tile-art" data-pal="0"><i class="gl-shape circle" aria-hidden="true"></i></div><h3>Brand worlds</h3><p>Names, marks, colour and type.</p><p class="price">From SAR 9,500</p></article>
+      <article class="tile"><div class="tile-art" data-pal="1"><i class="gl-shape pillx" aria-hidden="true"></i></div><h3>Immersive websites</h3><p>Scroll stories and glass interfaces.</p><p class="price">From SAR 14,000</p></article>
+      <article class="tile"><div class="tile-art" data-pal="2"><i class="gl-shape square" aria-hidden="true"></i></div><h3>Motion &amp; 3D</h3><p>Product loops and launch films.</p><p class="price">From SAR 6,000</p></article>
+      <article class="tile"><div class="tile-art" data-pal="3"><i class="gl-shape lens" aria-hidden="true"></i></div><h3>Launch campaigns</h3><p>Social content and landing pages.</p><p class="price">From SAR 7,500</p></article>
     </div>
   </section>
 
   <section class="contact" id="contact" aria-labelledby="contact-title">
-    <div class="contact-glass">
-      <p class="eyebrow">Start a project</p>
+    <div class="contact-card">
+      <p class="chip">Start a project</p>
       <h2 id="contact-title">Let's make something that moves.</h2>
       <form class="form" id="form" novalidate>
-        <label>Your name<input name="name" autocomplete="name" required></label>
+        <label>Your name<input name="name" autocomplete="name" placeholder="Your name"></label>
         <label>What are you building?<select name="type"><option>A brand</option><option>A website</option><option>Motion or 3D</option><option>Something else</option></select></label>
-        <button type="submit" class="btn">Send brief</button>
+        <button type="submit" class="gbtn dark full">Send brief</button>
         <p class="form-note" id="formNote" role="status">Concept demo: nothing is sent.</p>
       </form>
       <address>MAWJ Studio (fictional)<br>Studio 7, Wave Building, Al Shati District, Jeddah, Saudi Arabia<br>Sun to Thu, 10:00 to 18:00</address>
@@ -133,15 +141,12 @@
   </section>
 </main>
 
-<footer class="foot">
-  <p class="foot-big">MAWJ</p>
-  <p>Concept demo by Mohammad Gulab Kauser</p>
-  <p class="credits">Glass nav uses <a href="https://github.com/naughtyduk/liquidGL" rel="noopener" target="_blank">liquidGL</a> by NaughtyDuk (MIT licence). Photos from Pexels. MAWJ Studio is a fictional brand.</p>
+<footer class="foot" data-nav="dark">
+  <p class="foot-big">mawj</p>
+  <p class="foot-by">Concept demo by Mohammad Gulab Kauser</p>
+  <p class="credits">Jellyfish photo from <a href="https://www.pexels.com/photo/purple-jellyfish-swimming-in-deep-water-13540310/" rel="noopener" target="_blank">Pexels</a> (free Pexels licence), cut out and tinted for this demo. The glass shader was written for this demo, inspired by <a href="https://github.com/naughtyduk/liquidGL" rel="noopener" target="_blank">liquidGL</a> by NaughtyDuk (MIT licence). Fonts: Anton, Manrope, Pacifico and Space Mono (SIL Open Font Licence). MAWJ Studio is a fictional brand.</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="vendor/liquidGL.js?v=1"></script>
-<script src="main.js?v=3"></script>
+<script src="main.js?v=20"></script>
 </body>
 </html>
