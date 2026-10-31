@@ -4,17 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Marsa Exotics | Pre-owned exotic and luxury cars, Jeddah (concept)</title>
-<meta name="description" content="Concept demo: walk the lot from above, dive into a car, turn it on scroll and estimate a monthly payment.">
-<meta name="theme-color" content="#0b0c0e">
+<meta name="description" content="Concept demo: fly over the lot at night, dive into a car, turn it in 3D on scroll and estimate a monthly payment.">
+<meta name="theme-color" content="#06080c">
 <meta property="og:title" content="Marsa Exotics, Jeddah (concept demo)">
-<meta property="og:description" content="Dive from the lot into each car, turn it on scroll, check specs and estimate a payment.">
+<meta property="og:description" content="Fly over the night lot, dive into each car and turn it in 3D as you scroll.">
 <meta property="og:image" content="img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/lot-wide.webp" media="(min-aspect-ratio: 1/1)">
-<link rel="preload" as="image" href="img/lot-tall.webp" media="(max-aspect-ratio: 1/1)">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
 </head>
 <body>
 <header class="top">
@@ -26,22 +28,31 @@
 <main>
 <section id="track" aria-label="Showroom">
   <div class="viewport" id="vp">
-    <div class="lot" id="lot">
-      <div class="lotInner" id="lotInner"><img id="lotImg" alt="Aerial view of a parking lot with sports cars parked in a row" decoding="async"></div>
-      <div class="lotShade"></div>
-      <div class="markers" id="markers"></div>
-    </div>
+    <canvas id="gl" aria-label="3D view of the Marsa Exotics lot at night"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="markers" id="markers"></div>
 
     <div class="heroCopy" id="heroCopy">
       <p class="eyebrow">Jeddah · Pre-owned showroom</p>
       <h1>Exotic &amp; luxury<br>pre-owned cars</h1>
-      <p class="lede">Tap a car on the lot, or scroll to walk the row.</p>
+      <p class="lede">Tap a car on the lot, or scroll to drop in and walk around it.</p>
       <div class="cue" aria-hidden="true"><span></span>Scroll</div>
     </div>
 
-    <div class="stage" id="stage"></div>
+    <div class="carTag" id="carTag" aria-hidden="true">
+      <p class="ctName" id="ctName"></p>
+      <div class="angle"><span class="chip" id="chip">Front 3/4</span><span class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></span></div>
+    </div>
 
-    <aside class="panel" id="panel" aria-label="Car details">
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="lInner">
+        <p class="lBrand">Marsa <b>Exotics</b></p>
+        <div class="bar"><span id="barFill"></span></div>
+        <p class="lTxt" id="lTxt">Opening the lot 0%</p>
+      </div>
+    </div>
+
+    <aside class="panel" id="panel" aria-label="Car details" aria-hidden="true">
       <div class="grab" aria-hidden="true"></div>
       <div class="pInner">
         <p class="stock" id="pStock"></p>
@@ -90,7 +101,7 @@
   </div>
   <footer class="foot">
     <p>Concept demo by Mohammad Gulab Kauser</p>
-    <p class="muted">Photos from Pexels. Badges and number plates removed. Not a real dealership.</p>
+    <p class="muted">3D car model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, recoloured and debadged for this demo. Lot, lights and paint built in the browser. Not a real dealership.</p>
   </footer>
 </section>
 </main>
@@ -113,6 +124,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>

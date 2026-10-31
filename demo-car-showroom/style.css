@@ -20,7 +20,7 @@ button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 .bname b{font-weight:800}
 .counter{font-size:13px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40vw}
 
-#track{position:relative;height:1600vh}
+#track{position:relative;height:1500vh}
 .viewport{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .lot{position:absolute;inset:0;overflow:hidden;background:#111}
 .lotInner{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
@@ -161,3 +161,32 @@ dialog input,dialog textarea{font:inherit;font-size:16px;color:var(--ink);backgr
 }
 @media (max-width:899px) and (min-width:600px){ :root{--stageH:min(62vw,48svh)} }
 @media (prefers-reduced-motion:reduce){.mk .dot::after,.cue span{animation:none}}
+
+/* ===== v2: 3D lot ===== */
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block;background:#06080c;touch-action:pan-y}
+.vignette{position:absolute;inset:0;pointer-events:none;z-index:2;background:
+ radial-gradient(130% 95% at 50% 50%,rgba(4,5,8,0) 55%,rgba(4,5,8,.55) 100%),
+ linear-gradient(180deg,rgba(4,5,8,.55) 0%,rgba(4,5,8,0) 16%)}
+.panel{will-change:transform}
+.mk .lab{white-space:nowrap}
+.carTag{position:absolute;left:clamp(16px,3vw,36px);top:calc(var(--hdr) + 16px);z-index:4;pointer-events:none;opacity:0;transform:translateY(10px)}
+.ctName{font:800 clamp(22px,2.6vw,38px)/1.02 Archivo,sans-serif;letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.7);max-width:min(560px,52vw)}
+.carTag .angle{position:static;margin-top:12px}
+.loader{position:absolute;inset:0;z-index:30;display:grid;place-items:center;background:radial-gradient(80% 60% at 50% 45%,#10141c,#05070a);transition:opacity .6s ease,visibility .6s}
+.loader.done{opacity:0;visibility:hidden}
+.lInner{width:min(280px,72vw);text-align:center}
+.lBrand{font:700 22px Archivo,sans-serif;letter-spacing:.01em;margin-bottom:18px}
+.lBrand b{color:var(--acc)}
+.bar{height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#b8914f,var(--acc));border-radius:4px;transition:width .25s ease}
+.lTxt{margin-top:12px;font-size:13px;color:var(--muted);letter-spacing:.04em}
+.foot a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+@media (max-width:899px){
+  .carTag{top:calc(var(--hdr) + 10px);left:16px;right:16px}
+  .ctName{font-size:21px;max-width:none}
+  .carTag .angle{margin-top:8px}
+  .angle .chip{padding:6px 12px;font-size:12px}
+  .panel{max-height:calc(100% - var(--hdr) - var(--stageH) + 18px)}
+}
+.mk.side .lab{top:50%;left:34px;transform:translateY(-50%)}
+.mk.sideL .lab{top:50%;left:auto;right:34px;transform:translateY(-50%)}
