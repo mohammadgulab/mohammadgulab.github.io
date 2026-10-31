@@ -920,7 +920,7 @@ async function boot() {
   await tr;
   setLoad(1, 'Ready');
   frame(0.016);
-  setTimeout(() => $('#loader').classList.add('done'), 250);
+  $('#loader').classList.add('done');
   requestAnimationFrame(loop);
   window.__city = {
     state: () => ({ pos: Math.round(pos), vel: Math.round(vel), mode, cardStop, car: curCar, PR, L: Math.round(L), wheels: wheels.length, calls: renderer.info.render.calls, tris: renderer.info.render.triangles }),
