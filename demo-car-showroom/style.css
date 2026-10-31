@@ -188,5 +188,6 @@ dialog input,dialog textarea{font:inherit;font-size:16px;color:var(--ink);backgr
   .angle .chip{padding:6px 12px;font-size:12px}
   .panel{max-height:calc(100% - var(--hdr) - var(--stageH) + 18px)}
 }
-.mk.side .lab{top:50%;left:34px;transform:translateY(-50%)}
-.mk.sideL .lab{top:50%;left:auto;right:34px;transform:translateY(-50%)}
+.mk.side .lab{top:50%;left:30px;transform:translateY(-50%)}
+.mk.sideL .lab{top:50%;left:auto;right:30px;transform:translateY(-50%)}
+@media (max-width:400px){.mk .lab{font-size:11.5px;padding:6px 9px}}

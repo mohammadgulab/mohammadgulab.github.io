@@ -338,7 +338,7 @@ function layout(){
   view.fov=asp<1?THREE.MathUtils.lerp(58,48,THREE.MathUtils.clamp((asp-.45)/.4,0,1)):38;
   const t=Math.tan(THREE.MathUtils.degToRad(view.fov/2));
   let frac;
-  if(phone()){ frac=.86; }
+  if(phone()){ frac=w<600?.86:.66; }
   else { const pw=panel.offsetWidth||430; frac=.7*(w-pw)/w; view.panelShift=pw/2; }
   view.R=THREE.MathUtils.clamp(4.8/frac/(2*t*asp),6.2,11);
   if(phone()){
@@ -420,8 +420,9 @@ function placeMarkers(alpha){
     const cx=(V.x*.5+.5)*view.w, cy=(-V.y*.5+.5)*view.h;
     const ex=(V2.x*.5+.5)*view.w, ey=(-V2.y*.5+.5)*view.h;
     const r=Math.hypot(ex-cx,ey-cy);
+    const lab=mkEls[i].lastChild, lw=(lab._w=lab._w||lab.offsetWidth||150)+30;
     let x=cx+r+4, side="side";
-    if(x+190>view.w){ x=cx-r-4; side="sideL"; }
+    if(x+lw>view.w-6 && cx-r-4-lw>6){ x=cx-r-4; side="sideL"; }
     const el=mkEls[i];
     el.style.transform="translate3d("+x.toFixed(1)+"px,"+cy.toFixed(1)+"px,0)";
     el.tabIndex=on?0:-1;
