@@ -444,15 +444,15 @@ function placeAt(obj, s, u, y) {
   return obj;
 }
 const metalMat = new THREE.MeshStandardMaterial({ color: 0x1c1c22, metalness: 0.8, roughness: 0.4 });
-function gantry(s, tex, w, h, y, color) {
+function gantry(s, tex, w, h, y, color, glow = 1.15) {
   const g = new THREE.Group();
   const span = ROAD_HW * 2 + 2.5;
   for (const x of [-span / 2, span / 2]) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.5, y + h / 2 + 0.6, 0.5), metalMat); p.position.set(x, (y + h / 2 + 0.6) / 2, 0); g.add(p); }
   const beam = new THREE.Mesh(new THREE.BoxGeometry(span, 0.5, 0.6), metalMat); beam.position.y = y + h / 2 + 0.4; g.add(beam);
-  const sm = signMesh(tex, w, h, 1.15); sm.position.set(0, y, 0.02); g.add(sm);
+  const sm = signMesh(tex, w, h, glow); sm.position.set(0, y, 0.02); g.add(sm);
   const back = new THREE.Mesh(new THREE.BoxGeometry(w + 0.3, h + 0.3, 0.3), metalMat); back.position.set(0, y, -0.17); g.add(back);
   const strip = new THREE.Mesh(new THREE.BoxGeometry(w + 0.4, 0.12, 0.12), new THREE.MeshBasicMaterial({ color: new THREE.Color(color).multiplyScalar(2.2) })); strip.position.set(0, y - h / 2 - 0.25, 0.1); g.add(strip);
-  placeAt(g, s, 0, 0); scene.add(g); signs.push({ m: sm, base: 1.15, ph: Math.random() * 10 });
+  placeAt(g, s, 0, 0); scene.add(g); signs.push({ m: sm, base: glow, ph: Math.random() * 10 });
   return g;
 }
 function billboard(s, u, text, color, sub) {
@@ -475,7 +475,7 @@ function buildSigns() {
     billboard(st.gate + 58, -(ROAD_HW + 5.5), w[3], st.c);
   });
   const wt = signTex([['Welcome to', FONT_S, 120, 84, '#ffffff'], ['KAISH CITY', FONT_T, 170, 204, '#ffb347']], '#ff3fa4', 1024, 300);
-  gantry(L - 20, wt, 15, 4.4, 7.6, '#ff3fa4');
+  gantry(L - 20, wt, 15, 4.4, 7.6, '#ff3fa4', 0.8);
   const r = rng(77); let k = 0;
   const cols = ['#ff3fa4', '#2ef2ff', '#ffd23f', '#b46bff', '#4dff9a'];
   for (let i = 0; i < STOPS.length; i++) {
