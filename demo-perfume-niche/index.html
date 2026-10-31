@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hajar Perfume Atelier · The Niche Collection · Jeddah</title>
+<meta name="description" content="Concept demo: five perfumes, each kept in its own lit stone niche. Tap one to step inside.">
+<meta name="theme-color" content="#0a0807">
+<meta property="og:title" content="Hajar Perfume Atelier · The Niche Collection">
+<meta property="og:description" content="Five perfumes, each in its own lit niche. Concept demo.">
+<meta property="og:image" content="img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&family=Amiri:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<a class="skip" href="#collection">Skip to the collection</a>
+<header class="top" id="top">
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  <nav class="nav nav-l" aria-label="Main">
+    <a href="#collection">Collection</a>
+    <a href="#atelier">Atelier</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <a class="mark" href="#top" aria-label="Hajar Perfume Atelier, home">
+    <span class="mark-en">HAJAR</span>
+    <span class="mark-ar" lang="ar">حجر</span>
+  </a>
+  <button class="bag" id="bagBtn" aria-label="Bag, 0 items"><span class="bag-t">Bag</span> <span class="bag-n" id="bagN">0</span></button>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#collection" data-close>Collection</a>
+    <a href="#atelier" data-close>Atelier</a>
+    <a href="#visit" data-close>Visit</a>
+  </nav>
+  <p class="menu-foot">Al Shati Arcade, Corniche Road, Jeddah</p>
+</div>
+
+<main>
+  <section class="hero" id="collection" aria-labelledby="h1">
+    <p class="eyebrow">Perfume atelier · Jeddah</p>
+    <h1 id="h1">The Niche <em>Collection</em></h1>
+    <p class="lede">Five scents, each kept in its own lit alcove of dark stone. <span class="hint-d">Hover to light one, click to step inside.</span><span class="hint-m">Tap a niche to step inside.</span></p>
+
+    <div class="wall">
+      <div class="niches" id="niches"></div>
+      <div class="floor" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="atelier" id="atelier" aria-labelledby="h2a">
+    <div class="at-text">
+      <p class="eyebrow">The house</p>
+      <h2 id="h2a">Made slowly, <em>shown simply</em></h2>
+      <p>Hajar means stone. Our room on the Corniche is a single wall of carved niches, one bottle to each, so every scent gets its own light and its own moment before you try it on skin.</p>
+      <p>Each perfume is blended in small batches and rested before it is bottled. Ask for a blotter of any of the five, or sit down for a quiet consultation and leave with one that suits you.</p>
+    </div>
+    <ul class="at-list">
+      <li><b>Small batches</b><span>Blended and rested in the atelier</span></li>
+      <li><b>Oils and sprays</b><span>Concentrated attar and eau de parfum</span></li>
+      <li><b>Try before you choose</b><span>Blotters for every scent on the wall</span></li>
+    </ul>
+  </section>
+
+  <section class="visit" id="visit" aria-labelledby="h2v">
+    <p class="eyebrow">Visit the wall</p>
+    <h2 id="h2v">Al Shati Arcade, <em>Jeddah</em></h2>
+    <div class="v-grid">
+      <div><h3>Address</h3><p>Unit 7, Al Shati Arcade<br>Corniche Road, Ash Shati<br>Jeddah, Saudi Arabia</p></div>
+      <div><h3>Hours</h3><p>Saturday to Thursday<br>10:00 to 13:00 · 16:30 to 23:00<br>Friday 16:30 to 23:30</p></div>
+      <div><h3>Consultations</h3><p>Thirty quiet minutes at the wall with one of our perfumers. Walk in, or ask at the counter.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot-mark">HAJAR <span lang="ar">حجر</span></p>
+  <p>Concept demo by Mohammad Gulab Kauser</p>
+  <p class="foot-small">Fictional brand and address. Product and texture photos from Pexels.</p>
+</footer>
+
+<!-- product detail -->
+<div class="pdp" id="pdp" role="dialog" aria-modal="true" aria-labelledby="pName" hidden>
+  <div class="pdp-bg"></div>
+  <div class="pdp-inner" id="pdpInner">
+    <div class="pdp-bar">
+      <button class="pdp-close" id="pdpClose" aria-label="Back to the wall"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span>The wall</span></button>
+      <p class="pdp-count"><b id="pIdx">01</b> / <span id="pTot">05</span></p>
+      <button class="bag bag-pdp" id="bagBtn2" aria-label="Bag, 0 items"><span class="bag-t">Bag</span> <span class="bag-n" id="bagN2">0</span></button>
+    </div>
+    <div class="pdp-grid">
+      <div class="pdp-info">
+        <p class="p-kind" id="pKind">Attar</p>
+        <h2 class="p-name" id="pName"></h2>
+        <p class="p-desc" id="pDesc"></p>
+        <div class="p-sizes" id="pSizes" role="radiogroup" aria-label="Size"></div>
+        <div class="p-buy">
+          <p class="p-price" id="pPrice"></p>
+          <button class="p-add" id="pAdd">Add to bag</button>
+        </div>
+      </div>
+      <div class="pdp-slot" id="pdpSlot" aria-hidden="true"></div>
+      <div class="pdp-side">
+        <p class="p-big" id="pBig" aria-hidden="true">01</p>
+        <dl class="p-notes" id="pNotes"></dl>
+        <div class="p-nav">
+          <button class="p-prev" id="pPrev" aria-label="Previous perfume"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <span class="p-swipe">Swipe or use arrows</span>
+          <button class="p-next" id="pNext" aria-label="Next perfume"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="panel" aria-hidden="true">
+      <div class="arch-in">
+        <span class="beam"></span><span class="lamp"></span>
+        <span class="stage"><span class="pool"></span><span class="bwrap" id="panelWrap"><img class="btl" id="panelBtl" alt=""><img class="btl-ref" id="panelRef" alt=""></span></span>
+        <span class="vign"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="main.js?v=1"></script>
+</body>
+</html>
