@@ -27,8 +27,8 @@ function build(){
   var g=tctx.createLinearGradient(0,0,0,ch); g.addColorStop(0,'rgba(236,241,244,0.80)'); g.addColorStop(.55,'rgba(228,235,239,0.74)'); g.addColorStop(1,'rgba(205,215,221,0.66)');
   tctx.fillStyle=g; tctx.fillRect(0,0,cw,ch);
   // condensation beads
-  var n=Math.round(cw*ch/260), i, x, y, rr, bg, big;
-  for(i=0;i<n;i++){ x=Math.random()*cw; y=Math.random()*ch; big=Math.random()<.06; rr=(big? 1.8+Math.random()*2.4 : .5+Math.random()*1.1)*sc*2;
+  var n=Math.round(cw*ch/200), i, x, y, rr, bg, big;
+  for(i=0;i<n;i++){ x=Math.random()*cw; y=Math.random()*ch; big=Math.random()<.06; rr=(big? 1.6+Math.random()*2.8 : .3+Math.pow(Math.random(),2)*1.3)*sc*2;
     bg=tctx.createRadialGradient(x-rr*.35,y-rr*.4,0,x,y,rr); bg.addColorStop(0,'rgba(255,255,255,'+(big?.55:.35)+')'); bg.addColorStop(.6,'rgba(220,228,233,.10)'); bg.addColorStop(1,'rgba(70,82,90,'+(big?.30:.16)+')');
     tctx.fillStyle=bg; tctx.beginPath(); tctx.arc(x,y,rr,0,6.283); tctx.fill(); }
   mctx.globalCompositeOperation='source-over'; mctx.fillStyle='#000'; mctx.fillRect(0,0,cw,ch);
@@ -46,7 +46,7 @@ function dab(x,y,r){
 function wipeTo(cx,cy,id){
   if(!ready) return;
   var r=cv.getBoundingClientRect(), x=(cx-r.left)/r.width*cw, y=(cy-r.top)/r.height*ch;
-  var rad=Math.max(cw,ch)*(cw/sc<700?0.07:0.05);
+  var rad=Math.max(cw,ch)*(cw/sc<700?0.07:(cw/sc<1100?0.075:0.055));
   mctx.globalCompositeOperation='destination-out';
   var p=last&&last.id===id?last:null;
   if(p){ var dx=x-p.x, dy=y-p.y, d=Math.sqrt(dx*dx+dy*dy), steps=Math.max(1,Math.ceil(d/(rad*.3))); for(var s=1;s<=steps;s++) dab(p.x+dx*s/steps,p.y+dy*s/steps,rad); }
@@ -106,7 +106,7 @@ function add(i,btn){
   if(btn&&btn.classList.contains('btn-add')){ btn.classList.add('done'); btn.textContent='Added'; setTimeout(function(){btn.classList.remove('done'); btn.textContent='Add to bag';},1300); }
 }
 $$('[data-add]').forEach(function(b){ b.addEventListener('click',function(){ add(+b.getAttribute('data-add'),b); }); });
-function openBag(o){ drawer.classList.toggle('open',o); scrim.classList.toggle('on',o); drawer.setAttribute('aria-hidden',o?'false':'true'); if(lenis){ o?lenis.stop():lenis.start(); } }
+function openBag(o){ if(o){toast.classList.remove('on');} drawer.classList.toggle('open',o); scrim.classList.toggle('on',o); drawer.setAttribute('aria-hidden',o?'false':'true'); if(lenis){ o?lenis.stop():lenis.start(); } }
 $('#bagBtn').addEventListener('click',function(){openBag(true)}); $('#closeBag').addEventListener('click',function(){openBag(false)}); scrim.addEventListener('click',function(){openBag(false)});
 document.addEventListener('keydown',function(e){ if(e.key==='Escape') openBag(false); });
 renderBag(); countEl.classList.remove('bump');
