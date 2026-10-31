@@ -3,25 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>KAISH City | Mohammad Gulab Kauser, a portfolio you can drive (concept demo)</title>
-<meta name="description" content="A GTA style portfolio: drive a sports car through a neon sunset city to see the about, skills, projects, achievements and contact of Mohammad Gulab Kauser, web designer and document controller in Jeddah.">
-<meta name="theme-color" content="#1a0b33">
-<meta property="og:title" content="Welcome to KAISH City">
-<meta property="og:description" content="Drive through a neon city to explore the portfolio of Mohammad Gulab Kauser.">
+<title>KAISH City 3D | Mohammad Gulab Kauser, a portfolio you can drive (concept demo)</title>
+<meta name="description" content="A 3D GTA style portfolio: pick a supercar and drive through a sunset city to see the about, skills, projects, achievements and contact of Mohammad Gulab Kauser, web designer and document controller in Jeddah.">
+<meta name="theme-color" content="#140a24">
+<meta property="og:title" content="Welcome to KAISH City 3D">
+<meta property="og:description" content="Pick a supercar and drive through a 3D sunset city to explore the portfolio of Mohammad Gulab Kauser.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:wght@500;700&family=Yellowtail&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
 </head>
 <body>
 <div id="app">
-  <canvas id="city" aria-label="Neon city driving scene"></canvas>
-  <div id="speedlines" aria-hidden="true"></div>
+  <canvas id="city" aria-label="3D city driving scene"></canvas>
 
   <!-- HUD -->
-  <div id="hud" class="hidden" aria-hidden="false">
+  <div id="hud" class="hidden">
     <div id="obj" class="hud-chip"><span class="obj-k">OBJECTIVE</span><span id="obj-t">Drive to Origin Avenue</span><span id="obj-d"></span></div>
     <button id="radar" type="button" aria-label="Open city map"><canvas id="radar-cv" width="200" height="200"></canvas><span class="radar-n">N</span></button>
+    <button id="garage-btn" type="button" class="nbtn wide-n" aria-label="Open garage, change car">&#128664; <span>GARAGE</span></button>
     <div id="dash">
       <div id="speedo"><b id="kmh">0</b><span>KM/H</span></div>
       <nav id="stops" aria-label="Districts"></nav>
@@ -55,19 +59,41 @@
     </div>
   </section>
 
-  <!-- Intro -->
+  <!-- Intro + garage -->
   <section id="intro">
-    <div class="intro-in">
+    <div class="intro-top">
       <div class="i-welcome">Welcome to</div>
       <h1 class="i-city"><span>KAISH</span> CITY</h1>
       <p class="i-name">Mohammad Gulab Kauser</p>
       <p class="i-role">Web Designer &middot; Excel &amp; Document Control &middot; Jeddah</p>
+    </div>
+    <div class="intro-in">
+      <div class="g-head"><span class="g-k">GARAGE</span><span id="g-name">McLaren P1</span></div>
+      <div id="garage" role="radiogroup" aria-label="Choose your car"></div>
       <button type="button" id="start" class="btn big">&#128273; Take the wheel</button>
-      <p class="i-keys">Scroll, swipe up or use W / &#8593; to drive. Tap the map to fast travel.</p>
+      <p class="i-keys">Swipe up, scroll or W / &#8593; to drive. Tap the map to fast travel.</p>
     </div>
   </section>
 
-  <div id="foot">Concept demo by Mohammad Gulab Kauser</div>
+  <!-- Credits -->
+  <section id="credits" class="closed" role="dialog" aria-label="Credits">
+    <div class="map-in">
+      <div class="map-h"><span>CREDITS</span><button type="button" id="cred-x" class="nbtn" aria-label="Close credits">&#10005;</button></div>
+      <div id="cred-list"></div>
+      <p class="map-p">City, road, lights and signs are built in the browser with three.js. Brands on billboards are fictional. Car names belong to their makers; this is a fan concept demo, not affiliated with any car maker or game studio.</p>
+    </div>
+  </section>
+
+  <!-- Loader -->
+  <div id="loader" role="status" aria-live="polite">
+    <div class="l-in">
+      <div class="l-logo">KAISH <span>CITY</span></div>
+      <div class="l-bar"><i id="l-fill"></i></div>
+      <div id="l-txt">Starting the engine&hellip;</div>
+    </div>
+  </div>
+
+  <div id="foot"><span>Concept demo by Mohammad Gulab Kauser</span> <button type="button" id="cred-btn">Credits</button></div>
 </div>
 
 <!-- District content (read by the card) -->
@@ -147,6 +173,6 @@
     </div>
   </template>
 </div>
-<script src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>
