@@ -148,7 +148,7 @@ function build(){
     .fromTo('#edge',{x:-vw*0.3},{x:vw*1.15,duration:1,ease:'power2.inOut'},0)
     .fromTo('#torii',{scale:1.3,yPercent:-6},{scale:1.08,yPercent:0,duration:1},0);
   gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#s4',start:'top top',end:'+=100%',pin:true,anticipatePin:1,scrub:scrub}})
-    .fromTo('#torii',{scale:1.08},{scale:(vw>vh?2.3:3.1),duration:2,ease:'power1.in',immediateRender:false},0)
+    .fromTo('#torii',{scale:1.08},{scale:(vw>vh?2:2.3),duration:2,ease:'power1.in',immediateRender:false},0)
     .fromTo('#c4t',{autoAlpha:0},{autoAlpha:1,duration:0.15},0)
     .fromTo('#c4a',{autoAlpha:0,y:16},{autoAlpha:1,y:0,duration:0.3},0.15)
     .fromTo('#k4',{autoAlpha:0,y:40},{autoAlpha:0.95,y:0,duration:0.4},0.35)
