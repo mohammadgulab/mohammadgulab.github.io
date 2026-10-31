@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2.1">
+<link rel="stylesheet" href="style.css?v=3">
 <script type="importmap">
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
 </script>
@@ -35,13 +35,14 @@
     <div class="heroCopy" id="heroCopy">
       <p class="eyebrow">Jeddah · Pre-owned showroom</p>
       <h1>Exotic &amp; luxury<br>pre-owned cars</h1>
-      <p class="lede">Tap a car on the lot, or scroll to drop in and walk around it.</p>
+      <p class="lede">Eight cars on the lot tonight. Tap one, or scroll to drop in and walk around it.</p>
       <div class="cue" aria-hidden="true"><span></span>Scroll</div>
     </div>
 
     <div class="carTag" id="carTag" aria-hidden="true">
       <p class="ctName" id="ctName"></p>
       <div class="angle"><span class="chip" id="chip">Front 3/4</span><span class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></span></div>
+      <p class="ldTag" id="ldTag" hidden>Bringing this car out</p>
     </div>
 
     <div class="loader" id="loader" role="status" aria-live="polite">
@@ -55,6 +56,7 @@
     <aside class="panel" id="panel" aria-label="Car details" aria-hidden="true">
       <div class="grab" aria-hidden="true"></div>
       <div class="pInner">
+        <div class="pick" id="pick" role="group" aria-label="Choose a car"></div>
         <p class="stock" id="pStock"></p>
         <h2 id="pName"></h2>
         <p class="sub" id="pSub"></p>
@@ -101,7 +103,7 @@
   </div>
   <footer class="foot">
     <p>Concept demo by Mohammad Gulab Kauser</p>
-    <p class="muted">3D car model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, recoloured and debadged for this demo. Lot, lights and paint built in the browser. Not a real dealership.</p>
+    <p class="muted">3D car models: roadster, supercar and grand tourer by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>); coupe by <a href="https://sketchfab.com/3d-models/free-porsche-911-carrera-4s-d01b254483794de3819786d93e0e1ebf" target="_blank" rel="noopener">Karol Miklas</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>); electric GT by Eric Chadwick, <a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/CarConcept" target="_blank" rel="noopener">Khronos glTF samples</a> (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>), from a public domain design by Unity Fan; SUV, saloon and classic supercar from the <a href="https://www.innerscene.com/tools/library/3d-parts" target="_blank" rel="noopener">Innerscene parts library</a> (CC0). All recoloured, debadged and compressed for this demo; the modified models are shared under the same licences. Lot, lights and paint built in the browser. Not a real dealership.</p>
   </footer>
 </section>
 </main>
@@ -124,6 +126,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-<script type="module" src="app.js?v=2.1"></script>
+<script type="module" src="app.js?v=3"></script>
 </body>
 </html>

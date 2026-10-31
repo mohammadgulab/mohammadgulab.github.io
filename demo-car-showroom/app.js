@@ -7,16 +7,42 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ---------- listings ---------- */
 const CARS=[
- {id:"blue",stock:"MX-0214",name:"2022 V8 Roadster",sub:"Gulf blue metallic · Rear-wheel drive",price:829000,
+ {id:"blue",model:"base",stock:"MX-0214",name:"2022 V8 Roadster",sub:"Gulf blue metallic · Rear-wheel drive",price:829000,
   specs:[["Mileage","14,200 km"],["Engine","4.5L V8"],["Power","562 hp"],["0 to 100","3.4 s"],["Drive","RWD"],["Seats","2"]],
-  label:"Blue V8 Roadster", paint:0x1f57d8, rim:0x2a2c30, x:-14},
- {id:"red",stock:"MX-0187",name:"2021 Hybrid V8 Supercar",sub:"Rosso red · Plug-in hybrid",price:1690000,
+  label:"Blue V8 Roadster", chip:"Roadster", paint:0x1f57d8, rim:0x2a2c30},
+ {id:"silver",model:"coupe",stock:"MX-0249",name:"2021 Flat-Six Coupe",sub:"GT silver metallic · All-wheel drive",price:549000,
+  specs:[["Mileage","18,400 km"],["Engine","3.0L twin-turbo flat-6"],["Power","443 hp"],["0 to 100","4.0 s"],["Drive","AWD"],["Seats","2+2"]],
+  label:"Silver Flat-Six Coupe", chip:"Coupe", paint:0xaeb3ba},
+ {id:"red",model:"base",stock:"MX-0187",name:"2021 Hybrid V8 Supercar",sub:"Rosso red · Plug-in hybrid",price:1690000,
   specs:[["Mileage","9,800 km"],["Engine","4.0L V8 + 3 e-motors"],["Power","986 hp"],["0 to 100","2.5 s"],["Drive","AWD"],["Seats","2"]],
-  label:"Red Hybrid Supercar", paint:0xa90f17, rim:0xb9bcc0, x:0},
- {id:"yel",stock:"MX-0231",name:"2020 V8 Grand Tourer",sub:"Giallo yellow · Rear-wheel drive",price:689000,
+  label:"Red Hybrid Supercar", chip:"Supercar", paint:0xa90f17, rim:0xb9bcc0},
+ {id:"suv",model:"suv",stock:"MX-0256",name:"2022 Luxury Crossover SUV",sub:"Desert sand metallic · Four-wheel drive",price:389000,
+  specs:[["Mileage","26,900 km"],["Engine","3.0L turbo inline-6 hybrid"],["Power","395 hp"],["0 to 100","5.9 s"],["Drive","4WD"],["Seats","5"]],
+  label:"Sand Luxury SUV", chip:"SUV", paint:0xb59a70},
+ {id:"ev",model:"electric",stock:"MX-0263",name:"2024 Dual-Motor Electric GT",sub:"Pearl white, gloss black roof · All-wheel drive",price:1190000,
+  specs:[["Mileage","3,100 km"],["Motors","2 electric"],["Power","1,020 hp"],["0 to 100","2.3 s"],["Range","520 km"],["Seats","2"]],
+  label:"White Electric GT", chip:"Electric GT", paint:0xe6e4df},
+ {id:"yel",model:"base",stock:"MX-0231",name:"2020 V8 Grand Tourer",sub:"Giallo yellow · Rear-wheel drive",price:689000,
   specs:[["Mileage","22,600 km"],["Engine","4.0L twin-turbo V8"],["Power","612 hp"],["0 to 100","3.2 s"],["Drive","RWD"],["Seats","2"]],
-  label:"Yellow Grand Tourer", paint:0xf0ae0a, rim:0x141518, x:14}
+  label:"Yellow Grand Tourer", chip:"Grand Tourer", paint:0xf0ae0a, rim:0x141518},
+ {id:"saloon",model:"saloon",stock:"MX-0118",name:"1992 V12 Executive Saloon",sub:"Burgundy · Rear-wheel drive · Collector car",price:214000,
+  specs:[["Mileage","64,800 km"],["Engine","5.0L V12"],["Power","322 hp"],["0 to 100","6.9 s"],["Drive","RWD"],["Seats","5"]],
+  label:"Burgundy Classic Saloon", chip:"Saloon", paint:0x5c0f1e},
+ {id:"classic",model:"classic",stock:"MX-0097",name:"1989 Flat-12 Classic Supercar",sub:"Racing green · Mid-engine · Collector car",price:1050000,
+  specs:[["Mileage","41,200 km"],["Engine","4.9L flat-12"],["Power","385 hp"],["0 to 100","5.3 s"],["Drive","RWD"],["Seats","2"]],
+  label:"Green Classic Supercar", chip:"Classic", paint:0x1f4a33}
 ];
+// two display rows facing out from the centre aisle, snake order so each flight is short
+const BAYX=[-21,-7,7,21], ROWZ=5.5;
+CARS.forEach((c,i)=>{ const row=i<4?1:-1, col=i<4?i:7-i; c.x=BAYX[col]; c.z=row*ROWZ; c.dir=row; c.rot=row>0?0:Math.PI; });
+/* each shape is its own file, loaded when its turn comes */
+const MODELS={
+ coupe:{url:"models/coupe.glb?v=3",rotY:0,paint:/^paint$/,hide:/^(logo|license)$/},
+ electric:{url:"models/electric.glb?v=3",rotY:0,paint:/^Paint 1/,roof:/^Paint 2/,hide:/^License$/,hideName:/Emblem|License/},
+ suv:{url:"models/suv.glb?v=3",rotY:Math.PI/2,paint:/^paint$/},
+ saloon:{url:"models/saloon.glb?v=3",rotY:Math.PI/2,paint:/^paint$/},
+ classic:{url:"models/classic.glb?v=3",rotY:Math.PI/2,paint:/^paint$/}
+};
 const RATE=0.055;
 const fmt=n=>"SAR "+Math.round(n).toLocaleString("en-US");
 const $=(s,r)=>(r||document).querySelector(s);
@@ -36,7 +62,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.5));
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure=1.05;
 renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.shadowMap.enabled=true;
+renderer.shadowMap.enabled=false;
 renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.shadowMap.autoUpdate=false;
 
@@ -96,7 +122,7 @@ function groundTextures(){
   for(let i=0;i<260;i++){const x=Math.random()*W,y=Math.random()*H,r=20+Math.random()*120; const gr=g.createRadialGradient(x,y,0,x,y,r); const d=Math.random()<.5; gr.addColorStop(0,d?"rgba(18,18,20,.35)":"rgba(70,70,72,.18)"); gr.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=gr; g.fillRect(x-r,y-r,r*2,r*2);}
   g.globalAlpha=.22; g.fillStyle=g.createPattern(noiseCanvas(256,128,70),"repeat"); g.fillRect(0,0,W,H); g.globalAlpha=1;
   // tyre-darkened strips in the aisle
-  g.fillStyle="rgba(10,10,12,.22)"; [-1.4,1.4].forEach(o=>{g.fillRect(0,Z(o-0.5),W,0.9*sz);});
+  g.fillStyle="rgba(10,10,12,.22)"; [-.9,.9].forEach(o=>{g.fillRect(0,Z(o-0.5),W,0.9*sz);});
   // paint
   g.strokeStyle="rgba(232,232,226,.88)"; g.lineCap="butt";
   const line=(x1,z1,x2,z2,w)=>{g.lineWidth=(w||0.12)*sx; g.beginPath(); g.moveTo(X(x1),Z(z1)); g.lineTo(X(x2),Z(z2)); g.stroke();};
@@ -104,10 +130,10 @@ function groundTextures(){
   line(-28.5,ROW_BACK-BAYD/2,28.5,ROW_BACK-BAYD/2); line(-28.5,ROW_FRONT+BAYD/2,28.5,ROW_FRONT+BAYD/2);
   // display bays: gold boxes + hatched corners
   g.strokeStyle="rgba(217,178,111,.85)";
-  CARS.forEach(cr=>{const x=cr.x; line(x-4.2,-4.6,x+4.2,-4.6,.14); line(x-4.2,4.6,x+4.2,4.6,.14); line(x-4.2,-4.6,x-4.2,4.6,.14); line(x+4.2,-4.6,x+4.2,4.6,.14);});
+  CARS.forEach(cr=>{const x=cr.x,z0=cr.z-4.3,z1=cr.z+4.3; line(x-4.4,z0,x+4.4,z0,.14); line(x-4.4,z1,x+4.4,z1,.14); line(x-4.4,z0,x-4.4,z1,.14); line(x+4.4,z0,x+4.4,z1,.14);});
   // aisle arrows + edge line
   g.strokeStyle="rgba(232,232,226,.55)";
-  [-26,26].forEach(x=>{line(x-1.2,7.4,x+1.2,7.4,.25); line(x+.4,6.8,x+1.2,7.4,.25); line(x+.4,8,x+1.2,7.4,.25);});
+  [-28.5,28.5].forEach(x=>{line(x-1.2,0,x+1.2,0,.25); line(x+.4,-.6,x+1.2,0,.25); line(x+.4,.6,x+1.2,0,.25);});
   line(-31,-19.5,31,-19.5,.15); line(-31,19.8,31,19.8,.15);
   const col=new THREE.CanvasTexture(c); col.colorSpace=THREE.SRGBColorSpace; col.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());
   // light pools (emissive)
@@ -116,7 +142,7 @@ function groundTextures(){
   eg.fillStyle="#000"; eg.fillRect(0,0,e.width,e.height); eg.globalCompositeOperation="lighter";
   const pool=(x,z,r,a,colr)=>{const px=(x-LOT.x0)*es,pz=(z-LOT.z0)*es,R=r*es; const gr=eg.createRadialGradient(px,pz,0,px,pz,R); gr.addColorStop(0,"rgba("+colr+","+a+")"); gr.addColorStop(.45,"rgba("+colr+","+(a*.45)+")"); gr.addColorStop(1,"rgba("+colr+",0)"); eg.fillStyle=gr; eg.fillRect(px-R,pz-R,R*2,R*2);};
   POLES.forEach(p=>pool(p[0],p[1]+(p[1]<0?2:-2),11,.34,"255,170,95"));
-  CARS.forEach(cr=>pool(cr.x,0.6,6.5,.16,"255,214,160"));
+  CARS.forEach(cr=>pool(cr.x,cr.z+cr.dir*.6,6,.16,"255,214,160"));
   const em=new THREE.CanvasTexture(e); em.colorSpace=THREE.SRGBColorSpace;
   const rough=new THREE.CanvasTexture(noiseCanvas(256,150,110)); rough.wrapS=rough.wrapT=THREE.RepeatWrapping; rough.repeat.set(60,44);
   return {col,em,rough};
@@ -155,8 +181,8 @@ function buildLot(){
   const padM=new THREE.MeshStandardMaterial({color:0x3a3b3f,roughness:.28,metalness:.3,envMapIntensity:1});
   const ringM=new THREE.MeshStandardMaterial({color:0x000000,emissive:0xd9b26f,emissiveIntensity:1.6});
   CARS.forEach(cr=>{
-    const pad=new THREE.Mesh(new THREE.CylinderGeometry(3.3,3.4,.06,72),padM); pad.position.set(cr.x,.03,0); pad.receiveShadow=true; scene.add(pad);
-    const ring=new THREE.Mesh(new THREE.TorusGeometry(3.32,.04,8,96),ringM); ring.rotation.x=Math.PI/2; ring.position.set(cr.x,.065,0); scene.add(ring);
+    const pad=new THREE.Mesh(new THREE.CylinderGeometry(3.3,3.4,.06,72),padM); pad.position.set(cr.x,.03,cr.z); scene.add(pad);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(3.32,.04,8,96),ringM); ring.rotation.x=Math.PI/2; ring.position.set(cr.x,.065,cr.z); scene.add(ring);
   });
 }
 function sign(){
@@ -249,6 +275,7 @@ function debadge(model){
 function setupShowcase(model){
   debadge(model);
   CARS.forEach((cr,i)=>{
+    if(cr.model!=="base") return;
     const car=model.clone(true);
     const body=new THREE.MeshPhysicalMaterial({color:cr.paint,metalness:.55,roughness:.32,clearcoat:1,clearcoatRoughness:.04,envMapIntensity:1.25});
     const rim=new THREE.MeshStandardMaterial({color:cr.rim,metalness:1,roughness:.32});
@@ -264,16 +291,59 @@ function setupShowcase(model){
       else if(/centre/.test(pn)||/^yellow_trim$|^blue$/.test(o.name)) o.material=dark;
       o.castShadow=!SKIP.test(pn);
     });
-    car.position.set(cr.x,0,0);
-    if(FRONT_FLIP) car.rotation.y=Math.PI;
+    car.position.set(cr.x,0,cr.z);
+    car.rotation.y=(FRONT_FLIP?Math.PI:0)+cr.rot;
     scene.add(car);
-    const ao=aoMesh(); ao.rotation.x=-Math.PI/2; ao.position.set(cr.x,0.07,0); ao.renderOrder=2; if(FRONT_FLIP) ao.rotation.z=Math.PI; scene.add(ao);
-    const sp=new THREE.SpotLight(0xffe2bd,260,34,0.62,0.75,1.6);
-    sp.position.set(cr.x+3.5,10.5,5.5); sp.target.position.set(cr.x,0.3,0);
-    sp.castShadow=true; sp.shadow.mapSize.set(1024,1024); sp.shadow.bias=-0.0004; sp.shadow.normalBias=0.02; sp.shadow.camera.near=4; sp.shadow.camera.far=22;
-    scene.add(sp); scene.add(sp.target); spots.push(sp);
-    showcase.push(car);
+    const ao=aoMesh(); ao.rotation.x=-Math.PI/2; ao.position.set(cr.x,.07,cr.z); ao.renderOrder=2; ao.rotation.z=(FRONT_FLIP?Math.PI:0)+cr.rot; scene.add(ao);
+    showcase[i]=car;
   });
+}
+function setupBayLights(){
+  CARS.forEach(cr=>{
+    const sp=new THREE.SpotLight(0xffe2bd,240,34,0.62,0.75,1.6);
+    const s=cr.dir; sp.position.set(cr.x+3.5*s,10.5,cr.z+5.5*s); sp.target.position.set(cr.x,0.3,cr.z);
+    scene.add(sp); scene.add(sp.target); spots.push(sp);
+  });
+}
+/* soft contact shadow for the shapes that have no baked one */
+let blobTex;
+function blob(){
+  if(blobTex) return blobTex;
+  const c=document.createElement("canvas"); c.width=128; c.height=256; const g=c.getContext("2d");
+  g.fillStyle="#fff"; g.fillRect(0,0,128,256);
+  g.filter="blur(14px)"; g.fillStyle="rgba(0,0,0,.78)";
+  const r=(x,y,w,h,rr)=>{g.beginPath(); g.moveTo(x+rr,y); g.arcTo(x+w,y,x+w,y+h,rr); g.arcTo(x+w,y+h,x,y+h,rr); g.arcTo(x,y+h,x,y,rr); g.arcTo(x,y,x+w,y,rr); g.fill();};
+  r(26,30,76,196,26); g.filter="blur(5px)"; g.fillStyle="rgba(0,0,0,.35)"; r(34,44,60,168,18);
+  blobTex=new THREE.CanvasTexture(c); blobTex.colorSpace=THREE.SRGBColorSpace; return blobTex;
+}
+const modelState={};
+function setupModel(key,gltf){
+  const M=MODELS[key];
+  const src=gltf.scene; src.rotation.y=M.rotY; 
+  src.traverse(o=>{ if(!o.isMesh) return; const ms=Array.isArray(o.material)?o.material:[o.material];
+    if((M.hide&&ms.some(m=>M.hide.test(m.name||"")))||(M.hideName&&M.hideName.test(o.name))) o.visible=false;
+    ms.forEach(m=>{ if(m.envMapIntensity!==undefined) m.envMapIntensity=1.15; });
+  });
+  const wrap=new THREE.Group(); wrap.add(src); wrap.updateMatrixWorld(true);
+  const bb=new THREE.Box3(); src.traverse(o=>{ if(o.isMesh&&o.visible) bb.expandByObject(o); });
+  const c=bb.getCenter(new THREE.Vector3()); src.position.set(-c.x,-bb.min.y,-c.z);
+  const size=bb.getSize(new THREE.Vector3());
+  CARS.forEach((cr,i)=>{
+    if(cr.model!==key) return;
+    const car=wrap.clone(true);
+    const body=new THREE.MeshPhysicalMaterial({color:cr.paint,metalness:.55,roughness:.3,clearcoat:1,clearcoatRoughness:.04,envMapIntensity:1.25});
+    const roof=new THREE.MeshPhysicalMaterial({color:0x0b0c0e,metalness:.4,roughness:.25,clearcoat:1,clearcoatRoughness:.05,envMapIntensity:1.2});
+    car.traverse(o=>{ if(!o.isMesh) return;
+      const sw=m=>M.paint.test(m.name||"")?body:(M.roof&&M.roof.test(m.name||"")?roof:m);
+      o.material=Array.isArray(o.material)?o.material.map(sw):sw(o.material);
+    });
+    car.position.set(cr.x,0,cr.z); car.rotation.y=cr.rot;
+    const ao=new THREE.Mesh(new THREE.PlaneGeometry(size.x*1.5,size.z*1.3),new THREE.MeshBasicMaterial({map:blob(),blending:THREE.MultiplyBlending,toneMapped:false,transparent:true,premultipliedAlpha:true,depthWrite:false}));
+    ao.rotation.x=-Math.PI/2; ao.rotation.z=cr.rot; ao.position.set(cr.x,.07,cr.z); ao.renderOrder=2;
+    car.scale.setScalar(0.001); scene.add(ao); scene.add(car); showcase[i]=car;
+    gsap.to(car.scale,{x:1,y:1,z:1,duration:QA?0:.7,ease:"back.out(1.4)",onUpdate:()=>{forceFrames=2;}});
+  });
+  forceFrames=4;
 }
 let FRONT_FLIP=true;
 
@@ -301,8 +371,9 @@ function setupParked(model){
   const slots=[];
   for(let x=-27;x<=27;x+=BAY){
     if(Math.abs(x)>24&&Math.random()<.5) continue;
-    if(Math.random()<.74) slots.push([x+(Math.random()-.5)*.25,ROW_BACK+(Math.random()-.5)*.3,Math.random()<.75?0:Math.PI]);
-    if(Math.random()<.74) slots.push([x+(Math.random()-.5)*.25,ROW_FRONT+(Math.random()-.5)*.3,Math.random()<.75?Math.PI:0]);
+    const near=d=>CARS.some(c=>c.dir===d&&Math.abs(c.x-x)<4.6); // keep the view in front of each display car clear
+    if(!near(-1)&&Math.random()<.74) slots.push([x+(Math.random()-.5)*.25,ROW_BACK+(Math.random()-.5)*.3,Math.random()<.75?0:Math.PI]);
+    if(!near(1)&&Math.random()<.74) slots.push([x+(Math.random()-.5)*.25,ROW_FRONT+(Math.random()-.5)*.3,Math.random()<.75?Math.PI:0]);
   }
   const n=slots.length;
   const mats={
@@ -347,18 +418,18 @@ function layout(){
     view.panelShift=0;
   } else view.sheetShift=0;
   // aerial
-  if(asp<1){ const H=27/Math.tan(THREE.MathUtils.degToRad(view.fov/2));
-    view.aerial={pos:new THREE.Vector3(H*.16,H,0.01),tgt:new THREE.Vector3(0,0,0),up:new THREE.Vector3(-1,0,0)}; }
-  else { const halfW=27, H=Math.max(halfW/(t*asp), 15/t);
+  if(asp<1){ const half=Math.max(36, 15.5/asp), H=half/Math.tan(THREE.MathUtils.degToRad(view.fov/2));
+    view.aerial={pos:new THREE.Vector3(H*.12,H,0.01),tgt:new THREE.Vector3(0,0,0),up:new THREE.Vector3(-1,0,0)}; }
+  else { const halfW=29, H=Math.max(halfW/(t*asp), 16/t);
     view.aerial={pos:new THREE.Vector3(0,H,H*.2),tgt:new THREE.Vector3(0,0,1.2),up:new THREE.Vector3(0,0,-1)}; }
   camera.fov=view.fov; camera.aspect=asp; camera.updateProjectionMatrix();
   renderer.setSize(w,h,false);
 }
 function orbitPose(i,deg){
-  const a=THREE.MathUtils.degToRad(deg), R=view.R*(.74+.26*Math.abs(Math.sin(a))), x=CARS[i].x;
-  return {pos:new THREE.Vector3(x+Math.sin(a)*R,1.15+.09*R,Math.cos(a)*R),tgt:new THREE.Vector3(x,.55,0),up:new THREE.Vector3(0,1,0)};
+  const c=CARS[i], a0=THREE.MathUtils.degToRad(deg), a=a0+c.rot, R=view.R*(.74+.26*Math.abs(Math.sin(a0)))*(c.k||1), x=c.x;
+  return {pos:new THREE.Vector3(x+Math.sin(a)*R,1.15+.09*R,c.z+Math.cos(a)*R),tgt:new THREE.Vector3(x,.55,c.z),up:new THREE.Vector3(0,1,0)};
 }
-const U={hero:.7,fly:1.1,orbit:3.2,back:1.1,tail:.35};
+const U={hero:.7,fly:1.0,orbit:2.8,back:1.2,tail:.35};
 const SEG=[]; let TOTAL=0;
 (function(){
   let t=0; const add=(o)=>{o.s=t; t+=o.d; o.e=t; SEG.push(o);};
@@ -416,17 +487,18 @@ function placeMarkers(alpha){
   markers.style.pointerEvents=on?"auto":"none";
   if(alpha<=0) return;
   CARS.forEach((c,i)=>{
-    V.set(c.x,0,0).project(camera); V2.set(c.x,0,3.4).project(camera);
+    V.set(c.x,0,c.z).project(camera); V2.set(c.x,0,c.z+3.4).project(camera);
     const cx=(V.x*.5+.5)*view.w, cy=(-V.y*.5+.5)*view.h;
     const ex=(V2.x*.5+.5)*view.w, ey=(-V2.y*.5+.5)*view.h;
     const r=Math.hypot(ex-cx,ey-cy);
-    const lab=mkEls[i].lastChild, lw=(lab._w=lab._w||lab.offsetWidth||150)+30;
-    let x=cx+r+4, side="side";
-    if(x+lw>view.w-6 && cx-r-4-lw>6){ x=cx-r-4; side="sideL"; }
     const el=mkEls[i];
-    el.style.transform="translate3d("+x.toFixed(1)+"px,"+cy.toFixed(1)+"px,0)";
+    let x=cx+r+4, y=cy, side="side";
+    if(view.w<view.h){ V2.set(c.x+1.7,0,c.z).project(camera); x=(V2.x*.5+.5)*view.w; y=(-V2.y*.5+.5)*view.h; side=x<view.w/2?"belowL":"belowR"; }
+    else { const lab=el.lastChild, lw=(lab._w=lab._w||lab.offsetWidth||150)+30;
+      if(x+lw>view.w-6 && cx-r-4-lw>6){ x=cx-r-4; side="sideL"; } }
+    el.style.transform="translate3d("+x.toFixed(1)+"px,"+y.toFixed(1)+"px,0)";
     el.tabIndex=on?0:-1;
-    if(el._s!==side){el._s=side; el.classList.toggle("side",side==="side"); el.classList.toggle("sideL",side==="sideL");}
+    if(el._s!==side){el._s=side; el.classList.toggle("side",side==="side"); el.classList.toggle("sideL",side==="sideL"); el.classList.toggle("below",side.startsWith("below")); el.classList.toggle("belowL",side==="belowL"); el.classList.toggle("belowR",side==="belowR");}
   });
 }
 
@@ -440,8 +512,20 @@ function setPanel(i){
   $("#pName").textContent=c.name; $("#pSub").textContent=c.sub; $("#pPrice").textContent=fmt(c.price);
   $("#pSpecs").innerHTML=c.specs.map(s=>"<div><dt>"+s[0]+"</dt><dd>"+s[1]+"</dd></div>").join("");
   $("#ctName").textContent=c.name;
+  chips.forEach((b,j)=>{const on=j===i; b.classList.toggle("on",on); b.setAttribute("aria-current",on?"true":"false");});
+  const ch=chips[i]; if(ch&&pick.scrollWidth>pick.clientWidth){ pick.scrollTo({left:ch.offsetLeft-(pick.clientWidth-ch.offsetWidth)/2,behavior:QA?"auto":"smooth"}); }
+  prime(i); updLoadTag();
   calc();
 }
+function updLoadTag(){ const t=$("#ldTag"); if(!t) return; const show=cur>=0&&!carReady(cur); t.hidden=!show; }
+/* car picker strip */
+const pick=$("#pick");
+const chips=CARS.map((c,i)=>{
+  const b=document.createElement("button"); b.type="button"; b.className="pk";
+  b.setAttribute("aria-label",c.name+", "+fmt(c.price));
+  b.innerHTML='<i style="background:#'+c.paint.toString(16).padStart(6,"0")+'"></i><span>'+c.chip+'</span>';
+  b.addEventListener("click",()=>goCar(i)); pick.appendChild(b); return b;
+});
 function calc(){
   if(cur<0) return;
   const P=CARS[cur].price, pct=+down.value, d=P*pct/100, L=P-d, r=RATE/12, n=months;
@@ -472,7 +556,7 @@ function build(){
 }
 function pToScroll(p){ return st.start+(p/TOTAL)*(st.end-st.start); }
 function goCar(i){
-  i=(i+CARS.length)%CARS.length;
+  i=(i+CARS.length)%CARS.length; prime(i);
   const sg=SEG.find(s=>s.type==="orbit"&&s.car===i);
   window.scrollTo({top:pToScroll(sg.s+.04),behavior:"smooth"});
 }
@@ -514,8 +598,8 @@ function frame(now){
   // camera
   const OV=window.__ov; if(OV){S.pose.pos.set(...OV.pos);S.pose.tgt.set(...OV.tgt);S.pose.up.set(0,1,0);}
   camera.position.copy(S.pose.pos); camera.up.copy(S.pose.up); camera.lookAt(S.pose.tgt);
-  const heroLift=phone()?view.h*.09*S.aerialAmt:0;
-  const ox=view.panelShift*vis+(phone()&&view.w<600?view.w*.13*S.aerialAmt:0), oy=view.sheetShift*vis+heroLift;
+  const heroLift=phone()?view.h*(view.w<view.h?.13:.09)*S.aerialAmt:0;
+  const ox=view.panelShift*vis, oy=view.sheetShift*vis+heroLift;
   if(ox||oy){ camera.setViewOffset(view.w,view.h,ox,oy,view.w,view.h); } else if(camera.view&&camera.view.enabled){ camera.clearViewOffset(); }
   camera.updateMatrixWorld();
   placeMarkers(Math.max(0,(S.aerialAmt-.55)/.45));
@@ -533,6 +617,24 @@ const tl=new THREE.TextureLoader();
 const P={a:0,b:0};
 const upd=()=>prog(Math.min(.97,P.a*.9+P.b*.1));
 const loadGLB=(u,k)=>new Promise((res,rej)=>loader.load(u,res,x=>{ if(x.total){P[k]=x.loaded/x.total; upd();} },rej));
+/* later shapes: one file each, fetched in lot order once the lot is up, or straight away when a car is picked */
+const queue=[]; let loading=null;
+function want(key,front){
+  if(!MODELS[key]||modelState[key]) return;
+  const qi=queue.indexOf(key); if(qi>=0) queue.splice(qi,1);
+  if(front) queue.unshift(key); else queue.push(key);
+  pump();
+}
+function pump(){
+  if(loading||!queue.length) return;
+  const key=queue.shift(); if(modelState[key]) return pump();
+  modelState[key]="loading"; loading=key;
+  loader.load(MODELS[key].url,g=>{ setupModel(key,g); modelState[key]="ready"; loading=null; updLoadTag(); pump(); },
+    undefined,e=>{ modelState[key]=null; loading=null; console.warn("model",key,e); setTimeout(pump,1500); });
+  updLoadTag();
+}
+function carReady(i){ const m=CARS[i].model; return m==="base"||modelState[m]==="ready"; }
+function prime(i){ if(i>=0&&i<CARS.length&&!carReady(i)) want(CARS[i].model,true); }
 Promise.all([
   new Promise((res,rej)=>tl.load("models/car_ao.png",res,undefined,rej)),
   loadGLB("models/car.glb?v=2","a"),
@@ -540,13 +642,14 @@ Promise.all([
 ]).then(([ao,g,lod])=>{
   shadowTex=ao; prog(1);
   buildLot();
+  setupBayLights();
   setupShowcase(g.scene);
   setupParked(lod.scene);
-  renderer.shadowMap.needsUpdate=true;
   build();
   setPanel(0);
   ready=true;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ $("#loader").classList.add("done"); window.__ready=true; }));
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ $("#loader").classList.add("done"); window.__ready=true;
+    setTimeout(()=>{ CARS.forEach(c=>{ if(c.model!=="base") want(c.model,false); }); }, QA?0:400); }));
 }).catch(err=>{ lTxt.textContent="The 3D lot could not load. Please refresh."; console.warn(err); });
 
 /* ---------- resize ---------- */
@@ -557,4 +660,4 @@ window.addEventListener("resize",()=>{
   rw=w; rh=h; if(ready) build(); else layout();
 });
 layout();
-window.__demo={showcase,state,SEG,TOTAL,pToScroll,CARS,camera,scene,goCar,get R(){return view.R;}};
+window.__demo={showcase,state,SEG,TOTAL,pToScroll,CARS,camera,scene,goCar,modelState,carReady,get R(){return view.R;}};
