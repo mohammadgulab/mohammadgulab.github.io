@@ -7,13 +7,14 @@
 <meta name="description" content="MAWJ Studio is a concept creative and digital studio in Jeddah: liquid glass interfaces, motion and immersive websites.">
 <meta name="theme-color" content="#e7e1f6">
 <meta property="og:title" content="MAWJ Studio | Liquid glass, made in Jeddah">
-<meta property="og:description" content="A concept demo: a glowing jellyfish hero, kinetic type and real-time liquid glass.">
+<meta property="og:description" content="A concept demo: a living jellyfish that swims through the page, kinetic type and real-time liquid glass.">
 <meta property="og:image" content="https://mohammadgulab.github.io/demo-liquid-glass/img/og2.jpg">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Pacifico&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=22">
+<link rel="preload" as="image" href="img/jelly-poster.webp">
+<link rel="stylesheet" href="style.css?v=30">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -39,9 +40,22 @@
         </div>
       </div>
       <div class="jelly" id="jelly" aria-hidden="true">
+        <div class="jelly-glow" id="jellyGlow"></div>
+        <img class="jelly-img" id="jellyImg" src="img/jelly-poster.webp" alt="" width="400" height="640">
         <canvas id="jellyCanvas"></canvas>
-        <img class="jelly-img" id="jellyImg" src="img/jellyfish-v2.webp" alt="" width="689" height="1150">
       </div>
+      <div class="track-wrap front" aria-hidden="true">
+        <div class="track" id="trackF">
+          <div class="slot"><span class="word">MAWJ</span></div>
+          <div class="slot"><span class="word">DESIGN</span></div>
+          <div class="slot"><span class="word">DELIGHT</span></div>
+          <div class="slot"><span class="word">INSPIRE</span></div>
+        </div>
+      </div>
+      <video id="jellyVid" class="jelly-src" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="img/jelly-loop.webm" type="video/webm">
+        <source src="img/jelly-loop.mp4" type="video/mp4">
+      </video>
       <h1 class="sr-only">MAWJ Studio: design, delight, inspire. A creative and digital studio in Jeddah.</h1>
       <p class="hero-tag" aria-hidden="true">Studio<br>Jeddah</p>
       <p class="hero-cap">Welcome to MAWJ, a creative studio in Jeddah making brands, websites and motion that move people.</p>
@@ -56,7 +70,7 @@
       <div class="ring-tilt" id="ringTilt">
         <div class="ring r1" data-text="MAWJ STUDIO ✦ JEDDAH ✦ "></div>
         <div class="ring r2 outline" data-text="DESIGN ✦ MOTION ✦ WEB ✦ 3D ✦ "></div>
-        <img class="ring-jelly" src="img/jellyfish-v2.webp" alt="" width="689" height="1150">
+        <div class="ring-jelly" id="ringJelly"><img src="img/jelly-poster.webp" alt="" width="400" height="640"><canvas id="ringJellyCanvas"></canvas></div>
       </div>
       <svg class="sticker s1" viewBox="0 0 100 100"><path d="M50 4l9 25 26-9-13 24 24 12-26 6 4 27-24-14-14 23-6-27-27 4 16-21L5 33l27-3z" fill="#111" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></svg>
       <svg class="sticker s2" viewBox="0 0 100 100"><path d="M50 6l12 30 32 2-25 20 8 32-27-18-27 18 8-32L6 38l32-2z" fill="none" stroke="#f6c51b" stroke-width="5" stroke-linejoin="round"/></svg>
@@ -144,9 +158,9 @@
 <footer class="foot" data-nav="dark">
   <p class="foot-big">mawj</p>
   <p class="foot-by">Concept demo by Mohammad Gulab Kauser</p>
-  <p class="credits">Jellyfish photo from <a href="https://www.pexels.com/photo/purple-jellyfish-swimming-in-deep-water-13540310/" rel="noopener" target="_blank">Pexels</a> (free Pexels licence), cut out and tinted for this demo. The glass shader was written for this demo, inspired by <a href="https://github.com/naughtyduk/liquidGL" rel="noopener" target="_blank">liquidGL</a> by NaughtyDuk (MIT licence). Fonts: Anton, Manrope, Pacifico and Space Mono (SIL Open Font Licence). MAWJ Studio is a fictional brand.</p>
+  <p class="credits">Jellyfish footage: <a href="https://www.pexels.com/video/a-neon-pink-colored-jellyfish-swimming-underwater-5919919/" rel="noopener" target="_blank">SK Movies &amp; Photos on Pexels</a> (free Pexels licence), keyed out, looped and recoloured for this demo. The glass shader was written for this demo, inspired by <a href="https://github.com/naughtyduk/liquidGL" rel="noopener" target="_blank">liquidGL</a> by NaughtyDuk (MIT licence). Fonts: Anton, Manrope, Pacifico and Space Mono (SIL Open Font Licence). MAWJ Studio is a fictional brand.</p>
 </footer>
 
-<script src="main.js?v=21"></script>
+<script src="main.js?v=30"></script>
 </body>
 </html>

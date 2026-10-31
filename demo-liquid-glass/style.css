@@ -30,12 +30,15 @@ body.nav-dark .pill{color:#fff;background:linear-gradient(180deg,rgba(255,255,25
 .track{display:flex;will-change:transform}
 .slot{flex:0 0 100vw;display:flex;justify-content:center;align-items:center}
 .word{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;line-height:.86;color:#0b0a10;white-space:nowrap;font-size:30vw;letter-spacing:-.005em;display:block}
-.jelly{position:absolute;left:50%;z-index:2;pointer-events:none;will-change:transform}
-.jelly canvas{position:absolute;inset:0;width:100%;height:100%}
-.jelly-img{position:absolute;display:none}
-.no-gl .jelly-img{display:block;animation:jbob 6s ease-in-out infinite}
-.no-gl .jelly canvas{display:none}
-@keyframes jbob{50%{transform:translateY(-14px) rotate(-1.5deg)}}
+.jelly{position:absolute;left:0;top:0;z-index:2;pointer-events:none;will-change:transform;transform-origin:40% 20%}
+.jelly canvas{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .5s}
+.jelly.live canvas{opacity:1}
+.jelly-img{position:absolute;inset:0;width:100%;height:100%;transition:opacity .5s;animation:jpulse 2.6s ease-in-out infinite;transform-origin:40% 20%}
+.jelly.live .jelly-img{opacity:0;animation:none}
+@keyframes jpulse{50%{transform:scale(1.04,.97)}}
+.jelly-glow{position:absolute;left:40%;top:20%;width:92%;height:56%;transform:translate(-50%,-50%);filter:blur(8px);background:radial-gradient(closest-side,rgba(150,92,255,.55),rgba(150,92,255,0))}
+.jelly-src{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none;left:0;top:0}
+.track-wrap.front{z-index:3;-webkit-clip-path:inset(56% 0 0 0);clip-path:inset(56% 0 0 0)}
 .hero-tag{position:absolute;z-index:3;left:16px;top:calc(70px + env(safe-area-inset-top));font-family:Anton,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;line-height:1.35;opacity:.7}
 .hero-cap{position:absolute;z-index:3;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(88vw,560px);text-align:center;font-family:Anton,sans-serif;font-size:13px;line-height:1.45;letter-spacing:.09em;text-transform:uppercase;color:#1c1830}
 .hero-side{position:absolute;z-index:3;left:16px;bottom:calc(110px + env(safe-area-inset-bottom));width:min(52vw,300px);font-family:Anton,sans-serif;font-size:14px;line-height:1.45;letter-spacing:.08em;text-transform:uppercase;opacity:0;transform:translateY(20px)}
@@ -54,8 +57,11 @@ body.nav-dark .pill{color:#fff;background:linear-gradient(180deg,rgba(255,255,25
 .ring b i.bk{transform:rotateY(180deg);color:transparent;-webkit-text-stroke:1px rgba(20,16,40,.16)}
 .ring.outline b i.fr{color:transparent;-webkit-text-stroke:1.6px #0b0a10}
 @keyframes spin{to{transform:rotateY(360deg)}}
-.ring-jelly{position:absolute;left:50%;top:50%;max-width:none;width:min(52vw,280px);height:auto;transform:translate(-50%,-42%) rotate(5deg);animation:rj 6s ease-in-out infinite}
-@keyframes rj{50%{transform:translate(-50%,-46%) rotate(2deg)}}
+.ring-jelly{position:absolute;left:50%;top:50%;width:min(56vw,300px);aspect-ratio:400/640;transform:translate3d(-40%,-30%,0);animation:rj 7s ease-in-out infinite}
+.ring-jelly img,.ring-jelly canvas{position:absolute;inset:0;width:100%;height:100%;transition:opacity .5s}
+.ring-jelly canvas{opacity:0}.ring-jelly.live canvas{opacity:1}.ring-jelly.live img{opacity:0}
+@keyframes rj{50%{transform:translate3d(-38%,-34%,0) rotate(-3deg)}}
+.ring b i.bk{display:none}
 .sticker{position:absolute;width:64px;height:64px;animation:float 5s ease-in-out infinite}
 .s1{left:6%;top:12%;width:70px;height:70px}
 .s2{right:8%;top:20%;animation-delay:-1.5s}
