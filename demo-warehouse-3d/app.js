@@ -599,7 +599,7 @@ function camUpdate(dt, now) {
   const ce = Math.cos(camS.el);
   cam.position.set(camS.tgt.x + camS.dist * Math.sin(camS.az) * ce, camS.tgt.y + camS.dist * Math.sin(camS.el), camS.tgt.z + camS.dist * Math.cos(camS.az) * ce);
   cam.lookAt(camS.tgt);
-  scene.fog.near = camS.dist * 0.9 + 60; scene.fog.far = camS.dist * 1.6 + 300;
+  scene.fog.near = camS.dist * 1.1 + 80; scene.fog.far = camS.dist * 2.3 + 320;
   // shadows follow the view
   const half = Math.max(16, Math.min(120, camS.dist * 0.5));
   sun.position.copy(camS.tgt).addScaledVector(SUN_DIR, 160); sun.target.position.copy(camS.tgt);
@@ -730,7 +730,7 @@ function updatePanel() {
   } else if (e.type === 'truck') {
     const i = truckInfo(e);
     setChip(i.chip, i.cls); setProg(i.pl, i.pv);
-    setK('shp', i.shp); setK('dest', i.dest); setK('eta', i.stage >= 4 ? 'Delivered' : fmtEta(i.etaMin)); setK('load', i.loaded + ' / ' + i.pallets + ' pal'); setK('drv', e.driver); setK('spd', i.speed + ' km/h'); setK('dock', e.dock); setK('wt', i.weight);
+    setK('shp', '#' + i.shp.slice(4)); setK('dest', i.dest); setK('eta', i.stage >= 4 ? 'Delivered' : fmtEta(i.etaMin)); setK('load', i.loaded + ' / ' + i.pallets + ' pal'); setK('drv', e.driver); setK('spd', i.speed + ' km/h'); setK('dock', e.dock); setK('wt', i.weight);
   } else if (e.type === 'forklift') {
     const i = forkInfo(e);
     setChip(i.chip, i.cls); setProg(i.pl, i.pv);
@@ -847,9 +847,14 @@ function tourStep() {
 /* ---------------- loop ---------------- */
 const m4 = new THREE.Matrix4(), q0 = new THREE.Quaternion(), bs = V(0.7, 0.55, 0.6);
 let simT = 0, lastNow = performance.now(), panelAcc = 0, started = false;
+const FRAMES = /[?&]frames/.test(location.search);
 function frame(now) {
   requestAnimationFrame(frame);
   const dt = Math.min(QA ? 0.5 : 0.05, (now - lastNow) / 1000); lastNow = now;
+  if (FRAMES) return;
+  tick(dt, now);
+}
+function tick(dt, now) {
   simT += dt; clockT += dt;
   for (const e of ENT) if (e.update) e.update(simT);
   for (const f of anim) f(simT);
@@ -873,8 +878,10 @@ function frame(now) {
   kpiTick(dt);
   renderer.render(scene, cam);
 }
+let fakeNow = 0;
 resize();
 setSite(0, true);
+{ const s0 = siteShot(0); camS.tgt.copy(s0.tgt); camS.dist = s0.dist * 1.75; camS.el = 1.18; camS.az = 0.05; goal.tgt.copy(camS.tgt); goal.dist = camS.dist; goal.el = camS.el; goal.az = camS.az; }
 renderPanel(); renderKpis(); updateTimeline();
 $('#clock').textContent = hhmm(new Date());
 setLoad(1);
@@ -892,5 +899,7 @@ window.__wh = {
   site: i => { interacted(); setSite(i); },
   ids: () => ENT.map(e => e.id + ':' + e.type + ':' + e.site + ':' + (e.st ? e.st.phase : '')),
   pause: () => { tourOn = false; setTourBtn(); },
-  t: () => simT
+  t: () => simT,
+  step: (n, dt) => { for (let i = 0; i < n; i++) { fakeNow += dt * 1000; tick(dt, performance.now()); } return simT; },
+  cam: () => ({ d: +camS.dist.toFixed(1), el: +camS.el.toFixed(2), az: +camS.az.toFixed(2), tgt: camS.tgt.toArray().map(v => +v.toFixed(1)), safe, sel: selected && selected.id, fly: !!fly })
 };
