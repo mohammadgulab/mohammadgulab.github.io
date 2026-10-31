@@ -129,8 +129,8 @@ window.LOOKS=[
 "name": "Straight Denim",
 "note": "Deep indigo",
 "price": 229,
-"x": 38.0,
-"y": 66.0,
+"x": 30.0,
+"y": 68.0,
 "thumb": "img/t4-2.jpg"
 },
 {

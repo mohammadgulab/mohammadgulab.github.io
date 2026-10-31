@@ -144,7 +144,7 @@ function openLook(i){
   busy=true; mode="look";
   var r=stage.getBoundingClientRect(), hdr=$("#hdr").offsetHeight;
   var y=window.scrollY+r.top-hdr; window.scrollTo({top:Math.max(0,y),behavior:"auto"});
-  document.body.classList.add("look","locked");
+  document.body.classList.add("look"); document.documentElement.classList.add("locked");
   fillPanel(i,false);
   panel.classList.add("open"); panel.classList.remove("tall"); panel.setAttribute("aria-hidden","false");
   gsap.to(veil,{autoAlpha:1,duration:.6,ease:"power2.out"});
@@ -192,7 +192,7 @@ function closeLook(){
     gsap.killTweensOf(m); gsap.to(m,{x:p.x,y:0,scale:p.scale,opacity:p.opacity,duration:reduce?.01:1,ease:"power3.inOut"});
     gsap.to(m._b,{v:p.blur,duration:.9,onUpdate:applyBlur,onUpdateParams:[m]});
   });
-  setTimeout(function(){document.body.classList.remove("look","locked"); busy=false},reduce?20:650);
+  setTimeout(function(){document.body.classList.remove("look"); document.documentElement.classList.remove("locked"); busy=false},reduce?20:650);
 }
 function markSpot(j){ $$(".spot",models[active]).forEach(function(b){b.classList.toggle("on",+b.dataset.j===j)}) }
 function markItem(j){ $$(".item",itemsEl).forEach(function(li){li.classList.toggle("on",+li.dataset.j===j)}) }
@@ -245,7 +245,7 @@ var toastT; function toast(t){var el=$("#toast"); el.textContent=t; el.classList
 
 /* menu */
 var mb=$("#menuBtn"), mm=$("#mmenu");
-function setMenu(o){mb.setAttribute("aria-expanded",o);mm.classList.toggle("open",o);mm.setAttribute("aria-hidden",!o);document.body.classList.toggle("locked",o||mode==="look")}
+function setMenu(o){mb.setAttribute("aria-expanded",o);mm.classList.toggle("open",o);mm.setAttribute("aria-hidden",!o);document.documentElement.classList.toggle("locked",o||mode==="look")}
 mb.addEventListener("click",function(){setMenu(mb.getAttribute("aria-expanded")!=="true")});
 $$("a",mm).forEach(function(a){a.addEventListener("click",function(){setMenu(false)})});
 
