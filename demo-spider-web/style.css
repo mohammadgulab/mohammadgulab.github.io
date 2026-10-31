@@ -4,7 +4,7 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--blue);color:#fff;font-family:var(--sans);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
-.skip{position:absolute;left:-999px;top:8px;background:#fff;color:var(--ink);padding:12px 16px;z-index:100}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:var(--ink);padding:12px 16px;min-height:44px;box-sizing:border-box;z-index:100}
 .skip:focus{left:8px}
 button{font:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
