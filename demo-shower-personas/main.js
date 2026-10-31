@@ -45,11 +45,6 @@ function build(){
     bg=tctx.createRadialGradient(x-rr*.3,y-rr*.35,0,x,y,rr); bg.addColorStop(0,'rgba(255,255,255,.95)'); bg.addColorStop(.35,'rgba(232,240,244,.55)'); bg.addColorStop(1,'rgba(200,214,222,.15)');
     tctx.fillStyle=bg; tctx.beginPath(); tctx.ellipse(x,y,rr*.92,rr,0,0,6.283); tctx.fill(); }
   mctx.globalCompositeOperation='source-over'; mctx.fillStyle='#000'; mctx.fillRect(0,0,cw,ch);
-  // a few thin runs where drops already slid down the glass
-  mctx.globalCompositeOperation='destination-out';
-  for(i=0;i<Math.max(4,Math.round(cw/(70*sc)));i++){ x=rnd(0,cw); y=rnd(0,ch*.6); var len=rnd(.08,.3)*ch, wv=rnd(.7,1.3)*sc, yy;
-    mctx.fillStyle='rgba(0,0,0,.18)'; for(yy=0;yy<len;yy+=1){ mctx.beginPath(); mctx.arc(x+Math.sin(yy*.04)*1.5*sc,y+yy,wv,0,6.283); mctx.fill(); }
-    mctx.fillStyle='rgba(0,0,0,.5)'; mctx.beginPath(); mctx.arc(x+Math.sin(len*.04)*1.5*sc,y+len,wv*2.2,0,6.283); mctx.fill(); }
   ready=true; dirty=2; render();
 }
 function render(){
@@ -68,7 +63,7 @@ function wipeTo(cx,cy,id){
   mctx.globalCompositeOperation='destination-out';
   var p=strokes[id];
   if(p){ var dx=x-p.x, dy=y-p.y, d=Math.sqrt(dx*dx+dy*dy), steps=Math.max(1,Math.ceil(d/(rad*.22))); for(var s=1;s<=steps;s++) dab(p.x+dx*s/steps,p.y+dy*s/steps,rad);
-    if(d>4 && drips.length<40 && Math.random()<.08) drips.push({x:x+rnd(-.6,.6)*rad,y:y+rad*.8,v:rnd(.2,.6)*sc,r:rnd(.9,1.6)*sc,life:rnd(40,140)}); }
+    if(d>4 && drips.length<40 && Math.random()<.08) drips.push({x:x+rnd(-.6,.6)*rad,y:y+rad*.8,v:rnd(.2,.6)*sc,r:rnd(.9,1.6)*sc,life:rnd(30,90)}); }
   else dab(x,y,rad);
   strokes[id]={x:x,y:y}; lastWipe=performance.now(); dirty=1;
 }
@@ -97,7 +92,7 @@ function loop(now){
   requestAnimationFrame(loop);
   if(!ready||!visible) return;
   var changed=false;
-  if(drips.length){ mctx.globalCompositeOperation='destination-out'; mctx.fillStyle='rgba(0,0,0,.45)';
+  if(drips.length){ mctx.globalCompositeOperation='destination-out'; mctx.fillStyle='rgba(0,0,0,.3)';
     for(var k=drips.length-1;k>=0;k--){ var q=drips[k]; q.y+=q.v; q.v=Math.min(q.v*1.01,2.2*sc); q.x+=rnd(-.25,.25)*sc; q.life--; mctx.beginPath(); mctx.arc(q.x,q.y,q.r,0,6.283); mctx.fill(); if(q.life<=0||q.y>ch) drips.splice(k,1); }
     changed=true; }
   var idle=now-lastWipe;
