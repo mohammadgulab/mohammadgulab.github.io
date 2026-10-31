@@ -7,7 +7,8 @@ var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s
 var root=document.documentElement;
 var VW=innerWidth,VH=innerHeight;
 var T0=performance.now();
-var tnow=function(){return (performance.now()-T0)/1000};
+var virt=/[?&]frames/.test(location.search),vt=0;
+var tnow=function(){return virt?vt:(performance.now()-T0)/1000};
 
 /* ---------- WebGL helpers ---------- */
 var VS='attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
@@ -37,9 +38,9 @@ var JFS=PREC+'varying vec2 v;uniform sampler2D tex;uniform float t,hue,sat;unifo
 var jelly={el:$('#jelly'),cv:$('#jellyCanvas'),img:$('#jellyImg'),gl:null,ready:false,w:0,h:0,pad:[.1,.04]};
 function jellyLayout(){
   var H=VH,W=VW,ar=689/1150;
-  var jh=Math.min(H*0.74,(W*0.98)/ar,1000), jw=jh*ar;
+  var jh=Math.min(H*0.72,(W*0.98)/ar,1000), jw=jh*ar;
   var bw=jw*1.2, bh=jh*1.08; jelly.pad=[(bw-jw)/2/bw,(bh-jh)/2/bh];
-  var top=Math.max(64,(H-jh)/2-H*0.035);
+  var top=Math.max(88,(H-jh)/2-H*0.02);
   var s=jelly.el.style;s.width=bw+'px';s.height=bh+'px';s.marginLeft=(-bw/2+jw*.06)+'px';s.top=(top-(bh-jh)/2)+'px';
   var is=jelly.img.style;is.width=jw+'px';is.height=jh+'px';is.left=((bw-jw)/2)+'px';is.top=((bh-jh)/2)+'px';
   jelly.w=Math.round(bw*DPR);jelly.h=Math.round(bh*DPR);
@@ -285,7 +286,7 @@ window.addEventListener('load',function(){layout()});
 jellyInit();navyInit();gridInit();
 if(!glOK){jellyFail()}
 var prevT=tnow();
-window.__mawj={frame:function(dt){step(dt||1/30)},ready:function(){return !glOK||jelly.ready}};
+window.__mawj={frame:function(dt){dt=dt||1/24;vt+=dt;if(document.getAnimations)document.getAnimations().forEach(function(a){try{a.pause();a.currentTime=vt*1000}catch(e){}});step(dt)},ready:function(){return !glOK||jelly.ready},drag:function(x,y){navy.off.x=x;navy.off.y=y;navy.idle=vt+3}};
 function step(dt){
   var t=tnow();heroTarget();heroApply(Math.min(dt,.1));
   var bob=reduce?0:Math.sin(t*.9)*VH*.012;
@@ -295,5 +296,5 @@ function step(dt){
   navyDraw(t);playerFloat(t);gridDraw(t);typeTick(t);ringScroll();navTheme();
 }
 function loop(){var t=tnow();var dt=t-prevT;prevT=t;try{step(dt)}catch(e){if(window.console)console.warn(e)}requestAnimationFrame(loop)}
-requestAnimationFrame(loop);
+if(!virt)requestAnimationFrame(loop);
 })();
