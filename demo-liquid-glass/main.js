@@ -297,7 +297,7 @@ function initNavGlass(){
   const nav=$(".nav-glass");
   if(typeof window.liquidGL!=="function"){window.__mawj.lgl="missing";return;}
   try{
-    window.liquidGL({engine:"webgl2",target:".nav-glass",snapshot:"body",resolution:1.25,refraction:.018,bevelDepth:.09,bevelWidth:.22,frost:1.5,aberration:.35,specular:true,shadow:true,reveal:"fade",
+    window.liquidGL({engine:"webgl2",target:".nav-glass",snapshot:"body",resolution:1.25,refraction:.018,bevelDepth:.09,bevelWidth:.22,frost:1.5,aberration:.35,specular:true,shadow:true,reveal:"none",
       on:{init(){nav.classList.add("lgl-on");window.__mawj.lgl="on";}}});
   }catch(e){window.__mawj.lgl="failed";}
 }
