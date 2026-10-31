@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sandooq · Cabinet of curious finds, Al Balad Jeddah</title>
+<meta name="description" content="Sandooq is a concept curiosity shop in Al Balad, Jeddah. Old compasses, keys, telephones and stamps, with a resident spider that spins webs across the page.">
+<meta name="theme-color" content="#2b3dff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<link rel="preload" as="image" href="img/body.webp">
+<link rel="preload" as="image" href="img/leg.webp">
+</head>
+<body>
+<a class="skip" href="#cabinet">Skip to the cabinet</a>
+<header class="top" id="top">
+  <a class="logo" href="#hero" aria-label="Sandooq home">sandooq<span>.</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#cabinet">Cabinet</a>
+    <a href="#how">How we find</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <div class="top-actions">
+    <button class="btn-clear" id="clearBtn" type="button"><span class="dot" aria-hidden="true"></span>Clear webs<kbd class="kbd">DEL</kbd></button>
+    <button class="btn-menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <button class="menu-close" id="menuClose" type="button" aria-label="Close menu">Close</button>
+  <nav aria-label="Mobile">
+    <a href="#hero">Home</a>
+    <a href="#cabinet">Cabinet</a>
+    <a href="#how">How we find</a>
+    <a href="#visit">Visit</a>
+  </nav>
+  <p class="menu-note">Shop 4, Bab Makkah passage, Al Balad, Jeddah</p>
+</div>
+
+<main>
+<section class="hero" id="hero">
+  <p class="eyebrow" data-anchor>Cabinet of curious finds &middot; Al Balad, Jeddah</p>
+  <h1 class="word" aria-label="sandooq"><span data-anchor>s</span><span data-anchor>a</span><span data-anchor>n</span><span data-anchor>d</span><span data-anchor>o</span><span data-anchor>o</span><span data-anchor>q</span><span class="word-dot" data-anchor>.</span></h1>
+
+  <div class="scatter" aria-label="A few things from the shelves">
+    <figure class="pol p1" data-anchor data-drag style="--r:-7deg"><img src="img/map.webp" alt="An old hand drawn map with brass instruments" width="640" height="640"><figcaption>maps, folded wrong</figcaption></figure>
+    <figure class="pol p2" data-anchor data-drag style="--r:5deg"><img src="img/tapes.webp" alt="A stack of cassette tapes" width="640" height="640"><figcaption>mixtapes, no labels</figcaption></figure>
+    <figure class="pol p3" data-anchor data-drag style="--r:-3deg"><img src="img/typewriter.webp" alt="Close up of typewriter keys" width="640" height="640"><figcaption>keys that still click</figcaption></figure>
+    <figure class="pol p4" data-anchor data-drag style="--r:9deg"><img src="img/camera.webp" alt="Two old film cameras on a table" width="640" height="640"><figcaption>found on a Friday</figcaption></figure>
+    <span class="stk s1" data-anchor data-drag style="--r:-10deg">handle with curiosity</span>
+    <span class="stk s2" data-anchor data-drag style="--r:6deg">do not dust</span>
+    <span class="stk s3" data-anchor data-drag style="--r:-4deg">no. 0471</span>
+    <span class="tag t1" data-anchor data-drag style="--r:12deg"><i aria-hidden="true"></i>SAR 95</span>
+    <span class="stk s4" data-anchor data-drag style="--r:3deg">ask before touching</span>
+  </div>
+
+  <div class="hero-foot">
+    <p class="lede" data-anchor>Brass, paper, glass and the odd telephone. Everything here was somebody's once. The spider came with the building.</p>
+    <p class="hint" id="hint" data-anchor><span class="hint-desk">Move your cursor and it follows. Stop, and it starts spinning. Press DEL to clear.</span><span class="hint-touch">Drag your finger and it follows. Let go, and it starts spinning.</span><span class="hint-drag">Drag the photos and stickers: the silk stretches with them.</span></p>
+  </div>
+</section>
+
+<section class="cabinet" id="cabinet">
+  <div class="sec-head">
+    <h2 data-anchor>The cabinet</h2>
+    <p data-anchor>One of each, mostly. When it is gone, it is gone.</p>
+  </div>
+  <div class="grid">
+    <article class="card" data-anchor style="--r:-1.5deg"><img src="img/compass.webp" alt="Brass pocket compass" loading="lazy" width="640" height="640"><div class="c-body"><h3>Brass pocket compass</h3><p>Lid closes with a soft click. Needle still finds north.</p><div class="c-row"><span class="price">SAR 380</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:1.2deg"><img src="img/phone.webp" alt="Cream rotary telephone" loading="lazy" width="640" height="640"><div class="c-body"><h3>Cream rotary telephone</h3><p>Heavy, round and very loud. Display piece, not wired.</p><div class="c-row"><span class="price">SAR 520</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:-0.8deg"><img src="img/watch.webp" alt="Silver pocket watch on its chain" loading="lazy" width="640" height="640"><div class="c-body"><h3>Silver pocket watch</h3><p>Engraved case, long chain. Needs a watchmaker's kindness.</p><div class="c-row"><span class="price">SAR 460</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:1.6deg"><img src="img/keys.webp" alt="Old iron keys on a ring" loading="lazy" width="640" height="640"><div class="c-body"><h3>Iron door keys</h3><p>A ring of heavy keys. The doors they opened are a mystery.</p><div class="c-row"><span class="price">SAR 140</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:-1.2deg"><img src="img/phone2.webp" alt="Green desk telephone" loading="lazy" width="640" height="640"><div class="c-body"><h3>Green desk telephone</h3><p>Office green, curly cord, dial with real resistance.</p><div class="c-row"><span class="price">SAR 490</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:0.9deg"><img src="img/keys2.webp" alt="A pile of skeleton keys" loading="lazy" width="640" height="640"><div class="c-body"><h3>Skeleton keys, a handful</h3><p>Sold by the handful, picked at random from the jar.</p><div class="c-row"><span class="price">SAR 220</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:-1.8deg"><img src="img/stamps.webp" alt="A spread of old postage stamps" loading="lazy" width="640" height="640"><div class="c-body"><h3>Stamp envelope</h3><p>A fat envelope of used stamps from everywhere.</p><div class="c-row"><span class="price">SAR 95</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+    <article class="card" data-anchor style="--r:1.1deg"><img src="img/perfume.webp" alt="Old glass perfume bottles" loading="lazy" width="640" height="640"><div class="c-body"><h3>Glass perfume bottles</h3><p>Three empty bottles with stoppers. Smell faintly of someone.</p><div class="c-row"><span class="price">SAR 180</span><button class="hold" type="button" aria-pressed="false">Hold for me</button></div></div></article>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <h2 data-anchor>How things end up here</h2>
+  <ol class="notes">
+    <li data-anchor><b>01</b><h3>House clearances</h3><p>Families moving out of old Balad houses call us before the skip arrives.</p></li>
+    <li data-anchor><b>02</b><h3>Friday souq mornings</h3><p>Early, with coffee, before the good things are gone.</p></li>
+    <li data-anchor><b>03</b><h3>People walking in</h3><p>Bring us something odd. If we love it, we will make you an offer.</p></li>
+  </ol>
+</section>
+
+<section class="visit" id="visit">
+  <div class="visit-card" data-anchor>
+    <h2>Visit the cabinet</h2>
+    <p class="addr">Shop 4, Bab Makkah passage<br>Al Balad, Jeddah</p>
+    <p class="hours">Saturday to Thursday, 4 pm to 11 pm<br>Friday, 6 pm to 11 pm</p>
+    <a class="btn-dir" href="https://www.google.com/maps/search/?api=1&query=Al+Balad+Jeddah" target="_blank" rel="noopener">Find Al Balad on the map</a>
+  </div>
+  <p class="visit-aside" data-anchor>The spider is not for sale. We asked.</p>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="foot-word" data-anchor>sandooq.</p>
+  <p>Concept demo by Mohammad Gulab Kauser</p>
+  <p class="small">Fictional shop and address. Photos from Pexels.</p>
+</footer>
+
+<div class="hud" id="hud" aria-live="polite"><span id="hudWebs">0 webs</span><span class="sep">&middot;</span><span id="hudStrands">0 strands</span></div>
+<div class="toast" id="toast" role="status"></div>
+<canvas id="silk" aria-hidden="true"></canvas>
+<script src="spider.js?v=1"></script>
+</body>
+</html>
