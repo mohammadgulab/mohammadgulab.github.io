@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>SAHAB Body Lab | Men's body wash, Jeddah (concept)</title>
+<meta name="description" content="SAHAB Body Lab, a concept men's body care brand from Jeddah. Five body washes, five moods.">
+<meta property="og:title" content="SAHAB Body Lab | Wipe the glass. Meet today's you.">
+<meta property="og:image" content="img/hero.webp">
+<meta name="theme-color" content="#0b0c0d">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<link rel="preload" as="image" href="img/hero.webp">
+</head><body>
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="SAHAB home">SAHAB<small>Body Lab</small></a>
+  <nav class="links" aria-label="Main"><a href="#rooms">Rooms</a><a href="#shop">Shop</a><a href="#visit">Visit</a></nav>
+  <button class="bag" id="bagBtn" type="button" aria-label="Open bag"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 8a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span class="bag-count" id="bagCount">0</span></button>
+</header>
+
+<main id="top">
+<section class="hero" id="hero" aria-label="Wipe the steam">
+  <div class="hero-media" id="heroMedia"><img class="hero-img" id="heroImg" src="img/hero.webp" alt="A man behind wet shower glass" fetchpriority="high"><canvas id="fog" aria-hidden="true"></canvas></div>
+  <div class="hero-copy">
+    <p class="kicker">Men's body wash &middot; Made for Jeddah heat</p>
+    <h1><span>Wipe the glass.</span><span>Meet today's you.</span></h1>
+  </div>
+  <div class="hint" id="hint"><span class="hint-dot"></span>Swipe across the steam to wipe it</div>
+  <a class="scroll-cue" href="#rooms" aria-label="Scroll to the rooms"><span>Scroll</span><i></i></a>
+</section>
+
+<section class="intro" aria-label="About">
+  <p>Five washes. Five rooms. <em>One shower that decides who walks out.</em> Pick the mood before the water gets warm.</p>
+</section>
+
+<section class="rooms" id="rooms" aria-label="The five rooms">
+  <div class="stage" id="stage">
+    <div class="room" data-i="0" style="--c:#2fe08a"><img src="img/room-sprinter.webp" alt="" decoding="async" ></div><div class="room" data-i="1" style="--c:#e2bd72"><img src="img/room-scholar.webp" alt="" decoding="async" loading=lazy></div><div class="room" data-i="2" style="--c:#ff3b45"><img src="img/room-outlaw.webp" alt="" decoding="async" loading=lazy></div><div class="room" data-i="3" style="--c:#ff8fbd"><img src="img/room-romantic.webp" alt="" decoding="async" loading=lazy></div><div class="room" data-i="4" style="--c:#a99bff"><img src="img/room-drifter.webp" alt="" decoding="async" loading=lazy></div>
+    <div class="stage-shade"></div>
+    <div class="bottle-wrap" id="bottleWrap"><div class="float" id="floatBox">
+      <span class="glow" id="glow"></span>
+      <div class="bottles"><img class="bottle" data-i="0" src="img/bottle-sprinter.webp" alt="SAHAB The Sprinter body wash bottle" width="427" height="1000" decoding="async"><img class="bottle" data-i="1" src="img/bottle-scholar.webp" alt="SAHAB The Scholar body wash bottle" width="427" height="1000" decoding="async"><img class="bottle" data-i="2" src="img/bottle-outlaw.webp" alt="SAHAB The Outlaw body wash bottle" width="427" height="1000" decoding="async"><img class="bottle" data-i="3" src="img/bottle-romantic.webp" alt="SAHAB The Romantic body wash bottle" width="427" height="1000" decoding="async"><img class="bottle" data-i="4" src="img/bottle-drifter.webp" alt="SAHAB The Drifter body wash bottle" width="427" height="1000" decoding="async"></div>
+      <span class="contact"></span><span class="contact2"></span>
+    </div></div>
+    <div class="names"><div class="pname" data-i="0"><span class="pthe">The</span><span class="pword">Sprinter</span></div><div class="pname" data-i="1"><span class="pthe">The</span><span class="pword">Scholar</span></div><div class="pname" data-i="2"><span class="pthe">The</span><span class="pword">Outlaw</span></div><div class="pname" data-i="3"><span class="pthe">The</span><span class="pword">Romantic</span></div><div class="pname" data-i="4"><span class="pthe">The</span><span class="pword">Drifter</span></div></div>
+    <div class="infos"><div class="pinfo" data-i="0"><p class="pno">No. 01 &middot; Mint + Vetiver</p><p class="pline">For the 5 a.m. run along the Corniche. Cold mint wakes you, vetiver keeps you grounded.</p><button class="btn btn-room" data-add="0" type="button">Add The Sprinter &middot; SAR 59</button></div><div class="pinfo" data-i="1"><p class="pno">No. 02 &middot; Oud + Black Pepper</p><p class="pline">For the long read and the slow coffee. Smoky oud with a dry pepper edge.</p><button class="btn btn-room" data-add="1" type="button">Add The Scholar &middot; SAR 69</button></div><div class="pinfo" data-i="2"><p class="pno">No. 03 &middot; Red Cedar + Clove</p><p class="pline">For the nights you skip the plan. Warm cedar, a little clove, no apologies.</p><button class="btn btn-room" data-add="2" type="button">Add The Outlaw &middot; SAR 59</button></div><div class="pinfo" data-i="3"><p class="pno">No. 04 &middot; Taif Rose + Musk</p><p class="pline">For the dinner you booked weeks ago. Taif rose, soft white musk, clean skin.</p><button class="btn btn-room" data-add="3" type="button">Add The Romantic &middot; SAR 64</button></div><div class="pinfo" data-i="4"><p class="pno">No. 05 &middot; Lavender + Sea Salt</p><p class="pline">For the late drive with the windows down. Lavender and salt air from the Red Sea.</p><button class="btn btn-room" data-add="4" type="button">Add The Drifter &middot; SAR 59</button></div></div>
+    <div class="counter"><span id="ctr">01</span> / 05</div>
+    <div class="dots" role="group" aria-label="Rooms"><button class="dot" data-go="0" type="button" aria-label="Go to The Sprinter"><span></span></button><button class="dot" data-go="1" type="button" aria-label="Go to The Scholar"><span></span></button><button class="dot" data-go="2" type="button" aria-label="Go to The Outlaw"><span></span></button><button class="dot" data-go="3" type="button" aria-label="Go to The Romantic"><span></span></button><button class="dot" data-go="4" type="button" aria-label="Go to The Drifter"><span></span></button></div>
+  </div>
+</section>
+
+<section class="shop" id="shop" aria-label="Shop">
+  <div class="shop-head"><p class="kicker">The line-up</p><h2>Who do you want to be today?</h2><p class="sub">400 ml each. Sulphate free, pH balanced, rinses clean in hard water.</p></div>
+  <div class="grid"><article class="card" style="--c:#2fe08a;--g:#0b2a1a">
+  <div class="card-shot"><span class="card-glow"></span><img src="img/bottle-sprinter.webp" alt="SAHAB The Sprinter body wash" width="427" height="1000" loading="lazy" decoding="async"><span class="card-shadow"></span></div>
+  <div class="card-body"><h3>The Sprinter</h3><p>Mint + Vetiver</p><div class="card-row"><span class="price">SAR 59</span><span class="ml">400 ml</span></div>
+  <button class="btn btn-add" data-add="0" type="button">Add to bag</button></div></article><article class="card" style="--c:#e2bd72;--g:#17130c">
+  <div class="card-shot"><span class="card-glow"></span><img src="img/bottle-scholar.webp" alt="SAHAB The Scholar body wash" width="427" height="1000" loading="lazy" decoding="async"><span class="card-shadow"></span></div>
+  <div class="card-body"><h3>The Scholar</h3><p>Oud + Black Pepper</p><div class="card-row"><span class="price">SAR 69</span><span class="ml">400 ml</span></div>
+  <button class="btn btn-add" data-add="1" type="button">Add to bag</button></div></article><article class="card" style="--c:#ff3b45;--g:#2a0608">
+  <div class="card-shot"><span class="card-glow"></span><img src="img/bottle-outlaw.webp" alt="SAHAB The Outlaw body wash" width="427" height="1000" loading="lazy" decoding="async"><span class="card-shadow"></span></div>
+  <div class="card-body"><h3>The Outlaw</h3><p>Red Cedar + Clove</p><div class="card-row"><span class="price">SAR 59</span><span class="ml">400 ml</span></div>
+  <button class="btn btn-add" data-add="2" type="button">Add to bag</button></div></article><article class="card" style="--c:#ff8fbd;--g:#2c0f1c">
+  <div class="card-shot"><span class="card-glow"></span><img src="img/bottle-romantic.webp" alt="SAHAB The Romantic body wash" width="427" height="1000" loading="lazy" decoding="async"><span class="card-shadow"></span></div>
+  <div class="card-body"><h3>The Romantic</h3><p>Taif Rose + Musk</p><div class="card-row"><span class="price">SAR 64</span><span class="ml">400 ml</span></div>
+  <button class="btn btn-add" data-add="3" type="button">Add to bag</button></div></article><article class="card" style="--c:#a99bff;--g:#120f2c">
+  <div class="card-shot"><span class="card-glow"></span><img src="img/bottle-drifter.webp" alt="SAHAB The Drifter body wash" width="427" height="1000" loading="lazy" decoding="async"><span class="card-shadow"></span></div>
+  <div class="card-body"><h3>The Drifter</h3><p>Lavender + Sea Salt</p><div class="card-row"><span class="price">SAR 59</span><span class="ml">400 ml</span></div>
+  <button class="btn btn-add" data-add="4" type="button">Add to bag</button></div></article></div>
+</section>
+
+<section class="closing" id="closing" aria-label="Every mood">
+  <img class="closing-img" src="img/group.webp" alt="A group of men standing together" loading="lazy" decoding="async">
+  <div class="closing-copy"><h2><span>Every mood</span><span>is yours.</span></h2><p>One brother, five sides. Keep all five on the shelf.</p><a class="btn btn-light" href="#shop">Build your shelf</a></div>
+</section>
+
+<section class="visit" id="visit" aria-label="Visit">
+  <div><p class="kicker">Visit the lab</p><h2>Smell all five before you choose.</h2></div>
+  <div class="visit-cols">
+    <div><h3>Address</h3><p>SAHAB Body Lab<br>Unit 4, Al Murjan Walk<br>Al Shati District, Jeddah</p></div>
+    <div><h3>Hours</h3><p>Sat to Thu, 10:00 to 23:00<br>Fri, 16:00 to 23:00</p></div>
+    <div><h3>Delivery</h3><p>Across Jeddah, Makkah and Taif.<br>Free over SAR 150.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <span class="logo">SAHAB</span>
+  <p>Fictional brand and address, made for a portfolio. Photos from Pexels.</p>
+  <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
+</footer>
+
+<aside class="drawer" id="drawer" aria-label="Your bag" aria-hidden="true">
+  <div class="drawer-head"><h2>Your bag</h2><button class="close" id="closeBag" type="button" aria-label="Close bag">&times;</button></div>
+  <ul id="bagList"></ul>
+  <div class="drawer-foot"><div class="total"><span>Total</span><strong id="bagTotal">SAR 0</strong></div><p class="note">Checkout is switched off in this concept demo.</p></div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.P=[{"k": "sprinter", "n": "The Sprinter", "no": "Mint + Vetiver", "c": "#2fe08a", "p": 59}, {"k": "scholar", "n": "The Scholar", "no": "Oud + Black Pepper", "c": "#e2bd72", "p": 69}, {"k": "outlaw", "n": "The Outlaw", "no": "Red Cedar + Clove", "c": "#ff3b45", "p": 59}, {"k": "romantic", "n": "The Romantic", "no": "Taif Rose + Musk", "c": "#ff8fbd", "p": 64}, {"k": "drifter", "n": "The Drifter", "no": "Lavender + Sea Salt", "c": "#a99bff", "p": 59}];</script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="main.js?v=1"></script>
+</body></html>
