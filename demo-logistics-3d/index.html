@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qafila Logistics | Jeddah freight, warehousing, sea, rail and air</title>
+<meta name="description" content="Concept demo: a scroll-driven 3D world for a fictional Jeddah logistics company.">
+<meta property="og:title" content="Qafila Logistics | Concept demo">
+<meta property="og:description" content="Fly through a 3D logistics world: hub, road, Red Sea port, rail yard, airport and head office.">
+<meta name="theme-color" content="#eef0f1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"}}
+</script>
+</head>
+<body class="in-journey">
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="loader" role="status"><div class="ld-mark">Q</div><p>Building the world</p><div class="ld-bar"><i></i></div></div>
+
+<header class="top">
+  <a class="brand" href="#top" aria-label="Qafila Logistics, back to top"><span class="mark">Q</span><span class="word">Qafila<b>Logistics</b></span></a>
+  <nav class="menu" aria-label="Main">
+    <a href="#services">Services</a><a href="#network">Network</a><a href="#contact">Contact</a>
+  </nav>
+  <a class="btn btn-red btn-sm" href="#contact">Get a quote</a>
+</header>
+
+<main id="top">
+  <section id="journey" aria-label="Fly through our operations"></section>
+
+  <aside class="card" id="card" aria-live="polite">
+    <div class="card-step"><span id="cStep">01 / 07</span><span class="sep"></span><span id="cLabel">Fleet and hub</span></div>
+    <h2 id="cTitle">Moving the Kingdom's cargo, from the Red Sea to every door.</h2>
+    <p id="cText">One partner for road, sea, rail and air freight, run from our hub near Jeddah Islamic Port.</p>
+    <div class="card-btns">
+      <a class="btn btn-red" href="#contact">Get a quote</a>
+      <a class="btn btn-line" href="#services">Our services</a>
+    </div>
+  </aside>
+
+  <nav class="dots" id="dots" aria-label="Jump to scene"></nav>
+  <div class="hint" id="hint"><span class="mouse"><i></i></span>Scroll to fly</div>
+
+  <section id="services" class="panel services">
+    <div class="wrap">
+      <p class="eyebrow">What we do</p>
+      <h2 class="h2">Our services</h2>
+      <p class="lead">Every mode under one roof, planned by one team in Jeddah.</p>
+      <div class="svc-grid" id="svcGrid">
+        <article class="svc"><div class="ico"><img data-icon="truck" alt="" width="120" height="120"></div><h3>Road freight</h3><p>Full and part loads, scheduled routes and same-city delivery.</p></article>
+        <article class="svc"><div class="ico"><img data-icon="forklift" alt="" width="120" height="120"></div><h3>Warehousing</h3><p>Racked storage, pick and pack, cross-dock and returns handling.</p></article>
+        <article class="svc"><div class="ico"><img data-icon="ship" alt="" width="120" height="120"></div><h3>Sea freight</h3><p>FCL and LCL import and export through Jeddah Islamic Port.</p></article>
+        <article class="svc"><div class="ico"><img data-icon="train" alt="" width="120" height="120"></div><h3>Rail freight</h3><p>Container moves by rail where routes allow. Routes on request.</p></article>
+        <article class="svc"><div class="ico"><img data-icon="plane" alt="" width="120" height="120"></div><h3>Air cargo</h3><p>Urgent and high value shipments, booked and tracked door to door.</p></article>
+        <article class="svc"><div class="ico"><img data-icon="crane" alt="" width="120" height="120"></div><h3>Customs and project cargo</h3><p>Clearance paperwork, oversized loads and site deliveries.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="network" class="panel net">
+    <svg class="globe" viewBox="0 0 400 400" aria-hidden="true">
+      <circle cx="200" cy="200" r="190"/><ellipse cx="200" cy="200" rx="190" ry="70"/><ellipse cx="200" cy="200" rx="190" ry="135"/><ellipse cx="200" cy="200" rx="70" ry="190"/><ellipse cx="200" cy="200" rx="135" ry="190"/><line x1="10" y1="200" x2="390" y2="200"/><line x1="200" y1="10" x2="200" y2="390"/>
+    </svg>
+    <div class="wrap">
+      <p class="eyebrow">Network</p>
+      <h2 class="h2">Where we work</h2>
+      <p class="lead">Placeholder details for this concept. A real build would show the company's own verified figures here.</p>
+      <dl class="facts">
+        <div><dt>Service areas</dt><dd>Jeddah, Makkah, Madinah, Riyadh, Dammam</dd></div>
+        <div><dt>Modes</dt><dd>Road, sea, rail and air</dd></div>
+        <div><dt>Main hub</dt><dd>Near Jeddah Islamic Port</dd></div>
+        <div><dt>Working days</dt><dd>Sunday to Thursday, plus Saturday mornings</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="contact" class="panel contact">
+    <div class="wrap two">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 class="h2">Tell us what needs to move</h2>
+        <p class="lead">Share the route, the cargo and the date. The team replies with a plan and a quote.</p>
+        <ul class="info">
+          <li><span>Address</span>Warehouse Zone 3, Port Road, near Jeddah Islamic Port, Jeddah, Saudi Arabia (fictional)</li>
+          <li><span>Phone</span>+966 12 000 0000 (placeholder)</li>
+          <li><span>Email</span>hello@qafila-logistics.example</li>
+          <li><span>Hours</span>Sunday to Thursday, 8:00 to 17:00</li>
+        </ul>
+      </div>
+      <form class="form" id="form" novalidate>
+        <p class="note">Demo form: nothing is sent anywhere.</p>
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label>Company<input name="company" autocomplete="organization"></label>
+        <label>Service
+          <select name="service"><option>Road freight</option><option>Warehousing</option><option>Sea freight</option><option>Rail freight</option><option>Air cargo</option><option>Customs and project cargo</option></select>
+        </label>
+        <label>Route and cargo<textarea name="msg" rows="4" placeholder="From Jeddah to Riyadh, 2 pallets, next week"></textarea></label>
+        <button class="btn btn-red btn-wide" type="submit">Request a quote</button>
+        <p class="sent" id="sent" hidden>Thanks. This is a concept demo, so nothing was sent.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <a class="brand" href="#top"><span class="mark">Q</span><span class="word">Qafila<b>Logistics</b></span></a>
+      <p>Qafila Logistics is a fictional company created for this concept.</p>
+      <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
+    </div>
+  </footer>
+</main>
+
+<div id="nogl" hidden><p>This page shows a 3D scene. Your browser could not start WebGL, so here is the rest of the site.</p></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
