@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mustawda Control | 3D warehouse dashboard (concept demo)</title>
+<meta name="description" content="Concept demo: a live 3D warehouse operations dashboard for a fictional Jeddah warehousing company. Tap trucks, forklifts and warehouses.">
+<meta property="og:title" content="Mustawda Control | 3D warehouse dashboard">
+<meta property="og:description" content="Run your warehouses like a strategy game: live 3D yard, trucks, forklifts, docks and shipment tracking. Concept demo with demo data.">
+<meta name="theme-color" content="#e7eef8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"}}
+</script>
+</head>
+<body>
+<canvas id="gl" aria-label="Live 3D view of the warehouse yard. Tap a truck, forklift or warehouse to see its details."></canvas>
+<div id="loader" role="status"><div class="ld-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3 28 9.5v13L16 29 4 22.5v-13z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M4 9.5 16 16l12-6.5M16 16v13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg></div><p>Loading the yard</p><div class="ld-bar"><i></i></div></div>
+<div id="nogl" hidden><p>This demo needs WebGL. Please open it in an up to date Chrome or Safari.</p></div>
+
+<div id="tag" class="tag" aria-hidden="true"><b></b><span></span></div>
+
+<div class="ui">
+  <nav class="rail glass" aria-label="Views">
+    <div class="rail-logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3 28 9.5v13L16 29 4 22.5v-13z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M4 9.5 16 16l12-6.5M16 16v13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/></svg></div>
+    <button class="rb on" data-view="site" aria-label="Site overview" title="Site overview"><svg viewBox="0 0 24 24"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg></button>
+    <button class="rb" data-view="truck" aria-label="Fleet" title="Fleet"><svg viewBox="0 0 24 24"><path d="M2 6h12v9H2zM14 9h4l3 3v3h-7z"/><circle cx="6" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></button>
+    <button class="rb" data-view="forklift" aria-label="Forklifts" title="Forklifts"><svg viewBox="0 0 24 24"><path d="M4 8h6l2 6H4zM14 4v14h7M4 14v3"/><circle cx="6" cy="18" r="2"/><circle cx="11" cy="18" r="2"/></svg></button>
+    <button class="rb" data-view="warehouse" aria-label="Warehouses" title="Warehouses"><svg viewBox="0 0 24 24"><path d="M3 9 12 4l9 5v11H3zM7 20v-7h10v7M7 16h10"/></svg></button>
+  </nav>
+
+  <header class="top">
+    <div class="brand glass">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3 28 9.5v13L16 29 4 22.5v-13z" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/><path d="M4 9.5 16 16l12-6.5M16 16v13" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/></svg></span>
+      <span class="word"><b>Mustawda</b><small>Control</small></span>
+      <span class="demo" title="All numbers on this page are sample data for a fictional company">Demo data</span>
+      <button id="tourBtn" class="tour on" aria-pressed="true" aria-label="Auto tour on. Tap to pause"><svg class="i-pause" viewBox="0 0 24 24"><path d="M8 5h3v14H8zM13 5h3v14h-3z"/></svg><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span>Tour</span></button>
+    </div>
+    <div class="sites glass" role="tablist" aria-label="Location">
+      <button role="tab" class="site on" data-site="0" aria-selected="true"><i></i><span>Jeddah Port</span></button>
+      <button role="tab" class="site" data-site="1" aria-selected="false"><i></i><span>Al Khumrah</span></button>
+      <button role="tab" class="site" data-site="2" aria-selected="false"><i></i><span>Riyadh Hub</span></button>
+    </div>
+    <div class="clock glass" aria-hidden="true"><span class="live"></span><b id="clock">10:00</b><small>Live (demo)</small></div>
+  </header>
+
+  <section class="kpis" aria-label="Key numbers, demo data">
+    <div class="kpi glass"><small>Shipments<span class="dt"> today</span></small><b id="k0">1,284</b><em class="up" id="k0d">+4.1%</em><svg class="spark" viewBox="0 0 60 20" preserveAspectRatio="none"><path id="sp0"/></svg></div>
+    <div class="kpi glass"><small>On-time</small><b id="k1">97.6%</b><em class="up" id="k1d">+0.8%</em><svg class="spark" viewBox="0 0 60 20" preserveAspectRatio="none"><path id="sp1"/></svg></div>
+    <div class="kpi glass"><small>Fleet<span class="dt"> on the road</span></small><b id="k2">6</b><em id="k2d">3 docked</em><svg class="spark" viewBox="0 0 60 20" preserveAspectRatio="none"><path id="sp2"/></svg></div>
+    <div class="kpi glass"><small>Dock use</small><b id="k3">72%</b><em class="up" id="k3d">5 doors</em><svg class="spark" viewBox="0 0 60 20" preserveAspectRatio="none"><path id="sp3"/></svg></div>
+  </section>
+
+  <aside id="panel" class="panel glass" aria-live="polite" aria-label="Details">
+    <button id="grab" class="grab" aria-label="Collapse details" aria-expanded="true"><i></i></button>
+    <div id="pbody"></div>
+    <div id="tlSlotPhone"></div>
+    <p class="credit credit-ph">Concept demo by Mohammad Gulab Kauser · demo data</p>
+  </aside>
+
+  <section id="tl" class="timeline glass" aria-label="Shipment tracking">
+    <div class="tl-head"><div><small>Tracking</small><b id="tlTitle">SHP-58213</b></div><div class="tl-eta"><small id="tlEtaL">ETA</small><b id="tlEta">--</b></div></div>
+    <ol class="steps" id="steps">
+      <li><i></i><span>Order</span><time></time></li>
+      <li><i></i><span>Picked</span><time></time></li>
+      <li><i></i><span>Loaded</span><time></time></li>
+      <li><i></i><span>In transit</span><time></time></li>
+      <li><i></i><span>Delivered</span><time></time></li>
+    </ol>
+    <div class="tl-line"><i id="tlFill"></i></div>
+  </section>
+
+  <p class="credit credit-dt">Concept demo by Mohammad Gulab Kauser · Mustawda is a fictional company · all figures are demo data</p>
+</div>
+
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>
