@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RAML Studio · Try the Look · Jeddah streetwear</title>
+<meta name="description" content="Tap anyone in the line-up and shop their full outfit. RAML Studio, Jeddah streetwear (concept demo).">
+<meta name="theme-color" content="#efeeea">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="hdr" id="hdr">
+  <a class="logo" href="#top" aria-label="RAML Studio home"><span class="logo-en">RAML</span><span class="logo-ar" lang="ar">رمل</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#looks">New in</a><a href="#looks">Men</a><a href="#looks">Women</a><a href="#top" class="on">Try the Look</a><a href="#visit">Visit</a>
+  </nav>
+  <div class="hdr-r">
+    <button class="icon-btn bag-btn" id="bagBtn" aria-label="Open bag"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="bag-count" id="bagCount">0</span></button>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#looks">New in</a><a href="#looks">Men</a><a href="#looks">Women</a><a href="#top">Try the Look</a><a href="#visit">Visit the studio</a>
+  </nav>
+  <p class="mmenu-foot">Shop 7, Hira Street, Al Rawdah, Jeddah</p>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-head">
+      <h1 class="title"><span class="tl">Try the Look.</span></h1>
+      <p class="sub">Eight outfits, one line-up. Tap anyone to bring them forward, then shop everything they are wearing.</p>
+    </div>
+
+    <div class="stage" id="stage" aria-roledescription="carousel" aria-label="Outfit line-up">
+      <div class="floor"></div>
+      <div class="lineup" id="lineup"></div>
+      <div class="cap" id="cap" aria-live="polite">
+        <div class="cap-num"><span id="capNum">01</span><i>/</i><span id="capTot">08</span></div>
+        <div class="cap-name" id="capName">Corniche Basic</div>
+        <button class="shop-btn" id="shopBtn">Shop this look <span id="capFrom"></span></button>
+      </div>
+      <button class="arrow prev" id="prevBtn" aria-label="Previous look"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="arrow next" id="nextBtn" aria-label="Next look"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button class="close-look" id="closeLook" aria-label="Back to the line-up"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg><span>Line-up</span></button>
+    </div>
+  </section>
+
+  <section class="looks" id="looks">
+    <div class="sec-head"><h2>Every look in the line-up</h2><p>Jump straight to one.</p></div>
+    <div class="look-grid" id="lookGrid"></div>
+  </section>
+
+  <section class="how">
+    <div class="how-item"><b>1</b><h3>Pick a person</h3><p>Swipe the line-up or tap anyone. They step forward, the rest fall back.</p></div>
+    <div class="how-item"><b>2</b><h3>Tap the dots</h3><p>Every piece they wear has a dot. Tap one to see that item in the list.</p></div>
+    <div class="how-item"><b>3</b><h3>Take the whole look</h3><p>Add single pieces or the full outfit in one tap, with 10% off the bundle.</p></div>
+  </section>
+
+  <section class="visit" id="visit">
+    <div>
+      <h2>Visit the studio</h2>
+      <p class="addr">RAML Studio<br>Shop 7, Hira Street, Al Rawdah<br>Jeddah, Saudi Arabia</p>
+      <p class="hours">Saturday to Thursday, 4 pm to 12 am<br>Friday, 5 pm to 12 am</p>
+    </div>
+    <div class="visit-note">
+      <p>Try any look from the line-up in store. Sizes S to XXL, free alterations on trousers.</p>
+      <a class="ghost" href="#top">Back to the line-up</a>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="logo small"><span class="logo-en">RAML</span><span class="logo-ar" lang="ar">رمل</span></div>
+  <p>Fictional store. Prices in SAR are for this demo only.</p>
+  <p class="credit">Concept demo by Mohammad Gulab Kauser</p>
+</footer>
+
+<div class="veil" id="veil"></div>
+
+<aside class="panel" id="panel" aria-label="In this look" aria-hidden="true">
+  <button class="grab" id="grab" aria-label="Expand list"><span></span></button>
+  <div class="p-head">
+    <div><p class="p-kicker">In this look</p><h2 class="p-title" id="pTitle">Look</h2><p class="p-desc" id="pDesc"></p></div>
+    <button class="icon-btn p-close" id="pClose" aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <ol class="items" id="items"></ol>
+  <div class="bundle">
+    <div class="b-row"><div><p class="b-k">Complete the look</p><p class="b-s" id="bSave">Bundle all 3, save 10%</p></div>
+      <div class="b-price"><s id="bWas"></s><strong id="bNow"></strong></div></div>
+    <button class="add-all" id="addAll"><span id="addAllTxt">Add full look to bag</span></button>
+  </div>
+</aside>
+
+<aside class="drawer" id="drawer" aria-label="Bag" aria-hidden="true">
+  <div class="d-head"><h2>Your bag</h2><button class="icon-btn" id="dClose" aria-label="Close bag"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <ul class="d-list" id="dList"></ul>
+  <div class="d-foot"><div class="d-tot"><span>Subtotal</span><strong id="dTot">SAR 0</strong></div><p class="d-note">This is a concept demo, so checkout is switched off.</p><button class="d-clear" id="dClear">Empty bag</button></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="looks.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
