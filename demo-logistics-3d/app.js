@@ -80,6 +80,7 @@ const M = {
   box: std(0xe0be8c, 0.9),
   water: new THREE.MeshStandardMaterial({ color: 0x3f9bd6, roughness: 0.25, metalness: 0.05 })
 };
+M.trlogo = new THREE.MeshStandardMaterial({ roughness: 0.8 });
 for (const k in M) M[k].userData.key = k;
 
 /* container texture: corrugation */
@@ -108,6 +109,8 @@ function logoTexture(withWord) {
   }
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t;
 }
+M.trlogo.map = logoTexture(true); M.trlogo.needsUpdate = true;
+const ULogo = new THREE.PlaneGeometry(3.2, 1.6);
 function roundRect(g, x, y, w, h, r) { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 
 /* ---------------- helpers ---------------- */
@@ -169,6 +172,7 @@ function makeTruck(cab = 'red') {
   B(g, 'black', 9.0, 0.35, 1.9, 0, 0.55, 0);
   B(g, 'white', 6.9, 2.5, 2.4, -1.2, 0.9, 0);
   B(g, 'red', 6.92, 0.3, 2.42, -1.2, 1.3, 0);
+  P(g, ULogo, 'trlogo', 1, 1, 1, -1.0, 2.45, 1.215); P(g, ULogo, 'trlogo', 1, 1, 1, -1.0, 2.45, -1.215, 0, Math.PI, 0);
   B(g, cab, 2.2, 2.25, 2.3, 3.55, 0.75, 0);
   B(g, 'glass', 0.06, 0.8, 2.0, 4.66, 1.95, 0);
   B(g, 'glass', 1.0, 0.6, 0.06, 3.65, 2.05, 1.16);
@@ -666,6 +670,7 @@ function setCard(i) {
 let pTarget = 0, pNow = 0, journeyVisible = true;
 if (window.gsap && window.ScrollTrigger) {
   gsap.registerPlugin(ScrollTrigger);
+  gsap.ticker.lagSmoothing(0);
   ScrollTrigger.config({ ignoreMobileResize: true });
   ScrollTrigger.create({
     trigger: '#journey', start: 'top top', end: 'bottom bottom',
