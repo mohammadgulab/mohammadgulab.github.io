@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marsa Exotics | Pre-owned exotic and luxury cars, Jeddah (concept)</title>
+<meta name="description" content="Concept demo: walk the lot from above, dive into a car, turn it on scroll and estimate a monthly payment.">
+<meta name="theme-color" content="#0b0c0e">
+<meta property="og:title" content="Marsa Exotics, Jeddah (concept demo)">
+<meta property="og:description" content="Dive from the lot into each car, turn it on scroll, check specs and estimate a payment.">
+<meta property="og:image" content="img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Archivo:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/lot-wide.webp" media="(min-aspect-ratio: 1/1)">
+<link rel="preload" as="image" href="img/lot-tall.webp" media="(max-aspect-ratio: 1/1)">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#" aria-label="Marsa Exotics, back to the lot" id="brandLink"><span class="mark">M</span><span class="bname">Marsa <b>Exotics</b></span></a>
+  <div class="counter" aria-live="polite"><span id="ctrNum">Lot view</span></div>
+  <button class="btn ghost small" id="topInquire" type="button">Inquire</button>
+</header>
+
+<main>
+<section id="track" aria-label="Showroom">
+  <div class="viewport" id="vp">
+    <div class="lot" id="lot">
+      <div class="lotInner" id="lotInner"><img id="lotImg" alt="Aerial view of a parking lot with sports cars parked in a row" decoding="async"></div>
+      <div class="lotShade"></div>
+      <div class="markers" id="markers"></div>
+    </div>
+
+    <div class="heroCopy" id="heroCopy">
+      <p class="eyebrow">Jeddah · Pre-owned showroom</p>
+      <h1>Exotic &amp; luxury<br>pre-owned cars</h1>
+      <p class="lede">Tap a car on the lot, or scroll to walk the row.</p>
+      <div class="cue" aria-hidden="true"><span></span>Scroll</div>
+    </div>
+
+    <div class="stage" id="stage"></div>
+
+    <aside class="panel" id="panel" aria-label="Car details">
+      <div class="grab" aria-hidden="true"></div>
+      <div class="pInner">
+        <p class="stock" id="pStock"></p>
+        <h2 id="pName"></h2>
+        <p class="sub" id="pSub"></p>
+        <p class="price" id="pPrice"></p>
+        <dl class="specs" id="pSpecs"></dl>
+        <div class="est">
+          <div class="estHead"><span>Payment estimator</span><span class="tag">estimate only</span></div>
+          <label class="row" for="down"><span>Down payment <b id="downPct">20%</b></span><b id="downAmt"></b></label>
+          <input type="range" id="down" min="10" max="50" step="5" value="20" aria-label="Down payment percent">
+          <div class="terms" role="radiogroup" aria-label="Months">
+            <button type="button" data-m="24" role="radio" aria-checked="false">24</button>
+            <button type="button" data-m="36" role="radio" aria-checked="false">36</button>
+            <button type="button" data-m="48" role="radio" aria-checked="true" class="on">48</button>
+            <button type="button" data-m="60" role="radio" aria-checked="false">60</button>
+            <span class="mo">months</span>
+          </div>
+          <p class="monthly"><b id="monthly"></b><span>/ month</span></p>
+          <p class="fine">Estimate only, at an illustrative 5.5% yearly rate. Not a finance offer.</p>
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="inqBtn" type="button">Inquire</button>
+          <button class="btn icon" id="prevBtn" type="button" aria-label="Previous car">&#8249;</button>
+          <button class="btn icon" id="nextBtn" type="button" aria-label="Next car">&#8250;</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap">
+    <p class="eyebrow">Visit the showroom</p>
+    <h2>Marsa Exotics, Jeddah</h2>
+    <div class="vgrid">
+      <div class="vcard"><h3>Address</h3><p>Showroom 4, Corniche Service Road<br>Al Shati, Jeddah</p><p class="muted">Concept address for this demo.</p></div>
+      <div class="vcard"><h3>Hours</h3><p>Saturday to Thursday<br>4:00 pm to 11:00 pm</p></div>
+      <div class="vcard"><h3>Every car</h3><p>Inspected, detailed and shown by appointment. Ask about trade-ins.</p></div>
+    </div>
+    <div class="vactions">
+      <button class="btn primary" id="visitInq" type="button">Book a viewing</button>
+      <button class="btn ghost" id="backLot" type="button">Back to the lot</button>
+    </div>
+    <p class="note">Demo listings: prices, mileage and stock numbers are illustrative.</p>
+  </div>
+  <footer class="foot">
+    <p>Concept demo by Mohammad Gulab Kauser</p>
+    <p class="muted">Photos from Pexels. Badges and number plates removed. Not a real dealership.</p>
+  </footer>
+</section>
+</main>
+
+<dialog id="inq" aria-labelledby="inqTitle">
+  <form method="dialog" id="inqForm" novalidate>
+    <div class="dHead">
+      <h2 id="inqTitle">Inquire</h2>
+      <button class="btn icon" value="cancel" type="submit" aria-label="Close">&#215;</button>
+    </div>
+    <p class="demoNote">Demo form: nothing is sent anywhere.</p>
+    <label>Car<input id="fCar" name="car" readonly></label>
+    <label>Your name<input name="name" autocomplete="name" placeholder="Full name"></label>
+    <label>Phone or email<input name="contact" placeholder="05x xxx xxxx"></label>
+    <label>Message<textarea name="msg" rows="3" placeholder="I would like to book a viewing"></textarea></label>
+    <button class="btn primary wide" type="button" id="fSend">Send inquiry</button>
+    <p class="sent" id="fSent" hidden>Nothing was sent. This is a concept demo, so the form stops here.</p>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
