@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VELOTRON VX-1 | Silence at speed</title>
+<meta name="description" content="VELOTRON VX-1 Apex. A full-face motorcycle helmet, told as a scroll-driven film. Concept demo.">
+<meta name="theme-color" content="#b8bdc1">
+<meta property="og:title" content="VELOTRON VX-1 | Silence at speed">
+<meta property="og:description" content="A cinematic, scroll-driven helmet launch. Concept demo by Mohammad Gulab Kauser.">
+<meta property="og:image" content="https://mohammadgulab.github.io/demo-helmet/media/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="media/rider/r000.webp">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<a class="skip" href="#after">Skip the film</a>
+
+<header class="nav" aria-label="Main">
+  <a class="logo" href="#top" aria-label="VELOTRON home">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 8h9l7 17 7-17h9L24 34h-8z" fill="currentColor"/></svg>
+    <span>VELOTRON</span>
+  </a>
+  <nav class="links">
+    <a href="#anatomy">Helmet</a>
+    <a href="#after">Craft</a>
+    <a href="#atelier">Atelier</a>
+  </nav>
+  <a class="cta-mini" href="#reserve">Reserve</a>
+</header>
+
+<main id="top">
+  <section class="film" id="film" aria-label="The VX-1 story">
+    <div class="stage" id="stage">
+      <div class="bg" id="bg"></div>
+      <canvas class="fog" id="fog" aria-hidden="true"></canvas>
+      <div class="wordmark" id="wordmark" aria-hidden="true"><span>VELOTRON</span></div>
+      <div class="wordmark2" id="wordmark2" aria-hidden="true">VX-1 APEX</div>
+      <canvas class="rider" id="rider" aria-hidden="true"></canvas>
+      <canvas class="gl" id="gl" aria-hidden="true"></canvas>
+      <div class="grain" aria-hidden="true"></div>
+      <div class="vignette" aria-hidden="true"></div>
+
+      <div class="hero-copy" id="heroCopy">
+        <p class="kicker mono">Season 01 / Full-face touring</p>
+        <h1 class="hl"><span class="line"><span>Silence</span></span><span class="line"><span>at speed.</span></span></h1>
+      </div>
+
+      <div class="cols" id="cols">
+        <div class="col"><span class="mono">01</span><p>Built for the hour before sunrise, when the road is grey and the visor is the only clear thing.</p></div>
+        <div class="col"><span class="mono">02</span><p>Carbon shell. Quiet airflow. A fit shaped around long distance.</p></div>
+      </div>
+
+      <div class="ignite" id="ignite">
+        <p class="mono">02 / Ignite</p>
+        <h2 class="big">Take it off.<br>Look closer.</h2>
+      </div>
+
+      <div class="specs" id="anatomy">
+        <div class="spec s1" data-in="0.58" data-out="0.70"><span class="mono">A / Shell</span><b>Carbon twill, 3 shell sizes</b><p>Hand laid weave. Smaller shells for smaller heads, so nothing sits loose.</p></div>
+        <div class="spec s2" data-in="0.68" data-out="0.80"><span class="mono">B / Visor</span><b>Optical class 1, pinlock ready</b><p>Dark smoke tint, anti-scratch coat, quick release without tools.</p></div>
+        <div class="spec s3" data-in="0.77" data-out="0.885"><span class="mono">C / Air</span><b>5 intakes, 2 exhausts</b><p>Channels run through the liner to pull warm air out at the back.</p></div>
+        <div class="spec s4" data-in="0.86" data-out="0.935"><span class="mono">D / Fit</span><b>Removable cheek pads</b><p>Washable liner and emergency release tabs on both sides.</p></div>
+      </div>
+
+      <div class="finale" id="finale">
+        <p class="mono">VX-1 Apex / Gloss carbon</p>
+        <p class="price">SAR 2,890</p>
+        <a class="btn" href="#reserve">Reserve a fitting</a>
+      </div>
+
+      <div class="hud" aria-hidden="true">
+        <div class="chap mono"><span id="chapNum">01</span> <span id="chapName">Mist</span></div>
+        <div class="bar"><i id="barFill"></i></div>
+        <div class="hint mono" id="hint">Scroll</div>
+      </div>
+      <div class="loader mono" id="loader" aria-live="polite">Loading helmet <span id="loadPct">0</span>%</div>
+    </div>
+  </section>
+
+  <section class="after" id="after">
+    <div class="wrap">
+      <p class="mono eyebrow reveal">03 / Craft</p>
+      <h2 class="reveal">Engineered for the long way home.</h2>
+      <div class="grid3">
+        <article class="card reveal"><span class="mono">Shell</span><h3>Light where it counts</h3><p>The twill carbon shell is cured in one piece, then hand finished in a deep gloss clear coat.</p></article>
+        <article class="card reveal"><span class="mono">Visor</span><h3>See the whole corner</h3><p>A wide eyeport and a distortion free visor keep the horizon steady at any lean angle.</p></article>
+        <article class="card reveal"><span class="mono">Comfort</span><h3>Quiet by design</h3><p>A sealed neck roll and a tuned spoiler cut wind roar, so a long ride ends without ringing ears.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="reserve" id="reserve">
+    <div class="wrap two">
+      <div class="reveal">
+        <p class="mono eyebrow">04 / Reserve</p>
+        <h2>VX-1 Apex</h2>
+        <p class="lead">Gloss carbon with signal orange stripes. Sizes XS to XXL. Every helmet is fitted in person at the atelier.</p>
+      </div>
+      <div class="pricebox reveal">
+        <div class="row"><span>VX-1 Apex, gloss carbon</span><b>SAR 2,890</b></div>
+        <div class="row"><span>Spare dark smoke visor</span><b>SAR 340</b></div>
+        <div class="row"><span>Personal fitting</span><b>Included</b></div>
+        <a class="btn dark" href="#atelier">Book a fitting</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="atelier" id="atelier">
+    <div class="wrap">
+      <p class="mono eyebrow reveal">05 / Atelier</p>
+      <h2 class="reveal">Try it on in Jeddah.</h2>
+      <div class="addr reveal">
+        <p>VELOTRON Atelier<br>Unit 7, Corniche Workshop Lane<br>Al Shati District, Jeddah</p>
+        <p class="mono">Sat to Thu, 4 pm to 11 pm</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="fw">VELOTRON</p>
+    <p class="credit"><b>Concept demo by Mohammad Gulab Kauser</b></p>
+    <p class="small">VELOTRON is a fictional brand made for this concept. Prices and address are illustrative.</p>
+    <p class="small">3D model: <a href="https://sketchfab.com/3d-models/motor-helmet-43e1596b7548478ab4a12ee433cedd5d" rel="noopener" target="_blank">"Motor Helmet" by Tom Verbeeck</a>, licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank">CC BY 4.0</a>, compressed and relit for the web.</p>
+    <p class="small">Rider footage: <a href="https://www.pexels.com/video/a-man-taking-off-his-helmet-8926812/" rel="noopener" target="_blank">Anastasia Shuraeva on Pexels</a>, cut out and graded.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+<script type="module" src="main.js?v=1"></script>
+</body>
+</html>
