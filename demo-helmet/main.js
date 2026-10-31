@@ -296,7 +296,7 @@ function applyScene() {
   finale.style.opacity = f; finale.style.transform = `translateY(${(1 - f) * 24}px)`;
   finale.classList.toggle('on', f > 0.5);
 
-  hint.style.opacity = p > 0.03 ? 0 : '';
+  hint.style.visibility = p > 0.03 ? 'hidden' : 'visible';
   barFill.style.transform = `scaleX(${p.toFixed(4)})`;
   let ch = chapters[0]; for (const k of chapters) if (p >= k[0]) ch = k;
   if (chapNum.textContent !== ch[1]) { chapNum.textContent = ch[1]; chapName.textContent = ch[2]; }

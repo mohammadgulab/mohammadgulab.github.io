@@ -73,7 +73,7 @@ a{color:inherit}
 
 @media(min-width:760px){
   .hero-copy{left:28px;top:96px}
-  .cols{left:auto;right:28px;top:auto;bottom:84px;grid-template-columns:repeat(2,220px)}
+  .cols{left:auto;right:28px;top:auto;bottom:84px;grid-template-columns:220px;gap:22px}
   .ignite{left:28px;top:110px}
   .s1{left:6vw;top:24%}.s2{right:6vw;top:24%}.s3{left:6vw;bottom:20%}.s4{right:6vw;bottom:20%}
   .spec b{font-size:18px}
